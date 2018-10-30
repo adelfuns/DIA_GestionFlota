@@ -5,10 +5,10 @@ namespace Busquedas.Core
     {
     
         private string Nif { get; }
-        private string Nombre;
-        private string Telefono;
-        private string Email;
-        private string DireccionPostal;
+        private string Nombre { get; }
+        private string Telefono { get; }
+        private string Email { get; }
+        private string DireccionPostal { get; }
 
         public Cliente(string Nif, string Nombre, string Telefono, string Email, string DireccionPostal)
         {
@@ -19,6 +19,11 @@ namespace Busquedas.Core
             this.DireccionPostal = DireccionPostal;
         }
 
+        
+        public override string ToString()
+        {
+            return "Nif: " + Nif + ", Nombre: " + Nombre + ", Telefono: " + Telefono + ", Email" + Email + ", DireccionPostal: " + DireccionPostal;
+        }
 
     }
 }
