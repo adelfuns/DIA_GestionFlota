@@ -1,9 +1,11 @@
-﻿namespace Busquedas.Core
+﻿namespace Busquedas
 {
     using System;
     using System.Drawing;
     using System.Windows.Forms;
     using System.Linq;
+    using System.Collections.List;
+    using System.Collections.Generic;
 
     class MainWindow : Form
     {
@@ -12,7 +14,23 @@
             this.MainWindowView = new MainWindowView();
 
 
-            //this.flota = new Flota();
+            Flota flota1 = new Flota(1.5, "AAA9999", "Furgoneta", "opel", "modelo", "20", "12/12/1912", "12/12/1913",new string[] { "wifi", "musica" });
+            Flota flota2 = new Flota(2, "AAA6666", "Camion", "opel2", "modelo", "23", "12/12/1912", "12/12/1913", new string[] { "wifi", "musica" });
+            List<Flota> flotas = new List<Flota>();
+            flotas.Add(flota1);
+            flotas.Add(flota2);
+
+            Cliente cliente1 = new Cliente("6666666F", "Nombre", "telefono", "asdsa@asda", "323213");
+            Cliente cliente2 = new Cliente("6667776F", "Nombre2", "telefono2", "asdsa2@asda", "323213");
+            List<Cliente> clientes = new List<Cliente>();
+            clientes.Add(cliente1);
+            clientes.Add(cliente2);
+            Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, "12/11/1212", "12", "15/13/1212", "22/11/1212", "20", "50", 10);
+            List<Transportes> transportes = new List<Transportes>();
+            transportes.Add(transportes1);
+
+
+
             //this.transportes = new Transportes();
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
 

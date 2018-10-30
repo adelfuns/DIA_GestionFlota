@@ -1,7 +1,7 @@
 ﻿
 namespace Busquedas
 {
-    using Busquedas.Core;
+
     using System.Windows.Forms;
    
     class Program

@@ -1,9 +1,9 @@
 ﻿
-namespace Busquedas.Core
+namespace Busquedas
 {
     class Flota
     {
-        public Flota(int Carga, string Matricula, string tipo, 
+        public Flota(double Carga, string Matricula, string tipo, 
             string Marca, string Modelo, string ConsumoKm, 
             string FechaAdquisicion, string FechaFabricacion, 
             string[] Comodidades)
@@ -28,7 +28,7 @@ namespace Busquedas.Core
                 + ", Comodidades: " + Comodidades.ToString();
         }
 
-        private int Carga { get; }
+        private double Carga { get; }
         private string Matricula { get; }
         private string Tipo { get; }
         private string Marca { get; }

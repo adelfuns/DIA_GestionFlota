@@ -1,4 +1,4 @@
-﻿namespace Busquedas.Core
+﻿namespace Busquedas
 {
     using System.Windows.Forms;
     using System.Drawing;

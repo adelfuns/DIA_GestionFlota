@@ -1,14 +1,10 @@
 ﻿
-namespace Busquedas.Core
+namespace Busquedas
 {
     class Cliente
     {
     
-        private string Nif { get; }
-        private string Nombre { get; }
-        private string Telefono { get; }
-        private string Email { get; }
-        private string DireccionPostal { get; }
+
 
         public Cliente(string Nif, string Nombre, string Telefono, string Email, string DireccionPostal)
         {
@@ -24,6 +20,10 @@ namespace Busquedas.Core
         {
             return "Nif: " + Nif + ", Nombre: " + Nombre + ", Telefono: " + Telefono + ", Email" + Email + ", DireccionPostal: " + DireccionPostal;
         }
-
+        private string Nif { get; }
+        private string Nombre { get; }
+        private string Telefono { get; }
+        private string Email { get; }
+        private string DireccionPostal { get; }
     }
 }
