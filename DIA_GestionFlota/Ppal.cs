@@ -3,7 +3,7 @@ namespace DIA_GestionFlota
 {
     public class Ppal
     {
-        public static void main()
+        public static void Main(string[] args)
 		{
 			Output("Hola mundo");
 		}
@@ -12,5 +12,5 @@ namespace DIA_GestionFlota
 		{
 			Console.WriteLine(msg);
 		}
-    }
+	}
 }
