@@ -5,7 +5,12 @@ namespace DIA_GestionFlota
     {
         public static void main()
 		{
-			
+			Output("Hola mundo");
+		}
+
+        static void Output(string msg)
+		{
+			Console.WriteLine(msg);
 		}
     }
 }
