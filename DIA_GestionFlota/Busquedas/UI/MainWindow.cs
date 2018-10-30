@@ -15,12 +15,21 @@
             //this.flota = new Flota();
             //this.transportes = new Transportes();
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
+
+            //Operaciones búsqueda
             this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
             this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad();
             this.MainWindowView.operacionSearch3.Click += (sender, e) => this.reservasPorCLiente();
             this.MainWindowView.operacionSearch4.Click += (sender, e) => this.reservasPorCamion();
             this.MainWindowView.operacionSearch5.Click += (sender, e) => this.transportesPorCliente();
             this.MainWindowView.operacionSearch6.Click += (sender, e) => this.ocupacion();
+
+            //Operaciones graficos
+			this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadCamion();
+			this.MainWindowView.operacionActividadCliente.Click += (sender, e) => this.ActividadCliente();
+			this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion();
+			this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades();
+
 
             this.dtp = new DialogoTransportePendiente();
 
@@ -33,6 +42,7 @@
 
         }
 
+        //Métodos búsqueda
         private void ocupacion()
         {
            
@@ -79,6 +89,29 @@
             this.MainWindowView.lTexto.Text = muestra;
         }
 
+        //Métodos de gráficos
+
+        private void ActividadGeneral()
+		{
+			
+		}
+
+		private void ActividadCliente()
+        {
+
+        }
+
+		private void ActividadCamion()
+        {
+
+        }
+
+		private void ActividadComodidades()
+        {
+
+        }
+
+        //Operacion salir
         void Salir()
         {
           Application.Exit();

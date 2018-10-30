@@ -37,9 +37,11 @@
 
             this.menuArchivo = new MenuItem("&Archivo");
             this.menuEditar = new MenuItem("&Insertar");
+			this.menuGenerar = new MenuItem("&Generar");
 
             this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
 
+            //Operaciones búsqueda
             this.operacionSearch1 = new MenuItem("&Buscar transportes pendientes: ")
             {
                 Shortcut = Shortcut.Ctrl0
@@ -65,22 +67,49 @@
                 Shortcut = Shortcut.Ctrl5
             };
 
-            this.menuArchivo.MenuItems.Add(this.operacionSalir);
+			//Operaciones generar gráfico
+			this.operacionActividadGeneral = new MenuItem("&Generar gráfico actvidad general: ")
+            {
+                Shortcut = Shortcut.Ctrl6
+            };
+			this.operacionActividadCliente = new MenuItem("&Generar gráfico actvidad cliente: ")
+            {
+                Shortcut = Shortcut.Ctrl7
+            };
+			this.operacionActividadCamion = new MenuItem("&Generar gráfico actvidad camión: ")
+            {
+                Shortcut = Shortcut.Ctrl8
+            };
+			this.operacionActividadComodidades = new MenuItem("&Generar gráfico comodidades: ")
+            {
+                Shortcut = Shortcut.Ctrl9
+            };
+
+
+			//Menú superior
+			this.menuArchivo.MenuItems.Add(this.operacionSalir);
+            this.menuPrincipal.MenuItems.Add(this.menuArchivo);
+            this.menuPrincipal.MenuItems.Add(this.menuEditar);
+			this.menuPrincipal.MenuItems.Add(this.menuGenerar);
+            this.Menu = menuPrincipal;
+            //Submenú búsqueda
             this.menuEditar.MenuItems.Add(this.operacionSearch1);
             this.menuEditar.MenuItems.Add(this.operacionSearch2);
             this.menuEditar.MenuItems.Add(this.operacionSearch3);
             this.menuEditar.MenuItems.Add(this.operacionSearch4);
             this.menuEditar.MenuItems.Add(this.operacionSearch5);
             this.menuEditar.MenuItems.Add(this.operacionSearch6);
-            this.menuPrincipal.MenuItems.Add(this.menuArchivo);
-            this.menuPrincipal.MenuItems.Add(this.menuEditar);
-            this.Menu = menuPrincipal;
+			//Submenú gráficos
+			this.menuGenerar.MenuItems.Add(this.operacionActividadGeneral);
+			this.menuGenerar.MenuItems.Add(this.operacionActividadCliente);
+			this.menuGenerar.MenuItems.Add(this.operacionActividadCamion);
+			this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);
+            
 
         }
 
         private Panel BuildPanelLista()
         {
-
             var panelLista = new Panel();
             panelLista.SuspendLayout();
             panelLista.Dock = DockStyle.Fill;
@@ -95,19 +124,28 @@
 
             return panelLista;
         }
-
+        //Items del menú
         private MainMenu menuPrincipal;
         private MenuItem menuArchivo;
         private MenuItem menuEditar;
+		private MenuItem menuGenerar;
         private Panel panelPrincipal;
 
         public MenuItem operacionSalir { get; private set; }
+
+        //Operaciones búsqueda
         public MenuItem operacionSearch1 { get; private set; }
         public MenuItem operacionSearch2 { get; private set; }
         public MenuItem operacionSearch3 { get; private set; }
         public MenuItem operacionSearch4 { get; private set; }
         public MenuItem operacionSearch5 { get; private set; }
         public MenuItem operacionSearch6 { get; private set; }
+        //Operaciones generar gráficos
+		public MenuItem operacionActividadGeneral { get; private set; }
+		public MenuItem operacionActividadCliente { get; private set; }
+		public MenuItem operacionActividadCamion { get; private set; }
+		public MenuItem operacionActividadComodidades { get; private set; }
+
 
         public Label lTexto { get; private set; }
     }
