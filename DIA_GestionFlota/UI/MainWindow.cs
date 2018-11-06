@@ -89,9 +89,18 @@
             this.DTPSearch();
         }
         
-		private void busquedaGeneralMesesGrafico()
+		private int busquedaGeneralMesesGrafico(int mes)
         {
+			StringBuilder toret = new StringBuilder();
+
+			var dataList = new List<Transportes>(
+				from transporte in this.transportes
+				where (transporte.FechaContratacion.Month == mes)
+				orderby transporte.FechaEntrega
+				select transporte);
 			
+			this.MainWindowView.lTexto.Text = dataList.Count.ToString();
+			return dataList.Count;
         }
         //Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días.
         private void DTPSearch()
