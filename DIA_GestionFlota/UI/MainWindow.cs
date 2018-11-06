@@ -131,6 +131,7 @@
 
             camionesDisponibles.ForEach((x) => { toret.Append(x.ToString()); });
 
+
             this.MainWindowView.lTexto.Text = toret.ToString();
 
         }

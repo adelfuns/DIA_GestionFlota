@@ -13,24 +13,38 @@
         private void Build()
         {
             this.BuildMenu();
-            this.BuildPanelLista();
-
             this.SuspendLayout();
+            this.AutoSize = true;
+            this.AutoScroll = true;
+            this.MinimumSize = new Size(300, 300);
             this.panelPrincipal = new Panel()
             {
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                AutoSize = true,
+                AutoScroll = true,
+                BackColor = Color.Blue
             };
 
+            this.panelPrincipal.MinimumSize = new Size(this.Width, this.Height);
+            this.panelPrincipal.ClientSize = this.ClientSize;
             this.panelPrincipal.SuspendLayout();
-            this.Controls.Add(this.panelPrincipal);
-            this.panelPrincipal.Controls.Add(this.BuildPanelLista());
-            this.panelPrincipal.ResumeLayout(false);
-            this.MinimumSize = new Size(500, this.panelPrincipal.Height);
 
+            this.Controls.Add(this.panelPrincipal);
+            this.BuildPanelLista();
+            this.panelPrincipal.Controls.Add(this.panelLista);
+            this.panelPrincipal.ResumeLayout(false);
+
+
+            this.CenterToScreen();
+            this.MaximizeBox = true;
+
+            this.Dock = DockStyle.Fill;
             this.Text = "Lista de reparaciones";
             this.ResumeLayout(true);
-        }
 
+            
+
+        }
         private void BuildMenu()
         {
             this.menuPrincipal = new MainMenu();
@@ -107,40 +121,40 @@
             
 
         }
-        private void InitializeMyScrollBar()
-        {
-            // Create and initialize a VScrollBar.
-            VScrollBar vScrollBar1 = new VScrollBar();
 
-            // Dock the scroll bar to the right side of the form.
-            vScrollBar1.Dock = DockStyle.Right;
 
-            // Add the scroll bar to the form.
-            this.Controls.Add(vScrollBar1);
-        }
-        private Panel BuildPanelLista()
+        
+      
+        private void BuildPanelLista()
         {
-            var panelLista = new Panel();
+            
+            this.panelLista = new Panel();
             panelLista.SuspendLayout();
             panelLista.Dock = DockStyle.Fill;
             panelLista.AutoScroll = true;
-
-            this.lTexto = new Label
+           
+            this.lTexto = new TextBox
             {
-                AutoSize = true
+                AutoSize = true,
+                Dock = DockStyle.Fill,
+                ReadOnly = true,
+                Multiline = true,
+                ScrollBars = ScrollBars.Both,
+                WordWrap = false,
+                ClientSize  = new Size(this.panelPrincipal.Width, this.panelPrincipal.Height)
             };
-            panelLista.Size = new Size(int.MaxValue, int.MaxValue);
-
+            this.ClientSizeChanged += (sender, e) => { this.lTexto.ClientSize = this.ClientSize; this.lTexto.ClientSize = this.ClientSize; };
+            panelLista.ClientSize = this.panelPrincipal.ClientSize;
             panelLista.Controls.Add(this.lTexto);
+      
 
-            return panelLista;
         }
         //Items del menú
         private MainMenu menuPrincipal;
         private MenuItem menuArchivo;
         private MenuItem menuEditar;
 		private MenuItem menuGenerar;
-        private Panel panelPrincipal;
+        public Panel panelPrincipal { get; set; }
 
         public MenuItem operacionSalir { get; private set; }
 
@@ -158,6 +172,7 @@
 		public MenuItem operacionActividadComodidades { get; private set; }
 
 
-        public Label lTexto { get; private set; }
+        public TextBox lTexto { get; private set; }
+        public Panel panelLista;
     }
 }
