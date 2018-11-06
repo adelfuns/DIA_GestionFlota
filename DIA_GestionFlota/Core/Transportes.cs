@@ -1,8 +1,9 @@
 ﻿namespace DIA_GestionFlota
 {
+    using System;
     class Transportes
     {
-        public Transportes(string idTransporte, Flota tipoTransporte, Cliente cliente, string fechaContratacion, string kmRecorridos, string fechaSalida, string fechaEntrega, string importePorDia, string importePorKilometro, int ivaAplicado)
+        public Transportes(string idTransporte, Flota tipoTransporte, Cliente cliente, DateTime fechaContratacion, string kmRecorridos, System.DateTime fechaSalida, DateTime fechaEntrega, string importePorDia, string importePorKilometro, int ivaAplicado)
         {
             IdTransporte = idTransporte;
             TipoTransporte = tipoTransporte;
@@ -21,16 +22,16 @@
             return base.ToString();
         }
 
-        private string IdTransporte { get; }
-        private Flota TipoTransporte { get; }
-        private Cliente Cliente { get; }
-        private string FechaContratacion { get; }
-        private string KmRecorridos { get; }
-        private string FechaSalida { get; }
-        private string FechaEntrega { get; }
-        private string ImportePorDia { get; }
-        private string ImportePorKilometro { get; }
-        private int IvaAplicado { get; }
+        public string IdTransporte { get; }
+        public Flota TipoTransporte { get; }
+        public Cliente Cliente { get; }
+        public DateTime FechaContratacion { get; }
+        public string KmRecorridos { get; }
+        public System.DateTime FechaSalida { get; }
+        public System.DateTime FechaEntrega { get; }
+        public string ImportePorDia { get; }
+        public string ImportePorKilometro { get; }
+        public int IvaAplicado { get; }
 
     }
 }

@@ -1,11 +1,12 @@
 ﻿
 namespace DIA_GestionFlota
 {
+    using System;
     class Flota
     {
         public Flota(double Carga, string Matricula, string tipo, 
-            string Marca, string Modelo, string ConsumoKm, 
-            string FechaAdquisicion, string FechaFabricacion, 
+            string Marca, string Modelo, string ConsumoKm,
+            DateTime FechaAdquisicion, DateTime FechaFabricacion, 
             string[] Comodidades)
         {
             this.Carga = Carga;
@@ -28,15 +29,15 @@ namespace DIA_GestionFlota
                 + ", Comodidades: " + Comodidades.ToString();
         }
 
-        private double Carga { get; }
-        private string Matricula { get; }
-        private string Tipo { get; }
-        private string Marca { get; }
-        private string Modelo { get; }
-        private string ConsumoKm { get; }
-        private string FechaAdquisicion { get; }
-        private string FechaFabricacion { get; }
-        private string[] Comodidades { get; }
+        public double Carga { get; }
+        public string Matricula { get; }
+        public string Tipo { get; }
+        public string Marca { get; }
+        public string Modelo { get; }
+        public string ConsumoKm { get; }
+        public DateTime FechaAdquisicion { get; }
+        public DateTime FechaFabricacion { get; }
+        public string[] Comodidades { get; }
 
     }
 }

@@ -14,8 +14,8 @@
             this.MainWindowView = new MainWindowView();
 
 
-            Flota flota1 = new Flota(1.5, "AAA9999", "Furgoneta", "opel", "modelo", "20", "12/12/1912", "12/12/1913",new string[] { "wifi", "musica" });
-            Flota flota2 = new Flota(2, "AAA6666", "Camion", "opel2", "modelo", "23", "12/12/1912", "12/12/1913", new string[] { "wifi", "musica" });
+            Flota flota1 = new Flota(1.5, "AAA9999", "Furgoneta", "opel", "modelo", "20", new DateTime(2000,12,12), new DateTime(1999,12,12),new string[] { "wifi", "musica" });
+            Flota flota2 = new Flota(2, "AAA6666", "Camion", "opel2", "modelo", "23",new DateTime(2013,11,10), new DateTime(2000,10,11), new string[] { "wifi", "musica" });
             List<Flota> flotas = new List<Flota>();
             flotas.Add(flota1);
             flotas.Add(flota2);
@@ -25,11 +25,9 @@
             List<Cliente> clientes = new List<Cliente>();
             clientes.Add(cliente1);
             clientes.Add(cliente2);
-            Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, "12/11/1212", "12", "15/13/1212", "22/11/1212", "20", "50", 10);
-            List<Transportes> transportes = new List<Transportes>();
+            Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, new DateTime(2018,11,06), "12", new DateTime(2018,11,07), new DateTime(2018,12,08), "20", "50", 10);
+            transportes = new List<Transportes>();
             transportes.Add(transportes1);
-
-
 
             //this.transportes = new Transportes();
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
@@ -91,18 +89,24 @@
             this.dtp.ShowDialog();
         }
 
+        //Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días.
+
+
         private void DTPSearch()
         {
             String muestra = "";
 
             if(this.dtp.idTransporte == "")
             {
-
+                muestra = this.transportes.ToString();
             }
             else
             {
+                var transportesProximos = new List<Transportes>(from trans in this.transportes where (DateTime.Compare(trans.FechaEntrega, DateTime.Today.AddDays(5)) <= 0 & DateTime.Compare(trans.FechaEntrega, DateTime.Today) >= 0 && this.dtp.idTransporte == trans.IdTransporte)  select trans );
 
-            }
+                l2.ForEach((x) => { Console.WriteLine(x); });
+                muestra = transportesProximos.ToString();
+            } 
 
             this.MainWindowView.lTexto.Text = muestra;
         }
@@ -140,6 +144,7 @@
 
         //public Flota flota;
         //public Transporte transportes;
+        public List<Transportes> transportes;
     }
 
    

@@ -18,6 +18,8 @@
 
         }
 
+
+
         public bool Validar()
         {
             var btAccept = (Button)this.AcceptButton;

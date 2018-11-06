@@ -36,7 +36,7 @@
             this.menuPrincipal = new MainMenu();
 
             this.menuArchivo = new MenuItem("&Archivo");
-            this.menuEditar = new MenuItem("&Insertar");
+            this.menuEditar = new MenuItem("&Buscar");
 			this.menuGenerar = new MenuItem("&Generar");
 
             this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
