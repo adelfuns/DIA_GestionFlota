@@ -15,7 +15,6 @@
         public void Reset()
         {
             this.edIdTransporte.Text = "";
-
         }
 
         public bool Validar()

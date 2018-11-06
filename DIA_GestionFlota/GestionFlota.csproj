@@ -58,6 +58,11 @@
     <Compile Include="UI\DialogSearch\DialogoTransportePendiente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\DialogGraphics\Chart.cs" />
+    <Compile Include="UI\DialogGraphics\CamionChart.cs" />
+    <Compile Include="UI\DialogGraphics\ClienteChart.cs" />
+    <Compile Include="UI\DialogGraphics\GeneralChart.cs" />
+    <Compile Include="UI\DialogGraphics\ComodidadesChart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

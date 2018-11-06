@@ -4,7 +4,6 @@
     using System.Drawing;
     using System.Windows.Forms;
     using System.Linq;
-    
     using System.Collections.Generic;
 
     class MainWindow : Form
@@ -43,21 +42,22 @@
             this.MainWindowView.operacionSearch6.Click += (sender, e) => this.ocupacion();
 
             //Operaciones graficos
-			this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadCamion();
+			this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral();
 			this.MainWindowView.operacionActividadCliente.Click += (sender, e) => this.ActividadCliente();
 			this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion();
 			this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades();
 
-
+            //Busqueda transporte pendiente
             this.dtp = new DialogoTransportePendiente();
-
             this.dtp.btSearchDTP.Click += (sender, e) => this.DTPSearch();
 
+			this.generalGraf = new GeneralChart();
+			this.generalGraf.btnGenerar.Click += (sender, e) => this.busquedaGeneralMesesGrafico();
+            
             this.dtp.Shown += (sender, e) => { dtp.Reset(); /*dtp.Validar();*/ };
-          //  this.dtp.edIdTransporte.LostFocus += (sender, e) => { dtp.ValidarPerdidaFoco(); };
-         //   this.dtp.edIdTransporte.GotFocus += (sender, e) => { dtp.ValidarPerdidaFoco(); };
-          //  this.dtp.edIdTransporte.TextChanged += (sender, e) => { dtp.ValidarPerdidaFoco(); };
-
+         //  this.dtp.edIdTransporte.LostFocus += (sender, e) => { dtp.ValidarPerdidaFoco(); };
+         //  this.dtp.edIdTransporte.GotFocus += (sender, e) => { dtp.ValidarPerdidaFoco(); };
+         //  this.dtp.edIdTransporte.TextChanged += (sender, e) => { dtp.ValidarPerdidaFoco(); };
         }
 
         //Métodos búsqueda
@@ -91,6 +91,10 @@
             this.dtp.ShowDialog();
         }
 
+		private void busquedaGeneralMesesGrafico()
+        {
+        }
+
         private void DTPSearch()
         {
             String muestra = "";
@@ -107,11 +111,10 @@
             this.MainWindowView.lTexto.Text = muestra;
         }
 
-        //Métodos de gráficos
-
+        /* Métodos de gráficos */
         private void ActividadGeneral()
 		{
-			
+			this.generalGraf.ShowDialog();
 		}
 
 		private void ActividadCliente()
@@ -137,6 +140,7 @@
 
         public MainWindowView MainWindowView { get; private set; }
         private DialogoTransportePendiente dtp;
+		private GeneralChart generalGraf;
 
         //public Flota flota;
         //public Transporte transportes;
