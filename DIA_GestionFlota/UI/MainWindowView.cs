@@ -36,7 +36,7 @@
             this.menuPrincipal = new MainMenu();
 
             this.menuArchivo = new MenuItem("&Archivo");
-            this.menuEditar = new MenuItem("&Insertar");
+            this.menuEditar = new MenuItem("&Buscar");
 			this.menuGenerar = new MenuItem("&Generar");
 
             this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
@@ -107,12 +107,23 @@
             
 
         }
+        private void InitializeMyScrollBar()
+        {
+            // Create and initialize a VScrollBar.
+            VScrollBar vScrollBar1 = new VScrollBar();
 
+            // Dock the scroll bar to the right side of the form.
+            vScrollBar1.Dock = DockStyle.Right;
+
+            // Add the scroll bar to the form.
+            this.Controls.Add(vScrollBar1);
+        }
         private Panel BuildPanelLista()
         {
             var panelLista = new Panel();
             panelLista.SuspendLayout();
             panelLista.Dock = DockStyle.Fill;
+            panelLista.AutoScroll = true;
 
             this.lTexto = new Label
             {

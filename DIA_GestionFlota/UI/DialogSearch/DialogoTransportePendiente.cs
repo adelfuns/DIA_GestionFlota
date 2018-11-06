@@ -17,6 +17,8 @@
             this.edIdTransporte.Text = "";
         }
 
+
+
         public bool Validar()
         {
             var btAccept = (Button)this.AcceptButton;
