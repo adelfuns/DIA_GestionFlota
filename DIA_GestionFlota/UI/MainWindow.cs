@@ -1,4 +1,4 @@
-﻿namespace Busquedas
+﻿namespace DIA_GestionFlota
 {
     using System;
     using System.Drawing;
