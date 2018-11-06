@@ -1,6 +1,8 @@
 ﻿namespace DIA_GestionFlota
 {
     using System;
+    using System.Text;
+
     class Transportes
     {
         public Transportes(string idTransporte, Flota tipoTransporte, Cliente cliente, DateTime fechaContratacion, string kmRecorridos, System.DateTime fechaSalida, DateTime fechaEntrega, string importePorDia, string importePorKilometro, int ivaAplicado)
@@ -19,8 +21,30 @@
 
         public override string ToString()
         {
-            return base.ToString();
+            StringBuilder toret = new StringBuilder();
+            toret.AppendLine("---Transporte---");
+            toret.AppendLine("IdTransporte: " + IdTransporte);
+
+            toret.AppendLine("Cliente: " + Cliente.ToString());
+
+            toret.AppendLine("FechaContratacion: " + FechaContratacion);
+
+            toret.AppendLine("KmRecorridos: " + KmRecorridos);
+
+            toret.AppendLine("FechaSalida: " + FechaSalida);
+
+            toret.AppendLine("FechaEntrega: " + FechaEntrega);
+
+            toret.AppendLine("ImportePorDia: " + ImportePorDia);
+
+            toret.AppendLine("ImportePorKilometro: " + ImportePorKilometro);
+
+            toret.AppendLine("IvaAplicado: " + IvaAplicado);
+
+
+            return toret.ToString();
         }
+
 
         public string IdTransporte { get; }
         public Flota TipoTransporte { get; }

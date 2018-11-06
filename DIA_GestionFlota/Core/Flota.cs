@@ -2,6 +2,8 @@
 namespace DIA_GestionFlota
 {
     using System;
+    using System.Text;
+
     class Flota
     {
         public Flota(double Carga, string Matricula, string tipo, 
@@ -22,11 +24,28 @@ namespace DIA_GestionFlota
        
         public override string ToString()
         {
-            return "Carga: " + Carga + ", Matricula: " + Matricula
-                + ", Tipo: " + Tipo + ", Marca" + Marca + ", Modelo: " +
-                Modelo + ", ConsumoKm: " + ConsumoKm + ", FechaAdquisicion: "
-                + FechaAdquisicion + ", FechaFabricacion: " + FechaFabricacion
-                + ", Comodidades: " + Comodidades.ToString();
+            StringBuilder toret = new StringBuilder();
+            toret.AppendLine("---Flota---");
+            toret.AppendLine("Carga: " + Carga);
+
+            toret.AppendLine("Matricula: " + Matricula);
+
+            toret.AppendLine("Tipo: " + Tipo);
+
+            toret.AppendLine("Marca: " + Marca);
+
+            toret.AppendLine("Modelo: " + Modelo);
+
+            toret.AppendLine("ConsumoKm: " + ConsumoKm);
+
+            toret.AppendLine("FechaAdquisicion: " + FechaAdquisicion);
+
+            toret.AppendLine("FechaFabricacion: " + FechaFabricacion);
+
+            toret.AppendLine("Comodidades: " + Comodidades.ToString());
+
+
+            return toret.ToString();
         }
 
         public double Carga { get; }
