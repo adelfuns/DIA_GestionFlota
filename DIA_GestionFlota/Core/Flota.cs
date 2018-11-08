@@ -6,7 +6,7 @@ namespace DIA_GestionFlota
 
     class Flota
     {
-        public Flota(double Carga, string Matricula, string tipo, 
+        public Flota(double Carga, string Matricula, string Tipo, 
             string Marca, string Modelo, string ConsumoKm,
             DateTime FechaAdquisicion, DateTime FechaFabricacion, 
             string[] Comodidades)
@@ -21,7 +21,7 @@ namespace DIA_GestionFlota
             this.FechaFabricacion = FechaFabricacion;
             this.Comodidades = Comodidades;
         }
-       
+
         public override string ToString()
         {
             StringBuilder toret = new StringBuilder();
@@ -41,9 +41,10 @@ namespace DIA_GestionFlota
             toret.AppendLine("FechaAdquisicion: " + FechaAdquisicion);
 
             toret.AppendLine("FechaFabricacion: " + FechaFabricacion);
-
-            toret.AppendLine("Comodidades: " + Comodidades.ToString());
-
+            toret.AppendLine("Comodidades: ");
+            foreach (String aux in Comodidades) { 
+                toret.AppendLine("- " + aux);
+            }   
 
             return toret.ToString();
         }

@@ -20,10 +20,10 @@ namespace DIA_GestionFlota
         {
             return "Nif: " + Nif + ", Nombre: " + Nombre + ", Telefono: " + Telefono + ", Email" + Email + ", DireccionPostal: " + DireccionPostal;
         }
-        private string Nif { get; }
-        private string Nombre { get; }
-        private string Telefono { get; }
-        private string Email { get; }
-        private string DireccionPostal { get; }
+        public string Nif { get; }
+        public string Nombre { get; }
+        public string Telefono { get; }
+        public string Email { get; }
+        public string DireccionPostal { get; }
     }
 }

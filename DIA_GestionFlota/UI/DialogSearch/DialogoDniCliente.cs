@@ -4,9 +4,9 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    class DialogoTransportePendiente : Form
+    class DialogoDniCliente : Form
     {
-        public DialogoTransportePendiente()
+        public DialogoDniCliente()
         {
 
             this.Build();
@@ -14,7 +14,7 @@
 
         public void Reset()
         {
-            this.edIdTransporte.Text = "";
+            this.edIdDni.Text = "";
         }
 
 
@@ -23,11 +23,11 @@
         {
             var btAccept = (Button)this.AcceptButton;
             bool invalid =
-               string.IsNullOrWhiteSpace(this.idTransporte.ToString());
+               string.IsNullOrWhiteSpace(this.idDni.ToString());
 
             if (invalid)
             {
-                this.edIdTransporte.Text = "";
+                this.edIdDni.Text = "";
             }
             btAccept.Enabled = !invalid;
 
@@ -38,7 +38,7 @@
         {
             var btAccept = (Button)this.AcceptButton;
             bool invalid =
-                string.IsNullOrWhiteSpace(this.idTransporte.ToString());
+                string.IsNullOrWhiteSpace(this.idDni.ToString());
 
             if (invalid)
             {
@@ -55,25 +55,25 @@
         private Panel BuildPanelIdTransporte()
         {
             var toret = new Panel { Dock = DockStyle.Top };
-            this.edIdTransporte = new TextBox { TextAlign = HorizontalAlignment.Right, Dock = DockStyle.Fill };
+            this.edIdDni = new TextBox { TextAlign = HorizontalAlignment.Right, Dock = DockStyle.Fill };
 
             var lbIdTransporte = new Label
             {
-                Text = "IdTransporte:",
+                Text = "Dni:",
                 Dock = DockStyle.Left
             };
 
-            toret.Controls.Add(this.edIdTransporte);
+            toret.Controls.Add(this.edIdDni);
             toret.Controls.Add(lbIdTransporte);
-            toret.MaximumSize = new Size(int.MaxValue, edIdTransporte.Height * 2);
+            toret.MaximumSize = new Size(int.MaxValue, edIdDni.Height * 2);
 
-            this.edIdTransporte.Validating += (sender, cancelArgs) => {
+            this.edIdDni.Validating += (sender, cancelArgs) => {
                 var btAccept = (Button)this.AcceptButton;
-                bool invalid = string.IsNullOrWhiteSpace(this.edIdTransporte.ToString());
+                bool invalid = string.IsNullOrWhiteSpace(this.edIdDni.ToString());
 
                 if (invalid)
                 {
-                    this.edIdTransporte.Text = "";
+                    this.edIdDni.Text = "";
                 }
                 btAccept.Enabled = !invalid;
 
@@ -95,17 +95,17 @@
                 Text = "&Cancelar"
             };
 
-            this.btSearchDTP = new Button()
+            this.btSearchCliente = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar"
             };
 
 
-            this.AcceptButton = this.btSearchDTP;
+            this.AcceptButton = this.btSearchCliente;
             this.CancelButton = this.btCierra;
 
-            toret.Controls.Add(this.btSearchDTP);
+            toret.Controls.Add(this.btSearchCliente);
             toret.Controls.Add(this.btCierra);
             toret.Dock = DockStyle.Top;
 
@@ -122,16 +122,16 @@
             this.Controls.Add(this.panelSearch);
 
 
-            var panelIdTransporte = this.BuildPanelIdTransporte();
-            this.panelSearch.Controls.Add(panelIdTransporte);
+            var panelIdDni = this.BuildPanelIdTransporte();
+            this.panelSearch.Controls.Add(panelIdDni);
 
             var pnlBotones = this.BuildPanelBotones();
             this.panelSearch.Controls.Add(pnlBotones);
 
             this.panelSearch.ResumeLayout(true);
 
-            this.Text = "Busqueda de Transportes Pendientes";
-            this.Size = new Size(400, panelIdTransporte.Height + pnlBotones.Height);
+            this.Text = "Busqueda de Transportes Pasados o Pendientes";
+            this.Size = new Size(400, panelIdDni.Height + pnlBotones.Height);
 
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MinimizeBox = false;
@@ -142,9 +142,9 @@
         }
 
         private Panel panelSearch;
-        public TextBox edIdTransporte { get; set; }
-        public string idTransporte { get => this.edIdTransporte.Text.Trim(); set => idTransporte = value.ToString(); }
+        public TextBox edIdDni { get; set; }
+        public string idDni { get => this.edIdDni.Text.Trim(); set => idDni = value.ToString(); }
         public Button btCierra { get; set; }
-        public Button btSearchDTP { get; set; }
+        public Button btSearchCliente { get; set; }
     }
 }
