@@ -58,7 +58,7 @@
 
             escogerTipo = new ComboBox();
             escogerTipo.Parent = this;
-
+            escogerTipo.DropDownStyle = ComboBoxStyle.DropDownList;
 
             escogerTipo.Items.AddRange(new object[] {"Todos",
             "Mudanza",

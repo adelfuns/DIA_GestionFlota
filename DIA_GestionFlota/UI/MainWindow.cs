@@ -22,13 +22,13 @@
             flotas.Add(flota2);
             Cliente cliente1 = new Cliente("6666666F", "Nombre", "telefono", "asdsa@asda", "323213");
             Cliente cliente2 = new Cliente("6667776F", "Nombre2", "telefono2", "asdsa2@asda", "323213");
-            List<Cliente> clientes = new List<Cliente>();
+            clientes = new List<Cliente>();
             clientes.Add(cliente1);
             clientes.Add(cliente2);
             Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 09), "20", "50", 10);
-            Transportes transportes2 = new Transportes("6666AAA12121113", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 09), "20", "50", 10);
+            Transportes transportes2 = new Transportes("6666AAA12121113", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 07), "20", "50", 10);
             Transportes transportes3 = new Transportes("6666AAA12121114", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 09), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 08), "20", "50", 10);
+            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 08), "20", "50", 10);
 
 
             transportes = new List<Transportes>();
@@ -44,6 +44,7 @@
             //Inicializar dialogos
             this.dialogoDni = new DialogoDniCliente();
             this.dialogoCamion = new DialogoCamiones();
+            this.dialogoTransporteCliente = new DialogoTransporteCliente();
             //Menu
             this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
             this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad();
@@ -54,8 +55,8 @@
 
             //Dialogos
             this.dialogoDni.btSearchCliente.Click += (sender, e) => this.mostrarReservasPorCliente();
-            this.dialogoCamion.btSearchCamiones.Click +=(sender,e) => this.DDCSearch();
-
+            this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
+            this.dialogoTransporteCliente.btSearchTransporteCliente.Click += (sender, e) => this.mostrarTransporteCliente();
 
 
             //Operaciones graficos
@@ -70,7 +71,7 @@
         }
 
         //Métodos búsqueda
-        //Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días.
+        // Inicio Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días.
         private void transportePendientes()
         {
             var transportesProximos = new List<Transportes>(
@@ -86,44 +87,26 @@
             this.MainWindowView.lTexto.Text = toret.ToString();
         }
 
+        //Fin Transportes pendientes.
+
+        //Inicio Disponibilidad: muestra los camiones libres, opcionalmente por tipo.
         private void disponibilidad()
         {
             this.dialogoCamion.ShowDialog();
         }
 
-        //Disponibilidad: muestra los camiones libres, opcionalmente por tipo.
         private void DDCSearch()
         {
 
             var camionesDisponibles = new List<Flota>();
             var tipo = dialogoCamion.Tipo;
-
-           if (tipo.Equals("Todos"))
+            System.Console.WriteLine(tipo);
+            if (tipo.Equals("Todos"))
            {
                 tipo = "";
             }
-           /*
-            bool añadir = false;
-            
-            foreach (Flota flota in this.flotas)
-            {
-                foreach (Transportes trans in this.transportes)
-                {
-                    if (!(flota.Matricula.Equals(trans.IdTransporte.Substring(0, 7))) && flota.Tipo.Contains(tipo)
-                          && DateTime.Compare(trans.FechaEntrega, DateTime.Today) >= 0)
-                    {
-                        añadir = true;
-                        break;
-                    }
-                }
-
-                if (añadir)
-                {
-                    camionesDisponibles.Add(flota);
-                    añadir = false;
-                }
-            }*/
-            var transportesLibres = new List<Transportes>(
+          
+             var transportesLibres = new List<Transportes>(
                 from transporte in this.transportes
                 where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) <= 0
                 orderby transporte.IdTransporte
@@ -158,21 +141,63 @@
 
             camionesDisponibles.ForEach((x) => { toret.Append(x.ToString()); });
 
+            if(toret.ToString() == "")
+            {
+
+                toret.AppendLine("No hay resultados que coincidan con la busqueda");
+
+            }
 
             this.MainWindowView.lTexto.Text = toret.ToString();
 
         }
+        //Fin disponibilidad
 
-        private void ocupacion()
-        {
-
-        }
-
+        //Inicio Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
         private void transportesPorCliente()
         {
-
+            this.dialogoTransporteCliente.ShowDialog();
         }
 
+        private void mostrarTransporteCliente()
+        {
+
+
+            var nifClienteSeleccionado = this.dialogoTransporteCliente.Cliente;
+
+            var periodoSeleccionado = this.dialogoTransporteCliente.Periodo;
+
+            List<Transportes> transportesCliente;
+
+            if (periodoSeleccionado.Equals("Transportes pasados"))
+            {
+                transportesCliente = new List<Transportes>(
+                from transporte in this.transportes
+                where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (DateTime.Compare(transporte.FechaEntrega, DateTime.Today) < 0)
+                orderby transporte.IdTransporte
+                select transporte);
+            }
+            else
+            {
+                transportesCliente = new List<Transportes>(
+                from transporte in this.transportes
+                where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (DateTime.Compare(transporte.FechaSalida, DateTime.Today) <= 0
+                                          && DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0)
+                orderby transporte.IdTransporte
+                select transporte);
+               
+            }
+            
+
+            StringBuilder toret = new StringBuilder();
+
+            transportesCliente.ForEach((x) => { toret.Append(x.ToString()); });
+
+            this.MainWindowView.lTexto.Text = toret.ToString();
+        }
+        //Fin Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
+
+        //Inicio Reservas por camión: Mostrará todas los transportes, pasados o pendientes, para todo la flota o por camión.
         private void reservasPorCamion()
         {
             var camiones = new List<Transportes>(
@@ -186,7 +211,7 @@
             this.MainWindowView.lTexto.Text = toret.ToString();
         }
 
-        //Reservas por cliente: Mostrará todas las reservas para una persona
+        //Inicio Reservas por cliente: Mostrará todas las reservas para una persona
         private void reservasPorCliente()
         {
             this.dialogoDni.ShowDialog();
@@ -205,8 +230,14 @@
             this.MainWindowView.lTexto.Text = toret.ToString();
 
         }
+        //Fin Reservas por cliente: Mostrará todas las reservas para una persona
 
+        //Inicio Ocupación: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
+        private void ocupacion()
+        {
 
+        }
+        //Fin ocupacion
 
         /* Métodos de gráficos */
 
@@ -250,19 +281,20 @@
         }
 
         public MainWindowView MainWindowView { get; private set; }
-        private GeneralChart generalGraf;
+       
         public List<Transportes> transportes;
         public List<Flota> flotas;
-
+        public static List<Cliente> clientes;
+        
         //Busqueda
 
         public DialogoDniCliente dialogoDni { get; private set; }
         public DialogoCamiones dialogoCamion { get; private set; }
-
+        public DialogoTransporteCliente dialogoTransporteCliente { get; private set; }
 
         //Graficos
 
-
+        private GeneralChart generalGraf;
 
 
 
