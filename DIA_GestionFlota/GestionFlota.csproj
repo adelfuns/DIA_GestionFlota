@@ -50,7 +50,13 @@
     <Compile Include="UI\DialogSearch\DialogoCamiones.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\DialogSearch\DialogoReservasCamion.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\DialogSearch\DialogoTransporteCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DialogSearch\DialogoTransportesPendientes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\MainWindow.cs">

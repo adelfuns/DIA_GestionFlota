@@ -1,7 +1,9 @@
 ﻿namespace DIA_GestionFlota
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Windows.Forms;
 
     class DialogoDniCliente : Form
@@ -12,73 +14,29 @@
             this.Build();
         }
 
-        public void Reset()
-        {
-            this.edIdDni.Text = "";
-        }
-
-
-
-        public bool Validar()
-        {
-            var btAccept = (Button)this.AcceptButton;
-            bool invalid =
-               string.IsNullOrWhiteSpace(this.idDni.ToString());
-
-            if (invalid)
-            {
-                this.edIdDni.Text = "";
-            }
-            btAccept.Enabled = !invalid;
-
-            return invalid;
-        }
-
-        public void ValidarPerdidaFoco()
-        {
-            var btAccept = (Button)this.AcceptButton;
-            bool invalid =
-                string.IsNullOrWhiteSpace(this.idDni.ToString());
-
-            if (invalid)
-            {
-                btAccept.Enabled = false;
-            }
-            else
-            {
-                btAccept.Enabled = true;
-
-            }
-
-        }
 
         private Panel BuildPanelIdTransporte()
         {
             var toret = new Panel { Dock = DockStyle.Top };
-            this.edIdDni = new TextBox { TextAlign = HorizontalAlignment.Right, Dock = DockStyle.Fill };
+            Text = "ComboBox";
+            Size = new Size(240, 240);
 
-            var lbIdTransporte = new Label
+            escogerCliente = new ComboBox();
+            escogerCliente.Parent = this;
+            escogerCliente.DropDownStyle = ComboBoxStyle.DropDownList;
+            List<object> NIFs = new List<object>();
+
+            foreach (Cliente c in MainWindow.clientes)
             {
-                Text = "Dni:",
-                Dock = DockStyle.Left
-            };
+                NIFs.Add(c.Nif);
+            }
 
-            toret.Controls.Add(this.edIdDni);
-            toret.Controls.Add(lbIdTransporte);
-            toret.MaximumSize = new Size(int.MaxValue, edIdDni.Height * 2);
+            escogerCliente.Items.AddRange(NIFs.ToArray());
 
-            this.edIdDni.Validating += (sender, cancelArgs) => {
-                var btAccept = (Button)this.AcceptButton;
-                bool invalid = string.IsNullOrWhiteSpace(this.edIdDni.ToString());
-
-                if (invalid)
-                {
-                    this.edIdDni.Text = "";
-                }
-                btAccept.Enabled = !invalid;
-
-            };
-
+            escogerCliente.SelectedItem = NIFs.First();
+            escogerCliente.Text = NIFs.First().ToString();
+            toret.Controls.Add(this.escogerCliente);
+            toret.MaximumSize = new Size(int.MaxValue, escogerCliente.Height * 2);
             return toret;
         }
         private Panel BuildPanelBotones()
@@ -142,8 +100,8 @@
         }
 
         private Panel panelSearch;
-        public TextBox edIdDni { get; set; }
-        public string idDni { get => this.edIdDni.Text.Trim(); set => idDni = value.ToString(); }
+        public ComboBox escogerCliente { get; set; }
+        public string idDni { get => this.escogerCliente.Text.Trim(); set => idDni = value.ToString(); }
         public Button btCierra { get; set; }
         public Button btSearchCliente { get; set; }
     }
