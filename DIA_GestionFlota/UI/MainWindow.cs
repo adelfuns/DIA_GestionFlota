@@ -25,10 +25,10 @@
             clientes = new List<Cliente>();
             clientes.Add(cliente1);
             clientes.Add(cliente2);
-            Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 12), "20", "50", 10);
+            Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
             Transportes transportes2 = new Transportes("6666AAA12121113", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 11), "20", "50", 10);
             Transportes transportes3 = new Transportes("9999AAA12121114", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 10), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 08), "20", "50", 10);
+            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 15), "20", "50", 10);
 
 
             transportes = new List<Transportes>();
@@ -92,7 +92,7 @@
             }
 
             var transportesProximos = new List<Transportes>(
-            from transporte in this.transportes
+            from transporte in transportes
             where ( DateTime.Compare(transporte.FechaEntrega, DateTime.Today.AddDays(5)) <= 0
                     && DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0)
                     &&(matricula.Equals("") || (matricula.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3))
@@ -129,13 +129,13 @@
             }
           
             var transportesPosibles = new List<String>(
-                from transporte in this.transportes
+                from transporte in transportes
                 where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) > 0
                 orderby transporte.IdTransporte
                 select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
 
             var transportesOcupados = new List<String>(
-                from transporte in this.transportes
+                from transporte in transportes
                 where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) <= 0
                 orderby transporte.IdTransporte
                 select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
@@ -174,12 +174,13 @@
         {
             var nifClienteSeleccionado = this.dialogoTransporteCliente.Cliente;
             var periodoSeleccionado = this.dialogoTransporteCliente.Periodo;
-
+            var anhosSeleccionado = this.dialogoTransporteCliente.Anho;
             List<Transportes> transportesCliente;
 
+
             transportesCliente = new List<Transportes>(
-            from transporte in this.transportes
-            where transporte.Cliente.Nif.Equals(nifClienteSeleccionado)
+            from transporte in transportes
+            where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
                             && ((DateTime.Compare(transporte.FechaEntrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados")
                             || ( (DateTime.Compare(transporte.FechaSalida, DateTime.Today) <= 0
                             && DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0 && !periodoSeleccionado.Equals("Transportes pasados"))))
@@ -208,6 +209,7 @@
 
             var flotamatriculaSeleccionada = this.dialogoReservasCamion.Matricula;
             var periodoSeleccionado = this.dialogoReservasCamion.Periodo;
+            var anhosSeleccionado = this.dialogoReservasCamion.Anho;
 
             if (flotamatriculaSeleccionada.Equals("Todos"))
             {
@@ -215,13 +217,13 @@
             }
 
             var camiones = new List<Transportes>(
-                from trans in this.transportes
-                where
+                from trans in transportes
+                where  (anhosSeleccionado.Contains(trans.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals("")) &&(
                    ((DateTime.Compare(trans.FechaEntrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))
                     || ((DateTime.Compare(trans.FechaSalida, DateTime.Today) <= 0) && (DateTime.Compare(trans.FechaEntrega, DateTime.Today) >= 0) && (!periodoSeleccionado.Equals("Transportes pasados")))
                     
                     && (flotamatriculaSeleccionada.Equals("") || (flotamatriculaSeleccionada.Substring(0, 3).Equals(trans.IdTransporte.Substring(4, 3))
-                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(trans.IdTransporte.Substring(0, 4))))
+                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(trans.IdTransporte.Substring(0, 4)))))
                 orderby trans.IdTransporte
                 select trans);
 
@@ -245,15 +247,22 @@
 
         private void mostrarReservasPorCliente()
         {
+
+            var anhosSeleccionado = this.dialogoDni.Anho;
+
             var reservas = new List<Transportes>(
-            from transporte in this.transportes
-            where transporte.Cliente.Nif == dialogoDni.idDni
+            from transporte in transportes
+            where transporte.Cliente.Nif == this.dialogoDni.idDni && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby transporte.IdTransporte
             select transporte);
             StringBuilder toret = new StringBuilder();
 
             reservas.ForEach((x) => { toret.Append(x.ToString()); });
 
+            if (toret.ToString() == "")
+            {
+                toret.AppendLine("No hay resultados que coincidan con la busqueda");
+            }
             this.MainWindowView.lTexto.Text = toret.ToString();
 
         }
@@ -273,7 +282,7 @@
             StringBuilder toret = new StringBuilder();
 
             var dataList = new List<Transportes>(
-                from transporte in this.transportes
+                from transporte in transportes
                 where (transporte.FechaContratacion.Month == mes)
                 orderby transporte.FechaEntrega
                 select transporte);
@@ -309,7 +318,7 @@
 
         public MainWindowView MainWindowView { get; private set; }
        
-        public List<Transportes> transportes;
+        public static List<Transportes> transportes;
         public static List<Flota> flotas;
         public static List<Cliente> clientes;
         

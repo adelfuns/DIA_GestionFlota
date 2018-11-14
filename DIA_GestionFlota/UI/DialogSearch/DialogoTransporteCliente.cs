@@ -101,6 +101,35 @@
 
         }
 
+        public Panel BuildPanelEscogerAnho()
+        {
+
+            var toret = new Panel { Dock = DockStyle.Top };
+            Text = "ComboBox";
+            Size = new Size(240, 240);
+
+            escogerAnho = new ComboBox();
+            escogerAnho.Parent = this;
+            escogerAnho.DropDownStyle = ComboBoxStyle.DropDownList;
+            List<object> anhos = new List<object>();
+            anhos.Add("");
+            foreach (Transportes t in MainWindow.transportes)
+            {
+                if (!anhos.Contains(t.FechaEntrega.Year))
+                {
+                    anhos.Add(t.FechaEntrega.Year);
+                }
+            }
+
+            escogerAnho.Items.AddRange(anhos.ToArray());
+
+            escogerAnho.SelectedItem = anhos.First();
+            escogerAnho.Text = anhos.First().ToString();
+            toret.Controls.Add(this.escogerAnho);
+            toret.MaximumSize = new Size(int.MaxValue, escogerAnho.Height * 2);
+            return toret;
+
+        }
         private void Build()
         {
             this.SuspendLayout();
@@ -116,13 +145,16 @@
             var panelPeriodo = this.BuildPanelPasadasOPendientes();
             this.panelSearch.Controls.Add(panelPeriodo);
 
+            var panelAnhos = this.BuildPanelEscogerAnho();
+            this.panelSearch.Controls.Add(panelAnhos);
+
             var pnlBotones = this.BuildPanelBotones();
             this.panelSearch.Controls.Add(pnlBotones);
 
             this.panelSearch.ResumeLayout(true);
 
             this.Text = "Busqueda de Transportes de clientes, pasadas o pendientes";
-            this.Size = new Size(400, panelCliente.Height  + panelPeriodo.Height +  pnlBotones.Height);
+            this.Size = new Size(400, panelCliente.Height  + panelPeriodo.Height + panelPeriodo.Height + pnlBotones.Height);
 
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MinimizeBox = false;
@@ -136,7 +168,9 @@
 
         private ComboBox escogerCliente { get; set; }
         private ComboBox escogerPeriodo { get; set; }
+        private ComboBox escogerAnho { get; set; }
 
+        public string Anho => escogerAnho.Text;
         public string Cliente => escogerCliente.Text;
         public string Periodo => escogerPeriodo.Text;
         public Button btCierra { get; set; }

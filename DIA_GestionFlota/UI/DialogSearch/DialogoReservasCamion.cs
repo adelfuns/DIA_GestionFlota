@@ -96,7 +96,35 @@ namespace GestionFlotas.UI.DialogSearch
                 return toret;
 
             }
+        public Panel BuildPanelEscogerAnho()
+        {
 
+            var toret = new Panel { Dock = DockStyle.Top };
+            Text = "ComboBox";
+            Size = new Size(240, 240);
+
+            escogerAnho = new ComboBox();
+            escogerAnho.Parent = this;
+            escogerAnho.DropDownStyle = ComboBoxStyle.DropDownList;
+            List<object> anhos = new List<object>();
+            anhos.Add("");
+            foreach (Transportes t in MainWindow.transportes)
+            {
+                if (!anhos.Contains(t.FechaEntrega.Year))
+                {
+                    anhos.Add(t.FechaEntrega.Year);
+                }
+            }
+
+            escogerAnho.Items.AddRange(anhos.ToArray());
+
+            escogerAnho.SelectedItem = anhos.First();
+            escogerAnho.Text = anhos.First().ToString();
+            toret.Controls.Add(this.escogerAnho);
+            toret.MaximumSize = new Size(int.MaxValue, escogerAnho.Height * 2);
+            return toret;
+
+        }
         private void Build()
             {
                 this.SuspendLayout();
@@ -111,13 +139,16 @@ namespace GestionFlotas.UI.DialogSearch
                 var panelPeriodo = this.BuildPanelPasadasOPendientes();
                 this.panelSearch.Controls.Add(panelPeriodo);
 
+                var panelAnhos = this.BuildPanelEscogerAnho();
+                this.panelSearch.Controls.Add(panelAnhos);
+
                 var pnlBotones = this.BuildPanelBotones();
                 this.panelSearch.Controls.Add(pnlBotones);
 
                 this.panelSearch.ResumeLayout(true);
 
                 this.Text = "Busqueda de Transportes,pasados o pendientes, para toda la flota o por camion";
-                this.Size = new Size(400, panelMatriculaCamion.Height + panelPeriodo.Height + pnlBotones.Height);
+                this.Size = new Size(400, panelMatriculaCamion.Height + panelPeriodo.Height + panelAnhos.Height + pnlBotones.Height);
 
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
                 this.MinimizeBox = false;
@@ -131,6 +162,9 @@ namespace GestionFlotas.UI.DialogSearch
 
             private ComboBox escogerCamion { get; set; }
             private ComboBox escogerPeriodo { get; set; }
+            private ComboBox escogerAnho { get; set; }
+
+            public string Anho => escogerAnho.Text;
             public string Matricula { get => this.escogerCamion.Text.Trim(); set => Matricula = value.ToString(); }
             public string Periodo => escogerPeriodo.Text;
 
