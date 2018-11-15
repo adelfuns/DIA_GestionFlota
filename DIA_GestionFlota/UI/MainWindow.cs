@@ -48,6 +48,8 @@
             this.dialogoTransporteCliente = new DialogoTransporteCliente();
             this.dialogoReservasCamion = new DialogoReservasCamion();
             this.dialogoDni = new DialogoDniCliente();
+            this.dialogoOcupacion = new DialogoOcupacion();
+
             //Menu
             this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
             this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad();
@@ -62,7 +64,8 @@
             this.dialogoTransporteCliente.btSearchTransporteCliente.Click += (sender, e) => this.mostrarTransporteCliente();
             this.dialogoReservasCamion.btSearchCamiones.Click += (sender, e) => this.DRC();
             this.dialogoDni.btSearchCliente.Click += (sender, e) => this.mostrarReservasPorCliente();
-
+            this.dialogoOcupacion.btSearchOcupacionAnho.Click += (sender, e) => this.mostrarOcupacionAnho();
+            this.dialogoOcupacion.btSearchOcupacionFecha.Click += (sender, e) => this.mostrarOcupacionFecha();
 
             //Operaciones graficos
             this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral();
@@ -271,9 +274,50 @@
         //Inicio Ocupación: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
         private void ocupacion()
         {
+            this.dialogoOcupacion.ShowDialog();
+        }
+
+        private void mostrarOcupacionAnho()
+        {
+
+            var anhosSeleccionado = this.dialogoOcupacion.Anho;
+
+            var reservas = new List<Transportes>(
+            from transporte in transportes
+            where(anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
+            orderby transporte.IdTransporte
+            select transporte);
+            StringBuilder toret = new StringBuilder();
+
+            reservas.ForEach((x) => { toret.Append(x.ToString()); });
+
+            if (toret.ToString() == "")
+            {
+                toret.AppendLine("No hay resultados que coincidan con la busqueda");
+            }
+            this.MainWindowView.lTexto.Text = toret.ToString();
 
         }
-        //Fin ocupacion
+
+        private void mostrarOcupacionFecha()
+        {
+            var fechaSeleccionada = this.dialogoOcupacion.Fecha;
+            var reservas = new List<Transportes>(
+            from transporte in transportes
+            where (DateTime.Compare(transporte.FechaEntrega, fechaSeleccionada) < 0)    
+            orderby transporte.IdTransporte
+            select transporte);
+            StringBuilder toret = new StringBuilder();
+
+            reservas.ForEach((x) => { toret.Append(x.ToString()); });
+
+            if (toret.ToString() == "")
+            {
+                toret.AppendLine("No hay resultados que coincidan con la busqueda");
+            }
+            this.MainWindowView.lTexto.Text = toret.ToString();
+        }
+        //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
 
         /* Métodos de gráficos */
 
@@ -328,7 +372,7 @@
         public DialogoCamiones dialogoCamion { get; private set; }
         public DialogoTransporteCliente dialogoTransporteCliente { get; private set; }
         public DialogoReservasCamion dialogoReservasCamion { get; private set; }
-
+        public DialogoOcupacion dialogoOcupacion { get; private set; }
         //Graficos
 
         private GeneralChart generalGraf;
