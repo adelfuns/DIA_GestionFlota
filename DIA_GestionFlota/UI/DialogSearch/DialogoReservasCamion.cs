@@ -150,11 +150,13 @@ namespace GestionFlotas.UI.DialogSearch
                 this.Text = "Busqueda de Transportes,pasados o pendientes, para toda la flota o por camion";
                 this.Size = new Size(400, panelMatriculaCamion.Height + panelPeriodo.Height + panelAnhos.Height + pnlBotones.Height);
 
-                this.FormBorderStyle = FormBorderStyle.FixedDialog;
-                this.MinimizeBox = false;
-                this.MaximizeBox = false;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.MinimizeBox = true;
+                this.CenterToScreen();
+                this.MaximizeBox = true;
                 this.StartPosition = FormStartPosition.CenterParent;
-                this.ResumeLayout(false);
+                this.Dock = DockStyle.Fill;
+            this.ResumeLayout(false);
 
             }
 

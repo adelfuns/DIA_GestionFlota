@@ -21,8 +21,7 @@
             {
                 Dock = DockStyle.Fill,
                 AutoSize = true,
-                AutoScroll = true,
-                BackColor = Color.Blue
+                AutoScroll = true
             };
 
             this.panelPrincipal.MinimumSize = new Size(this.Width, this.Height);

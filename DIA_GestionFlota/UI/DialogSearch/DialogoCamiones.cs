@@ -8,7 +8,6 @@
     {
         public DialogoCamiones()
         {
-
             this.Build();
         }
 
@@ -37,7 +36,6 @@
                 Text = "&Buscar"
             };
 
-
             this.AcceptButton = this.btSearchCamiones;
             this.CancelButton = this.btCierra;
 
@@ -45,13 +43,11 @@
             toret.Controls.Add(this.btCierra);
             toret.Dock = DockStyle.Top;
 
-
             return toret;
         }
 
         public Panel BuildPanelTipoCamion()
         {
-
             var toret = new Panel { Dock = DockStyle.Top };
             Text = "ComboBox";
             Size = new Size(240, 240);
@@ -94,10 +90,12 @@
             this.Text = "Busqueda de Camiones libres";
             this.Size = new Size(400, panelTipoCamion.Height + pnlBotones.Height);
 
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MinimizeBox = false;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MinimizeBox = true;
+            this.CenterToScreen();
+            this.MaximizeBox = true;
             this.StartPosition = FormStartPosition.CenterParent;
+            this.Dock = DockStyle.Fill;
             this.ResumeLayout(false);
 
         }

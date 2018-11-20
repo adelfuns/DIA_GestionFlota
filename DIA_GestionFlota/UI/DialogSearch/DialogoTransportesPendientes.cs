@@ -75,7 +75,6 @@ namespace GestionFlotas.UI.DialogSearch
 
         }
 
-
         private void Build()
         {
             this.SuspendLayout();
@@ -92,18 +91,21 @@ namespace GestionFlotas.UI.DialogSearch
 
             this.panelSearch.ResumeLayout(true);
 
-            this.Text = "Busqueda de Transportes Pendientes";
+            this.Text = "Busqueda de Transportes Pendientes para todo la flota o por camión, para los próximos cinco días";
             this.Size = new Size(400, panelMatriculaCamion.Height + pnlBotones.Height);
 
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MinimizeBox = false;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MinimizeBox = true;
+            this.CenterToScreen();
+            this.MaximizeBox = true;
             this.StartPosition = FormStartPosition.CenterParent;
+            this.Dock = DockStyle.Fill;
             this.ResumeLayout(false);
 
         }
 
         private Panel panelSearch;
+
 
         private ComboBox escogerCamion { get; set; }
         public string Matricula { get => this.escogerCamion.Text.Trim(); set => Matricula = value.ToString(); }

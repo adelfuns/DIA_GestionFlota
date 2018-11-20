@@ -14,7 +14,6 @@
         {
             this.MainWindowView = new MainWindowView();
 
-
             Flota flota1 = new Flota(1.5, "AAA9999", "Mudanza", "opel", "modelo", "20", new DateTime(2000, 12, 12), new DateTime(1999, 12, 12), new string[] { "wifi", "musica" });
             Flota flota2 = new Flota(2, "AAA6666", "Transporte de mercancías", "opel2", "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica" });
             flotas = new List<Flota>();
@@ -25,11 +24,10 @@
             clientes = new List<Cliente>();
             clientes.Add(cliente1);
             clientes.Add(cliente2);
-            Transportes transportes1 = new Transportes("6666AAA12121112", flota1, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
-            Transportes transportes2 = new Transportes("6666AAA12121113", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 11), "20", "50", 10);
-            Transportes transportes3 = new Transportes("9999AAA12121114", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 10), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 15), "20", "50", 10);
-
+            Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
+            Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
+            Transportes transportes3 = new Transportes("9999AAA12121114", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
+            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
 
             transportes = new List<Transportes>();
             transportes.Add(transportes1);
@@ -37,20 +35,22 @@
             transportes.Add(transportes3);
             transportes.Add(transportes4);
 
+
             //this.transportes = new Transportes();
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
 
             //Operaciones búsqueda
             //Inicializar dialogos
-            this.dialogoTransportesPendientes = new DialogoTransportesPendientes();
-            
+            this.dialogoTransportesPendientes = new DialogoTransportesPendientes();        
             this.dialogoCamion = new DialogoCamiones();
             this.dialogoTransporteCliente = new DialogoTransporteCliente();
             this.dialogoReservasCamion = new DialogoReservasCamion();
             this.dialogoDni = new DialogoDniCliente();
             this.dialogoOcupacion = new DialogoOcupacion();
 
-            //Menu
+
+
+            //Menu de la MainWindowView
             this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
             this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad();
             this.MainWindowView.operacionSearch3.Click += (sender, e) => this.transportesPorCliente();
@@ -61,11 +61,11 @@
             //Dialogos
             this.dialogoTransportesPendientes.btSearchCamiones.Click += (sender, e) => this.DTPSearch();
             this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
-            this.dialogoTransporteCliente.btSearchTransporteCliente.Click += (sender, e) => this.mostrarTransporteCliente();
-            this.dialogoReservasCamion.btSearchCamiones.Click += (sender, e) => this.DRC();
-            this.dialogoDni.btSearchCliente.Click += (sender, e) => this.mostrarReservasPorCliente();
-            this.dialogoOcupacion.btSearchOcupacionAnho.Click += (sender, e) => this.mostrarOcupacionAnho();
-            this.dialogoOcupacion.btSearchOcupacionFecha.Click += (sender, e) => this.mostrarOcupacionFecha();
+            this.dialogoTransporteCliente.btSearchTransporteCliente.Click += (sender, e) => this.DTCSearch();
+            this.dialogoReservasCamion.btSearchCamiones.Click += (sender, e) => this.DRCSearch();
+            this.dialogoDni.btSearchCliente.Click += (sender, e) => this.RPCSearch();
+            this.dialogoOcupacion.btSearchOcupacionAnho.Click += (sender, e) => this.OASearch();
+            this.dialogoOcupacion.calendar.DateSelected += (sender, e) => this.OFSearch();
 
             //Operaciones graficos
             this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral();
@@ -88,11 +88,12 @@
         private void DTPSearch()
         {
             var matricula = dialogoTransportesPendientes.Matricula;
-            System.Console.WriteLine(matricula);
+            //System.Console.WriteLine(matricula);
             if (matricula.Equals("Todos"))
             {
                 matricula = "";
             }
+
 
             var transportesProximos = new List<Transportes>(
             from transporte in transportes
@@ -102,6 +103,7 @@
                     && matricula.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4))))
             orderby transporte.IdTransporte
             select transporte);
+
 
             StringBuilder toret = new StringBuilder();
 
@@ -133,15 +135,17 @@
           
             var transportesPosibles = new List<String>(
                 from transporte in transportes
-                where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) > 0
+                where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) < 0
                 orderby transporte.IdTransporte
                 select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
 
+
             var transportesOcupados = new List<String>(
                 from transporte in transportes
-                where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) <= 0
+                where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0
                 orderby transporte.IdTransporte
                 select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
+
 
             var transportesLibres = transportesPosibles.Except(transportesOcupados);
 
@@ -173,7 +177,7 @@
             this.dialogoTransporteCliente.ShowDialog();
         }
 
-        private void mostrarTransporteCliente()
+        private void DTCSearch()
         {
             var nifClienteSeleccionado = this.dialogoTransporteCliente.Cliente;
             var periodoSeleccionado = this.dialogoTransporteCliente.Periodo;
@@ -207,7 +211,7 @@
             this.dialogoReservasCamion.ShowDialog();
         }
 
-        private void DRC()
+        private void DRCSearch()
         {
 
             var flotamatriculaSeleccionada = this.dialogoReservasCamion.Matricula;
@@ -248,7 +252,7 @@
             this.dialogoDni.ShowDialog();
         }
 
-        private void mostrarReservasPorCliente()
+        private void RPCSearch()
         {
 
             var anhosSeleccionado = this.dialogoDni.Anho;
@@ -277,9 +281,8 @@
             this.dialogoOcupacion.ShowDialog();
         }
 
-        private void mostrarOcupacionAnho()
+        private void OASearch()
         {
-
             var anhosSeleccionado = this.dialogoOcupacion.Anho;
 
             var reservas = new List<Transportes>(
@@ -299,7 +302,7 @@
 
         }
 
-        private void mostrarOcupacionFecha()
+        private void OFSearch()
         {
             var fechaSeleccionada = this.dialogoOcupacion.Fecha;
             var reservas = new List<Transportes>(

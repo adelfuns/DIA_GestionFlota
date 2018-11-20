@@ -126,10 +126,12 @@
             this.Text = "Busqueda de Reservas para una persona";
             this.Size = new Size(400, panelIdDni.Height + panelAnhos.Height + pnlBotones.Height);
 
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MinimizeBox = false;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MinimizeBox = true;
+            this.CenterToScreen();
+            this.MaximizeBox = true;
             this.StartPosition = FormStartPosition.CenterParent;
+            this.Dock = DockStyle.Fill;
             this.ResumeLayout(false);
 
         }
