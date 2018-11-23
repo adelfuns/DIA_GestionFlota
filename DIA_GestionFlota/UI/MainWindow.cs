@@ -26,8 +26,8 @@
             clientes.Add(cliente2);
             Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
             Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
-            Transportes transportes3 = new Transportes("9999AAA12121114", flota1, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota1, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
+            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
+            Transportes transportes4 = new Transportes("9999AAA12121115", flota2, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
 
             transportes = new List<Transportes>();
             transportes.Add(transportes1);
@@ -47,8 +47,6 @@
             this.dialogoReservasCamion = new DialogoReservasCamion();
             this.dialogoDni = new DialogoDniCliente();
             this.dialogoOcupacion = new DialogoOcupacion();
-
-
 
             //Menu de la MainWindowView
             this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
@@ -94,7 +92,6 @@
                 matricula = "";
             }
 
-
             var transportesProximos = new List<Transportes>(
             from transporte in transportes
             where ( DateTime.Compare(transporte.FechaEntrega, DateTime.Today.AddDays(5)) <= 0
@@ -104,17 +101,11 @@
             orderby transporte.IdTransporte
             select transporte);
 
-
-            StringBuilder toret = new StringBuilder();
-
-            transportesProximos.ForEach((x) => { toret.Append(x.ToString()); });
-
-            if (toret.ToString() == "")
-            {
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
-
-            this.MainWindowView.lTexto.Text = toret.ToString();
+            ActualizaListaTransportes(transportesProximos);
+          
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
         }
         //Fin Transportes pendientes.
 
@@ -128,7 +119,7 @@
         {
             var camionesDisponibles = new List<Flota>();
             var tipo = dialogoCamion.Tipo;
-            System.Console.WriteLine(tipo);
+
             if (tipo.Equals("Todos")){
                 tipo = "";
             }
@@ -159,14 +150,12 @@
                 }
             }
 
-            StringBuilder toret = new StringBuilder();
-            camionesDisponibles.ForEach((x) => { toret.Append(x.ToString()); });
+            ActualizaListaFlota(camionesDisponibles);
 
-            if(toret.ToString() == ""){
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
 
-            this.MainWindowView.lTexto.Text = toret.ToString();
+            MainWindowView.panelLista = MainWindowView.panelListaFlota;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
         }
         //Fin disponibilidad
@@ -184,7 +173,6 @@
             var anhosSeleccionado = this.dialogoTransporteCliente.Anho;
             List<Transportes> transportesCliente;
 
-
             transportesCliente = new List<Transportes>(
             from transporte in transportes
             where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
@@ -194,14 +182,11 @@
             orderby transporte.IdTransporte
             select transporte);
 
-            StringBuilder toret = new StringBuilder();
-            transportesCliente.ForEach((x) => { toret.Append(x.ToString()); });
+            ActualizaListaTransportes(transportesCliente);
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
-            if (toret.ToString() == ""){
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
-
-            this.MainWindowView.lTexto.Text = toret.ToString();
         }
         //Fin Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
 
@@ -213,7 +198,6 @@
 
         private void DRCSearch()
         {
-
             var flotamatriculaSeleccionada = this.dialogoReservasCamion.Matricula;
             var periodoSeleccionado = this.dialogoReservasCamion.Periodo;
             var anhosSeleccionado = this.dialogoReservasCamion.Anho;
@@ -234,15 +218,12 @@
                 orderby trans.IdTransporte
                 select trans);
 
-            StringBuilder toret = new StringBuilder();
-            camiones.ForEach((x) => { toret.Append(x.ToString()); });
 
-            if (toret.ToString() == "")
-            {
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
+            ActualizaListaTransportes(camiones);
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
-            this.MainWindowView.lTexto.Text = toret.ToString();
         }
         //Fin Reservas por camión: Mostrará todas los transportes, pasados o pendientes, para todo la flota o por camión.
 
@@ -262,15 +243,12 @@
             where transporte.Cliente.Nif == this.dialogoDni.idDni && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby transporte.IdTransporte
             select transporte);
-            StringBuilder toret = new StringBuilder();
 
-            reservas.ForEach((x) => { toret.Append(x.ToString()); });
 
-            if (toret.ToString() == "")
-            {
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
-            this.MainWindowView.lTexto.Text = toret.ToString();
+            ActualizaListaTransportes(reservas);
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
         }
         //Fin Reservas por cliente: Mostrará todas las reservas para una persona
@@ -290,37 +268,163 @@
             where(anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby transporte.IdTransporte
             select transporte);
-            StringBuilder toret = new StringBuilder();
-
-            reservas.ForEach((x) => { toret.Append(x.ToString()); });
-
-            if (toret.ToString() == "")
-            {
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
-            this.MainWindowView.lTexto.Text = toret.ToString();
+            Console.WriteLine("as" + reservas.First().FechaEntrega);
+            ActualizaListaTransportes(reservas);
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
         }
 
         private void OFSearch()
         {
             var fechaSeleccionada = this.dialogoOcupacion.Fecha;
+           
             var reservas = new List<Transportes>(
             from transporte in transportes
             where (DateTime.Compare(transporte.FechaEntrega, fechaSeleccionada) < 0)    
             orderby transporte.IdTransporte
             select transporte);
-            StringBuilder toret = new StringBuilder();
 
-            reservas.ForEach((x) => { toret.Append(x.ToString()); });
+            ActualizaListaTransportes(reservas);
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
-            if (toret.ToString() == "")
-            {
-                toret.AppendLine("No hay resultados que coincidan con la busqueda");
-            }
-            this.MainWindowView.lTexto.Text = toret.ToString();
         }
         //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
+
+        private void ActualizaListaTransportes(List<Transportes> transportes)
+        {
+            int numTransportes = transportes.Count;
+
+            int i = 0;
+            foreach(Transportes t in transportes)
+            {
+                if(MainWindowView.grdListaTransporte.Rows.Count <= i)
+                {
+                    MainWindowView.grdListaTransporte.Rows.Add();
+                }
+
+                this.ActualizaFilaDeListaTransporte(i, t);
+                i++;
+            }
+
+            int numExtra = MainWindowView.grdListaTransporte.Rows.Count - numTransportes;
+            for (; numExtra > 0; --numExtra)
+            {
+                MainWindowView.grdListaTransporte.Rows.RemoveAt(numTransportes);
+            }
+        }
+
+        private void ActualizaFilaDeListaTransporte(int rowIndex,Transportes t)
+        {
+            if (rowIndex < 0
+              || rowIndex > MainWindowView.grdListaTransporte.Rows.Count)
+            {
+                throw new System.ArgumentOutOfRangeException(
+                            "fila fuera de rango: " + nameof(rowIndex));
+            }
+
+            DataGridViewRow row = MainWindowView.grdListaTransporte.Rows[rowIndex];
+            row.Cells[ColNum].Value = (rowIndex + 1).ToString().PadLeft(4, ' ');
+            row.Cells[IdTransporte].Value = t.IdTransporte;
+            row.Cells[Clien].Value = t.Cliente.Nombre;
+            row.Cells[FechaDeContratación].Value = t.FechaContratacion;
+            row.Cells[KilómetrosRecorridos].Value = t.KmRecorridos;
+            row.Cells[FechaDeSalida].Value = t.FechaSalida;
+            row.Cells[FechaDeEntrega].Value = t.FechaEntrega;
+            row.Cells[ImportePorDia].Value = t.ImportePorDia;
+            row.Cells[ImportePorKilometro].Value = t.ImportePorKilometro;
+            row.Cells[IVAAplicado].Value = t.IvaAplicado;
+           
+        }
+
+        private void ActualizaListaCliente(List<Cliente> clientes)
+        {
+            int numClientes = clientes.Count;
+
+            int i = 0;
+            foreach (Cliente t in clientes)
+            {
+                if (MainWindowView.grdListaCliente.Rows.Count <= i)
+                {
+                    MainWindowView.grdListaCliente.Rows.Add();
+                }
+
+                this.ActualizaFilaDeListaCliente(i, t);
+                i++;
+            }
+            int numExtra = MainWindowView.grdListaCliente.Rows.Count - numClientes;
+            for (; numExtra > 0; --numExtra)
+            {
+                MainWindowView.grdListaCliente.Rows.RemoveAt(numClientes);
+            }
+        }
+
+        private void ActualizaFilaDeListaCliente(int rowIndex, Cliente c)
+        {
+            if (rowIndex < 0
+              || rowIndex > MainWindowView.grdListaCliente.Rows.Count)
+            {
+                throw new System.ArgumentOutOfRangeException(
+                            "fila fuera de rango: " + nameof(rowIndex));
+            }
+
+            DataGridViewRow row = MainWindowView.grdListaCliente.Rows[rowIndex];
+            row.Cells[ColNum].Value = (rowIndex + 1).ToString().PadLeft(4, ' ');
+            row.Cells[Nif].Value = c.Nif;
+            row.Cells[Nombre].Value = c.Nombre;
+            row.Cells[Telefono].Value = c.Telefono;
+            row.Cells[Email].Value = c.Email;
+            row.Cells[DireccionPostal].Value = c.DireccionPostal;
+
+        }
+
+        private void ActualizaListaFlota(List<Flota> flotas)
+        {
+            int numFlotas = flotas.Count;
+
+            int i = 0;
+            foreach(Flota f in flotas)
+            {
+                if (MainWindowView.grdListaFlota.Rows.Count <= i)
+                {
+                    MainWindowView.grdListaFlota.Rows.Add();
+                }
+
+                this.ActualizaFilaDeListaFlota(i, f);
+                i++;
+            }
+            int numExtra = MainWindowView.grdListaFlota.Rows.Count - numFlotas;
+            for (; numExtra > 0; --numExtra)
+            {
+                MainWindowView.grdListaFlota.Rows.RemoveAt(numFlotas);
+            }
+        }
+
+        private void ActualizaFilaDeListaFlota(int rowIndex, Flota f)
+        {
+            if (rowIndex < 0
+              || rowIndex > MainWindowView.grdListaFlota.Rows.Count)
+            {
+                throw new System.ArgumentOutOfRangeException(
+                            "fila fuera de rango: " + nameof(rowIndex));
+            }
+
+            DataGridViewRow row = MainWindowView.grdListaFlota.Rows[rowIndex];
+            row.Cells[ColNum].Value = (rowIndex + 1).ToString().PadLeft(4, ' ');
+            row.Cells[Matricula].Value = f.Matricula;
+            row.Cells[Tipo].Value = f.Tipo;
+            row.Cells[Marca].Value = f.Marca;
+            row.Cells[Modelo].Value = f.Modelo;
+            row.Cells[ConsumoKm].Value = f.ConsumoKm;
+            row.Cells[FechaAdquisicion].Value = f.FechaAdquisicion;
+            row.Cells[FechaFabricacion].Value = f.FechaFabricacion;
+            row.Cells[Comodidades].Value = f.Comodidades;
+
+
+        }
 
         /* Métodos de gráficos */
 
@@ -376,6 +480,37 @@
         public DialogoTransporteCliente dialogoTransporteCliente { get; private set; }
         public DialogoReservasCamion dialogoReservasCamion { get; private set; }
         public DialogoOcupacion dialogoOcupacion { get; private set; }
+
+       
+        public const int ColNum = 0;
+
+        public const int IdTransporte = 1;
+        public const int Clien = 2;
+        public const int FechaDeContratación = 3;
+        public const int KilómetrosRecorridos = 4;
+        public const int FechaDeSalida = 5;
+        public const int FechaDeEntrega = 6;
+        public const int ImportePorDia = 7;
+        public const int ImportePorKilometro = 8;
+        public const int IVAAplicado = 9;
+
+        public const int Nif = 1;
+        public const int Nombre = 2;
+        public const int Telefono = 3;
+        public const int Email = 4;
+        public const int DireccionPostal = 5;
+
+        public const int Matricula = 1;
+        public const int Tipo = 2;
+        public const int Marca = 3;
+        public const int Modelo = 4;
+        public const int ConsumoKm = 5;
+        public const int FechaAdquisicion = 6;
+        public const int FechaFabricacion = 7;
+        public const int Comodidades = 8;
+
+
+
         //Graficos
 
         private GeneralChart generalGraf;
