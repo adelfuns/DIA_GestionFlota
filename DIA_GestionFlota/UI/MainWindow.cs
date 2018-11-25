@@ -106,6 +106,12 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+           
+            
+            
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            
+            this.MainWindowView.Height= MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
         //Fin Transportes pendientes.
 
@@ -156,7 +162,8 @@
 
             MainWindowView.panelLista = MainWindowView.panelListaFlota;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-
+            this.MainWindowView.Width = MainWindowView.grdListaFlota.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaFlota.Rows.GetRowsHeight(0) + 84;
         }
         //Fin disponibilidad
 
@@ -186,7 +193,8 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
         //Fin Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
 
@@ -223,7 +231,11 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+       //     Console.WriteLine(MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0));
 
+           // Console.WriteLine(this.MainWindowView.Height);
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
         //Fin Reservas por camión: Mostrará todas los transportes, pasados o pendientes, para todo la flota o por camión.
 
@@ -249,7 +261,8 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
         //Fin Reservas por cliente: Mostrará todas las reservas para una persona
 
@@ -273,7 +286,8 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
 
         private void OFSearch()
@@ -290,7 +304,8 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0);
         }
         //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
 

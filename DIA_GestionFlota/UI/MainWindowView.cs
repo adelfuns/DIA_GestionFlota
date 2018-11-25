@@ -16,15 +16,17 @@
             this.SuspendLayout();
             this.AutoSize = true;
             this.AutoScroll = true;
-            this.MinimumSize = new Size(300, 300);
+            this.WindowState = FormWindowState.Normal;
+            //this.MinimumSize = new Size(300, 300);
             this.panelPrincipal = new Panel()
             {
+                Size = new Size(this.Width,this.Height),
                 Dock = DockStyle.Fill,
-                AutoSize = true,
+                BackColor = Color.White,
                 AutoScroll = true
             };
 
-            this.panelPrincipal.MinimumSize = new Size(this.Width, this.Height);
+            //this.panelPrincipal.MinimumSize = new Size(this.Width, this.Height);
             this.panelPrincipal.ClientSize = this.ClientSize;
             this.panelPrincipal.SuspendLayout();
 
@@ -126,7 +128,6 @@
 
         }  
 
-
         private void BuildPanelListaTransporte()
         {
             panelListaTransporte = new Panel();
@@ -143,7 +144,8 @@
                 MultiSelect = false,
                 AllowUserToAddRows = false,
                 EnableHeadersVisualStyles = false,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                BackgroundColor = Color.White
             };
 
             this.grdListaTransporte.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
@@ -164,7 +166,6 @@
             textCellTemplate0.Style.ForeColor = Color.Black;
             textCellTemplate1.Style.BackColor = Color.Wheat;
             textCellTemplate1.Style.ForeColor = Color.Black;
-            textCellTemplate1.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             textCellTemplate2.Style.BackColor = Color.Wheat;
             textCellTemplate2.Style.ForeColor = Color.Black;
             textCellTemplate3.Style.BackColor = Color.Wheat;
@@ -182,89 +183,110 @@
             textCellTemplate9.Style.BackColor = Color.Wheat;
             textCellTemplate9.Style.ForeColor = Color.Black;
 
+            textCellTemplate0.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate1.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate2.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate3.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate4.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate5.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate6.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate7.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate8.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate9.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+  
 
             var column0 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate0,
                 HeaderText = "#",
-                Width = 50,
+                
                 ReadOnly = true
             };
 
             var column1 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate1,
                 HeaderText = "IdTransporte",
-                Width = 50,
+              
                 ReadOnly = true
             };
             var column2 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
-                HeaderText = "Clien",
-                Width = 50,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate2,
+                HeaderText = "Cliente",
+               
                 ReadOnly = true
             };
 
             var column3 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate3,
                 HeaderText = "FechaDeContratación",
-                Width = 50,
+                
                 ReadOnly = true
             };
 
             var column4 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate4,
                 HeaderText = "KilómetrosRecorridos",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column5 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate5,
                 HeaderText = "FechaDeSalida",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column6 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate6,
                 HeaderText = "FechaDeEntrega",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column7 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate7,
                 HeaderText = "ImportePorDia",
-                Width = 50,
+             
                 ReadOnly = true
             };
             var column8 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate8,
                 HeaderText = "ImportePorKilometro",
-                Width = 50,
+               
                 ReadOnly = true
             };
 
             var column9 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate9,
                 HeaderText = "IVAAplicado",
-                Width = 50,
+               
                 ReadOnly = true
             };
 
@@ -275,7 +297,8 @@
 
             panelListaTransporte.Controls.Add(this.grdListaTransporte);
             panelListaTransporte.ResumeLayout(false);
-            
+            this.panelListaTransporte.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width + column9.Width ;
+
 
         }
 
@@ -295,7 +318,8 @@
                 MultiSelect = false,
                 AllowUserToAddRows = false,
                 EnableHeadersVisualStyles = false,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                BackgroundColor = Color.White
             };
 
             this.grdListaCliente.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
@@ -323,57 +347,69 @@
             textCellTemplate5.Style.BackColor = Color.Wheat;
             textCellTemplate5.Style.ForeColor = Color.Black;
 
+            textCellTemplate0.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate1.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate2.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate3.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate4.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate5.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
 
             var column0 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate0,
                 HeaderText = "#",
-                Width = 50,
+                Width = 30,
                 ReadOnly = true
             };
 
             var column1 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate1,
                 HeaderText = "NIF",
-                Width = 50,
+                Width = 100,
                 ReadOnly = true
             };
             var column2 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate2,
                 HeaderText = "Nombre",
-                Width = 50,
+                Width = 100,
                 ReadOnly = true
             };
 
             var column3 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate3,
                 HeaderText = "Telefono",
-                Width = 50,
+                Width = 100,
                 ReadOnly = true
             };
 
             var column4 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate4,
                 HeaderText = "Email",
-                Width = 50,
+                Width = 100,
                 ReadOnly = true
             };
             var column5 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate5,
                 HeaderText = "Direccion postal",
-                Width = 50,
+                Width = 100,
                 ReadOnly = true
             };
             
@@ -385,6 +421,7 @@
 
             panelListaCliente.Controls.Add(this.grdListaCliente);
             panelListaCliente.ResumeLayout(false);
+            this.panelListaCliente.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width;
 
 
         }
@@ -405,7 +442,8 @@
                 MultiSelect = false,
                 AllowUserToAddRows = false,
                 EnableHeadersVisualStyles = false,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                BackgroundColor = Color.White
             };
 
             this.grdListaFlota.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
@@ -425,7 +463,6 @@
             textCellTemplate0.Style.ForeColor = Color.Black;
             textCellTemplate1.Style.BackColor = Color.Wheat;
             textCellTemplate1.Style.ForeColor = Color.Black;
-            textCellTemplate1.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             textCellTemplate2.Style.BackColor = Color.Wheat;
             textCellTemplate2.Style.ForeColor = Color.Black;
             textCellTemplate3.Style.BackColor = Color.Wheat;
@@ -441,81 +478,101 @@
             textCellTemplate8.Style.BackColor = Color.Wheat;
             textCellTemplate8.Style.ForeColor = Color.Black;
 
+            textCellTemplate0.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate1.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate2.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate3.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate4.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate5.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate6.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate7.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            textCellTemplate8.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
 
             var column0 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate0,
                 HeaderText = "#",
-                Width = 50,
+                
                 ReadOnly = true
             };
 
             var column1 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate1,
                 HeaderText = "Matricula",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column2 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate2,
                 HeaderText = "Tipo",
-                Width = 50,
+               
                 ReadOnly = true
             };
 
             var column3 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate3,
                 HeaderText = "Marca",
-                Width = 50,
+                
                 ReadOnly = true
             };
 
             var column4 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate4,
                 HeaderText = "Modelo",
-                Width = 50,
+               
                 ReadOnly = true
             };
             var column5 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate5,
                 HeaderText = "Consumo por km",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column6 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate6,
                 HeaderText = "Fecha de adquisicion",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column7 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate7,
                 HeaderText = "Fecha de fabricacion",
-                Width = 50,
+                
                 ReadOnly = true
             };
             var column8 = new DataGridViewTextBoxColumn
             {
                 SortMode = DataGridViewColumnSortMode.NotSortable,
-                CellTemplate = textCellTemplate1,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                CellTemplate = textCellTemplate8,
                 HeaderText = "Comodidades",
-                Width = 50,
+               
                 ReadOnly = true
+                
             };
 
 
@@ -528,6 +585,7 @@
             panelListaFlota.Controls.Add(this.grdListaFlota);
             panelListaFlota.ResumeLayout(false);
 
+            this.panelListaFlota.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width;
 
         }
 

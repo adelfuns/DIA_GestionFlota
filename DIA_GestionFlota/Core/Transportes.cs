@@ -51,8 +51,8 @@
         public Cliente Cliente { get; }
         public DateTime FechaContratacion { get; }
         public string KmRecorridos { get; }
-        public System.DateTime FechaSalida { get; }
-        public System.DateTime FechaEntrega { get; }
+        public DateTime FechaSalida { get; }
+        public DateTime FechaEntrega { get; }
         public string ImportePorDia { get; }
         public string ImportePorKilometro { get; }
         public int IvaAplicado { get; }
