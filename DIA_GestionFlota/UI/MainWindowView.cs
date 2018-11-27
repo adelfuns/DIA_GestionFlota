@@ -25,18 +25,33 @@
                 BackColor = Color.White,
                 AutoScroll = true
             };
+            this.panelOpciones = new Panel()
+            {
+               // Size = new Size(this.Width, this.Height),
+                Dock = DockStyle.Bottom,
+                BackColor = Color.White,
+                AutoScroll = true
+            };
 
             this.panelPrincipal.SuspendLayout();
+            this.panelOpciones.SuspendLayout();
 
             this.Controls.Add(this.panelPrincipal);
+            
+
             this.BuildPanelListaTransporte();
             this.BuildPanelListaCliente();
             this.BuildPanelListaFlota();
+            this.BuildPanelOpcionesTrasnportes();
+            this.BuildPanelOpcionesFlota();
 
 
             this.panelPrincipal.Controls.Add(this.panelLista);
-            this.panelPrincipal.ResumeLayout(false);
+            this.panelPrincipal.Controls.Add(this.panelOpciones);
+            this.panelOpciones.Controls.Add(this.panelOpcionesPoner);
 
+            this.panelPrincipal.ResumeLayout(false);
+            this.panelOpciones.ResumeLayout(false);
 
             this.CenterToScreen();
             this.MaximizeBox = true;
@@ -124,6 +139,73 @@
             
 
         }  
+
+        private void BuildPanelOpcionesTrasnportes()
+        {
+            this.panelOpcionesTransportes = new Panel();
+            panelOpcionesTransportes.SuspendLayout();
+            panelOpcionesTransportes.Dock = DockStyle.Fill;
+
+            this.escogerBusqueda = new ComboBox();
+
+            this.escogerBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            this.escogerBusqueda.Items.AddRange(new object[] {"Buscar transportes pendientes",
+            "Transportes por cliente",
+            "Reservas por camion",
+            "Reservas por cliente",
+            "Ocupacion"});
+
+            this.escogerBusqueda.SelectedItem = "Buscar transportes pendientes";
+            this.escogerBusqueda.Text = "Buscar transportes pendientes";
+
+           this.btSearchTransporte = new Button()
+            {
+                DialogResult = DialogResult.OK,
+                Text = "&Buscar",
+                Size = new Size(100, 200),
+               Dock = DockStyle.Right
+           };
+
+            this.AcceptButton = btSearchTransporte;
+
+            this.panelOpcionesTransportes.Controls.Add(this.escogerBusqueda);
+            this.panelOpcionesTransportes.Controls.Add(this.btSearchTransporte);
+            this.panelOpcionesTransportes.MaximumSize = new Size(int.MaxValue, escogerBusqueda.Height * 2);
+
+            this.panelOpcionesTransportes.ResumeLayout(false);
+        }
+        private void BuildPanelOpcionesFlota()
+        {
+            this.panelOpcionesFlota = new Panel();
+            panelOpcionesFlota.SuspendLayout();
+            panelOpcionesFlota.Dock = DockStyle.Fill;
+
+            this.escogerBusqueda = new ComboBox();
+
+            this.escogerBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            this.escogerBusqueda.Items.AddRange(new object[] {"Disponibilidad"});
+
+            this.escogerBusqueda.SelectedItem = "Disponibilidad";
+            this.escogerBusqueda.Text = "Disponibilidad";
+
+            this.btSearchFlota = new Button()
+            {
+                DialogResult = DialogResult.OK,
+                Text = "&Buscar",
+                Size = new Size(100, 20),
+                Dock = DockStyle.Right
+            };
+
+            this.AcceptButton = btSearchFlota;
+
+            this.panelOpcionesFlota.Controls.Add(escogerBusqueda);
+            this.panelOpcionesFlota.Controls.Add(btSearchFlota);
+            this.panelOpcionesFlota.MaximumSize = new Size(int.MaxValue, escogerBusqueda.Height * 2);
+
+            this.panelOpcionesFlota.ResumeLayout(false);
+        }
 
         private void BuildPanelListaTransporte()
         {
@@ -566,6 +648,8 @@
         public MenuItem menuAtras;
 
         public Panel panelPrincipal { get; set; }
+        public Panel panelOpciones { get; set; }
+        public Panel panelOpcionesTransportes { get; set; }
 
         public DataGridView grdListaTransporte;
         public DataGridView grdListaCliente;
@@ -592,5 +676,12 @@
         public Panel panelListaCliente;
         public Panel panelListaFlota;
         public Panel panelLista;
+        public Panel panelOpcionesPoner;
+        public Panel panelOpcionesFlota;
+        public Button btSearchFlota { get; set; }
+
+        public Button btSearchTransporte { get; set; }
+        public ComboBox escogerBusqueda { get; set; }
+
     }
 }

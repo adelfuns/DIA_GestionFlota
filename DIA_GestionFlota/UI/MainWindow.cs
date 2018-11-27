@@ -91,8 +91,13 @@
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
-            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20 ;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
+
         }
         //Métodos búsqueda
         // Inicio Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días
@@ -124,9 +129,13 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-               
-            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;           
-            this.MainWindowView.Height= MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
         }
         //Fin Transportes pendientes.
 
@@ -174,8 +183,14 @@
 
             MainWindowView.panelLista = MainWindowView.panelListaFlota;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesFlota;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
             this.MainWindowView.Width = MainWindowView.grdListaFlota.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaFlota.Rows.GetRowsHeight(0) + 84;
+            this.MainWindowView.Height = MainWindowView.grdListaFlota.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
+
         }
         //Fin disponibilidad
 
@@ -205,8 +220,13 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
         }
         //Fin Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
 
@@ -242,9 +262,13 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-        
-            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
         }
         //Fin Reservas por camión: Mostrará todas los transportes, pasados o pendientes, para todo la flota o por camión.
 
@@ -268,8 +292,13 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
         }
         //Fin Reservas por cliente: Mostrará todas las reservas para una persona
 
@@ -294,8 +323,12 @@
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
         }
 
         private void OFSearch()
@@ -313,8 +346,12 @@
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
 
+            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
+            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesTransportes;
+            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0);
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
         }
         //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
 
@@ -450,9 +487,7 @@
             {
                 comodidades.Append(aux + " ");
             }
-
             row.Cells[Comodidades].Value = comodidades.ToString();
-
         }
 
         /* Métodos de gráficos */
