@@ -17,7 +17,7 @@
             this.AutoSize = true;
             this.AutoScroll = true;
             this.WindowState = FormWindowState.Normal;
-            //this.MinimumSize = new Size(300, 300);
+            this.MinimumSize = new Size(300, 400);
             this.panelPrincipal = new Panel()
             {
                 Size = new Size(this.Width,this.Height),
@@ -26,8 +26,6 @@
                 AutoScroll = true
             };
 
-            //this.panelPrincipal.MinimumSize = new Size(this.Width, this.Height);
-            this.panelPrincipal.ClientSize = this.ClientSize;
             this.panelPrincipal.SuspendLayout();
 
             this.Controls.Add(this.panelPrincipal);
@@ -46,9 +44,6 @@
             this.Dock = DockStyle.Fill;
             this.Text = "Lista de reparaciones";
             this.ResumeLayout(true);
-
-            
-
         }
 
         private void BuildMenu()
@@ -58,6 +53,7 @@
             this.menuArchivo = new MenuItem("&Archivo");
             this.menuEditar = new MenuItem("&Buscar");
 			this.menuGenerar = new MenuItem("&Generar");
+            this.menuAtras = new MenuItem("&Atras");
 
             this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
 
@@ -111,6 +107,7 @@
             this.menuPrincipal.MenuItems.Add(this.menuArchivo);
             this.menuPrincipal.MenuItems.Add(this.menuEditar);
 			this.menuPrincipal.MenuItems.Add(this.menuGenerar);
+            this.menuPrincipal.MenuItems.Add(this.menuAtras);
             this.Menu = menuPrincipal;
             //Submenú búsqueda
             this.menuEditar.MenuItems.Add(this.operacionSearch1);
@@ -200,8 +197,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate0,
-                HeaderText = "#",
-                
+                HeaderText = "#",          
                 ReadOnly = true
             };
 
@@ -210,8 +206,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate1,
-                HeaderText = "IdTransporte",
-              
+                HeaderText = "IdTransporte",              
                 ReadOnly = true
             };
             var column2 = new DataGridViewTextBoxColumn
@@ -219,8 +214,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate2,
-                HeaderText = "Cliente",
-               
+                HeaderText = "Cliente",              
                 ReadOnly = true
             };
 
@@ -229,8 +223,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate3,
-                HeaderText = "FechaDeContratación",
-                
+                HeaderText = "FechaDeContratación",             
                 ReadOnly = true
             };
 
@@ -239,8 +232,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate4,
-                HeaderText = "KilómetrosRecorridos",
-                
+                HeaderText = "KilómetrosRecorridos",               
                 ReadOnly = true
             };
             var column5 = new DataGridViewTextBoxColumn
@@ -248,8 +240,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate5,
-                HeaderText = "FechaDeSalida",
-                
+                HeaderText = "FechaDeSalida",               
                 ReadOnly = true
             };
             var column6 = new DataGridViewTextBoxColumn
@@ -257,8 +248,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate6,
-                HeaderText = "FechaDeEntrega",
-                
+                HeaderText = "FechaDeEntrega",             
                 ReadOnly = true
             };
             var column7 = new DataGridViewTextBoxColumn
@@ -266,8 +256,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate7,
-                HeaderText = "ImportePorDia",
-             
+                HeaderText = "ImportePorDia",       
                 ReadOnly = true
             };
             var column8 = new DataGridViewTextBoxColumn
@@ -275,8 +264,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate8,
-                HeaderText = "ImportePorKilometro",
-               
+                HeaderText = "ImportePorKilometro", 
                 ReadOnly = true
             };
 
@@ -285,8 +273,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate9,
-                HeaderText = "IVAAplicado",
-               
+                HeaderText = "IVAAplicado",         
                 ReadOnly = true
             };
 
@@ -294,11 +281,10 @@
                 column0, column1,column2,column3,column4,column5,column6,column7,column8,column9
             });
 
+            this.panelListaTransporte.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width + column9.Width;
 
             panelListaTransporte.Controls.Add(this.grdListaTransporte);
             panelListaTransporte.ResumeLayout(false);
-            this.panelListaTransporte.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width + column9.Width ;
-
 
         }
 
@@ -371,7 +357,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate1,
                 HeaderText = "NIF",
-                Width = 100,
                 ReadOnly = true
             };
             var column2 = new DataGridViewTextBoxColumn
@@ -380,7 +365,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate2,
                 HeaderText = "Nombre",
-                Width = 100,
                 ReadOnly = true
             };
 
@@ -390,7 +374,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate3,
                 HeaderText = "Telefono",
-                Width = 100,
                 ReadOnly = true
             };
 
@@ -400,7 +383,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate4,
                 HeaderText = "Email",
-                Width = 100,
                 ReadOnly = true
             };
             var column5 = new DataGridViewTextBoxColumn
@@ -409,7 +391,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate5,
                 HeaderText = "Direccion postal",
-                Width = 100,
                 ReadOnly = true
             };
             
@@ -418,12 +399,10 @@
                 column0, column1,column2,column3,column4,column5
             });
 
-
+            this.panelListaCliente.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width;
+        
             panelListaCliente.Controls.Add(this.grdListaCliente);
             panelListaCliente.ResumeLayout(false);
-            this.panelListaCliente.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width;
-
-
         }
 
         private void BuildPanelListaFlota()
@@ -495,7 +474,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate0,
                 HeaderText = "#",
-                
                 ReadOnly = true
             };
 
@@ -504,8 +482,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate1,
-                HeaderText = "Matricula",
-                
+                HeaderText = "Matricula",      
                 ReadOnly = true
             };
             var column2 = new DataGridViewTextBoxColumn
@@ -514,7 +491,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate2,
                 HeaderText = "Tipo",
-               
                 ReadOnly = true
             };
 
@@ -524,7 +500,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate3,
                 HeaderText = "Marca",
-                
                 ReadOnly = true
             };
 
@@ -534,7 +509,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate4,
                 HeaderText = "Modelo",
-               
                 ReadOnly = true
             };
             var column5 = new DataGridViewTextBoxColumn
@@ -543,7 +517,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate5,
                 HeaderText = "Consumo por km",
-                
                 ReadOnly = true
             };
             var column6 = new DataGridViewTextBoxColumn
@@ -551,8 +524,7 @@
                 SortMode = DataGridViewColumnSortMode.NotSortable,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate6,
-                HeaderText = "Fecha de adquisicion",
-                
+                HeaderText = "Fecha de adquisicion", 
                 ReadOnly = true
             };
             var column7 = new DataGridViewTextBoxColumn
@@ -561,7 +533,6 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate7,
                 HeaderText = "Fecha de fabricacion",
-                
                 ReadOnly = true
             };
             var column8 = new DataGridViewTextBoxColumn
@@ -570,22 +541,19 @@
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 CellTemplate = textCellTemplate8,
                 HeaderText = "Comodidades",
-               
                 ReadOnly = true
                 
             };
-
 
 
             this.grdListaFlota.Columns.AddRange(new DataGridViewColumn[] {
                 column0, column1,column2,column3,column4,column5,column6,column7,column8
             });
 
+            this.panelListaFlota.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width;
 
             panelListaFlota.Controls.Add(this.grdListaFlota);
             panelListaFlota.ResumeLayout(false);
-
-            this.panelListaFlota.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width;
 
         }
 
@@ -595,6 +563,8 @@
         private MenuItem menuArchivo;
         private MenuItem menuEditar;
 		private MenuItem menuGenerar;
+        public MenuItem menuAtras;
+
         public Panel panelPrincipal { get; set; }
 
         public DataGridView grdListaTransporte;

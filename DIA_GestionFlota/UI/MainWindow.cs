@@ -26,7 +26,7 @@
             clientes.Add(cliente2);
             Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
             Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
-            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
+            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 12, 22), "20", "50", 10);
             Transportes transportes4 = new Transportes("9999AAA12121115", flota2, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
 
             transportes = new List<Transportes>();
@@ -35,9 +35,11 @@
             transportes.Add(transportes3);
             transportes.Add(transportes4);
 
-
-            //this.transportes = new Transportes();
+           
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
+            this.MainWindowView.menuAtras.Click += (sender, e) => this.mostrarTodosLosTransportes();
+
+            this.MainWindowView.Load += (sender, e) => this.mostrarTodosLosTransportes();
 
             //Operaciones búsqueda
             //Inicializar dialogos
@@ -76,6 +78,22 @@
 
         }
 
+        public void mostrarTodosLosTransportes()
+        {
+            var trans = new List<Transportes>(
+            from transporte in transportes
+            where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0
+            orderby transporte.IdTransporte
+            select transporte);
+
+            ActualizaListaTransportes(trans);
+            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+            MainWindowView.panelLista = MainWindowView.panelListaTransporte;
+            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
+            this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
+        }
         //Métodos búsqueda
         // Inicio Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días
         private void transportePendientes()
@@ -106,11 +124,8 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-           
-            
-            
-            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-            
+               
+            this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;           
             this.MainWindowView.Height= MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
         //Fin Transportes pendientes.
@@ -136,13 +151,11 @@
                 orderby transporte.IdTransporte
                 select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
 
-
             var transportesOcupados = new List<String>(
                 from transporte in transportes
                 where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0
                 orderby transporte.IdTransporte
                 select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
-
 
             var transportesLibres = transportesPosibles.Except(transportesOcupados);
 
@@ -157,7 +170,6 @@
             }
 
             ActualizaListaFlota(camionesDisponibles);
-
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
 
             MainWindowView.panelLista = MainWindowView.panelListaFlota;
@@ -226,15 +238,12 @@
                 orderby trans.IdTransporte
                 select trans);
 
-
             ActualizaListaTransportes(camiones);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
-       //     Console.WriteLine(MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0));
-
-           // Console.WriteLine(this.MainWindowView.Height);
+        
             this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
         //Fin Reservas por camión: Mostrará todas los transportes, pasados o pendientes, para todo la flota o por camión.
@@ -247,7 +256,6 @@
 
         private void RPCSearch()
         {
-
             var anhosSeleccionado = this.dialogoDni.Anho;
 
             var reservas = new List<Transportes>(
@@ -255,7 +263,6 @@
             where transporte.Cliente.Nif == this.dialogoDni.idDni && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby transporte.IdTransporte
             select transporte);
-
 
             ActualizaListaTransportes(reservas);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -281,11 +288,12 @@
             where(anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby transporte.IdTransporte
             select transporte);
-            Console.WriteLine("as" + reservas.First().FechaEntrega);
+
             ActualizaListaTransportes(reservas);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
             this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84;
         }
@@ -304,6 +312,7 @@
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+
             this.MainWindowView.Width = MainWindowView.grdListaTransporte.Columns.GetColumnsWidth(0) + 20;
             this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0);
         }
@@ -393,7 +402,6 @@
             row.Cells[Telefono].Value = c.Telefono;
             row.Cells[Email].Value = c.Email;
             row.Cells[DireccionPostal].Value = c.DireccionPostal;
-
         }
 
         private void ActualizaListaFlota(List<Flota> flotas)
@@ -436,8 +444,14 @@
             row.Cells[ConsumoKm].Value = f.ConsumoKm;
             row.Cells[FechaAdquisicion].Value = f.FechaAdquisicion;
             row.Cells[FechaFabricacion].Value = f.FechaFabricacion;
-            row.Cells[Comodidades].Value = f.Comodidades;
 
+            StringBuilder comodidades = new StringBuilder();
+            foreach (String aux in f.Comodidades)
+            {
+                comodidades.Append(aux + " ");
+            }
+
+            row.Cells[Comodidades].Value = comodidades.ToString();
 
         }
 
