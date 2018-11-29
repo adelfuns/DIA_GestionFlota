@@ -58,6 +58,9 @@
             this.MainWindowView.operacionSearch5.Click += (sender, e) => this.reservasPorCliente();
             this.MainWindowView.operacionSearch6.Click += (sender, e) => this.ocupacion();
 
+            this.MainWindowView.btSearchTransporte.Click += (sender, e) => this.botonBusquedaTrasnporte();
+            this.MainWindowView.btSearchFlota.Click += (sender, e) => this.botonBusquedaFlota();
+
             //Dialogos
             this.dialogoTransportesPendientes.btSearchCamiones.Click += (sender, e) => this.DTPSearch();
             this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
@@ -99,6 +102,40 @@
             this.MainWindowView.Height = MainWindowView.grdListaTransporte.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;
 
         }
+
+        private void botonBusquedaTrasnporte()
+        {
+            switch (MainWindowView.escogerBusquedaTrasnporte.Text) {
+                case "Buscar transportes pendientes":
+                    this.transportePendientes();
+                    break;
+                case "Transportes por cliente":
+                    this.transportesPorCliente();
+                    break;
+                case "Reservas por camion":
+                    this.reservasPorCamion();
+                    break;
+                case "Reservas por cliente":
+                    this.reservasPorCliente();
+                    break;
+                case "Ocupacion":
+                    this.ocupacion();
+                    break;
+            }
+        }
+
+        private void botonBusquedaFlota()
+        {
+            switch (MainWindowView.escogerBusquedaFlota.Text)
+            {
+                case "Disponibilidad":
+                    this.disponibilidad();
+                    break;
+            }
+        }
+
+
+
         //Métodos búsqueda
         // Inicio Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días
         private void transportePendientes()

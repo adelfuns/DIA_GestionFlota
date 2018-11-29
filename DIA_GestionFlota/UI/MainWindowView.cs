@@ -146,18 +146,18 @@
             panelOpcionesTransportes.SuspendLayout();
             panelOpcionesTransportes.Dock = DockStyle.Fill;
 
-            this.escogerBusqueda = new ComboBox();
+            this.escogerBusquedaTrasnporte = new ComboBox();
+            this.escogerBusquedaTrasnporte.Width = 170;
+            this.escogerBusquedaTrasnporte.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            this.escogerBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            this.escogerBusqueda.Items.AddRange(new object[] {"Buscar transportes pendientes",
+            this.escogerBusquedaTrasnporte.Items.AddRange(new object[] {"Buscar transportes pendientes",
             "Transportes por cliente",
             "Reservas por camion",
             "Reservas por cliente",
             "Ocupacion"});
 
-            this.escogerBusqueda.SelectedItem = "Buscar transportes pendientes";
-            this.escogerBusqueda.Text = "Buscar transportes pendientes";
+            this.escogerBusquedaTrasnporte.SelectedItem = "Buscar transportes pendientes";
+            this.escogerBusquedaTrasnporte.Text = "Buscar transportes pendientes";
 
            this.btSearchTransporte = new Button()
             {
@@ -169,9 +169,9 @@
 
             this.AcceptButton = btSearchTransporte;
 
-            this.panelOpcionesTransportes.Controls.Add(this.escogerBusqueda);
+            this.panelOpcionesTransportes.Controls.Add(this.escogerBusquedaTrasnporte);
             this.panelOpcionesTransportes.Controls.Add(this.btSearchTransporte);
-            this.panelOpcionesTransportes.MaximumSize = new Size(int.MaxValue, escogerBusqueda.Height * 2);
+            this.panelOpcionesTransportes.MaximumSize = new Size(int.MaxValue, escogerBusquedaTrasnporte.Height * 2);
 
             this.panelOpcionesTransportes.ResumeLayout(false);
         }
@@ -181,14 +181,14 @@
             panelOpcionesFlota.SuspendLayout();
             panelOpcionesFlota.Dock = DockStyle.Fill;
 
-            this.escogerBusqueda = new ComboBox();
+            this.escogerBusquedaFlota = new ComboBox();
 
-            this.escogerBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.escogerBusquedaFlota.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            this.escogerBusqueda.Items.AddRange(new object[] {"Disponibilidad"});
+            this.escogerBusquedaFlota.Items.AddRange(new object[] {"Disponibilidad"});
 
-            this.escogerBusqueda.SelectedItem = "Disponibilidad";
-            this.escogerBusqueda.Text = "Disponibilidad";
+            this.escogerBusquedaFlota.SelectedItem = "Disponibilidad";
+            this.escogerBusquedaFlota.Text = "Disponibilidad";
 
             this.btSearchFlota = new Button()
             {
@@ -200,9 +200,9 @@
 
             this.AcceptButton = btSearchFlota;
 
-            this.panelOpcionesFlota.Controls.Add(escogerBusqueda);
+            this.panelOpcionesFlota.Controls.Add(escogerBusquedaFlota);
             this.panelOpcionesFlota.Controls.Add(btSearchFlota);
-            this.panelOpcionesFlota.MaximumSize = new Size(int.MaxValue, escogerBusqueda.Height * 2);
+            this.panelOpcionesFlota.MaximumSize = new Size(int.MaxValue, escogerBusquedaFlota.Height * 2);
 
             this.panelOpcionesFlota.ResumeLayout(false);
         }
@@ -649,7 +649,7 @@
 
         public Panel panelPrincipal { get; set; }
         public Panel panelOpciones { get; set; }
-        public Panel panelOpcionesTransportes { get; set; }
+        
 
         public DataGridView grdListaTransporte;
         public DataGridView grdListaCliente;
@@ -677,11 +677,13 @@
         public Panel panelListaFlota;
         public Panel panelLista;
         public Panel panelOpcionesPoner;
-        public Panel panelOpcionesFlota;
+        public Panel panelOpcionesTransportes { get; set; }
+        public Panel panelOpcionesFlota { get; set; }
         public Button btSearchFlota { get; set; }
 
         public Button btSearchTransporte { get; set; }
-        public ComboBox escogerBusqueda { get; set; }
+        public ComboBox escogerBusquedaTrasnporte { get; set; }
+        public ComboBox escogerBusquedaFlota { get; set; }
 
     }
 }
