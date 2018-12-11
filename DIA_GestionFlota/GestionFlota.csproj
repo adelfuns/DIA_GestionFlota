@@ -47,7 +47,19 @@
     <Compile Include="Core\Cliente.cs" />
     <Compile Include="Core\Flota.cs" />
     <Compile Include="Core\Transportes.cs" />
+    <Compile Include="UI\DialogGraphics\DialogoGraficoCamion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DialogGraphics\DialogoGraficoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DialogGraphics\DialogoGraficoGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\DialogSearch\DialogoCamiones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DialogGraphics\DialogoGraficoComodidades.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\DialogSearch\DialogoOcupacion.cs">
@@ -75,18 +87,6 @@
     </Compile>
     <Compile Include="UI\DialogGraphics\Chart.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\CamionChart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\ClienteChart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\GeneralChart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\ComodidadesChart.cs">
-      <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

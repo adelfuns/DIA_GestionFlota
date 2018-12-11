@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.Text;
     using GestionFlotas.UI.DialogSearch;
+    using GestionFlotas.UI.DialogGraphics;
 
     class MainWindow : Form
     {
@@ -14,32 +15,116 @@
         {
             this.MainWindowView = new MainWindowView();
 
-            Flota flota1 = new Flota(1.5, "AAA9999", "Mudanza", "opel", "modelo", "20", new DateTime(2000, 12, 12), new DateTime(1999, 12, 12), new string[] { "wifi", "musica" });
-            Flota flota2 = new Flota(2, "AAA6666", "Transporte de mercancías", "opel2", "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica" });
+
+            /** *********************** **/
+            /** CREACION DE LOS OBJETOS **/
+            /** *********************** **/
+
+            //Flota
+            Flota flota1 = new Flota(1.5, "AAA9999", "Mudanza", "opel", "modelo", "20",
+                                 new DateTime(2000, 12, 12), new DateTime(1999, 12, 12), new string[] { "wifi", "musica" });
+            Flota flota2 = new Flota(2, "AAA6666", "Transporte de mercancías", "opel2",
+                                 "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
+
+            Flota flota3 = new Flota(2, "AAA1111", "Transporte de mercancías", "opel5",
+                                 "modelo", "23", new DateTime(2013, 10, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
+            Flota flota4 = new Flota(2, "AAA2222", "Transporte de mercancías", "opel3",
+                                 "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "tv" });
+            Flota flota5 = new Flota(2, "AAA3333", "Transporte de mercancías", "mazda",
+                                 "modelo", "23", new DateTime(2000, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
+            Flota flota6 = new Flota(2, "AAA4444", "Transporte de mercancías", "unlucky",
+                                 "modelo", "23", new DateTime(2000, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
+            Flota flota7 = new Flota(2, "AAA5555", "Transporte de mercancías", "opel2",
+                                 "modelo", "23", new DateTime(2000, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
+            Flota flota8 = new Flota(2, "AAA7777", "Transporte de mercancías", "opel2",
+                                 "modelo", "23", new DateTime(2013, 3, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica",  "aire acondicionado" });
+            Flota flota9 = new Flota(2, "AAA8888", "Transporte de mercancías", "opel2",
+                                 "modelo", "23", new DateTime(2013, 3, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "litera de descanso", "aire acondicionado" });
             flotas = new List<Flota>();
             flotas.Add(flota1);
             flotas.Add(flota2);
+            flotas.Add(flota3);
+            flotas.Add(flota4);
+            flotas.Add(flota5);
+            flotas.Add(flota6);
+            flotas.Add(flota7);
+            flotas.Add(flota8);
+            flotas.Add(flota9);
+
+            //Clientes
             Cliente cliente1 = new Cliente("6666666F", "Nombre", "telefono", "asdsa@asda", "323213");
             Cliente cliente2 = new Cliente("6667776F", "Nombre2", "telefono2", "asdsa2@asda", "323213");
+
+            Cliente cliente3 = new Cliente("6345345B", "Nombreaaaa", "telefono", "asdcscCecsa@asda", "323213");
+            Cliente cliente4 = new Cliente("6123466D", "Nombre2eeee", "telefono3", "asdwgeq3wg422@asda", "323213");
+            Cliente cliente5 = new Cliente("6699666A", "Nombrewefwr", "telefon4", "asergreg@asda", "323213");
+            Cliente cliente6 = new Cliente("6999776S", "Nombre2ergerg", "telefasdgasro2", "aswefwefwefa2@asda", "323213");
             clientes = new List<Cliente>();
             clientes.Add(cliente1);
             clientes.Add(cliente2);
-            Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
-            Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
-            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota2, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
+            clientes.Add(cliente3);
+            clientes.Add(cliente4);
+            clientes.Add(cliente5);
+            clientes.Add(cliente6);
 
+            //Transportes
+            Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06),
+                                             "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
+            Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06),
+                                             "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
+            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06),
+                                             "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
+            Transportes transportes4 = new Transportes("9999AAA12121115", flota2, cliente2, new DateTime(2018, 11, 06),
+                                             "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
+
+            Transportes transportes5 = new Transportes("6666AAA34534623", flota1, cliente3, new DateTime(2014, 08, 07),
+                                           "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 12), "20", "50", 10);
+            Transportes transportes6 = new Transportes("6666AAA13263263", flota1, cliente3, new DateTime(2014, 08, 07),
+                                             "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 23), "20", "50", 10);
+            Transportes transportes7 = new Transportes("9999AAA11111234", flota3, cliente3, new DateTime(2014, 08, 07),
+                                             "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 22), "20", "50", 10);
+            Transportes transportes8 = new Transportes("9999AAA12123455", flota4, cliente3, new DateTime(2014, 08, 07),
+                                             "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 21), "20", "50", 10);
+
+            Transportes transportes9 = new Transportes("6666AAA13321112", flota5, cliente3, new DateTime(2015, 01, 07),
+                                           "12", new DateTime(2015, 01, 07), new DateTime(2015, 05, 12), "20", "50", 10);
+            Transportes transportes10 = new Transportes("6666AAA1334113", flota5, cliente4, new DateTime(2015, 02, 07),
+                                             "12", new DateTime(2015, 02, 07), new DateTime(2015, 05, 23), "20", "50", 10);
+            Transportes transportes11 = new Transportes("9999AAA1785514", flota5, cliente4, new DateTime(2015, 02, 07),
+                                             "12", new DateTime(2015, 02, 07), new DateTime(2015, 06, 22), "20", "50", 10);
+            Transportes transportes12 = new Transportes("9999AAA12889885", flota6, cliente5, new DateTime(2015, 04, 07),
+                                             "12", new DateTime(2015, 04, 07), new DateTime(2015, 05, 21), "20", "50", 10);
+
+            Transportes transportes13 = new Transportes("6666AAA88888882", flota7, cliente6, new DateTime(2014, 11, 07),
+                                           "12", new DateTime(2014, 11, 07), new DateTime(2014, 11, 12), "20", "50", 10);
+            Transportes transportes14 = new Transportes("6666AAA12999999", flota8, cliente6, new DateTime(2017, 03, 07),
+                                             "12", new DateTime(2017, 03, 07), new DateTime(2017, 04, 23), "20", "50", 10);
+            Transportes transportes15 = new Transportes("9999AAA16666666", flota9, cliente6, new DateTime(2018, 03, 07),
+                                             "12", new DateTime(2018, 03, 07), new DateTime(2018, 04, 22), "20", "50", 10);
+            Transportes transportes16 = new Transportes("9999AAA12000000", flota8, cliente6, new DateTime(2018, 03, 07),
+                                             "12", new DateTime(2018, 03, 07), new DateTime(2018, 04, 21), "20", "50", 10);
             transportes = new List<Transportes>();
             transportes.Add(transportes1);
             transportes.Add(transportes2);
             transportes.Add(transportes3);
             transportes.Add(transportes4);
+            transportes.Add(transportes5);
+            transportes.Add(transportes6);
+            transportes.Add(transportes7);
+            transportes.Add(transportes8);
+            transportes.Add(transportes9);
+            transportes.Add(transportes10);
+            transportes.Add(transportes11);
+            transportes.Add(transportes12);
+            transportes.Add(transportes13);
+            transportes.Add(transportes14);
+            transportes.Add(transportes15);
+            transportes.Add(transportes16);
 
+            /** *************************** **/
+            /** FIN CREACION DE LOS OBJETOS **/
+            /** *************************** **/
 
-            //this.transportes = new Transportes();
-            this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
-
-            //Operaciones búsqueda
             //Inicializar dialogos
             this.dialogoTransportesPendientes = new DialogoTransportesPendientes();        
             this.dialogoCamion = new DialogoCamiones();
@@ -47,14 +132,24 @@
             this.dialogoReservasCamion = new DialogoReservasCamion();
             this.dialogoDni = new DialogoDniCliente();
             this.dialogoOcupacion = new DialogoOcupacion();
+            this.dialogoGraficoGeneral = new DialogoGraficoGeneral();
+            this.dialogoGraficoCliente = new DialogoGraficoCliente();
+            this.dialogoGraficoCamion = new DialogoGraficoCamion();
+            this.dialogoGraficoComodidades = new DialogoGraficoComodidades();
 
             //Menu de la MainWindowView
+            this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
             this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
             this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad();
             this.MainWindowView.operacionSearch3.Click += (sender, e) => this.transportesPorCliente();
             this.MainWindowView.operacionSearch4.Click += (sender, e) => this.reservasPorCamion();
             this.MainWindowView.operacionSearch5.Click += (sender, e) => this.reservasPorCliente();
             this.MainWindowView.operacionSearch6.Click += (sender, e) => this.ocupacion();
+            //---------//
+            this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral();
+            this.MainWindowView.operacionActividadCliente.Click += (sender, e) => this.ActividadCliente();
+            this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion();
+            this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades();
 
             //Dialogos
             this.dialogoTransportesPendientes.btSearchCamiones.Click += (sender, e) => this.DTPSearch();
@@ -64,17 +159,21 @@
             this.dialogoDni.btSearchCliente.Click += (sender, e) => this.RPCSearch();
             this.dialogoOcupacion.btSearchOcupacionAnho.Click += (sender, e) => this.OASearch();
             this.dialogoOcupacion.calendar.DateSelected += (sender, e) => this.OFSearch();
-
-            //Operaciones graficos
-            this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral();
-            this.MainWindowView.operacionActividadCliente.Click += (sender, e) => this.ActividadCliente();
-            this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion();
-            this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades();
-
-            //Operaciones graficos
-            this.generalGraf = new GeneralChart();
+            //---------//
+            this.dialogoGraficoGeneral.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadGeneralAnual();
+            this.dialogoGraficoGeneral.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadGeneralTotal();
+            this.dialogoGraficoCliente.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadClienteAnual();
+            this.dialogoGraficoCliente.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadClienteTotal();
+            this.dialogoGraficoCamion.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadCamionAnual();
+            this.dialogoGraficoCamion.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadCamionTotal();
+            this.dialogoGraficoComodidades.btGraficoGeneralAnual.Click += (sender, e) => this.FlotaComodidadesAnual();
+            this.dialogoGraficoComodidades.btGraficoGeneralTotal.Click += (sender, e) => this.FlotaComodidadesTotal();
 
         }
+
+        /** ******** **/
+        /** BÚSQUEDA **/
+        /** ******** **/
 
         //Métodos búsqueda
         // Inicio Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días
@@ -437,50 +536,474 @@
             row.Cells[FechaAdquisicion].Value = f.FechaAdquisicion;
             row.Cells[FechaFabricacion].Value = f.FechaFabricacion;
             row.Cells[Comodidades].Value = f.Comodidades;
-
-
         }
+
+        /** ************ **/
+        /** FIN BÚSQUEDA **/
+        /** ************ **/
+
 
         /* Métodos de gráficos */
 
-        private int busquedaGeneralMesesGrafico(int mes)
-        {
-            StringBuilder toret = new StringBuilder();
-
-            var dataList = new List<Transportes>(
-                from transporte in transportes
-                where (transporte.FechaContratacion.Month == mes)
-                orderby transporte.FechaEntrega
-                select transporte);
-
-            this.MainWindowView.lTexto.Text = dataList.Count.ToString();
-            return dataList.Count;
-        }
+        //Diálogos
         private void ActividadGeneral()
         {
-            this.generalGraf.ShowDialog();
+            this.dialogoGraficoGeneral.ShowDialog();
         }
 
         private void ActividadCliente()
         {
-
+            this.dialogoGraficoCliente.ShowDialog();
         }
 
         private void ActividadCamion()
         {
-
+            this.dialogoGraficoCamion.ShowDialog();
         }
 
         private void ActividadComodidades()
         {
+            this.dialogoGraficoComodidades.ShowDialog();
+        }
+        //Fin Diálogos
 
+        //Métodos generales
+        private int busquedaGeneralMesesGrafico(List<Transportes> data, int mes)
+        {
+            var dataList = new List<Transportes>(
+                from transporte in data
+                where (transporte.FechaContratacion.Month == mes)
+                orderby transporte.FechaEntrega
+                select transporte);
+
+            return dataList.Count;
+        }
+        private int BusquedaGeneralAnualGrafico(int anho)
+        {
+            var dataList = new List<Transportes>(
+                from transporte in transportes
+                where (transporte.FechaContratacion.Year == anho)
+                orderby transporte.FechaEntrega
+                select transporte);
+
+            return dataList.Count;
+        }
+        //Metodos especificos general
+        private int[] valuesChartAnual(List<Transportes> data)
+        {
+            int[] values = new int[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                values[i - 1] = busquedaGeneralMesesGrafico(data, i);
+            }
+            return values;
+        }
+        private int[] valuesChartTotal(IEnumerable<int> data)
+        {
+            int[] values = new int[data.Count()];
+            int i = 0;
+            foreach(int x in data)
+            {
+                values[i] = BusquedaGeneralAnualGrafico(x);
+                i++;
+            }
+            return values;
+        }
+        //Metodos especificos cliente
+        private int[] valuesChartTotalCliente(IEnumerable<int> data, string nif)
+        {
+            int[] values = new int[data.Count()];
+            int i = 0;
+            foreach (int x in data)
+            {
+                values[i] = BusquedaClienteAnualGrafico(x, nif);
+                i++;
+            }
+            return values;
+        }
+        private int BusquedaClienteAnualGrafico(int anho, string nif)
+        {
+            var dataList = new List<Transportes>(
+                from transporte in transportes
+                where (transporte.FechaContratacion.Year == anho) && (transporte.Cliente.Nif.Equals(nif))
+                orderby transporte.FechaEntrega
+                select transporte);
+
+            return dataList.Count;
+        }
+        //Métodos especificos camion
+        private int[] valuesChartTotalCamion(IEnumerable<int> data, string matricula)
+        {
+            int[] values = new int[data.Count()];
+            int i = 0;
+            foreach (int x in data)
+            {
+                values[i] = BusquedaCamionAnualGrafico(x, matricula);
+                i++;
+            }
+            return values;
+        }
+        private int BusquedaCamionAnualGrafico(int anho, string matricula)
+        {
+            var dataList = new List<Transportes>(
+                from transporte in transportes
+                where (transporte.FechaContratacion.Year == anho) &&
+                        (matricula.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3)) &&
+                        matricula.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4)))
+                orderby transporte.FechaEntrega
+                select transporte);
+
+            return dataList.Count;
+        }
+        //Metodos especificos comodidades
+        private int busquedaComodidadesMesesGrafico(List<Flota> data, int mes)
+        {
+            var dataList = new List<Flota>(
+                from flota in data
+                where (flota.FechaAdquisicion.Month == mes)
+                orderby flota.Modelo
+                select flota);
+
+            return dataList.Count;
+        }
+        private int BusquedaComodidadesAnualGrafico(int anho, string comodidad)
+        {
+            var dataList = new List<Flota>(
+                 from flota in flotas
+                 where (flota.FechaAdquisicion.Year == anho) && (flota.Comodidades.Contains(comodidad))
+                 orderby flota.Modelo
+                 select flota);
+
+            return dataList.Count;
+        }
+        private int[] valuesChartAnualComodidades(List<Flota> data)
+        {
+            int[] values = new int[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                values[i - 1] = busquedaComodidadesMesesGrafico(data, i);
+            }
+            return values;
+        }
+        private int[] valuesChartTotalComodidades(IEnumerable<int> data, string comodidad)
+        {
+            int[] values = new int[data.Count()];
+            int i = 0;
+            foreach (int x in data)
+            {
+                values[i] = BusquedaComodidadesAnualGrafico(x, comodidad);
+                i++;
+            }
+            return values;
         }
 
+        //Gráfico general
+        private void ActividadGeneralAnual()
+        {
+
+            var anhoSeleccionado = this.dialogoGraficoGeneral.Anho;
+            if (anhoSeleccionado.Equals(""))
+            {
+                ActividadGeneralTotal();
+            }
+            else
+            {
+                var dataList = new List<Transportes>(
+                from transporte in transportes
+                where (transporte.FechaEntrega.Year.ToString().Equals(anhoSeleccionado))
+                orderby transporte.FechaEntrega
+                select transporte);
+                if (dataList.Count() != 0)
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    MainWindowView.BuildPanelGraficoGeneral();
+                    MainWindowView.setDataChart("Mes", "Nº transportes", valuesChartAnual(dataList));
+                    MainWindowView.setDataLegend(emptyValue);
+                    MainWindowView.Chart.Draw();
+                    MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                    MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                    this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                }
+                else
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    this.MainWindowView.Width = 200;
+                    this.MainWindowView.Height = 200;
+                }
+            }
+        }
+        private void ActividadGeneralTotal()
+        {
+            IEnumerable<int> data = from transporte in transportes
+                orderby transporte.FechaEntrega
+                select transporte.FechaEntrega.Year;
+
+            var distinctData = data.Select(x => x).Distinct();
+            string[] toLegend = new string[distinctData.Count()];
+            int i = 0;
+            foreach(int t in distinctData)
+            {
+                toLegend[i] = Convert.ToString(t);
+                i++;
+            }
+            if (data.Count() != 0)
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                MainWindowView.BuildPanelGraficoGeneral();
+                MainWindowView.setDataChart("Año", "Nº transportes", valuesChartTotal(distinctData));
+                MainWindowView.setDataLegend(toLegend);
+                MainWindowView.Chart.Draw();
+                MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+            }
+            else
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                this.MainWindowView.Width = 200;
+                this.MainWindowView.Height = 200;
+            }
+        }
+        //Fin grafico general
+
+        //Grafico cliente
+        private void ActividadClienteAnual()
+        {
+            var anhoSeleccionado = this.dialogoGraficoCliente.Anho;
+            var nifClienteSeleccionado = this.dialogoGraficoCliente.Cliente;
+            if (anhoSeleccionado.Equals(""))
+            {
+                ActividadClienteTotal();
+            }
+            else
+            {
+                var data = new List<Transportes>(
+                from transporte in transportes
+                where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (transporte.FechaEntrega.Year.ToString().Equals(anhoSeleccionado))
+                orderby transporte.IdTransporte
+                select transporte);
+
+                if (data.Count() != 0)
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    MainWindowView.BuildPanelGraficoGeneral();
+                    MainWindowView.setDataChart("Mes", "Nº transportes", valuesChartAnual(data));
+                    MainWindowView.setDataLegend(emptyValue);
+                    MainWindowView.Chart.Draw();
+                    MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                    MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                    this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                }
+                else
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    this.MainWindowView.Width = 200;
+                    this.MainWindowView.Height = 200;
+                }
+            }
+        }
+        private void ActividadClienteTotal()
+        {
+            var nifClienteSeleccionado = this.dialogoGraficoCliente.Cliente;
+            IEnumerable<int> data = from transporte in transportes
+                                    where transporte.Cliente.Nif.Equals(nifClienteSeleccionado)
+                                    orderby transporte.FechaEntrega
+                                    select transporte.FechaEntrega.Year;
+
+            var distinctData = data.Select(x => x).Distinct();
+            string[] toLegend = new string[distinctData.Count()];
+            int i = 0;
+            foreach (int t in distinctData)
+            {
+                toLegend[i] = Convert.ToString(t);
+                i++;
+            }
+            if (data.Count() != 0)
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                MainWindowView.BuildPanelGraficoGeneral();
+                MainWindowView.setDataChart("Año", "Nº transportes", valuesChartTotalCliente(distinctData, nifClienteSeleccionado));
+                MainWindowView.setDataLegend(toLegend);
+                MainWindowView.Chart.Draw();
+                MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+            }
+            else
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                this.MainWindowView.Width = 200;
+                this.MainWindowView.Height = 200;
+            }
+        }
+        //Fin grafico cliente
+
+        //Grafico actividad camion
+        private void ActividadCamionAnual()
+        {
+            var anhoSeleccionado = this.dialogoGraficoCamion.Anho;
+            var matriculaCamionSeleccionado = this.dialogoGraficoCamion.Matricula;
+            if (anhoSeleccionado.Equals(""))
+            {
+                ActividadCamionTotal();
+            }
+            else
+            {
+                var data = new List<Transportes>(
+                from transporte in transportes
+                where (matriculaCamionSeleccionado.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3)) &&
+                        matriculaCamionSeleccionado.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4))) &&
+                        (transporte.FechaEntrega.Year.ToString().Equals(anhoSeleccionado))
+                orderby transporte.IdTransporte
+                select transporte);
+
+                if (data.Count() != 0)
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    MainWindowView.BuildPanelGraficoGeneral();
+                    MainWindowView.setDataChart("Mes", "Nº transportes", valuesChartAnual(data));
+                    MainWindowView.setDataLegend(emptyValue);
+                    MainWindowView.Chart.Draw();
+                    MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                    MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                    this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                }
+                else
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    this.MainWindowView.Width = 200;
+                    this.MainWindowView.Height = 200;
+                }
+            }
+        }
+        private void ActividadCamionTotal()
+        {
+            var matriculaCamionSeleccionado = this.dialogoGraficoCamion.Matricula;
+            IEnumerable<int> data = from transporte in transportes
+                                    where (matriculaCamionSeleccionado.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3)) &&
+                                            matriculaCamionSeleccionado.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4)))
+                                    orderby transporte.FechaEntrega
+                                    select transporte.FechaEntrega.Year;
+
+            var distinctData = data.Select(x => x).Distinct();
+            string[] toLegend = new string[distinctData.Count()];
+            int i = 0;
+            foreach (int t in distinctData)
+            {
+                toLegend[i] = Convert.ToString(t);
+                i++;
+            }
+            if (data.Count() != 0)
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                MainWindowView.BuildPanelGraficoGeneral();
+                MainWindowView.setDataChart("Año", "Nº transportes", valuesChartTotalCamion(distinctData, matriculaCamionSeleccionado));
+                MainWindowView.setDataLegend(toLegend);
+                MainWindowView.Chart.Draw();
+                MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+            }
+            else
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                this.MainWindowView.Width = 200;
+                this.MainWindowView.Height = 200;
+            }
+        }
+        //Fin grafico actividad camion
+
+        //Grafico comodidades camion
+        private void FlotaComodidadesAnual()
+        {
+            var anhoSeleccionado = this.dialogoGraficoComodidades.Anho;
+            var comodidadSeleccionada = this.dialogoGraficoComodidades.Comodidad;
+            if (anhoSeleccionado.Equals(""))
+            {
+                FlotaComodidadesTotal();
+            }
+            else
+            {
+                var data = new List<Flota>(
+                from flota in flotas
+                where (flota.Comodidades.Contains(comodidadSeleccionada)) &&
+                (flota.FechaAdquisicion.Year.ToString().Equals(anhoSeleccionado))
+                orderby flota.FechaAdquisicion
+                select flota);
+
+                if (data.Count() != 0)
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    MainWindowView.BuildPanelGraficoGeneral();
+                    MainWindowView.setDataChart("Mes", "Nº camiones", valuesChartAnualComodidades(data));
+                    MainWindowView.setDataLegend(emptyValue);
+                    MainWindowView.Chart.Draw();
+                    MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                    MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                    this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                }
+                else
+                {
+                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                    this.MainWindowView.Width = 200;
+                    this.MainWindowView.Height = 200;
+                }
+            }
+        }
+        private void FlotaComodidadesTotal()
+        {
+            var comodidadSeleccionada = this.dialogoGraficoComodidades.Comodidad;
+            IEnumerable<int> data = from flota in flotas
+                                    where (flota.Comodidades.Contains(comodidadSeleccionada))
+                                    orderby flota.FechaAdquisicion
+                                    select flota.FechaAdquisicion.Year;
+
+            var distinctData = data.Select(x => x).Distinct();
+            string[] toLegend = new string[distinctData.Count()];
+            int i = 0;
+            foreach (int t in distinctData)
+            {
+                toLegend[i] = Convert.ToString(t);
+                i++;
+            }
+            if (data.Count() != 0)
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                MainWindowView.BuildPanelGraficoGeneral();
+                MainWindowView.setDataChart("Año", "Nº camiones", valuesChartTotalComodidades(distinctData, comodidadSeleccionada));
+                MainWindowView.setDataLegend(toLegend);
+                MainWindowView.Chart.Draw();
+                MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
+                MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
+                this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+            }
+            else
+            {
+                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
+                this.MainWindowView.Width = 200;
+                this.MainWindowView.Height = 200;
+            }
+        }
+        //Fin grafico comodidades camion
+
         //Operacion salir
-        void Salir()
+        private void Salir()
         {
             Application.Exit();
         }
+
+        /** ********* **/
+        /** ATRIBUTOS **/
+        /** ********* **/
+
 
         public MainWindowView MainWindowView { get; private set; }
        
@@ -496,7 +1019,14 @@
         public DialogoReservasCamion dialogoReservasCamion { get; private set; }
         public DialogoOcupacion dialogoOcupacion { get; private set; }
 
-       
+        //Graficos
+        public DialogoGraficoGeneral dialogoGraficoGeneral { get; private set; }
+        public DialogoGraficoCliente dialogoGraficoCliente { get; private set; }
+        public DialogoGraficoCamion dialogoGraficoCamion { get; private set; }
+        public DialogoGraficoComodidades dialogoGraficoComodidades { get; private set; }
+
+        public static string[] emptyValue = new string[12] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
+        public static int[] emptyValues = new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         public const int ColNum = 0;
 
         public const int IdTransporte = 1;
@@ -523,12 +1053,10 @@
         public const int FechaAdquisicion = 6;
         public const int FechaFabricacion = 7;
         public const int Comodidades = 8;
-
-
-
-        //Graficos
-
-        private GeneralChart generalGraf;
+        
+        /** ************* **/
+        /** FIN ATRIBUTOS **/
+        /** ************* **/
 
     }
         

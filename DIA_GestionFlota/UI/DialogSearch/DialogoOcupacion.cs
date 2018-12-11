@@ -24,7 +24,7 @@
             calendar.Parent = this;
             calendar.Location = new Point(10, 10);
             calendar.DateSelected += new DateRangeEventHandler(OnSelected);
-            calendar.DateSelected += (sender, e) => this.Close() ;
+            calendar.DateSelected += (sender, e) => this.Close();
             date = new Label();
             date.Parent = this;
             date.Location = new Point(40, 170);

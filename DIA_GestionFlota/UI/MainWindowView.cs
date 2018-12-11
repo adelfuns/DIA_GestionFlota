@@ -44,11 +44,8 @@
             this.MaximizeBox = true;
 
             this.Dock = DockStyle.Fill;
-            this.Text = "Lista de reparaciones";
+            this.Text = "Graficos";
             this.ResumeLayout(true);
-
-            
-
         }
 
         private void BuildMenu()
@@ -588,39 +585,74 @@
             this.panelListaFlota.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width;
 
         }
+        
+        public void BuildPanelGraficoGeneral()
+        {
+            panelGraficoGeneral = new Panel();
+            panelGraficoGeneral.SuspendLayout();
+            panelGraficoGeneral.Dock = DockStyle.Fill;
 
+            this.Chart = new Chart(width: CHART_CANVAS_SIZE,
+                                    height: CHART_CANVAS_SIZE)
+            {
+                Dock = DockStyle.Fill,
+            };
 
-        //Items del menú
+            //Comprobar si es antes o después del ResumenLayout
+            this.MinimumSize = new Size(CHART_CANVAS_SIZE, CHART_CANVAS_SIZE);
+            this.Text = this.GetType().Name;
+            panelGraficoGeneral.Controls.Add(this.Chart); //Aquí añadir el gráfico a introducir
+            panelGraficoGeneral.ResumeLayout(false);
+        }
+
+        public void setDataChart(string x, string y, int[] values)
+        {
+            this.Chart.LegendY = y;
+            this.Chart.LegendX = x;
+            this.Chart.Values = values;
+        }
+
+        public void setDataLegend(string[] a)
+        {
+            this.Chart.ValuesDraw = a;
+        }
+
+        public TextBox lTexto { get; private set; }
+
+        //Menús
         private MainMenu menuPrincipal;
         private MenuItem menuArchivo;
         private MenuItem menuEditar;
-		private MenuItem menuGenerar;
-        public Panel panelPrincipal { get; set; }
+        private MenuItem menuGenerar;
+        public MenuItem operacionSearch1 { get; private set; } //Busqueda
+        public MenuItem operacionSearch2 { get; private set; } //Busqueda
+        public MenuItem operacionSearch3 { get; private set; } //Busqueda
+        public MenuItem operacionSearch4 { get; private set; } //Busqueda
+        public MenuItem operacionSearch5 { get; private set; } //Busqueda
+        public MenuItem operacionSearch6 { get; private set; } //Busqueda
+		public MenuItem operacionActividadGeneral { get; private set; }       //Gráficos
+		public MenuItem operacionActividadCliente { get; private set; }       //Gráficos
+		public MenuItem operacionActividadCamion { get; private set; }        //Gráficos
+		public MenuItem operacionActividadComodidades { get; private set; }   //Gráficos
+        public MenuItem operacionSalir { get; private set; }
 
+        //Representación de datos de las búsquedas
         public DataGridView grdListaTransporte;
         public DataGridView grdListaCliente;
         public DataGridView grdListaFlota;
 
-        public MenuItem operacionSalir { get; private set; }
+        //Representación de gráficos
+        public const int CHART_CANVAS_SIZE = 624;
+        public Chart Chart {get; private set;}
 
-        //Operaciones búsqueda
-        public MenuItem operacionSearch1 { get; private set; }
-        public MenuItem operacionSearch2 { get; private set; }
-        public MenuItem operacionSearch3 { get; private set; }
-        public MenuItem operacionSearch4 { get; private set; }
-        public MenuItem operacionSearch5 { get; private set; }
-        public MenuItem operacionSearch6 { get; private set; }
-        //Operaciones generar gráficos
-		public MenuItem operacionActividadGeneral { get; private set; }
-		public MenuItem operacionActividadCliente { get; private set; }
-		public MenuItem operacionActividadCamion { get; private set; }
-		public MenuItem operacionActividadComodidades { get; private set; }
+        //Paneles
+        public Panel panelPrincipal { get; set; }
+        public Panel panelListaTransporte; //Búsqueda
+        public Panel panelListaCliente; //Búsqueda
+        public Panel panelListaFlota; //Búsqueda
+        public Panel panelLista; //Búsqueda
+        public Panel panelGraficoGeneral;   //Gráficos
 
-
-        public TextBox lTexto { get; private set; }
-        public Panel panelListaTransporte;
-        public Panel panelListaCliente;
-        public Panel panelListaFlota;
-        public Panel panelLista;
+        
     }
 }

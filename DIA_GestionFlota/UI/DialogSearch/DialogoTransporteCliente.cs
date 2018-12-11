@@ -134,24 +134,24 @@
         {
             this.SuspendLayout();
 
-            this.panelSearch = new TableLayoutPanel { Dock = DockStyle.Fill };
-            this.panelSearch.SuspendLayout();
-            this.Controls.Add(this.panelSearch);
+            this.panelGrafico = new TableLayoutPanel { Dock = DockStyle.Fill };
+            this.panelGrafico.SuspendLayout();
+            this.Controls.Add(this.panelGrafico);
 
 
             var panelCliente = this.BuildPanelTipoCamion();
-            this.panelSearch.Controls.Add(panelCliente);
+            this.panelGrafico.Controls.Add(panelCliente);
 
             var panelPeriodo = this.BuildPanelPasadasOPendientes();
-            this.panelSearch.Controls.Add(panelPeriodo);
+            this.panelGrafico.Controls.Add(panelPeriodo);
 
             var panelAnhos = this.BuildPanelEscogerAnho();
-            this.panelSearch.Controls.Add(panelAnhos);
+            this.panelGrafico.Controls.Add(panelAnhos);
 
             var pnlBotones = this.BuildPanelBotones();
-            this.panelSearch.Controls.Add(pnlBotones);
+            this.panelGrafico.Controls.Add(pnlBotones);
 
-            this.panelSearch.ResumeLayout(true);
+            this.panelGrafico.ResumeLayout(true);
 
             this.Text = "Busqueda de Transportes de clientes, pasadas o pendientes";
             this.Size = new Size(400, panelCliente.Height  + panelPeriodo.Height + panelPeriodo.Height + pnlBotones.Height);
@@ -164,7 +164,7 @@
 
         }
 
-        private Panel panelSearch;
+        private Panel panelGrafico;
 
         private ComboBox escogerCliente { get; set; }
         private ComboBox escogerPeriodo { get; set; }

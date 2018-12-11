@@ -71,7 +71,6 @@ namespace GestionFlotas.UI.DialogSearch
                 toret.MaximumSize = new Size(int.MaxValue, escogerCamion.Height * 2);
 
                 return toret;
-
             }
 
             public Panel BuildPanelPasadasOPendientes()
