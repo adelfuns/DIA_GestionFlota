@@ -807,6 +807,9 @@
                 where (transporte.FechaEntrega.Year.ToString().Equals(anhoSeleccionado))
                 orderby transporte.FechaEntrega
                 select transporte);
+
+                this.MainWindowView.Height = 0;
+
                 if (dataList.Count() != 0)
                 {
                     MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -841,6 +844,9 @@
                 toLegend[i] = Convert.ToString(t);
                 i++;
             }
+
+            this.MainWindowView.Height = 0;
+
             if (data.Count() != 0)
             {
                 MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -879,6 +885,8 @@
                 orderby transporte.IdTransporte
                 select transporte);
 
+                this.MainWindowView.Height = 0;
+
                 if (data.Count() != 0)
                 {
                     MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -915,6 +923,9 @@
                 toLegend[i] = Convert.ToString(t);
                 i++;
             }
+
+            this.MainWindowView.Height = 0;
+
             if (data.Count() != 0)
             {
                 MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -955,6 +966,8 @@
                 orderby transporte.IdTransporte
                 select transporte);
 
+                this.MainWindowView.Height = 0;
+
                 if (data.Count() != 0)
                 {
                     MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -992,6 +1005,9 @@
                 toLegend[i] = Convert.ToString(t);
                 i++;
             }
+
+            this.MainWindowView.Height = 0;
+
             if (data.Count() != 0)
             {
                 MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -1031,6 +1047,8 @@
                 orderby flota.FechaAdquisicion
                 select flota);
 
+                this.MainWindowView.Height = 0;
+
                 if (data.Count() != 0)
                 {
                     MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -1067,6 +1085,9 @@
                 toLegend[i] = Convert.ToString(t);
                 i++;
             }
+
+            this.MainWindowView.Height = 0;
+
             if (data.Count() != 0)
             {
                 MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
