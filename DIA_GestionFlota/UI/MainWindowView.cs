@@ -1,3 +1,4 @@
+
 ﻿namespace DIA_GestionFlota
 {
     using System.Windows.Forms;
@@ -209,6 +210,7 @@
 
         private void BuildPanelListaTransporte()
         {
+
             panelListaTransporte = new Panel();
             panelListaTransporte.SuspendLayout();
             panelListaTransporte.Dock = DockStyle.Fill;
@@ -368,10 +370,12 @@
             panelListaTransporte.Controls.Add(this.grdListaTransporte);
             panelListaTransporte.ResumeLayout(false);
 
+
         }
 
         private void BuildPanelListaCliente()
         {
+
             panelListaCliente = new Panel();
             panelListaCliente.SuspendLayout();
             panelListaCliente.Dock = DockStyle.Fill;
@@ -475,20 +479,23 @@
                 HeaderText = "Direccion postal",
                 ReadOnly = true
             };
-            
+
 
             this.grdListaCliente.Columns.AddRange(new DataGridViewColumn[] {
                 column0, column1,column2,column3,column4,column5
             });
 
             this.panelListaCliente.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width;
-        
+
             panelListaCliente.Controls.Add(this.grdListaCliente);
+
             panelListaCliente.ResumeLayout(false);
+
         }
 
         private void BuildPanelListaFlota()
         {
+
             panelListaFlota = new Panel();
             panelListaFlota.SuspendLayout();
             panelListaFlota.Dock = DockStyle.Fill;
@@ -627,7 +634,6 @@
                 
             };
 
-
             this.grdListaFlota.Columns.AddRange(new DataGridViewColumn[] {
                 column0, column1,column2,column3,column4,column5,column6,column7,column8
             });
@@ -635,10 +641,44 @@
             this.panelListaFlota.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width;
 
             panelListaFlota.Controls.Add(this.grdListaFlota);
+
             panelListaFlota.ResumeLayout(false);
+
+            this.panelListaFlota.Width = column0.Width + column1.Width + column2.Width + column3.Width + column4.Width + column5.Width + column6.Width + column7.Width + column8.Width;
+
+        }
+        
+        public void BuildPanelGraficoGeneral()
+        {
+            panelGraficoGeneral = new Panel();
+            panelGraficoGeneral.SuspendLayout();
+            panelGraficoGeneral.Dock = DockStyle.Fill;
+
+            this.Chart = new Chart(width: CHART_CANVAS_SIZE,
+                                    height: CHART_CANVAS_SIZE)
+            {
+                Dock = DockStyle.Fill,
+            };
+
+            //Comprobar si es antes o después del ResumenLayout
+            this.MinimumSize = new Size(CHART_CANVAS_SIZE, CHART_CANVAS_SIZE);
+            this.Text = this.GetType().Name;
+            panelGraficoGeneral.Controls.Add(this.Chart); //Aquí añadir el gráfico a introducir
+            panelGraficoGeneral.ResumeLayout(false);
 
         }
 
+        public void setDataChart(string x, string y, int[] values)
+        {
+            this.Chart.LegendY = y;
+            this.Chart.LegendX = x;
+            this.Chart.Values = values;
+        }
+
+        public void setDataLegend(string[] a)
+        {
+            this.Chart.ValuesDraw = a;
+        }
 
         //Items del menú
         private MainMenu menuPrincipal;
@@ -685,5 +725,14 @@
         public ComboBox escogerBusquedaTrasnporte { get; set; }
         public ComboBox escogerBusquedaFlota { get; set; }
 
+
+        //Representación de gráficos
+        public const int CHART_CANVAS_SIZE = 624;
+        public Chart Chart { get; private set; }
+
+
+        //Paneles
+
+        public Panel panelGraficoGeneral;   //Gráficos
     }
-}
+}    

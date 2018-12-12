@@ -27,6 +27,8 @@ namespace DIA_GestionFlota
             this.DataFont = new Font(FontFamily.GenericMonospace, 12);
             this.LegendFont = new Font(FontFamily.GenericSansSerif, 12);
             this.LegendPen = new Pen(Color.Navy);
+            this.LegendDataFont = new Font(FontFamily.GenericSansSerif, 10);
+            this.LegendDataPen = new Pen(Color.Black);
 
             this.Build();
         }
@@ -42,6 +44,7 @@ namespace DIA_GestionFlota
             this.DrawAxis();
             this.DrawData();
             this.DrawLegends();
+            this.DrawData2();
         }
 
         private void DrawLegends()
@@ -66,7 +69,7 @@ namespace DIA_GestionFlota
                     this.LegendPen.Brush,
                     new Point(
                         (this.Width - legendXWidth) / 2,
-                        this.FramedEndPosition.Y + 5));
+                        this.FramedEndPosition.Y + 20));
 
             this.grf.DrawString(
                     this.LegendY,
@@ -107,6 +110,37 @@ namespace DIA_GestionFlota
                                      this.DataFont,
                                      this.DataPen.Brush,
                                      new Point(nextPoint.X - tagWidth,
+                                                nextPoint.Y));
+                p = nextPoint;
+            }
+        }
+
+        private void DrawData2()
+        {
+            int numValues = this.valuesDraw.Length;
+            var p = this.DataOrgPosition;
+            int xGap = this.GraphWidth / (numValues + 1);
+            int baseLine = this.FramedEndPosition.Y + 5;
+
+            for (int i = 0; i < numValues; ++i)
+            {
+                string tag = this.valuesDraw[i];
+                int tagWidth = (int)this.grf.MeasureString(
+                                                        tag,
+                                                        this.LegendDataFont).Width;
+                var nextPoint = new Point(
+                    p.X + xGap, baseLine
+                );
+
+                if (this.Type == ChartType.Bars)
+                {
+                    p = new Point(nextPoint.X, baseLine);
+                }
+
+                this.grf.DrawString(tag,
+                                     this.LegendDataFont,
+                                     this.LegendDataPen.Brush,
+                                     new Point(nextPoint.X - tagWidth + 10,
                                                 nextPoint.Y));
                 p = nextPoint;
             }
@@ -296,6 +330,24 @@ namespace DIA_GestionFlota
         }
 
         /// <summary>
+        /// Gets or sets the font for legends data.
+        /// </summary>
+        /// <value>The <see cref="Font"/> for legends.</value>
+        public Font LegendDataFont
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets the pen for legends data.
+        /// </summary>
+        /// <value>The <see cref="Pen"/> for legends.</value>
+        public Pen LegendDataPen
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets the type of the chart.
         /// </summary>
         /// <value>The <see cref="ChartType"/>.</value>
@@ -304,9 +356,21 @@ namespace DIA_GestionFlota
             get; set;
         }
 
+        public string[] ValuesDraw
+        {
+            get
+            {
+                return this.valuesDraw;
+            }
+            set
+            {
+                this.valuesDraw = value;
+            }
+        }
+
         private Graphics grf;
         private List<int> values;
 		private int[] normalizedData;
-      
+        public string[] valuesDraw;
     }
 }
