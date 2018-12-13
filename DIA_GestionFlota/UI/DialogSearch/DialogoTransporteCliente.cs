@@ -6,6 +6,8 @@
     using System.Drawing;
     using System.Windows.Forms;
     using System.Linq;
+    using GestionFlota.Core;
+
     class DialogoTransporteCliente : Form
     {
         public DialogoTransporteCliente()
@@ -63,7 +65,7 @@
             escogerCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> NIFs = new List<object>();
             
-            foreach(Cliente c in MainWindow.clientes)
+            foreach(Cliente c in MainWindow.RegClientes)
             {
                 NIFs.Add(c.Nif);
             }
@@ -113,11 +115,11 @@
             escogerAnho.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> anhos = new List<object>();
             anhos.Add("");
-            foreach (Transportes t in MainWindow.transportes)
+            foreach (Reservas t in MainWindow.RegReservas)
             {
-                if (!anhos.Contains(t.FechaEntrega.Year))
+                if (!anhos.Contains(t.Fentrega.Year))
                 {
-                    anhos.Add(t.FechaEntrega.Year);
+                    anhos.Add(t.Fentrega.Year);
                 }
             }
 

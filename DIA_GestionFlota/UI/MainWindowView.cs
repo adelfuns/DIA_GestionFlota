@@ -68,6 +68,8 @@
             this.menuArchivo = new MenuItem("&Archivo");
             this.menuEditar = new MenuItem("&Buscar");
 			this.menuGenerar = new MenuItem("&Generar");
+			this.menuClientes = new MenuItem("&Clientes");
+			this.menuReservas = new MenuItem("&Reservas");
             this.menuAtras = new MenuItem("&Atras");
 
             this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
@@ -117,11 +119,19 @@
             };
 
 
-			//Menú superior
-			this.menuArchivo.MenuItems.Add(this.operacionSalir);
+            //Operaciones clientes
+            this.operacionGestionarClientes = new MenuItem("&Gestion Clientes");
+
+            //Operaciones Reservas
+            this.operacionGestionarReservas = new MenuItem("&Gestion Reservas");
+
+            //Menú superior
+            this.menuArchivo.MenuItems.Add(this.operacionSalir);
             this.menuPrincipal.MenuItems.Add(this.menuArchivo);
             this.menuPrincipal.MenuItems.Add(this.menuEditar);
 			this.menuPrincipal.MenuItems.Add(this.menuGenerar);
+			this.menuPrincipal.MenuItems.Add(this.menuClientes);
+			this.menuPrincipal.MenuItems.Add(this.menuReservas);
             this.menuPrincipal.MenuItems.Add(this.menuAtras);
             this.Menu = menuPrincipal;
             //Submenú búsqueda
@@ -136,7 +146,10 @@
 			this.menuGenerar.MenuItems.Add(this.operacionActividadCliente);
 			this.menuGenerar.MenuItems.Add(this.operacionActividadCamion);
 			this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);
-            
+            //Submenú clientes
+            this.menuClientes.MenuItems.Add(this.operacionGestionarClientes);
+            //Submenú Reservas
+            this.menuReservas.MenuItems.Add(this.operacionGestionarReservas);
 
         }  
 
@@ -645,6 +658,8 @@
         private MenuItem menuArchivo;
         private MenuItem menuEditar;
 		private MenuItem menuGenerar;
+        private MenuItem menuClientes;
+        private MenuItem menuReservas;
         public MenuItem menuAtras;
 
         public Panel panelPrincipal { get; set; }
@@ -670,6 +685,11 @@
 		public MenuItem operacionActividadCamion { get; private set; }
 		public MenuItem operacionActividadComodidades { get; private set; }
 
+        //Operaciones clientes
+        public MenuItem operacionGestionarClientes { get; private set; }
+
+        // Operaciones Reservas
+        public MenuItem operacionGestionarReservas { get; private set; }
 
         public TextBox lTexto { get; private set; }
         public Panel panelListaTransporte;

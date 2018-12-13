@@ -7,35 +7,56 @@
     using System.Collections.Generic;
     using System.Text;
     using GestionFlotas.UI.DialogSearch;
+    using GestionFlota.Core;
+    using GestionFlota.UI;
+    using System.Text.RegularExpressions;
+    using GestionFlota;
+ 
 
     class MainWindow : Form
     {
         public MainWindow()
         {
+            //Console.WriteLine(DateTime.Now.ToString());
+
+            RegClientes = new RegistroClientes() ;
+            RegClientes = RegistroClientes.RecuperaXml();
+
+            RegReservas = new RegistroReservas(RegClientes);
+            RegReservas = RegistroReservas.RecuperaXml();
+
             this.MainWindowView = new MainWindowView();
+
+            //this.MainWindowViewClientes = new MainWindowViewClientes();
 
             Flota flota1 = new Flota(1.5, "AAA9999", "Mudanza", "opel", "modelo", "20", new DateTime(2000, 12, 12), new DateTime(1999, 12, 12), new string[] { "wifi", "musica" });
             Flota flota2 = new Flota(2, "AAA6666", "Transporte de mercancías", "opel2", "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica" });
             flotas = new List<Flota>();
             flotas.Add(flota1);
             flotas.Add(flota2);
-            Cliente cliente1 = new Cliente("6666666F", "Nombre", "telefono", "asdsa@asda", "323213");
-            Cliente cliente2 = new Cliente("6667776F", "Nombre2", "telefono2", "asdsa2@asda", "323213");
-            clientes = new List<Cliente>();
-            clientes.Add(cliente1);
-            clientes.Add(cliente2);
-            Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
-            Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
-            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 12, 22), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota2, cliente2, new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
 
-            transportes = new List<Transportes>();
-            transportes.Add(transportes1);
-            transportes.Add(transportes2);
-            transportes.Add(transportes3);
-            transportes.Add(transportes4);
+            // TODO: Eliminar cuando funcione bien el registroReservas
+            RegReservas[0].TipoTransporte = flota1;
+            RegReservas[1].TipoTransporte = flota1;
+            RegReservas[2].TipoTransporte = flota2;
+            //Cliente cliente1 = new Cliente("66666666F", "Nombre", "telefono", "asdsa@asda", "323213");
+            //Cliente cliente2 = new Cliente("66677766F", "Nombre2", "telefono2", "asdsa2@asda", "323213");
+            //clientes = new List<Cliente>();
+            //clientes.Add(cliente1);
+            //clientes.Add(cliente2);
 
-           
+            // Transportes transportes1 = new Transportes("6666AAA12121112", flota2, RegClientes[0], new DateTime(2017, 11, 06), "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
+            // Transportes transportes2 = new Transportes("6666AAA12121113", flota2, RegClientes[0], new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
+            // Transportes transportes3 = new Transportes("9999AAA12121114", flota2, RegClientes[0], new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 12, 22), "20", "50", 10);
+            // Transportes transportes4 = new Transportes("9999AAA12121115", flota2, RegClientes[1], new DateTime(2018, 11, 06), "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
+
+            //transportes = new List<Transportes>();
+            //transportes.Add(transportes1);
+            //transportes.Add(transportes2);
+            //transportes.Add(transportes3);
+            //transportes.Add(transportes4);
+
+            this.MainWindowView.FormClosed += (sender, e) => this.Salir();
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
             this.MainWindowView.menuAtras.Click += (sender, e) => this.mostrarTodosLosTransportes();
 
@@ -76,18 +97,54 @@
             this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion();
             this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades();
 
+            //Operaciones Clientes
+            this.MainWindowView.operacionGestionarClientes.Click += (sender, e) => this.ActividadGestionClientes();
+
+
+            //Operaciones Reservas
+            this.MainWindowView.operacionGestionarReservas.Click += (sender, e) => this.ActividadGestionReservas();
             //Operaciones graficos
             this.generalGraf = new GeneralChart();
 
         }
 
+        private void ActividadGestionClientes()
+        {
+            //Form clientes = new Form();
+
+            //clientes.AddOwnedForm(MainWindowViewClientes);
+
+            this.MainWindowViewClientes = new MainWindowViewClientes();
+
+            this.MainWindowViewClientes.CreateCliente.Click += (sender, e) => this.AddClient();
+            this.MainWindowViewClientes.RemoveCliente.Click += (sender, e) => this.RemoveClient();
+            this.MainWindowViewClientes.EditFindCliente.Click += (sender, e) => this.EditFindClient();
+            this.MainWindowViewClientes.EditCliente.Click += (sender, e) => this.EditClient();
+
+            Clear();
+            ActualizarLista();
+            //MainWindowViewClientes.Show();
+        }
+
+        private void ActividadGestionReservas()
+        {
+            this.MainWindowViewReservas = new MainWindowViewReservas();
+
+            this.MainWindowViewReservas.CreateReserva.Click += (sender, e) => this.Crear();
+            this.MainWindowViewReservas.RemoveReserva.Click += (sender, e) => this.RemoveReserv();
+            this.MainWindowViewReservas.EditFindReserva.Click += (sender, e) => this.EditFindReserv();
+            this.MainWindowViewReservas.EditReserva.Click += (sender, e) => this.EditReserv();
+
+            ClearReservas();
+            ActualizarListaReservas();
+        }
         public void mostrarTodosLosTransportes()
         {
-            var trans = new List<Transportes>(
-            from transporte in transportes
-            where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0
-            orderby transporte.IdTransporte
-            select transporte);
+            var trans = new List<Reservas>(
+            from Reservas in RegReservas
+            where DateTime.Compare(Reservas.Fentrega, DateTime.Today) >= 0
+            orderby Reservas.IdTransporte
+            select Reservas);
 
             ActualizaListaTransportes(trans);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -152,14 +209,14 @@
                 matricula = "";
             }
 
-            var transportesProximos = new List<Transportes>(
-            from transporte in transportes
-            where ( DateTime.Compare(transporte.FechaEntrega, DateTime.Today.AddDays(5)) <= 0
-                    && DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0)
-                    &&(matricula.Equals("") || (matricula.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3))
-                    && matricula.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4))))
-            orderby transporte.IdTransporte
-            select transporte);
+            var transportesProximos = new List<Reservas>(
+            from Reservas in RegReservas
+            where ( DateTime.Compare(Reservas.Fentrega, DateTime.Today.AddDays(5)) <= 0
+                    && DateTime.Compare(Reservas.Fentrega, DateTime.Today) >= 0)
+                    &&(matricula.Equals("") || (matricula.Substring(0, 3).Equals(Reservas.IdTransporte.Substring(4, 3))
+                    && matricula.Substring(3, 4).Equals(Reservas.IdTransporte.Substring(0, 4))))
+            orderby Reservas.IdTransporte
+            select Reservas);
 
             ActualizaListaTransportes(transportesProximos);
           
@@ -192,16 +249,16 @@
             }
           
             var transportesPosibles = new List<String>(
-                from transporte in transportes
-                where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) < 0
-                orderby transporte.IdTransporte
-                select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
+                from Reservas in RegReservas
+                where DateTime.Compare(Reservas.Fentrega, DateTime.Today) < 0
+                orderby Reservas.IdTransporte
+                select (Reservas.IdTransporte.Substring(4, 3) + Reservas.IdTransporte.Substring(0, 4)));
 
             var transportesOcupados = new List<String>(
-                from transporte in transportes
-                where DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0
-                orderby transporte.IdTransporte
-                select (transporte.IdTransporte.Substring(4, 3) + transporte.IdTransporte.Substring(0, 4)));
+                from Reservas in RegReservas
+                where DateTime.Compare(Reservas.Fentrega, DateTime.Today) >= 0
+                orderby Reservas.IdTransporte
+                select (Reservas.IdTransporte.Substring(4, 3) + Reservas.IdTransporte.Substring(0, 4)));
 
             var transportesLibres = transportesPosibles.Except(transportesOcupados);
 
@@ -242,16 +299,16 @@
             var nifClienteSeleccionado = this.dialogoTransporteCliente.Cliente;
             var periodoSeleccionado = this.dialogoTransporteCliente.Periodo;
             var anhosSeleccionado = this.dialogoTransporteCliente.Anho;
-            List<Transportes> transportesCliente;
+            List<Reservas> transportesCliente;
 
-            transportesCliente = new List<Transportes>(
-            from transporte in transportes
-            where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
-                            && ((DateTime.Compare(transporte.FechaEntrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados")
-                            || ( (DateTime.Compare(transporte.FechaSalida, DateTime.Today) <= 0
-                            && DateTime.Compare(transporte.FechaEntrega, DateTime.Today) >= 0 && !periodoSeleccionado.Equals("Transportes pasados"))))
-            orderby transporte.IdTransporte
-            select transporte);
+            transportesCliente = new List<Reservas>(
+            from reserva in RegReservas
+            where reserva.Cliente.Nif.Equals(nifClienteSeleccionado) && (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
+                            && ((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados")
+                            || ( (DateTime.Compare(reserva.Fsalida, DateTime.Today) <= 0
+                            && DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0 && !periodoSeleccionado.Equals("Transportes pasados"))))
+            orderby reserva.IdTransporte
+            select reserva);
 
             ActualizaListaTransportes(transportesCliente);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -284,16 +341,16 @@
                 flotamatriculaSeleccionada = "";
             }
 
-            var camiones = new List<Transportes>(
-                from trans in transportes
-                where  (anhosSeleccionado.Contains(trans.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals("")) &&(
-                   ((DateTime.Compare(trans.FechaEntrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))
-                    || ((DateTime.Compare(trans.FechaSalida, DateTime.Today) <= 0) && (DateTime.Compare(trans.FechaEntrega, DateTime.Today) >= 0) && (!periodoSeleccionado.Equals("Transportes pasados")))
+            var camiones = new List<Reservas>(
+                from reserva in RegReservas
+                where  (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals("")) &&(
+                   ((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))
+                    || ((DateTime.Compare(reserva.Fsalida, DateTime.Today) <= 0) && (DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0) && (!periodoSeleccionado.Equals("Transportes pasados")))
                     
-                    && (flotamatriculaSeleccionada.Equals("") || (flotamatriculaSeleccionada.Substring(0, 3).Equals(trans.IdTransporte.Substring(4, 3))
-                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(trans.IdTransporte.Substring(0, 4)))))
-                orderby trans.IdTransporte
-                select trans);
+                    && (flotamatriculaSeleccionada.Equals("") || (flotamatriculaSeleccionada.Substring(0, 3).Equals(reserva.IdTransporte.Substring(4, 3))
+                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(reserva.IdTransporte.Substring(0, 4)))))
+                orderby reserva.IdTransporte
+                select reserva);
 
             ActualizaListaTransportes(camiones);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
@@ -319,13 +376,13 @@
         {
             var anhosSeleccionado = this.dialogoDni.Anho;
 
-            var reservas = new List<Transportes>(
-            from transporte in transportes
-            where transporte.Cliente.Nif == this.dialogoDni.idDni && (anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
-            orderby transporte.IdTransporte
-            select transporte);
+            var Reservas = new List<Reservas>(
+            from reserva in RegReservas
+            where reserva.Cliente.Nif == this.dialogoDni.idDni && (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
+            orderby reserva.IdTransporte
+            select reserva);
 
-            ActualizaListaTransportes(reservas);
+            ActualizaListaTransportes(Reservas);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
@@ -349,13 +406,13 @@
         {
             var anhosSeleccionado = this.dialogoOcupacion.Anho;
 
-            var reservas = new List<Transportes>(
-            from transporte in transportes
-            where(anhosSeleccionado.Contains(transporte.FechaEntrega.Year.ToString()) || anhosSeleccionado.Equals(""))
-            orderby transporte.IdTransporte
-            select transporte);
+            var Reservas = new List<Reservas>(
+            from reserva in RegReservas
+            where(anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
+            orderby reserva.IdTransporte
+            select reserva);
 
-            ActualizaListaTransportes(reservas);
+            ActualizaListaTransportes(Reservas);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
@@ -372,13 +429,13 @@
         {
             var fechaSeleccionada = this.dialogoOcupacion.Fecha;
            
-            var reservas = new List<Transportes>(
-            from transporte in transportes
-            where (DateTime.Compare(transporte.FechaEntrega, fechaSeleccionada) < 0)    
-            orderby transporte.IdTransporte
-            select transporte);
+            var Reservas = new List<Reservas>(
+            from reserva in RegReservas
+            where (DateTime.Compare(reserva.Fentrega, fechaSeleccionada) < 0)    
+            orderby reserva.IdTransporte
+            select reserva);
 
-            ActualizaListaTransportes(reservas);
+            ActualizaListaTransportes(Reservas);
             MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
             MainWindowView.panelLista = MainWindowView.panelListaTransporte;
             MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
@@ -392,12 +449,12 @@
         }
         //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
 
-        private void ActualizaListaTransportes(List<Transportes> transportes)
+        private void ActualizaListaTransportes(List<Reservas> reservas)
         {
-            int numTransportes = transportes.Count;
+            int numTransportes = reservas.Count;
 
             int i = 0;
-            foreach(Transportes t in transportes)
+            foreach(Reservas t in reservas)
             {
                 if(MainWindowView.grdListaTransporte.Rows.Count <= i)
                 {
@@ -415,7 +472,7 @@
             }
         }
 
-        private void ActualizaFilaDeListaTransporte(int rowIndex,Transportes t)
+        private void ActualizaFilaDeListaTransporte(int rowIndex,Reservas r)
         {
             if (rowIndex < 0
               || rowIndex > MainWindowView.grdListaTransporte.Rows.Count)
@@ -426,15 +483,18 @@
 
             DataGridViewRow row = MainWindowView.grdListaTransporte.Rows[rowIndex];
             row.Cells[ColNum].Value = (rowIndex + 1).ToString().PadLeft(4, ' ');
-            row.Cells[IdTransporte].Value = t.IdTransporte;
-            row.Cells[Clien].Value = t.Cliente.Nombre;
-            row.Cells[FechaDeContratación].Value = t.FechaContratacion;
-            row.Cells[KilómetrosRecorridos].Value = t.KmRecorridos;
-            row.Cells[FechaDeSalida].Value = t.FechaSalida;
-            row.Cells[FechaDeEntrega].Value = t.FechaEntrega;
-            row.Cells[ImportePorDia].Value = t.ImportePorDia;
-            row.Cells[ImportePorKilometro].Value = t.ImportePorKilometro;
-            row.Cells[IVAAplicado].Value = t.IvaAplicado;
+            row.Cells[IdTransporte].Value = r.IdTransporte;
+            row.Cells[Clien].Value = r.Cliente.Nombre;
+            row.Cells[FechaDeContratación].Value = r.FechaContratacion;
+            row.Cells[KilómetrosRecorridos].Value = r.kmRecorridos;
+            row.Cells[FechaDeSalida].Value = r.Fsalida;
+            row.Cells[FechaDeEntrega].Value = r.Fentrega;
+            row.Cells[ImportePorDia].Value = r.ImporteDia;
+            row.Cells[ImportePorKilometro].Value = r.ImporteKm;
+            row.Cells[IVAAplicado].Value = r.IVA;
+            row.Cells[IVAAplicado].Value = r.Gas;
+            row.Cells[IVAAplicado].Value = r.Suplencia;
+            row.Cells[IVAAplicado].Value = r.PrecioFactura;
            
         }
 
@@ -533,11 +593,11 @@
         {
             StringBuilder toret = new StringBuilder();
 
-            var dataList = new List<Transportes>(
-                from transporte in transportes
-                where (transporte.FechaContratacion.Month == mes)
-                orderby transporte.FechaEntrega
-                select transporte);
+            var dataList = new List<Reservas>(
+                from reserva in RegReservas
+                where (reserva.FechaContratacion.Month == mes)
+                orderby reserva.Fentrega
+                select reserva);
 
             this.MainWindowView.lTexto.Text = dataList.Count.ToString();
             return dataList.Count;
@@ -562,18 +622,517 @@
 
         }
 
+        //Metodos Gestion Clientes
+        private void RemoveClient()
+        {
+            RegClientes.RemoveAt(MainWindowViewClientes.evt.RowIndex);
+            ActualizarLista();
+        }
+
+        private void EditFindClient()
+        {
+            try
+            {
+                Cliente c = RegClientes[MainWindowViewClientes.evt.RowIndex];
+
+                MainWindowViewClientes.EdNif.Text = c.Nif;
+                MainWindowViewClientes.EdNif.ReadOnly = true;
+                MainWindowViewClientes.EdName.Text = c.Nombre;
+                MainWindowViewClientes.EdTlf.Text = c.Telefono;
+                MainWindowViewClientes.EdMail.Text = c.Email;
+                MainWindowViewClientes.EdDirec.Text = c.DireccionPostal;
+
+                MainWindowViewClientes.EditCliente.Enabled = true;
+                MainWindowViewClientes.CreateCliente.Enabled = false;
+                MainWindowViewClientes.lblCliente.Text = "Editar Cliente";
+            }
+            catch
+            {
+                Error("Error recuperando cliente");
+            }
+        }
+
+        private void EditClient()
+        {
+            TextBox edNif = MainWindowViewClientes.EdNif;
+            TextBox edName = MainWindowViewClientes.EdName;
+            TextBox edTlf = MainWindowViewClientes.EdTlf;
+            TextBox edMail = MainWindowViewClientes.EdMail;
+            TextBox edDirec = MainWindowViewClientes.EdDirec;
+
+            string nif, name, mail, direc, tlf;
+
+            try
+            {
+                name = Convert.ToString(edName.Text);
+                nif = Convert.ToString(edNif.Text);
+                mail = Convert.ToString(edMail.Text);
+                direc = Convert.ToString(edDirec.Text);
+                tlf = Convert.ToString(edTlf.Text);
+
+                if (Regex.IsMatch(nif, "[0-9]{8,8}[A-Za-z]{1}") && nif.Length == 9 && Regex.IsMatch(tlf, "[0-9]{9}") && tlf.Length == 9)
+                {
+                    if (name.Length > 0 && mail.Length > 0 && direc.Length > 0)
+                    {
+                        Cliente c = new Cliente(nif, name, tlf, mail, direc);
+                        RegClientes.Edit(c);
+                        //ActualizarLista();
+                        Clear();
+                    }
+                    else
+                    {
+                        throw new ArgumentException();
+                    }
+                }
+                else
+                {
+                    throw new FormatException();
+                }
+            }
+            catch (ArgumentException)
+            {
+                Error("Error en datos introducidos");
+            }
+            catch (FormatException)
+            {
+                Error("Error, Nif o Télefono con formato incorrecto");
+            }
+            catch
+            {
+                Error("Error al crear nuevo cliente");
+            }
+            finally
+            {
+                MainWindowViewClientes.lblCliente.Text = "Nuevo Cliente";
+                ActualizarLista();
+            }
+        }
+
+        private void ActualizarLista()
+        {
+            MainWindowViewClientes.grdEventsList.Rows.Clear();
+            foreach (var cliente in RegClientes)
+            {
+                AddTableEventsListRowWithEvent(cliente);
+            }
+
+        }
+
+        private void AddTableEventsListRowWithEvent(Cliente cliente)
+        {
+            var columnData = new List<object>();
+
+            // Add the row with the event's data
+            columnData.Add(cliente.Nif);
+            columnData.Add(cliente.Nombre);
+            columnData.Add(cliente.Telefono);
+            columnData.Add(cliente.DireccionPostal);
+            columnData.Add(cliente.Email);
+
+            MainWindowViewClientes.grdEventsList.Rows.Add(columnData.ToArray());
+        }
+
+        private void AddClient()
+        {
+            TextBox edNif = MainWindowViewClientes.EdNif;
+            TextBox edName = MainWindowViewClientes.EdName;
+            TextBox edTlf = MainWindowViewClientes.EdTlf;
+            TextBox edMail = MainWindowViewClientes.EdMail;
+            TextBox edDirec = MainWindowViewClientes.EdDirec;
+
+            string nif, name, mail, direc, tlf;
+
+            try
+            {
+                name = Convert.ToString(edName.Text);
+                nif = Convert.ToString(edNif.Text);
+                mail = Convert.ToString(edMail.Text);
+                direc = Convert.ToString(edDirec.Text);
+                tlf = Convert.ToString(edTlf.Text);
+
+                if (Regex.IsMatch(nif, "[0-9]{8,8}[A-Za-z]{1}") && nif.Length == 9 && Regex.IsMatch(tlf, "[0-9]{9}") && tlf.Length == 9)
+                {
+                    if (RegClientes.IsNifUnique(nif))
+                    {
+                        if (name.Length > 0 && mail.Length > 0 && direc.Length > 0)
+                        {
+                            Cliente c = new Cliente(nif, name, tlf, mail, direc);
+                            RegClientes.Add(c);
+                            //Listar();
+                            ActualizarLista();
+                            Clear();
+                        }
+                        else
+                        {
+                            throw new ArgumentException();
+                        }
+                    }
+                    else
+                    {
+                        throw new FormatException();
+                    }
+                }
+                else
+                {
+                    Error("Error, Nif o Télefono con formato incorrecto");
+                }
+            }
+            catch (ArgumentException)
+            {
+                Error("Error en datos introducidos");
+            }
+            catch (FormatException)
+            {
+                Error("Error, Nif repetido");
+            }
+            catch
+            {
+                Error("Error al crear nuevo cliente");
+            }
+
+        }
+
+        private void Clear()
+        {
+            MainWindowViewClientes.EdNif.Text = "";
+            MainWindowViewClientes.EdName.Text = "";
+            MainWindowViewClientes.EdTlf.Text = "";
+            MainWindowViewClientes.EdMail.Text = "";
+            MainWindowViewClientes.EdDirec.Text = "";
+            //MainWindowView.EdNifRemove.Text = "";
+            //MainWindowView.EdNifEdit.Text = "";
+
+            MainWindowViewClientes.EdNif.ReadOnly = false;
+            MainWindowViewClientes.EditCliente.Enabled = false;
+            MainWindowViewClientes.CreateCliente.Enabled = true;
+        }
+
+        private void Listar()
+        {
+            StringBuilder toret = new StringBuilder();
+
+            foreach (Cliente c in RegClientes)
+            {
+                toret.Append(c.ToString());
+                toret.Append("\n");
+            }
+            toret.Replace("\n", Environment.NewLine);
+
+            MainWindowViewClientes.EdClientes.Text = toret.ToString();
+        }
+
+        private void Error(String msg)
+        {
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+
+            this.MainWindowViewClientes.EdMsg.Text = "ERROR: " + msg;
+
+            t.Interval = 5000;
+            t.Tick += new EventHandler(timer_Tick);
+            t.Start();
+
+            void timer_Tick(object sender, EventArgs e)
+            {
+                MainWindowViewClientes.EdMsg.Text = "";
+                t.Stop();
+            }
+
+        }
+
+
+        // Metodos Gestion Reservas
+        private void RemoveReserv()
+        {
+            RegReservas.RemoveAt(MainWindowViewReservas.evt.RowIndex);
+            ActualizarListaReservas();
+        }
+        public void Crear()
+        {
+
+            TextBox edIdtrans = MainWindowViewReservas.tbIdTransp;
+            TextBox edCliente = MainWindowViewReservas.tbCliente;
+            TextBox edTipoTransp = MainWindowViewReservas.tbTipoTrans;
+            TextBox edFcontra = MainWindowViewReservas.tbFcontra;
+            TextBox edFsalida = MainWindowViewReservas.tbFsalida;
+            TextBox edFentrega = MainWindowViewReservas.tbFentrega;
+            TextBox edEdia = MainWindowViewReservas.tbEDia;
+            TextBox edEkm = MainWindowViewReservas.tbEkm;
+            TextBox edKmRecorridos = MainWindowViewReservas.tbKmRecorridos;
+            TextBox edIVA = MainWindowViewReservas.tbIVA;
+            TextBox edGas = MainWindowViewReservas.tbGas;
+            TextBox edSuplencia = MainWindowViewReservas.tbSuplencia;
+
+
+
+            string idTrans;
+            Cliente cliente;
+            Flota tipoTransp;
+            DateTime fcontra, fsalida, fentrega;
+            double edia, ekm, iva, kmRecorridos, gas, suplencia;
+
+            try
+            {
+                cliente = RegClientes.FindByNif(Convert.ToString(edCliente.Text));
+                idTrans = Convert.ToString(edIdtrans.Text);
+                // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
+                //tipoTransp = Convert.ToString(edTipoTransp.Text);
+                fcontra = Convert.ToDateTime(edFcontra.Text);
+                fsalida = Convert.ToDateTime(edFsalida.Text);
+                fentrega = Convert.ToDateTime(edFentrega.Text);
+                edia = Convert.ToDouble(edEdia.Text);
+                ekm = Convert.ToDouble(edEkm.Text);
+                kmRecorridos = Convert.ToDouble(edKmRecorridos.Text);
+                iva = Convert.ToDouble(edIVA.Text);
+                gas = Convert.ToDouble(edGas.Text);
+                suplencia = Convert.ToDouble(edSuplencia.Text);
+
+
+                if (RegReservas.IsIDTranspUnique(idTrans))
+                {
+                    if (idTrans.Length > 0)
+                    {
+                        Reservas r = new Factura(idTrans, cliente, new Flota(2.1,null,null,null,null,null, new DateTime(), new DateTime(),null), fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, gas, iva, suplencia);
+                        RegReservas.Add(r);
+                        ActualizarLista();
+                        ClearReservas();
+                    }
+                    else
+                    {
+                        throw new ArgumentException();
+                    }
+                }
+
+                else
+                {
+                    ErrorReserva("IdTransporte con formato incorrecto");
+                }
+            }
+            catch (ArgumentException)
+            {
+                ErrorReserva("Error en datos introducidos");
+            }
+            catch (FormatException)
+            {
+                throw new FormatException();
+            }
+            catch
+            {
+                ErrorReserva("Error al crear una nueva reserva");
+            }
+
+        }
+
+        private void EditFindReserv()
+        {
+            try
+            {
+                Reservas r = RegReservas[MainWindowViewReservas.evt.RowIndex];
+                MainWindowViewReservas.tbIdTransp.Text = r.IdTransporte;
+                MainWindowViewReservas.tbIdTransp.ReadOnly = true;
+                MainWindowViewReservas.tbCliente.Text = r.Cliente.Nif;
+                MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte.Tipo;
+                MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.ToString();
+                MainWindowViewReservas.tbFsalida.Text = r.Fsalida.ToString();
+                MainWindowViewReservas.tbFentrega.Text = r.Fentrega.ToString();
+                MainWindowViewReservas.tbEDia.Text = r.ImporteDia.ToString();
+                MainWindowViewReservas.tbEkm.Text = r.ImporteKm.ToString();
+                MainWindowViewReservas.tbKmRecorridos.Text = r.kmRecorridos.ToString();
+                MainWindowViewReservas.tbGas.Text = r.Gas.ToString();
+                MainWindowViewReservas.tbIVA.Text = r.IVA.ToString();
+                MainWindowViewReservas.tbSuplencia.Text = r.Suplencia.ToString();
+
+
+
+                MainWindowViewReservas.EditReserva.Enabled = true;
+                MainWindowViewReservas.CreateReserva.Enabled = false;
+            }
+            catch
+            {
+                ErrorReserva("Error recuperando reserva");
+            }
+        }
+
+        private void EditReserv()
+        {
+            TextBox EdIdTransp = MainWindowViewReservas.tbIdTransp;
+            TextBox EdCliente = MainWindowViewReservas.tbCliente;
+            TextBox EdTipoTransp = MainWindowViewReservas.tbTipoTrans;
+            TextBox EdFcontra = MainWindowViewReservas.tbFcontra;
+            TextBox EdFsalida = MainWindowViewReservas.tbFsalida;
+            TextBox EdFentrega = MainWindowViewReservas.tbFentrega;
+            TextBox EdEdia = MainWindowViewReservas.tbEDia;
+            TextBox EdEkm = MainWindowViewReservas.tbEkm;
+            TextBox EdKmRecorridos = MainWindowViewReservas.tbKmRecorridos;
+            TextBox EdIVA = MainWindowViewReservas.tbIVA;
+            TextBox EdGas = MainWindowViewReservas.tbGas;
+            TextBox EdSuplencia = MainWindowViewReservas.tbSuplencia;
+            TextBox EdPrecioFactura = MainWindowViewReservas.tbPrecioFactura;
+
+            string idTransp;
+            Cliente Cliente;
+            Flota tipoTransp;
+            DateTime Fcontra, Fsalida, Fentrega;
+            double ImporteDia, ImporteKm, kmRecorridos,
+                IVA, Gas, Suplencia;
+
+            try
+            {
+
+                Cliente = RegClientes.FindByNif(Convert.ToString(EdCliente.Text));
+                idTransp = Convert.ToString(EdIdTransp.Text);
+                // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
+                //tipoTransp = Convert.ToString(EdTipoTransp.Text);
+                Fcontra = Convert.ToDateTime(EdFcontra.Text);
+                Fsalida = Convert.ToDateTime(EdFsalida.Text);
+                Fentrega = Convert.ToDateTime(EdFentrega.Text);
+                ImporteDia = Convert.ToDouble(EdEdia.Text);
+                ImporteKm = Convert.ToDouble(EdEkm.Text);
+                kmRecorridos = Convert.ToDouble(EdKmRecorridos.Text);
+                IVA = Convert.ToDouble(EdIVA.Text);
+                Gas = Convert.ToDouble(EdGas.Text);
+                Suplencia = Convert.ToDouble(EdSuplencia.Text);
+               // PrecioFactura = Convert.ToDouble(reservas.PrecioFactura);
+
+
+                if (idTransp.Length > 0)
+                {
+                    Reservas r = new Factura(idTransp, Cliente, new Flota(2.1, null, null, null, null, null, new DateTime(), new DateTime(), null), Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
+                        kmRecorridos, IVA, Gas, Suplencia);
+                    RegReservas.Edit(r);
+                    ActualizarListaReservas();
+                    ClearReservas();
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+
+            }
+            catch (ArgumentException)
+            {
+                ErrorReserva("Error en datos introducidos");
+            }
+
+            catch
+            {
+                ErrorReserva("Error al crear una reserva nueva");
+            }
+            finally
+            {
+                ActualizarLista();
+            }
+        }
+
+        public void ActualizarListaReservas()
+        {
+            MainWindowViewReservas.grdEventsList.Rows.Clear();
+            foreach (var reserva in RegReservas)
+            {
+                AddTableEventsListRowWithEvent(reserva);
+            }
+
+        }
+
+        private void AddTableEventsListRowWithEvent(Reservas reserva)
+        {
+            var columnData = new List<object>();
+
+            // Add the row with the event's data
+            columnData.Add(reserva.IdTransporte);
+            columnData.Add(reserva.Cliente);
+            columnData.Add(reserva.TipoTransporte);
+            columnData.Add(reserva.FechaContratacion);
+            columnData.Add(reserva.Fsalida);
+            columnData.Add(reserva.Fentrega);
+            columnData.Add(reserva.ImporteDia);
+            columnData.Add(reserva.ImporteKm);
+            columnData.Add(reserva.kmRecorridos);
+            columnData.Add(reserva.IVA);
+            columnData.Add(reserva.Gas);
+            columnData.Add(reserva.Suplencia);
+            columnData.Add(reserva.PrecioFactura);
+
+            MainWindowViewReservas.grdEventsList.Rows.Add(columnData.ToArray());
+        }
+
+
+        public void ClearReservas()
+        {
+            MainWindowViewReservas.tbIdTransp.Text = "";
+            MainWindowViewReservas.tbCliente.Text = "";
+            MainWindowViewReservas.tbTipoTrans.Text = "";
+            MainWindowViewReservas.tbFcontra.Text = "";
+            MainWindowViewReservas.tbFsalida.Text = "";
+            MainWindowViewReservas.tbFentrega.Text = "";
+            MainWindowViewReservas.tbEDia.Text = "";
+            MainWindowViewReservas.tbEkm.Text = "";
+            MainWindowViewReservas.tbKmRecorridos.Text = "";
+            MainWindowViewReservas.tbIVA.Text = "";
+            MainWindowViewReservas.tbGas.Text = "";
+            MainWindowViewReservas.tbSuplencia.Text = "";
+            //MainWindowView.edPrecioFactura.Text = "";
+
+
+            MainWindowViewReservas.tbIdTransp.ReadOnly = false;
+            MainWindowViewReservas.EditReserva.Enabled = false;
+            MainWindowViewReservas.CreateReserva.Enabled = true;
+        }
+
+        private void ListarReservas()
+        {
+            StringBuilder toret = new StringBuilder();
+
+            foreach (Reservas r in RegReservas)
+            {
+                toret.Append(r.ToString());
+                toret.Append("\n");
+            }
+            toret.Replace("\n", Environment.NewLine);
+
+            MainWindowViewReservas.tbReservas.Text = toret.ToString();
+        }
+
+        private void ErrorReserva(String msg)
+        {
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+
+            this.MainWindowViewReservas.EdMsg.Text = "ERROR: " + msg;
+
+            t.Interval = 5000;
+            t.Tick += new EventHandler(timer_Tick);
+            t.Start();
+
+            void timer_Tick(object sender, EventArgs e)
+            {
+                MainWindowViewClientes.EdMsg.Text = "";
+                t.Stop();
+            }
+
+        }
+
+
+
         //Operacion salir
         void Salir()
         {
+            RegClientes.GuardaXml();
+            RegReservas.GuardaXml();
             Application.Exit();
         }
 
         public MainWindowView MainWindowView { get; private set; }
-       
-        public static List<Transportes> transportes;
+        public MainWindowViewClientes MainWindowViewClientes { get; private set; }
+        public MainWindowViewReservas MainWindowViewReservas { get; private set; }
+
+        //public static List<Reservas> reservas;
         public static List<Flota> flotas;
-        public static List<Cliente> clientes;
-        
+        //public static List<Cliente> clientes;
+
+        public static RegistroClientes RegClientes { get; private set; }
+
+        public static RegistroReservas RegReservas { get; private set; }
+
+
         //Busqueda
         public DialogoTransportesPendientes dialogoTransportesPendientes { get; private set; }
         public DialogoDniCliente dialogoDni { get; private set; }
@@ -581,8 +1140,8 @@
         public DialogoTransporteCliente dialogoTransporteCliente { get; private set; }
         public DialogoReservasCamion dialogoReservasCamion { get; private set; }
         public DialogoOcupacion dialogoOcupacion { get; private set; }
+        
 
-       
         public const int ColNum = 0;
 
         public const int IdTransporte = 1;

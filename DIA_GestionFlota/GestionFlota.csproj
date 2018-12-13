@@ -45,8 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Cliente.cs" />
+    <Compile Include="Core\Factura.cs" />
     <Compile Include="Core\Flota.cs" />
-    <Compile Include="Core\Transportes.cs" />
+    <Compile Include="Core\RegistroClientes.cs" />
+    <Compile Include="Core\RegistroReservas.cs" />
+    <Compile Include="Core\Reservas.cs" />
     <Compile Include="UI\DialogSearch\DialogoCamiones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +69,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\MainWindowView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainWindowViewClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainWindowViewReservas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Program.cs" />

@@ -4,7 +4,7 @@ namespace DIA_GestionFlota
     using System;
     using System.Text;
 
-    class Flota
+    public class Flota
     {
         public Flota(double Carga, string Matricula, string Tipo, 
             string Marca, string Modelo, string ConsumoKm,

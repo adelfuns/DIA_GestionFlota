@@ -1,9 +1,10 @@
 namespace DIA_GestionFlota
 {
-	/// <summary>
+    using GestionFlota.Core;
+    /// <summary>
     /// Ppal.
     /// </summary>
-	using System.Windows.Forms;
+    using System.Windows.Forms;
     public static class Ppal
     {
 		/// <summary>

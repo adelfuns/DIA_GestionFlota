@@ -2,7 +2,8 @@
 namespace GestionFlotas.UI.DialogSearch
     {
         using DIA_GestionFlota;
-        using System.Collections.Generic;
+    using GestionFlota.Core;
+    using System.Collections.Generic;
         using System.Drawing;
         using System.Linq;
         using System.Windows.Forms;
@@ -108,11 +109,11 @@ namespace GestionFlotas.UI.DialogSearch
             escogerAnho.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> anhos = new List<object>();
             anhos.Add("");
-            foreach (Transportes t in MainWindow.transportes)
+            foreach (Reservas t in MainWindow.RegReservas)
             {
-                if (!anhos.Contains(t.FechaEntrega.Year))
+                if (!anhos.Contains(t.Fentrega.Year))
                 {
-                    anhos.Add(t.FechaEntrega.Year);
+                    anhos.Add(t.Fentrega.Year);
                 }
             }
 
