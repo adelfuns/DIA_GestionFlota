@@ -26,7 +26,7 @@
             Flota flota2 = new Flota(2, "AAA6666", "Transporte de mercancías", "opel2",
                                  "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
 
-            Flota flota3 = new Flota(2, "AAA1111", "Transporte de mercancías", "opel5",
+            Flota flota3 = new Flota(2, "AAA2201", "Transporte de mercancías", "opel5",
                                  "modelo", "23", new DateTime(2013, 10, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "aire acondicionado" });
             Flota flota4 = new Flota(2, "AAA2222", "Transporte de mercancías", "opel3",
                                  "modelo", "23", new DateTime(2013, 11, 10), new DateTime(2000, 10, 11), new string[] { "wifi", "musica", "tv" });
@@ -68,25 +68,25 @@
             clientes.Add(cliente6);
             
             //Transportes
-            Transportes transportes1 = new Transportes("6666AAA12121112", flota2, cliente1, new DateTime(2017, 11, 06),
+            Transportes transportes1 = new Transportes("6666AAA12122202", flota2, cliente1, new DateTime(2017, 11, 06),
                                              "12", new DateTime(2017, 11, 07), new DateTime(2017, 11, 12), "20", "50", 10);
-            Transportes transportes2 = new Transportes("6666AAA12121113", flota2, cliente1, new DateTime(2018, 11, 06),
+            Transportes transportes2 = new Transportes("6666AAA12122203", flota2, cliente1, new DateTime(2018, 11, 06),
                                              "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 23), "20", "50", 10);
-            Transportes transportes3 = new Transportes("9999AAA12121114", flota2, cliente1, new DateTime(2018, 11, 06),
+            Transportes transportes3 = new Transportes("9999AAA12122204", flota2, cliente1, new DateTime(2018, 11, 06),
                                              "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 22), "20", "50", 10);
-            Transportes transportes4 = new Transportes("9999AAA12121115", flota2, cliente2, new DateTime(2018, 11, 06),
+            Transportes transportes4 = new Transportes("9999AAA12122205", flota2, cliente2, new DateTime(2018, 11, 06),
                                              "12", new DateTime(2018, 11, 07), new DateTime(2018, 11, 21), "20", "50", 10);
 
             Transportes transportes5 = new Transportes("6666AAA34534623", flota1, cliente3, new DateTime(2014, 08, 07),
                                            "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 12), "20", "50", 10);
             Transportes transportes6 = new Transportes("6666AAA13263263", flota1, cliente3, new DateTime(2014, 08, 07),
                                              "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 23), "20", "50", 10);
-            Transportes transportes7 = new Transportes("9999AAA11111234", flota3, cliente3, new DateTime(2014, 08, 07),
+            Transportes transportes7 = new Transportes("9999AAA22011234", flota3, cliente3, new DateTime(2014, 08, 07),
                                              "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 22), "20", "50", 10);
             Transportes transportes8 = new Transportes("9999AAA12123455", flota4, cliente3, new DateTime(2014, 08, 07),
                                              "12", new DateTime(2014, 08, 07), new DateTime(2014, 10, 21), "20", "50", 10);
 
-            Transportes transportes9 = new Transportes("6666AAA13321112", flota5, cliente3, new DateTime(2015, 01, 07),
+            Transportes transportes9 = new Transportes("6666AAA13322202", flota5, cliente3, new DateTime(2015, 01, 07),
                                            "12", new DateTime(2015, 01, 07), new DateTime(2015, 05, 12), "20", "50", 10);
             Transportes transportes10 = new Transportes("6666AAA1334113", flota5, cliente4, new DateTime(2015, 02, 07),
                                              "12", new DateTime(2015, 02, 07), new DateTime(2015, 05, 23), "20", "50", 10);
@@ -125,7 +125,10 @@
             /** FIN CREACION DE LOS OBJETOS **/
             /** *************************** **/
 
-           
+            /** ***************** **/
+            /** MANEJO DE EVENTOS **/
+            /** ***************** **/
+
             this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
             this.MainWindowView.menuAtras.Click += (sender, e) => this.mostrarTodosLosTransportes();
 
@@ -144,48 +147,47 @@
             this.dialogoGraficoCamion = new DialogoGraficoCamion();
             this.dialogoGraficoComodidades = new DialogoGraficoComodidades();
 
-            //Menu de la MainWindowView
-            this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir();
-            this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes();
-            this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad();
-            this.MainWindowView.operacionSearch3.Click += (sender, e) => this.transportesPorCliente();
-            this.MainWindowView.operacionSearch4.Click += (sender, e) => this.reservasPorCamion();
-            this.MainWindowView.operacionSearch5.Click += (sender, e) => this.reservasPorCliente();
-            this.MainWindowView.operacionSearch6.Click += (sender, e) => this.ocupacion();
-            //---------//
-            this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral();
-            this.MainWindowView.operacionActividadCliente.Click += (sender, e) => this.ActividadCliente();
-            this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion();
-            this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades();
+            //Menu de la MainWindowView//
+            this.MainWindowView.operacionSalir.Click += (sender, e) => this.Salir(); //Búsqueda
+            this.MainWindowView.operacionSearch1.Click += (sender, e) => this.transportePendientes(); //Búsqueda
+            this.MainWindowView.operacionSearch2.Click += (sender, e) => this.disponibilidad(); //Búsqueda
+            this.MainWindowView.operacionSearch3.Click += (sender, e) => this.transportesPorCliente(); //Búsqueda
+            this.MainWindowView.operacionSearch4.Click += (sender, e) => this.reservasPorCamion(); //Búsqueda
+            this.MainWindowView.operacionSearch5.Click += (sender, e) => this.reservasPorCliente(); //Búsqueda
+            this.MainWindowView.operacionSearch6.Click += (sender, e) => this.ocupacion(); //Búsqueda
+            this.MainWindowView.operacionActividadGeneral.Click += (sender, e) => this.ActividadGeneral(); //Grafico
+            this.MainWindowView.operacionActividadCliente.Click += (sender, e) => this.ActividadCliente(); //Grafico
+            this.MainWindowView.operacionActividadCamion.Click += (sender, e) => this.ActividadCamion(); //Grafico
+            this.MainWindowView.operacionActividadComodidades.Click += (sender, e) => this.ActividadComodidades(); //Grafico
+            this.MainWindowView.btSearchTransporte.Click += (sender, e) => this.botonBusquedaTrasnporte(); //No se que son estos
+            this.MainWindowView.btSearchFlota.Click += (sender, e) => this.botonBusquedaFlota(); //No se que son estos
 
-            this.MainWindowView.btSearchTransporte.Click += (sender, e) => this.botonBusquedaTrasnporte();
-            this.MainWindowView.btSearchFlota.Click += (sender, e) => this.botonBusquedaFlota();
+            //Dialogos//
+            this.dialogoTransportesPendientes.btSearchCamiones.Click += (sender, e) => this.DTPSearch(); //Búsqueda
+            this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch(); //Búsqueda
+            this.dialogoTransporteCliente.btSearchTransporteCliente.Click += (sender, e) => this.DTCSearch(); //Búsqueda
+            this.dialogoReservasCamion.btSearchCamiones.Click += (sender, e) => this.DRCSearch(); //Búsqueda
+            this.dialogoDni.btSearchCliente.Click += (sender, e) => this.RPCSearch(); //Búsqueda
+            this.dialogoOcupacion.btSearchOcupacionAnho.Click += (sender, e) => this.OASearch(); //Búsqueda
+            this.dialogoOcupacion.calendar.DateSelected += (sender, e) => this.OFSearch(); //Búsqueda
+            this.dialogoGraficoGeneral.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadGeneralAnual(); //Grafico
+            this.dialogoGraficoGeneral.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadGeneralTotal(); //Grafico
+            this.dialogoGraficoCliente.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadClienteAnual(); //Grafico
+            this.dialogoGraficoCliente.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadClienteTotal(); //Grafico
+            this.dialogoGraficoCamion.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadCamionAnual(); //Grafico
+            this.dialogoGraficoCamion.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadCamionTotal(); //Grafico
+            this.dialogoGraficoComodidades.btGraficoGeneralAnual.Click += (sender, e) => this.FlotaComodidadesAnual(); //Grafico
+            this.dialogoGraficoComodidades.btGraficoGeneralTotal.Click += (sender, e) => this.FlotaComodidadesTotal(); //Grafico
 
-            //Dialogos
-            this.dialogoTransportesPendientes.btSearchCamiones.Click += (sender, e) => this.DTPSearch();
-            this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
-            this.dialogoTransporteCliente.btSearchTransporteCliente.Click += (sender, e) => this.DTCSearch();
-            this.dialogoReservasCamion.btSearchCamiones.Click += (sender, e) => this.DRCSearch();
-            this.dialogoDni.btSearchCliente.Click += (sender, e) => this.RPCSearch();
-            this.dialogoOcupacion.btSearchOcupacionAnho.Click += (sender, e) => this.OASearch();
-            this.dialogoOcupacion.calendar.DateSelected += (sender, e) => this.OFSearch();
-            //---------//
-            this.dialogoGraficoGeneral.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadGeneralAnual();
-            this.dialogoGraficoGeneral.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadGeneralTotal();
-            this.dialogoGraficoCliente.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadClienteAnual();
-            this.dialogoGraficoCliente.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadClienteTotal();
-            this.dialogoGraficoCamion.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadCamionAnual();
-            this.dialogoGraficoCamion.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadCamionTotal();
-            this.dialogoGraficoComodidades.btGraficoGeneralAnual.Click += (sender, e) => this.FlotaComodidadesAnual();
-            this.dialogoGraficoComodidades.btGraficoGeneralTotal.Click += (sender, e) => this.FlotaComodidadesTotal();
+            /** ********************* **/
+            /** FIN MANEJO DE EVENTOS **/
+            /** ********************* **/
 
         }
 
         /** ******** **/
         /** BÚSQUEDA **/
         /** ******** **/
-
-        
 
         public void mostrarTodosLosTransportes()
         {
@@ -636,32 +638,30 @@
         /** FIN BÚSQUEDA **/
         /** ************ **/
 
-
-        /* Métodos de gráficos */
-
-        //Diálogos
+        /** ******** **/
+        /** GRÁFICOS **/
+        /** ******** **/
+       
+        //Diálogos//
         private void ActividadGeneral()
         {
             this.dialogoGraficoGeneral.ShowDialog();
         }
-
         private void ActividadCliente()
         {
             this.dialogoGraficoCliente.ShowDialog();
         }
-
         private void ActividadCamion()
         {
             this.dialogoGraficoCamion.ShowDialog();
         }
-
         private void ActividadComodidades()
         {
             this.dialogoGraficoComodidades.ShowDialog();
         }
-        //Fin Diálogos
 
-        //Métodos generales
+        /* Métodos de gráficos */
+            //Métodos comunes//
         private int busquedaGeneralMesesGrafico(List<Transportes> data, int mes)
         {
             var dataList = new List<Transportes>(
@@ -682,7 +682,7 @@
 
             return dataList.Count;
         }
-        //Metodos especificos general
+            //Metodos especificos general//
         private int[] valuesChartAnual(List<Transportes> data)
         {
             int[] values = new int[12];
@@ -703,7 +703,7 @@
             }
             return values;
         }
-        //Metodos especificos cliente
+            //Metodos especificos cliente//
         private int[] valuesChartTotalCliente(IEnumerable<int> data, string nif)
         {
             int[] values = new int[data.Count()];
@@ -725,7 +725,7 @@
 
             return dataList.Count;
         }
-        //Métodos especificos camion
+            //Métodos especificos camion//
         private int[] valuesChartTotalCamion(IEnumerable<int> data, string matricula)
         {
             int[] values = new int[data.Count()];
@@ -749,7 +749,7 @@
 
             return dataList.Count;
         }
-        //Metodos especificos comodidades
+            //Metodos especificos comodidades//
         private int busquedaComodidadesMesesGrafico(List<Flota> data, int mes)
         {
             var dataList = new List<Flota>(
@@ -790,6 +790,7 @@
             }
             return values;
         }
+        /* Fin de métodos de gráficos */
 
         //Gráfico general
         private void ActividadGeneralAnual()
@@ -820,7 +821,7 @@
                     MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                     MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                     this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
                 }
                 else
                 {
@@ -857,7 +858,7 @@
                 MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                 MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                 this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
             }
             else
             {
@@ -897,7 +898,7 @@
                     MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                     MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                     this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
                 }
                 else
                 {
@@ -936,7 +937,7 @@
                 MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                 MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                 this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
             }
             else
             {
@@ -978,7 +979,7 @@
                     MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                     MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                     this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
                 }
                 else
                 {
@@ -1018,7 +1019,7 @@
                 MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                 MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                 this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
             }
             else
             {
@@ -1059,7 +1060,7 @@
                     MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                     MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                     this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                    this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
                 }
                 else
                 {
@@ -1098,7 +1099,7 @@
                 MainWindowView.panelLista = MainWindowView.panelGraficoGeneral;
                 MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
                 this.MainWindowView.Width = MainWindowView.Chart.Size.Width;
-                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 111;
+                this.MainWindowView.Height = MainWindowView.Chart.Size.Height + 220;
             }
             else
             {
@@ -1115,33 +1116,34 @@
             Application.Exit();
         }
 
+        /** ************ **/
+        /** FIN GRÁFICOS **/
+        /** ************ **/
+
+
         /** ********* **/
         /** ATRIBUTOS **/
         /** ********* **/
 
-
         public MainWindowView MainWindowView { get; private set; }
-       
+        //Objetos//
         public static List<Transportes> transportes;
         public static List<Flota> flotas;
         public static List<Cliente> clientes;
-        
-        //Busqueda
-        public DialogoTransportesPendientes dialogoTransportesPendientes { get; private set; }
-        public DialogoDniCliente dialogoDni { get; private set; }
-        public DialogoCamiones dialogoCamion { get; private set; }
-        public DialogoTransporteCliente dialogoTransporteCliente { get; private set; }
-        public DialogoReservasCamion dialogoReservasCamion { get; private set; }
-        public DialogoOcupacion dialogoOcupacion { get; private set; }
+        //Dialogos//
+        public DialogoTransportesPendientes dialogoTransportesPendientes { get; private set; } //Busquedas
+        public DialogoDniCliente dialogoDni { get; private set; } //Busquedas
+        public DialogoCamiones dialogoCamion { get; private set; } //Busquedas
+        public DialogoTransporteCliente dialogoTransporteCliente { get; private set; } //Busquedas
+        public DialogoReservasCamion dialogoReservasCamion { get; private set; } //Busquedas
+        public DialogoOcupacion dialogoOcupacion { get; private set; } //Busquedas
+        public DialogoGraficoGeneral dialogoGraficoGeneral { get; private set; } //Graficos
+        public DialogoGraficoCliente dialogoGraficoCliente { get; private set; } //Graficos
+        public DialogoGraficoCamion dialogoGraficoCamion { get; private set; } //Graficos
+        public DialogoGraficoComodidades dialogoGraficoComodidades { get; private set; } //Graficos
 
-        //Graficos
-        public DialogoGraficoGeneral dialogoGraficoGeneral { get; private set; }
-        public DialogoGraficoCliente dialogoGraficoCliente { get; private set; }
-        public DialogoGraficoCamion dialogoGraficoCamion { get; private set; }
-        public DialogoGraficoComodidades dialogoGraficoComodidades { get; private set; }
-
+        //Constantes + valores
         public static string[] emptyValue = new string[12] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
-        public static int[] emptyValues = new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         public const int ColNum = 0;
 
         public const int IdTransporte = 1;
