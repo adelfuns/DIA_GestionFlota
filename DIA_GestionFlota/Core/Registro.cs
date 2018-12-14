@@ -277,7 +277,7 @@ namespace GestionFlota.Core
         }
 
         //Metodos especificos de Flota
-        public static Flota FindByMatricula(String matricula)
+        public Flota FindByMatricula(String matricula)
         {
             Flota toret = null;
             foreach (Flota f in flotaList)
@@ -424,13 +424,13 @@ namespace GestionFlota.Core
                             (FlotaXml.Attribute(EtqMarca) == null) ||
                             (FlotaXml.Attribute(EtqModelo) == null) ||
                             (FlotaXml.Attribute(EtqConsumoKm) == null) ||
-                            (FlotaXml.Attribute(EtqFechaAdquisicion) == null) ||
-                            ((System.DateTime)FlotaXml.Attribute(EtqFechaFabricacion) == null))
+                            (formatDate(FlotaXml.Attribute(EtqFechaAdquisicion).Value.ToString()) == null) ||
+                            (formatDate(FlotaXml.Attribute(EtqFechaFabricacion).Value.ToString()) == null))
                         {
                             throw new Exception("XML mal generado");
                         }
                         /*FIN COMPROBACION DE SI EL XML ESTA BIEN GENERADO*/
-                        List<string> Comodidades = new List<string>();
+                        List<string> Comodidades = new List<string> { };
                         if ((FlotaXml.Attribute(EtqComodidadesWifi) != null) && (FlotaXml.Attribute(EtqComodidadesWifi).ToString().Equals("true")))
                         {
                             Comodidades.Add("Wifi");
@@ -453,15 +453,26 @@ namespace GestionFlota.Core
                         }
 
                         flotaList.Add(new Flota(
-                        (double)FlotaXml.Attribute(EtqCarga),
+                        Convert.ToDouble(FlotaXml.Attribute(EtqCarga).Value.ToString()),
                         (string)FlotaXml.Attribute(EtqMatricula),
                         (string)FlotaXml.Attribute(EtqTipo),
                         (string)FlotaXml.Attribute(EtqMarca),
                         (string)FlotaXml.Attribute(EtqModelo),
-                        (double)FlotaXml.Attribute(EtqConsumoKm),
-                        (System.DateTime)FlotaXml.Attribute(EtqFechaAdquisicion),
-                        (System.DateTime)FlotaXml.Attribute(EtqFechaFabricacion),
+                        Convert.ToDouble(FlotaXml.Attribute(EtqConsumoKm).Value.ToString()),
+                        formatDate(FlotaXml.Attribute(EtqFechaAdquisicion).Value.ToString()),
+                        formatDate(FlotaXml.Attribute(EtqFechaFabricacion).Value.ToString()),
                         Comodidades));
+
+                        //Console.WriteLine(
+                        //Convert.ToDouble(FlotaXml.Attribute(EtqCarga).Value.ToString())+
+                        //(string)FlotaXml.Attribute(EtqMatricula)+
+                        //(string)FlotaXml.Attribute(EtqTipo)+
+                        //(string)FlotaXml.Attribute(EtqMarca)+
+                        //(string)FlotaXml.Attribute(EtqModelo)+
+                        //Convert.ToDouble(FlotaXml.Attribute(EtqConsumoKm).Value.ToString())+
+                        //formatDate(FlotaXml.Attribute(EtqFechaAdquisicion).Value.ToString())+
+                        //formatDate(FlotaXml.Attribute(EtqFechaFabricacion).Value.ToString())+
+                        //Comodidades);
                     }
 
                     //Recuperamos Reservas

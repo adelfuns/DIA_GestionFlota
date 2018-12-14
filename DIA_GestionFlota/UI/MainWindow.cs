@@ -21,9 +21,13 @@
             //Console.WriteLine(DateTime.Now.ToString());
 
             Reg = new Registro();
+            Reg.RecuperaXml();
             RegClientes = Reg.GetClientes();
             RegReservas = Reg.GetReservas();
             flotas = Reg.GetFlotas();
+
+            //BORRAR
+            //Reg.Add(new Flota(2.1, "4444ABC", "COSA", "LA MARCA LA COSA", "EL MODELO LA COSA", 10, DateTime.Now, DateTime.Now, new List<string> {"" }));
 
             //RegClientes = new RegistroClientes();
             //RegClientes = RegistroClientes.RecuperaXml();
@@ -73,7 +77,20 @@
             this.MainWindowViewReservas.btSearchOcupacionAnho5.Click += (sender, e) => this.OASearch();//Ocupacion
             this.MainWindowViewReservas.calendar.DateSelected += (sender, e) => this.OFSearch();//Ocupacion
 
-          //  this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
+
+            //Cliente
+            this.MainWindowViewReservas.CreateCliente.Click += (sender, e) => this.AddClient();
+            this.MainWindowViewReservas.RemoveCliente.Click += (sender, e) => this.RemoveClient();
+            this.MainWindowViewReservas.EditFindCliente.Click += (sender, e) => this.EditFindClient();
+            this.MainWindowViewReservas.EditCliente.Click += (sender, e) => this.EditClient();
+
+            //Reservas
+            this.MainWindowViewReservas.CreateReserva.Click += (sender, e) => this.Crear();
+            this.MainWindowViewReservas.RemoveReserva.Click += (sender, e) => this.RemoveReserv();
+            this.MainWindowViewReservas.EditFindReserva.Click += (sender, e) => this.EditFindReserv();
+            this.MainWindowViewReservas.EditReserva.Click += (sender, e) => this.EditReserv();
+
+            //  this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
 
             //Operaciones graficos
             /*
@@ -92,6 +109,7 @@
                 inFlota = false;
                 inTransportes = false;
                 this.MainWindowViewReservas.operacionGestionarClientes.Click += (sender, e) => this.ActividadGestionClientes();
+                this.MainWindowViewReservas.operacionGestionarClientesForm.Click += (sender, e) => this.ActividadGestionClientes();
             }
             //Operaciones Reservas
             if (!inTransportes)
@@ -100,6 +118,7 @@
                 inFlota = false;
                 inTransportes = true;
                 this.MainWindowViewReservas.operacionGestionarReservas.Click += (sender, e) => this.ActividadGestionReservas();
+                this.MainWindowViewReservas.operacionGestionarReservasForm.Click += (sender, e) => this.ActividadGestionReservas();
             }
             this.MainWindowViewReservas.operacionGestionarReservasForm.Click += (sender, e) => {
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
@@ -130,13 +149,10 @@
 
 
 
-            this.MainWindowViewReservas.CreateCliente.Click += (sender, e) => this.AddClient();
-            this.MainWindowViewReservas.RemoveCliente.Click += (sender, e) => this.RemoveClient();
-            this.MainWindowViewReservas.EditFindCliente.Click += (sender, e) => this.EditFindClient();
-            this.MainWindowViewReservas.EditCliente.Click += (sender, e) => this.EditClient();
+            
 
-            //Clear();
-            //ActualizarLista();
+            Clear();
+            ActualizarLista();
             //MainWindowViewClientes.Show();
         }
 
@@ -149,14 +165,7 @@
             MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
             MainWindowViewReservas.grdEventsList.Width = 500;
 
-            this.MainWindowViewReservas.CreateReserva.Click += (sender, e) => {
-
-                this.Crear();
-
-            };
-            this.MainWindowViewReservas.RemoveReserva.Click += (sender, e) => this.RemoveReserv();
-            this.MainWindowViewReservas.EditFindReserva.Click += (sender, e) => this.EditFindReserv();
-            this.MainWindowViewReservas.EditReserva.Click += (sender, e) => this.EditReserv();
+            
 
             ClearReservas();
             ActualizarListaReservas();
@@ -413,6 +422,7 @@
         //Metodos Gestion Clientes
         private void RemoveClient()
         {
+            //Console.WriteLine(MainWindowViewReservas.evt.RowIndex);
             RegClientes.RemoveAt(MainWindowViewReservas.evt.RowIndex);
             ActualizarLista();
         }
@@ -545,7 +555,7 @@
                         if (name.Length > 0 && mail.Length > 0 && direc.Length > 0)
                         {
                             Cliente c = new Cliente(nif, name, tlf, mail, direc);
-                            RegClientes.Add(c);
+                            Reg.Add(c);
                             //Listar();
                             ActualizarLista();
                             Clear();
@@ -663,7 +673,7 @@
                 cliente = Reg.FindByNif(Convert.ToString(edCliente.Text));
                 idTrans = Convert.ToString(edIdtrans.Text);
                 // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
-                //tipoTransp = Convert.ToString(edTipoTransp.Text);
+                //tipoTransp = Reg.FindByMatricula(Convert.ToString(edTipoTransp.Text));
                 fcontra = Convert.ToDateTime(edFcontra.Text);
                 fsalida = Convert.ToDateTime(edFsalida.Text);
                 fentrega = Convert.ToDateTime(edFentrega.Text);
@@ -679,9 +689,9 @@
                 {
                     if (idTrans.Length > 0)
                     {
-                        Reservas r = new Factura(idTrans, cliente, new Flota(2.1,null,null,null,null,0, new DateTime(), new DateTime(),null), fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, gas, iva, suplencia);
-                        RegReservas.Add(r);
-                        ActualizarLista();
+                        Reservas r = new Factura(idTrans, cliente, new Flota(2.1,"4444ABC",null,null,null,0, DateTime.Now, DateTime.Now,null), fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, iva, gas, suplencia);
+                        Reg.Add(r);
+                        ActualizarListaReservas();
                         ClearReservas();
                     }
                     else

@@ -43,11 +43,13 @@
 
             toret.AppendLine("FechaFabricacion: " + FechaFabricacion);
             toret.AppendLine("Comodidades: ");
-            foreach (String aux in Comodidades)
+            if (Comodidades != null)
             {
-                toret.AppendLine(" " + aux);
+                foreach (String aux in Comodidades)
+                {
+                    toret.AppendLine(" " + aux);
+                }
             }
-
             return toret.ToString();
         }
 

@@ -370,7 +370,7 @@ namespace GestionFlota.UI
                 column6
             });
 
-            this.grdEventsListClientes.CellContentClick += this.OnCellClicked;
+            this.grdEventsListClientes.CellContentClick += this.OnCellClickedClientes;
             this.grdEventsListClientes.Dock = DockStyle.Fill;
             this.grdEventsListClientes.TabIndex = 3;
             this.grdEventsListClientes.AllowUserToOrderColumns = false;
@@ -1857,4 +1857,4 @@ namespace GestionFlota.UI
 
     }
 }
-            this.dialogosGrande.Controls.Add(this.dialogos);
+            
