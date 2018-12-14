@@ -1,4 +1,4 @@
-﻿namespace GestionFlotas.UI.DialogGraphics
+﻿namespace DIA_GestionFlota
 {
     using DIA_GestionFlota;
     using System;
