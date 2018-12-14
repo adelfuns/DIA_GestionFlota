@@ -505,6 +505,7 @@ namespace GestionFlota.Core
             clientes.CopyTo(array, arrayIndex);
         }
 
+
         // Indizador
         public Cliente this[int i]
         {

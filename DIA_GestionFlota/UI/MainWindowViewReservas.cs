@@ -87,9 +87,9 @@ namespace GestionFlota.UI
 
             this.grdEventsListAux = this.grdEventsListReservas;
             this.grdEventsList.Controls.Add(this.grdEventsListAux);
-            this.dialogos = this.BoxAddReservas;
             this.dialogosGrande.Controls.Add(this.dialogos);
-            this.dialogosGrande.ForeColor = Color.Green;
+
+
 
             this.Controls.Add(this.grdEventsList);
             this.Controls.Add(this.dialogosGrande);
@@ -1859,4 +1859,4 @@ namespace GestionFlota.UI
 
     }
 }
-            this.dialogosGrande.Controls.Add(this.dialogos);
+
