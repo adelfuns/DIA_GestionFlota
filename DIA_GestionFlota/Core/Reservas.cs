@@ -1,4 +1,5 @@
 ﻿using DIA_GestionFlota;
+using ProyectoFlota.Core;
 using System;
 using System.Collections.Generic;
 
@@ -47,6 +48,13 @@ namespace GestionFlota.Core
             this.Suplencia = suplencia;
             // this.PrecioFactura = precioFactura;
 
+        }
+
+        public override string ToString()
+        {
+            return "Cliente: " + Cliente.Nombre + ", Id: " + IdTransporte + ", Flota: " + TipoTransporte.Matricula + ", Fecha Contra: " + FechaContratacion +
+                ", Fecha Salida: " + Fsalida + ", Fecha Entrega: " + Fentrega + ", Importe dia: " + ImporteDia + ", Importe kms: " + ImporteKm +
+                ", Km Recorridos: " + kmRecorridos + ", IVA: " + IVA + ", Gas: " + Gas + ", Suplencia: " + Suplencia;
         }
 
         public double PrecioFactura
