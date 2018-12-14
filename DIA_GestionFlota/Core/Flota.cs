@@ -1,15 +1,16 @@
-﻿
-namespace DIA_GestionFlota
+﻿namespace ProyectoFlota.Core
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
-
-    public class Flota
+    using System.Threading.Tasks;
+    class Flota
     {
-        public Flota(double Carga, string Matricula, string Tipo, 
-            string Marca, string Modelo, string ConsumoKm,
-            DateTime FechaAdquisicion, DateTime FechaFabricacion, 
-            string[] Comodidades)
+        public Flota(double Carga, string Matricula, string Tipo,
+               string Marca, string Modelo, double ConsumoKm,
+               DateTime FechaAdquisicion, DateTime FechaFabricacion,
+               List<String> Comodidades)
         {
             this.Carga = Carga;
             this.Matricula = Matricula;
@@ -42,22 +43,35 @@ namespace DIA_GestionFlota
 
             toret.AppendLine("FechaFabricacion: " + FechaFabricacion);
             toret.AppendLine("Comodidades: ");
-            foreach (String aux in Comodidades) { 
-                toret.AppendLine("- " + aux);
-            }   
+            foreach (String aux in Comodidades)
+            {
+                toret.AppendLine(" " + aux);
+            }
 
             return toret.ToString();
         }
 
-        public double Carga { get; }
-        public string Matricula { get; }
-        public string Tipo { get; }
-        public string Marca { get; }
-        public string Modelo { get; }
-        public string ConsumoKm { get; }
-        public DateTime FechaAdquisicion { get; }
-        public DateTime FechaFabricacion { get; }
-        public string[] Comodidades { get; }
+        public bool ComprobarCarga()
+        {
+            if ((Tipo == "Furgoneta") && Carga >= 1.5 
+                ||(Tipo == "Camion") && Carga >= 25.0 
+                ||(Tipo == "Camion Articulado") && Carga >= 40.0)
+            {
+                Console.WriteLine(Tipo + Carga);
+                return false;
+            }
+            Console.WriteLine(Tipo + Carga);
+            return true;
+        }
+        public double Carga { get;  set; }
+        public string Matricula { get;  set; }
+        public string Tipo { get;  set; }
+        public string Marca { get;  set; }
+        public string Modelo { get; set; }
+        public double ConsumoKm { get; set; }
+        public DateTime FechaAdquisicion { get;  set; }
+        public DateTime FechaFabricacion { get;  set; }
+        public List<String> Comodidades { get; set; }
 
     }
 }
