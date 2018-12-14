@@ -1,24 +1,19 @@
-﻿namespace GestionFlota.UI
+﻿namespace ProyectoFlota.UI.DialogFlota
 {
+    
     using System;
     using System.Drawing;
     using System.Windows.Forms;
-    
+    using System.Linq;
     using System.Collections.Generic;
-    using GestionFlota.Core;
-
-    class DialogoAdd: Form
+    using ProyectoFlota.Core;
+    using System.Text.RegularExpressions;
+    class DialogoModificar : Form
     {
-        public DialogoAdd()
+        public DialogoModificar()
         {
             this.Build();
         }
-
-        public void Reset()
-        {
-            this.escogerTipo.Text = "";
-        }
-
         private Panel BuildPanelBotones()
         {
             var toret = new TableLayoutPanel()
@@ -36,7 +31,7 @@
             this.btAñadir = new Button()
             {
                 DialogResult = DialogResult.OK,
-                Text = "&Añadir"
+                Text = "&Modificar"
             };
 
             this.AcceptButton = this.btAñadir;
@@ -48,7 +43,30 @@
 
             return toret;
         }
+      
+        Panel buildPanelMatricula()
+        {
+            var toret = new Panel { Dock = DockStyle.Top };
+            Text = "ComboBox";
+            Size = new Size(240, 240);
 
+            escogerCamion = new ComboBox();
+            escogerCamion.Parent = this;
+            escogerCamion.DropDownStyle = ComboBoxStyle.DropDownList;
+            List<object> Camiones = new List<object>();
+            foreach (Flota d in MainWindow.flotas)
+            {
+                Camiones.Add(d.Matricula);
+            }
+
+            escogerCamion.Items.AddRange(Camiones.ToArray());
+
+            escogerCamion.SelectedItem = Camiones.First();
+            escogerCamion.Text = Camiones.First().ToString();
+            toret.Controls.Add(this.escogerCamion);
+            toret.MaximumSize = new Size(int.MaxValue, escogerCamion.Height * 2);
+            return toret;
+        }
         public Panel BuildPanelTipoCamion()
         {
             var toret = new Panel { Dock = DockStyle.Top };
@@ -58,7 +76,7 @@
             escogerTipo = new ComboBox();
             escogerTipo.Parent = this;
             escogerTipo.DropDownStyle = ComboBoxStyle.DropDownList;
-            
+
 
             escogerTipo.Items.AddRange(new object[] {"Selecciona",
                 "Furgoneta",
@@ -84,17 +102,7 @@
             panel.MaximumSize = new Size(int.MaxValue, this.edCarga.Height);
             return panel;
         }
-        Panel buildPanelMatricula()
-        {
-            var panel = new Panel { Dock = DockStyle.Top };
-            var lbMatricula = new Label { Text = " Matricula ", Dock = DockStyle.Left };
-            this.edMatricula = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
-
-            panel.Controls.Add(lbMatricula);
-            panel.Controls.Add(edMatricula);
-            panel.MaximumSize = new Size(int.MaxValue, this.edMatricula.Height);
-            return panel;
-        }
+        
         Panel buildPanelMarca()
         {
             var panel = new Panel { Dock = DockStyle.Top };
@@ -121,7 +129,7 @@
         {
             var panel = new Panel { Dock = DockStyle.Top };
             var lbConsumoKm = new Label { Text = " Consumo Km ", Dock = DockStyle.Left };
-            var edConsumoKm = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
+            this.edConsumoKm = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
 
             panel.Controls.Add(lbConsumoKm);
             panel.Controls.Add(edConsumoKm);
@@ -132,7 +140,7 @@
         {
             var panel = new Panel { Dock = DockStyle.Top };
             var lbFechaAdquisicion = new Label { Text = " F.Adquisición ", Dock = DockStyle.Left };
-            var edFechaAdquisicion = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
+            this.edFechaAdquisicion = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
 
             panel.Controls.Add(lbFechaAdquisicion);
             panel.Controls.Add(edFechaAdquisicion);
@@ -143,7 +151,7 @@
         {
             var panel = new Panel { Dock = DockStyle.Top };
             var lbFechaFabricacion = new Label { Text = " F.Fabricación ", Dock = DockStyle.Left };
-            var edFechaFabricacion = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
+            this.edFechaFabricacion = new TextBox { Dock = DockStyle.Fill, Text = "", TextAlign = HorizontalAlignment.Right };
 
             panel.Controls.Add(lbFechaFabricacion);
             panel.Controls.Add(edFechaFabricacion);
@@ -169,9 +177,8 @@
             panel.MaximumSize = new Size(int.MaxValue, ComodidadWifi.Height);
             return panel;
         }
-        void insertFlota()
+        public void modFlota()
         {
-            TextBox edMatricula = this.edMatricula;
             TextBox edCarga = this.edCarga;
             TextBox edMarca = this.edMarca;
             TextBox edModelo = this.edModelo;
@@ -186,53 +193,84 @@
             String tipo = this.Tipo;
 
             double carga;
-            string matricula;
-            string marca;
-            string modelo;
             double consumo;
             DateTime fad;
             DateTime ffab;
             List<String> Comodidades = new List<string>();
 
+            var matriculas = new List<Flota>(from mat in MainWindow.flotas
+                                             where mat.Matricula.Equals(Matricula)
+                                             select mat);
 
-            carga = System.Convert.ToDouble(edCarga.Text);
-            matricula = System.Convert.ToString(edMatricula.Text);
-            modelo = System.Convert.ToString(edModelo.Text);
-            consumo = System.Convert.ToDouble(edConsumoKm.Text);
-            marca = System.Convert.ToString(edMarca.Text);
-            fad = System.Convert.ToDateTime(edFechaAdquisicion);
-            ffab = System.Convert.ToDateTime(edFechaFabricacion);
-            if (System.Convert.ToBoolean(ComodidadWifi.CheckState))
+            if (matriculas.Count == 1)
             {
-                Comodidades.Add("Wifi");
-            }
-            else if (System.Convert.ToBoolean(ComodidadWifi.CheckState))
-            {
-                Comodidades.Add("Conexion Bluetooth");
-            }
-            else if (System.Convert.ToBoolean(ComodidadWifi.CheckState))
-            {
-                Comodidades.Add("Aire Acondicionado");
-            }
-            else if (System.Convert.ToBoolean(ComodidadWifi.CheckState))
-            {
-                Comodidades.Add("Litera");
-            }
-            else if (System.Convert.ToBoolean(ComodidadWifi.CheckState))
-            {
-                Comodidades.Add("Tv");
-            }
 
-            Flota flota = new Flota(carga, matricula, tipo, marca, modelo, consumo, fad, ffab, Comodidades);
-            if (flota.ComprobarCarga())
-            {
-                listaFlota.Add(flota);
-                listaFlota.GuardaXml();
-                MessageBox.Show("Vehículo introducido correctamente","", MessageBoxButtons.OK);
-            }
-            else MessageBox.Show("Superado Límite de Carga para el vehículo","", MessageBoxButtons.OK);
+                flota_mod = matriculas.ElementAt(0);
+                MainWindow.flotas.Remove(matriculas.ElementAt(0));
+                if (edCarga.Text != "")
+                {
+                    if (Double.TryParse(edCarga.Text, out carga))
+                    {
+                        var tmp = flota_mod.Carga;
+                        flota_mod.Carga = carga;
+                        if (!flota_mod.ComprobarCarga())
+                        {
+                            flota_mod.Carga = tmp;
+                        }
 
-        }
+                    }
+                                                         
+                }
+                if (edMarca.Text != "")
+                {
+                    flota_mod.Marca = edMarca.Text;
+                }
+                if (edModelo.Text != "")
+                {
+                    flota_mod.Modelo = edModelo.Text;
+                }
+                if (edConsumoKm.Text != "")
+                {
+                    if (Double.TryParse(edConsumoKm.Text, out consumo))
+                    {
+                        flota_mod.ConsumoKm = consumo;
+                    }
+                }
+                if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text, out fad)))
+                {
+                    flota_mod.FechaAdquisicion = fad;
+                }
+                if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text, out ffab)))
+                {
+                    flota_mod.FechaAdquisicion = ffab;
+                }
+                if (ComodidadWifi.Checked)
+                {
+                    Comodidades.Add("Wifi");
+                }
+                if (ComodidadBlue.Checked)
+                {
+                    Comodidades.Add("Conexion Bluetooth");
+                }
+                if (ComodidadAire.Checked)
+                {
+                    Comodidades.Add("Aire Acondicionado");
+                }
+                if (ComodidadLitera.Checked)
+                {
+                    Comodidades.Add("Litera");
+                }
+                if (ComodidadTv.Checked)
+                {
+                    Comodidades.Add("Tv");
+                }
+                flota_mod.Comodidades = Comodidades;
+                MainWindow.flotas.Remove(matriculas.ElementAt(0));
+                MainWindow.flotas.Add(flota_mod);
+                MessageBox.Show("Modificación realizada con éxito", "", MessageBoxButtons.OK);
+            }
+            
+        }            
 
 
         private void Build()
@@ -243,15 +281,17 @@
             this.panelAñadir.SuspendLayout();
             this.Controls.Add(this.panelAñadir);
 
+            var panelMatricula = this.buildPanelMatricula();
+            this.panelAñadir.Controls.Add(panelMatricula);
+                  
+              
             var panelTipoCamion = this.BuildPanelTipoCamion();
             this.panelAñadir.Controls.Add(panelTipoCamion);
 
             var panelCarga = this.buildPanelCarga();
             this.panelAñadir.Controls.Add(panelCarga);
 
-            var panelMatricula = this.buildPanelMatricula();
-            this.panelAñadir.Controls.Add(panelTipoCamion);
-
+           
             var panelMarca = this.buildPanelMarca();
             this.panelAñadir.Controls.Add(panelMarca);
 
@@ -269,14 +309,15 @@
 
             var panelComodidades = this.buildPanelComodidades();
             this.panelAñadir.Controls.Add(panelComodidades);
-
             var pnlBotones = this.BuildPanelBotones();
             this.panelAñadir.Controls.Add(pnlBotones);
+
+
 
             this.panelAñadir.ResumeLayout(true);
 
             this.Text = "Añadir vehículo a la flota";
-            this.Size = new Size(500, panelTipoCamion.Height * 7 + pnlBotones.Height);
+            this.Size = new Size(500, panelMatricula.Height * 8 + pnlBotones.Height);
 
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MinimizeBox = true;
@@ -289,12 +330,13 @@
         }
 
         private Panel panelAñadir;
-        ListaFlota listaFlota = ListaFlota.RecuperaXml();
+        private ComboBox escogerCamion;
+        public string Matricula => escogerCamion.Text;
         private ComboBox escogerTipo { get; set; }
         public string Tipo => escogerTipo.Text;
+        public Flota flota_mod { get; set; }
         public Button btCierra { get; set; }
         public Button btAñadir { get; set; }
-        public TextBox edMatricula { get; set; }
         public TextBox edCarga { get; set; }
         public TextBox edMarca { get; set; }
         public TextBox edModelo { get; set; }
@@ -307,6 +349,7 @@
         public CheckBox ComodidadLitera { get; set; }
         public CheckBox ComodidadTv { get; set; }
 
-    }
-}
 
+    }
+
+}

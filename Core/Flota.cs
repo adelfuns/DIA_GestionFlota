@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GestionFlota.Core
+﻿namespace ProyectoFlota.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     class Flota
     {
         public Flota(double Carga, string Matricula, string Tipo,
@@ -46,7 +45,7 @@ namespace GestionFlota.Core
             toret.AppendLine("Comodidades: ");
             foreach (String aux in Comodidades)
             {
-                toret.AppendLine("- " + aux);
+                toret.AppendLine(" " + aux);
             }
 
             return toret.ToString();
@@ -54,23 +53,25 @@ namespace GestionFlota.Core
 
         public bool ComprobarCarga()
         {
-            if (Tipo == "Furgoneta" && Carga > 1.5 || Tipo == "Camion" && Carga > 25.0 || Tipo == "Camion Articulado" && Carga > 40.0)
+            if ((Tipo == "Furgoneta") && Carga >= 1.5 
+                ||(Tipo == "Camion") && Carga >= 25.0 
+                ||(Tipo == "Camion Articulado") && Carga >= 40.0)
             {
+                Console.WriteLine(Tipo + Carga);
                 return false;
             }
+            Console.WriteLine(Tipo + Carga);
             return true;
-
         }
-        public double Carga { get; set; }
-        public string Matricula { get; }
-        public string Tipo { get; }
-        public string Marca { get; }
-        public string Modelo { get; }
+        public double Carga { get;  set; }
+        public string Matricula { get;  set; }
+        public string Tipo { get;  set; }
+        public string Marca { get;  set; }
+        public string Modelo { get; set; }
         public double ConsumoKm { get; set; }
-        public DateTime FechaAdquisicion { get; }
-        public DateTime FechaFabricacion { get; }
+        public DateTime FechaAdquisicion { get;  set; }
+        public DateTime FechaFabricacion { get;  set; }
         public List<String> Comodidades { get; set; }
 
     }
 }
-

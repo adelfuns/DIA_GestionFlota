@@ -1,22 +1,18 @@
-﻿
-
-namespace GestionFlotas.UI.DialogSearch
+﻿namespace ProyectoFlota.UI.DialogFlota
 {
-    using DIA_GestionFlota;
-    using GestionFlota.Core;
-    using System.Collections.Generic;
+    using System;
     using System.Drawing;
-    using System.Linq;
     using System.Windows.Forms;
-
-    class DialogoTransportesPendientes : Form
+    using System.Linq;
+    using System.Collections.Generic;
+    using ProyectoFlota.Core;
+    using System.Text.RegularExpressions;
+    class DialogoEliminar : Form
     {
-        public DialogoTransportesPendientes()
+        public DialogoEliminar()
         {
             this.Build();
         }
-
-
         private Panel BuildPanelBotones()
         {
             var toret = new TableLayoutPanel()
@@ -31,25 +27,22 @@ namespace GestionFlotas.UI.DialogSearch
                 Text = "&Cancelar"
             };
 
-            this.btSearchCamiones = new Button()
+            this.btAñadir = new Button()
             {
                 DialogResult = DialogResult.OK,
-                Text = "&Buscar"
+                Text = "&Borrar"
             };
 
-
-            this.AcceptButton = this.btSearchCamiones;
+            this.AcceptButton = this.btAñadir;
             this.CancelButton = this.btCierra;
 
-            toret.Controls.Add(this.btSearchCamiones);
+            toret.Controls.Add(this.btAñadir);
             toret.Controls.Add(this.btCierra);
             toret.Dock = DockStyle.Top;
 
-
             return toret;
         }
-
-        public Panel BuildPanelMatriculaCamion()
+        Panel buildPanelMatricula()
         {
             var toret = new Panel { Dock = DockStyle.Top };
             Text = "ComboBox";
@@ -59,7 +52,6 @@ namespace GestionFlotas.UI.DialogSearch
             escogerCamion.Parent = this;
             escogerCamion.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> Camiones = new List<object>();
-            Camiones.Add("Todos");
             foreach (Flota d in MainWindow.flotas)
             {
                 Camiones.Add(d.Matricula);
@@ -71,29 +63,44 @@ namespace GestionFlotas.UI.DialogSearch
             escogerCamion.Text = Camiones.First().ToString();
             toret.Controls.Add(this.escogerCamion);
             toret.MaximumSize = new Size(int.MaxValue, escogerCamion.Height * 2);
-
             return toret;
-
         }
+        
+        public void deleteFlota()
+        {
+           var matriculas = new List<Flota>(from mat in MainWindow.flotas
+                                            where mat.Matricula.Equals(Matricula)
+                                            select mat);
+
+                if (matriculas.Count == 1)
+                {
+                    MainWindow.flotas.Remove(matriculas.ElementAt(0));
+                    MessageBox.Show("Vehículo eliminado correctamente", "", MessageBoxButtons.OK);
+                }else MessageBox.Show("No se encuentra vehículo con esa matrícula", "", MessageBoxButtons.OK);
+
+           
+        }
+            
 
         private void Build()
         {
             this.SuspendLayout();
 
-            this.panelSearch = new TableLayoutPanel { Dock = DockStyle.Fill };
-            this.panelSearch.SuspendLayout();
-            this.Controls.Add(this.panelSearch);
+            this.panelAñadir = new TableLayoutPanel { Dock = DockStyle.Fill };
+            this.panelAñadir.SuspendLayout();
+            this.Controls.Add(this.panelAñadir);
 
-            var panelMatriculaCamion = this.BuildPanelMatriculaCamion();
-            this.panelSearch.Controls.Add(panelMatriculaCamion);
+            var panelMatricula = this.buildPanelMatricula();
+            this.panelAñadir.Controls.Add(panelMatricula);
+
 
             var pnlBotones = this.BuildPanelBotones();
-            this.panelSearch.Controls.Add(pnlBotones);
+            this.panelAñadir.Controls.Add(pnlBotones);
 
-            this.panelSearch.ResumeLayout(true);
+            this.panelAñadir.ResumeLayout(true);
 
-            this.Text = "Busqueda de Transportes Pendientes para todo la flota o por camión, para los próximos cinco días";
-            this.Size = new Size(400, panelMatriculaCamion.Height + pnlBotones.Height);
+            this.Text = "Añadir vehículo a la flota";
+            this.Size = new Size(500, panelMatricula.Height + pnlBotones.Height);
 
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MinimizeBox = true;
@@ -105,18 +112,14 @@ namespace GestionFlotas.UI.DialogSearch
 
         }
 
-        private Panel panelSearch;
-
-
-        private ComboBox escogerCamion { get; set; }
-        public string Matricula { get => this.escogerCamion.Text.Trim(); set => Matricula = value.ToString(); }
+        private Panel panelAñadir;
         public Button btCierra { get; set; }
-        public Button btSearchCamiones { get; set; }
+        public Button btAñadir { get; set; }
+        public TextBox edLetrasMatricula { get; set; }
+        public TextBox edDigitosMatricula { get; set; }
+        private ComboBox escogerCamion;
+        public string Matricula => escogerCamion.Text;
+
+
     }
 }
-
-
-
-
-
-
