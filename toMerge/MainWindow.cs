@@ -1137,10 +1137,10 @@
         public DialogoTransporteCliente dialogoTransporteCliente { get; private set; } //Busquedas
         public DialogoReservasCamion dialogoReservasCamion { get; private set; } //Busquedas
         public DialogoOcupacion dialogoOcupacion { get; private set; } //Busquedas
-        public DialogoGraficoGeneral dialogoGraficoGeneral { get; private set; } //Graficos
-        public DialogoGraficoCliente dialogoGraficoCliente { get; private set; } //Graficos
-        public DialogoGraficoCamion dialogoGraficoCamion { get; private set; } //Graficos
-        public DialogoGraficoComodidades dialogoGraficoComodidades { get; private set; } //Graficos
+			public DialogoGraficoGeneral dialogoGraficoGeneral { get; private set; } //Graficos
+			public DialogoGraficoCliente dialogoGraficoCliente { get; private set; } //Graficos
+			public DialogoGraficoCamion dialogoGraficoCamion { get; private set; } //Graficos
+			public DialogoGraficoComodidades dialogoGraficoComodidades { get; private set; } //Graficos
 
         //Constantes + valores
         public static string[] emptyValue = new string[12] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };

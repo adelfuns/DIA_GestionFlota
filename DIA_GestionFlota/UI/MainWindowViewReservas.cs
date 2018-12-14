@@ -1166,6 +1166,42 @@ namespace GestionFlota.UI
         /*------------------------------------------------------------------*/
 
 
+        public void BuildPanelGraficoGeneral()
+        {
+            panelGraficoGeneral = new Panel();
+            panelGraficoGeneral.SuspendLayout();
+            panelGraficoGeneral.Dock = DockStyle.Fill;
+
+            this.Chart = new Chart(width: CHART_CANVAS_SIZE,
+                                    height: CHART_CANVAS_SIZE)
+            {
+                Dock = DockStyle.Fill,
+            };
+
+            //Comprobar si es antes o después del ResumenLayout
+            this.MinimumSize = new Size(CHART_CANVAS_SIZE, CHART_CANVAS_SIZE);
+            this.Text = this.GetType().Name;
+            panelGraficoGeneral.Controls.Add(this.Chart); //Aquí añadir el gráfico a introducir
+            panelGraficoGeneral.ResumeLayout(false);
+
+        }
+
+        public void setDataChart(string x, string y, int[] values)
+        {
+            this.Chart.LegendY = y;
+            this.Chart.LegendX = x;
+            this.Chart.Values = values;
+        }
+
+        public void setDataLegend(string[] a)
+        {
+            this.Chart.ValuesDraw = a;
+        }
+
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+
         Panel panelAdd1;
         Panel panelAdd2;
         Panel panelAdd3;
@@ -1221,5 +1257,16 @@ namespace GestionFlota.UI
                 Size = new Size(100, 20)
             };
         }
+
+
+
+        //Representación de gráficos
+        public const int CHART_CANVAS_SIZE = 624;
+        public Chart Chart { get; private set; }
+
+
+        //Paneles
+
+        public Panel panelGraficoGeneral;   //Gráficos
     }
 }
