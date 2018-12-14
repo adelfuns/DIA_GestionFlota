@@ -7,62 +7,16 @@ using GestionFlota.Core;
 
 namespace GestionFlota.UI
 {
-    public partial class MainWindowViewReservas : Form
+    public class MainWindowViewReservas : Form
     {
+        /*------------------------------------------------------------------*/
+        /*---------------------------Constructor----------------------------*/
+        /*------------------------------------------------------------------*/
+
         public MainWindowViewReservas()
         {
             this.Build();
         }
-
-        public TextBox tbReservas { get;  set; }
-        public TextBox tbIdTransp { get;  set; }
-        public TextBox tbCliente { get;  set; }
-        public TextBox tbTipoTrans { get;  set; }
-        public TextBox tbFcontra { get;  set; }
-        public TextBox tbFsalida { get;  set; }
-        public TextBox tbFentrega { get;  set; }
-        public TextBox tbEDia {  get; set; }
-        public TextBox tbEkm { get;  set; }
-        public TextBox tbKmRecorridos { get;  set; }
-        public TextBox tbGas { get;  set; }
-        public TextBox tbSuplencia { get;  set; }
-        public TextBox tbIVA { get;  set; }
-        public TextBox tbPrecioFactura { get; set; }
-        public Button CreateReserva { get;  set; }
-        public Button RemoveReserva { get;  set; }
-        public Button EditFindReserva { get;  set; }
-        public Button EditReserva { get;  set; }
-        public TextBox EdMsg { get;  set; }
-
-
-        //ClienteView
-        public TextBox EdClientes { get;  set; }
-        public TextBox EdNif { get;  set; }
-        public TextBox EdName { get;  set; }
-        public TextBox EdTlf { get;  set; }
-        public TextBox EdMail { get;  set; }
-        public TextBox EdDirec { get;  set; }
-        public Button CreateCliente { get;  set; }
-        public Button RemoveCliente { get;  set; }
-        public Button EditFindCliente { get;  set; }
-        public Button EditCliente { get;  set; }
-        public Label lblCliente { get;  set; }
-
-
-
-
-
-
-        public DataGridView grdEventsList;
-        public DataGridView grdEventsListFlota;
-        public DataGridView grdEventsListReservas;
-        public DataGridView grdEventsListClientes;
-        public DataGridView grdEventsListAux;
-
-        private Panel pnlInfo;
-        private Panel pnlEventsContainer;
-        public DataGridViewCellEventArgs evt { get; private set; }
-
         void Build()
         {
             this.inicializarBotones();
@@ -103,16 +57,152 @@ namespace GestionFlota.UI
 
 
             this.dialogosGrande.Width = 400;
-            
+
 
 
             this.MinimumSize = new Size(1500, 600);
-            this.grdEventsList.Height = this.Height-80;
+            this.grdEventsList.Height = this.Height - 80;
             this.Text = "Gestion Reservas";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.CenterToScreen();
             this.Show();
         }
+
+        /*------------------------------------------------------------------*/
+        /*-------------------------Propiedades------------------------------*/
+        /*------------------------------------------------------------------*/
+
+        public TextBox tbReservas { get;  set; } 
+        public TextBox tbIdTransp { get;  set; }
+        public TextBox tbCliente { get;  set; }
+        public TextBox tbTipoTrans { get;  set; }
+        public TextBox tbFcontra { get;  set; }
+        public TextBox tbFsalida { get;  set; }
+        public TextBox tbFentrega { get;  set; }
+        public TextBox tbEDia {  get; set; }
+        public TextBox tbEkm { get;  set; }
+        public TextBox tbKmRecorridos { get;  set; }
+        public TextBox tbGas { get;  set; }
+        public TextBox tbSuplencia { get;  set; }
+        public TextBox tbIVA { get;  set; }
+        public TextBox tbPrecioFactura { get; set; }
+        public Button CreateReserva { get;  set; }
+        public Button RemoveReserva { get;  set; }
+        public Button EditFindReserva { get;  set; }
+        public Button EditReserva { get;  set; }
+        public TextBox EdMsg { get;  set; }
+        //ClienteView
+        public TextBox EdClientes { get;  set; }
+        public TextBox EdNif { get;  set; }
+        public TextBox EdName { get;  set; }
+        public TextBox EdTlf { get;  set; }
+        public TextBox EdMail { get;  set; }
+        public TextBox EdDirec { get;  set; }
+        public Button CreateCliente { get;  set; }
+        public Button RemoveCliente { get;  set; }
+        public Button EditFindCliente { get;  set; }
+        public Button EditCliente { get;  set; }
+        public Label lblCliente { get;  set; }
+        //Tabla
+        public DataGridView grdEventsList; //Tabla
+        public DataGridView grdEventsListFlota; //Tabla
+        public DataGridView grdEventsListReservas; //Tabla
+        public DataGridView grdEventsListClientes; //Tabla
+        public DataGridView grdEventsListAux; //Tabla
+        // Propiedades PanelDerechoReservas
+        public Panel PanelAdd1Reservas { get; set; }
+        public Panel PanelAdd2Reservas { get; set; }
+        public Panel PanelAdd3Reservas { get; set; }
+        public Panel PanelAdd4Reservas { get; set; }
+        public Panel PanelAdd5Reservas { get; set; }
+        public Panel PanelAdd6Reservas { get; set; }
+        public Panel PanelAdd7Reservas { get; set; }
+        public Panel PanelAdd8Reservas { get; set; }
+        public Panel PanelAdd9Reservas { get; set; }
+        public Panel PanelAdd10Reservas { get; set; }
+        public Panel PanelAdd11Reservas { get; set; }
+        public Panel PanelAdd12Reservas { get; set; }
+        public Panel PanelAdd13Reservas { get; set; }
+        // Propiedades PanelDerechoClientes
+        public Panel PanelAdd1Clientes { get; set; }
+        public Panel PanelAdd2Clientes { get; set; }
+        public Panel PanelAdd3Clientes { get; set; }
+        public Panel PanelAdd4Clientes { get; set; }
+        public Panel PanelAdd5Clientes { get; set; }
+        public Panel PanelAdd6Clientes { get; set; }
+        // Propiedades PanelInferiorMensajes
+        private Panel pnlInfo;
+        private Panel pnlEventsContainer;
+        public DataGridViewCellEventArgs evt { get; private set; }
+        // Items del menú
+        private MainMenu menuPrincipal;
+        private MenuItem menuArchivo;
+        private MenuItem menuEditar;
+        private MenuItem menuGenerar;
+        private MenuItem menuClientes;
+        private MenuItem menuReservas;
+        public MenuItem menuAtras;
+        // Operacion salida
+        public MenuItem operacionSalir { get; private set; }
+        // Operaciones búsqueda
+        public MenuItem operacionSearch1 { get; private set; }
+        public MenuItem operacionSearch2 { get; private set; }
+        public MenuItem operacionSearch3 { get; private set; }
+        public MenuItem operacionSearch4 { get; private set; }
+        public MenuItem operacionSearch5 { get; private set; }
+        public MenuItem operacionSearch6 { get; private set; }
+        // Operaciones generar gráficos
+        public MenuItem operacionActividadGeneral { get; private set; }
+        public MenuItem operacionActividadCliente { get; private set; }
+        public MenuItem operacionActividadCamion { get; private set; }
+        public MenuItem operacionActividadComodidades { get; private set; }
+        // Operaciones clientes
+        public MenuItem operacionGestionarClientes { get; private set; }
+        public MenuItem operacionGestionarClientesForm { get; private set; }
+        // Operaciones Reservas
+        public MenuItem operacionGestionarReservas { get; private set; }
+        public MenuItem operacionGestionarReservasForm { get; private set; }
+        //Búsquedas
+        private ComboBox escogerCliente { get; set; }
+        private ComboBox escogerPeriodo2 { get; set; }
+        private ComboBox escogerAnho2 { get; set; }
+        public string Anho2 => escogerAnho2.Text;
+        public string Cliente => escogerCliente.Text;
+        public string Periodo2 => escogerPeriodo2.Text;
+        public Button btSearchTransporteCliente { get; private set; }
+        private ComboBox escogerCamion { get; set; }
+        public string Matricula { get => this.escogerCamion.Text.Trim(); set => Matricula = value.ToString(); }
+        public Button btSearchCamiones { get; private set; }
+        private ComboBox escogerCamion2 { get; set; }
+        private ComboBox escogerPeriodo { get; set; }
+        private ComboBox escogerAnho { get; set; }
+        public string Anho => escogerAnho.Text;
+        public string Matricula2 { get => this.escogerCamion2.Text.Trim(); set => Matricula2 = value.ToString(); }
+        public string Periodo => escogerPeriodo.Text;
+        public ComboBox escogerCliente4 { get; set; }
+        private ComboBox escogerAnho4 { get; set; }
+        public string Anho4 => escogerAnho4.Text;
+        public string idDni { get => this.escogerCliente4.Text.Trim(); set => idDni = value.ToString(); }
+        public Button btSearchCliente4 { get; set; }
+        public Button btSearchCamiones2 { get; set; }
+        public MonthCalendar calendar { get; set; }
+        public Label date { get; set; }
+        private ComboBox escogerAnho5 { get; set; }
+        public string Anho5 => escogerAnho5.Text;
+        public DateTime Fecha5 { get; set; }
+        public Button btSearchOcupacionAnho5 { get; set; }
+        public Panel BoxAddReservas { get; set; }
+        public Panel BoxAddClientes { get; set; }
+        public Panel BoxMsg { get; set; }
+        public Panel dialogos { get; set; }
+        public Panel dialogosGrande { get; set; }
+        public const int CHART_CANVAS_SIZE = 624;
+        public Chart Chart { get; private set; }
+        public Panel panelGraficoGeneral;
+
+        /*------------------------------------------------------------------*/
+        /*---------------------------Métodos--------------------------------*/
+        /*------------------------------------------------------------------*/
 
         private void buildPanelReservas()
         {
@@ -292,7 +382,6 @@ namespace GestionFlota.UI
             }
         }
 
-
         private void buildPanelClientes()
         {
             //Definimos los botones que no se van a mostrar pero usaremos para lanzar los clicks al core
@@ -383,8 +472,6 @@ namespace GestionFlota.UI
             this.pnlInfo.Controls.Add(this.pnlEventsContainer);
         }
 
-
-
         protected void OnResizeWindowClientes(object sender, System.EventArgs e)
         {
             Control control = (Control)sender;
@@ -416,44 +503,10 @@ namespace GestionFlota.UI
             }
         }
 
-
-        public void crearPanelesPequenosReserva()
-        {
-
-            BoxAddReservas = new TableLayoutPanel() { Dock = DockStyle.Right };
-
-            panelAdd1Reservas = this.buildPanelAdd1();
-            panelAdd2Reservas = this.buildPanelAdd2();
-            panelAdd3Reservas = this.buildPanelAdd3();
-            panelAdd4Reservas = this.buildPanelAdd4();
-            panelAdd5Reservas = this.buildPanelAdd5();
-            panelAdd6Reservas = this.buildPanelAdd6();
-            panelAdd7Reservas = this.buildPanelAdd7();
-            panelAdd8Reservas = this.buildPanelAdd8();
-            panelAdd9Reservas = this.buildPanelAdd9();
-            panelAdd10Reservas = this.buildPanelAdd10();
-            panelAdd11Reservas = this.buildPanelAdd11();
-            panelAdd12Reservas = this.buildPanelAdd12();
-            panelAdd13Reservas = this.buildPanelAdd13();   
-
-            BoxAddReservas.Controls.Add(panelAdd1Reservas);
-            BoxAddReservas.Controls.Add(panelAdd2Reservas);
-            BoxAddReservas.Controls.Add(panelAdd3Reservas);
-            BoxAddReservas.Controls.Add(panelAdd4Reservas);
-            BoxAddReservas.Controls.Add(panelAdd5Reservas);
-            BoxAddReservas.Controls.Add(panelAdd6Reservas);
-            BoxAddReservas.Controls.Add(panelAdd7Reservas);
-            BoxAddReservas.Controls.Add(panelAdd8Reservas);
-            BoxAddReservas.Controls.Add(panelAdd9Reservas);
-            BoxAddReservas.Controls.Add(panelAdd10Reservas);
-            BoxAddReservas.Controls.Add(panelAdd11Reservas);
-            BoxAddReservas.Controls.Add(panelAdd12Reservas);
-            BoxAddReservas.Controls.Add(panelAdd13Reservas);
-
-            BoxAddReservas.BorderStyle = BorderStyle.FixedSingle;
-            BoxAddReservas.Width += 200;
-        }
-
+        /*------------------------------------------------------------------*/
+        /*------------------InicializarPanelDerecha-------------------------*/
+        /*------------------------------------------------------------------*/
+        //Reservas
         Panel buildPanelMsg()
         {
             var panel = new Panel() { Dock = DockStyle.Top };
@@ -657,21 +710,21 @@ namespace GestionFlota.UI
 
             BoxAddClientes = new TableLayoutPanel() { Dock = DockStyle.Left };
 
-            panelAdd1Clientes = this.buildPanelAdd1Clientes();
-            panelAdd2Clientes = this.buildPanelAdd2Clientes();
-            panelAdd3Clientes = this.buildPanelAdd3Clientes();
-            panelAdd4Clientes = this.buildPanelAdd4Clientes();
-            panelAdd5Clientes = this.buildPanelAdd5Clientes();
-            panelAdd6Clientes = this.buildPanelAdd6Clientes();
+            PanelAdd1Clientes = this.buildPanelAdd1Clientes();
+            PanelAdd2Clientes = this.buildPanelAdd2Clientes();
+            PanelAdd3Clientes = this.buildPanelAdd3Clientes();
+            PanelAdd4Clientes = this.buildPanelAdd4Clientes();
+            PanelAdd5Clientes = this.buildPanelAdd5Clientes();
+            PanelAdd6Clientes = this.buildPanelAdd6Clientes();
 
 
 
-            BoxAddClientes.Controls.Add(panelAdd1Clientes);
-            BoxAddClientes.Controls.Add(panelAdd2Clientes);
-            BoxAddClientes.Controls.Add(panelAdd3Clientes);
-            BoxAddClientes.Controls.Add(panelAdd4Clientes);
-            BoxAddClientes.Controls.Add(panelAdd5Clientes);
-            BoxAddClientes.Controls.Add(panelAdd6Clientes);
+            BoxAddClientes.Controls.Add(PanelAdd1Clientes);
+            BoxAddClientes.Controls.Add(PanelAdd2Clientes);
+            BoxAddClientes.Controls.Add(PanelAdd3Clientes);
+            BoxAddClientes.Controls.Add(PanelAdd4Clientes);
+            BoxAddClientes.Controls.Add(PanelAdd5Clientes);
+            BoxAddClientes.Controls.Add(PanelAdd6Clientes);
 
 
 
@@ -680,50 +733,131 @@ namespace GestionFlota.UI
             BoxAddClientes.Width += 100;
         }
 
-        Panel panelAdd1Reservas;
-        Panel panelAdd2Reservas;
-        Panel panelAdd3Reservas;
-        Panel panelAdd4Reservas;
-        Panel panelAdd5Reservas;
-        Panel panelAdd6Reservas;
-        Panel panelAdd7Reservas;
-        Panel panelAdd8Reservas;
-        Panel panelAdd9Reservas;
-        Panel panelAdd10Reservas;
-        Panel panelAdd11Reservas;
-        Panel panelAdd12Reservas;
-        Panel panelAdd13Reservas;
+        //Clientes
+        Panel buildPanelAdd1Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+            this.lblCliente = new Label() { Text = "Nuevo Cliente", Dock = DockStyle.Top };
 
+            var lblNif = new Label() { Text = "Nif: (ÚNICO)", Dock = DockStyle.Left };
+            this.EdNif = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
-        Panel panelAdd1Clientes;
-        Panel panelAdd2Clientes;
-        Panel panelAdd3Clientes;
-        Panel panelAdd4Clientes;
-        Panel panelAdd5Clientes;
-        Panel panelAdd6Clientes;
+            panel.Controls.Add(this.EdNif);
+            panel.Controls.Add(lblNif);
 
+            panel.Controls.Add(lblCliente);
+            panel.MaximumSize = new Size(this.Width, this.EdNif.Height + lblCliente.Height);
 
+            return panel;
+        }
+        Panel buildPanelAdd2Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
 
+            var lblName = new Label() { Text = "Nombre: ", Dock = DockStyle.Left };
+            this.EdName = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
+            panel.Controls.Add(this.EdName);
+            panel.Controls.Add(lblName);
 
+            panel.MaximumSize = new Size(this.Width, this.EdName.Height);
 
+            return panel;
+        }
+        Panel buildPanelAdd3Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
 
+            var lblTlf = new Label() { Text = "Tlf: ", Dock = DockStyle.Left };
+            this.EdTlf = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
+            panel.Controls.Add(this.EdTlf);
+            panel.Controls.Add(lblTlf);
 
+            panel.MaximumSize = new Size(this.Width, this.EdTlf.Height);
 
+            return panel;
+        }
+        Panel buildPanelAdd4Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
 
+            var lblMail = new Label() { Text = "Email: ", Dock = DockStyle.Left };
+            this.EdMail = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
+            panel.Controls.Add(this.EdMail);
+            panel.Controls.Add(lblMail);
 
+            panel.MaximumSize = new Size(this.Width, this.EdMail.Height);
 
+            return panel;
+        }
+        Panel buildPanelAdd5Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
 
+            var lblDirec = new Label() { Text = "Direccion: ", Dock = DockStyle.Left };
+            this.EdDirec = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
+            panel.Controls.Add(this.EdDirec);
+            panel.Controls.Add(lblDirec);
 
+            panel.MaximumSize = new Size(this.Width, this.EdDirec.Height);
 
+            return panel;
+        }
+        Panel buildPanelAdd6Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
 
+            panel.Controls.Add(EditCliente);
+            panel.Controls.Add(CreateCliente);
 
+            panel.MaximumSize = new Size(this.Width, this.EdName.Height + 20);
 
+            return panel;
+        }
 
+        public void crearPanelesPequenosReserva()
+        {
 
+            BoxAddReservas = new TableLayoutPanel() { Dock = DockStyle.Right };
+
+            PanelAdd1Reservas = this.buildPanelAdd1();
+            PanelAdd2Reservas = this.buildPanelAdd2();
+            PanelAdd3Reservas = this.buildPanelAdd3();
+            PanelAdd4Reservas = this.buildPanelAdd4();
+            PanelAdd5Reservas = this.buildPanelAdd5();
+            PanelAdd6Reservas = this.buildPanelAdd6();
+            PanelAdd7Reservas = this.buildPanelAdd7();
+            PanelAdd8Reservas = this.buildPanelAdd8();
+            PanelAdd9Reservas = this.buildPanelAdd9();
+            PanelAdd10Reservas = this.buildPanelAdd10();
+            PanelAdd11Reservas = this.buildPanelAdd11();
+            PanelAdd12Reservas = this.buildPanelAdd12();
+            PanelAdd13Reservas = this.buildPanelAdd13();
+
+            BoxAddReservas.Controls.Add(PanelAdd1Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd2Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd3Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd4Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd5Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd6Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd7Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd8Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd9Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd10Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd11Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd12Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd13Reservas);
+
+            BoxAddReservas.BorderStyle = BorderStyle.FixedSingle;
+            BoxAddReservas.Width += 200;
+        }
+
+        /*------------------------------------------------------------------*/
+        /*-----------------------BuildMenu----------------------------------*/
+        /*------------------------------------------------------------------*/
 
         private void BuildMenu()
         {
@@ -820,145 +954,26 @@ namespace GestionFlota.UI
 
         }
 
-
-
-
-
-        //Items del menú
-        private MainMenu menuPrincipal;
-        private MenuItem menuArchivo;
-        private MenuItem menuEditar;
-        private MenuItem menuGenerar;
-        private MenuItem menuClientes;
-        private MenuItem menuReservas;
-        public MenuItem menuAtras;
-
-        public MenuItem operacionSalir { get; private set; }
-
-        //Operaciones búsqueda
-        public MenuItem operacionSearch1 { get; private set; }
-        public MenuItem operacionSearch2 { get; private set; }
-        public MenuItem operacionSearch3 { get; private set; }
-        public MenuItem operacionSearch4 { get; private set; }
-        public MenuItem operacionSearch5 { get; private set; }
-        public MenuItem operacionSearch6 { get; private set; }
-        //Operaciones generar gráficos
-        public MenuItem operacionActividadGeneral { get; private set; }
-        public MenuItem operacionActividadCliente { get; private set; }
-        public MenuItem operacionActividadCamion { get; private set; }
-        public MenuItem operacionActividadComodidades { get; private set; }
-
-        //Operaciones clientes
-        public MenuItem operacionGestionarClientes { get; private set; }
-        public MenuItem operacionGestionarClientesForm { get; private set; }
-
-        // Operaciones Reservas
-        public MenuItem operacionGestionarReservas { get; private set; }
-        public MenuItem operacionGestionarReservasForm { get; private set; }
-
-
-
-        /*CLientes*/
-
-        Panel buildPanelAdd1Clientes()
-        {
-            var panel = new Panel() { Dock = DockStyle.Fill };
-            this.lblCliente = new Label() { Text = "Nuevo Cliente", Dock = DockStyle.Top };
-
-            var lblNif = new Label() { Text = "Nif: (ÚNICO)", Dock = DockStyle.Left };
-            this.EdNif = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
-
-            panel.Controls.Add(this.EdNif);
-            panel.Controls.Add(lblNif);
-
-            panel.Controls.Add(lblCliente);
-            panel.MaximumSize = new Size(this.Width, this.EdNif.Height + lblCliente.Height);
-
-            return panel;
-        }
-        Panel buildPanelAdd2Clientes()
-        {
-            var panel = new Panel() { Dock = DockStyle.Fill };
-
-            var lblName = new Label() { Text = "Nombre: ", Dock = DockStyle.Left };
-            this.EdName = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
-
-            panel.Controls.Add(this.EdName);
-            panel.Controls.Add(lblName);
-
-            panel.MaximumSize = new Size(this.Width, this.EdName.Height);
-
-            return panel;
-        }
-        Panel buildPanelAdd3Clientes()
-        {
-            var panel = new Panel() { Dock = DockStyle.Fill };
-
-            var lblTlf = new Label() { Text = "Tlf: ", Dock = DockStyle.Left };
-            this.EdTlf = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
-
-            panel.Controls.Add(this.EdTlf);
-            panel.Controls.Add(lblTlf);
-
-            panel.MaximumSize = new Size(this.Width, this.EdTlf.Height);
-
-            return panel;
-        }
-        Panel buildPanelAdd4Clientes()
-        {
-            var panel = new Panel() { Dock = DockStyle.Fill };
-
-            var lblMail = new Label() { Text = "Email: ", Dock = DockStyle.Left };
-            this.EdMail = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
-
-            panel.Controls.Add(this.EdMail);
-            panel.Controls.Add(lblMail);
-
-            panel.MaximumSize = new Size(this.Width, this.EdMail.Height);
-
-            return panel;
-        }
-        Panel buildPanelAdd5Clientes()
-        {
-            var panel = new Panel() { Dock = DockStyle.Fill };
-
-            var lblDirec = new Label() { Text = "Direccion: ", Dock = DockStyle.Left };
-            this.EdDirec = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
-
-            panel.Controls.Add(this.EdDirec);
-            panel.Controls.Add(lblDirec);
-
-            panel.MaximumSize = new Size(this.Width, this.EdDirec.Height);
-
-            return panel;
-        }
-        Panel buildPanelAdd6Clientes()
-        {
-            var panel = new Panel() { Dock = DockStyle.Fill };
-
-            panel.Controls.Add(EditCliente);
-            panel.Controls.Add(CreateCliente);
-
-            panel.MaximumSize = new Size(this.Width, this.EdName.Height + 20);
-
-            return panel;
-        }
-
-
-
         /*------------------------------------------------------------------*/
         /*------------------TransportesPendientes---------------------------*/
         /*------------------------------------------------------------------*/
 
-        public Panel buildPanelTransportesPendientes()
-        {
-            var panelSearch = new Panel { Dock = DockStyle.Fill };
 
+        //var label = new Label { Dock = DockStyle.Top };
+        //label.Text = "Matricula";
+        //panelSearch.Controls.Add(label);
+        public Panel buildPanelTransportesPendientes()
+        { 
+            var label = new Label { Text = "Búsqueda transportes pendientes\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top};
+            var panelSearch = new Panel { Dock = DockStyle.Fill };
             var pnlBotones = this.BuildPanelBotones();
             panelSearch.Controls.Add(pnlBotones);
 
             var panelMatriculaCamion = this.BuildPanelMatriculaCamion();
+            
             panelSearch.Controls.Add(panelMatriculaCamion);
+            panelSearch.Controls.Add(label);
 
             panelSearch.MinimumSize = new Size(this.Width, this.tbCliente.Height + 20);
             return panelSearch;
@@ -971,8 +986,6 @@ namespace GestionFlota.UI
                 RowCount = 1
             };
 
-
-
             this.AcceptButton = this.btSearchCamiones;
             toret.Controls.Add(this.btSearchCamiones);     
             toret.Dock = DockStyle.Top;
@@ -980,11 +993,11 @@ namespace GestionFlota.UI
         }
         public Panel BuildPanelMatriculaCamion()
         {
-            var toret = new Panel { Dock = DockStyle.Top };
+            var toret = new TableLayoutPanel { Dock = DockStyle.Fill };
             Text = "ComboBox";
             Size = new Size(240, 240);
 
-            escogerCamion = new ComboBox();
+            escogerCamion = new ComboBox() { Dock = DockStyle.Left };
             escogerCamion.Parent = this;
             escogerCamion.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> Camiones = new List<object>();
@@ -998,16 +1011,13 @@ namespace GestionFlota.UI
 
             escogerCamion.SelectedItem = Camiones.First();
             escogerCamion.Text = Camiones.First().ToString();
+            
             toret.Controls.Add(this.escogerCamion);
             toret.MaximumSize = new Size(int.MaxValue, escogerCamion.Height * 2);
 
             return toret;
 
         }
-
-        private ComboBox escogerCamion { get; set; }
-        public string Matricula { get => this.escogerCamion.Text.Trim(); set => Matricula = value.ToString(); }
-        public Button btSearchCamiones { get; private set; }
 
         /*------------------------------------------------------------------*/
         /*------------------Transporte Cliente------------------------------*/
@@ -1027,7 +1037,6 @@ namespace GestionFlota.UI
             toret.Dock = DockStyle.Top;
             return toret;
         }
-
         public Panel BuildPanelTipoCamion()
         {
 
@@ -1058,7 +1067,6 @@ namespace GestionFlota.UI
             return toret;
 
         }
-
         public Panel BuildPanelPasadasOPendientes2()
         {
             var toret = new Panel { Dock = DockStyle.Top };
@@ -1080,7 +1088,6 @@ namespace GestionFlota.UI
             return toret;
 
         }
-
         public Panel BuildPanelEscogerAnho2()
         {
 
@@ -1110,7 +1117,6 @@ namespace GestionFlota.UI
             return toret;
 
         }
-
         public Panel buildPanelTransporteCliente()
         {
             var panelSearch = new Panel { Dock = DockStyle.Fill };
@@ -1130,18 +1136,10 @@ namespace GestionFlota.UI
             return panelSearch;
         }
 
-        private ComboBox escogerCliente { get; set; }
-        private ComboBox escogerPeriodo2 { get; set; }
-        private ComboBox escogerAnho2 { get; set; }
-
-        public string Anho2 => escogerAnho2.Text;
-        public string Cliente => escogerCliente.Text;
-        public string Periodo2 => escogerPeriodo2.Text;
-        public Button btSearchTransporteCliente { get; private set; }
-
         /*------------------------------------------------------------------*/
         /*------------------Reservas Camion---------------------------------*/
         /*------------------------------------------------------------------*/
+
         public Panel buildPanelReservasCamion()
         {
 
@@ -1163,7 +1161,6 @@ namespace GestionFlota.UI
 
             return panelSearch;
         }
-
         private Panel BuildPanelBotones2()
         {
             var toret = new TableLayoutPanel()
@@ -1255,17 +1252,6 @@ namespace GestionFlota.UI
 
         }
 
-
-        private ComboBox escogerCamion2 { get; set; }
-        private ComboBox escogerPeriodo { get; set; }
-        private ComboBox escogerAnho { get; set; }
-
-        public string Anho => escogerAnho.Text;
-        public string Matricula2 { get => this.escogerCamion2.Text.Trim(); set => Matricula2 = value.ToString(); }
-        public string Periodo => escogerPeriodo.Text;
-
-        public Button btSearchCamiones2 { get; set; }
-
         /*------------------------------------------------------------------*/
         /*------------------Reservas Cliente---------------------------------*/
         /*------------------------------------------------------------------*/
@@ -1288,7 +1274,6 @@ namespace GestionFlota.UI
             return panelSearch;
 
         }
-
         private Panel BuildPanelIdTransporte4()
         {
             var toret = new Panel { Dock = DockStyle.Top };
@@ -1316,7 +1301,6 @@ namespace GestionFlota.UI
             toret.MaximumSize = new Size(int.MaxValue, escogerCliente4.Height * 2);
             return toret;
         }
-
         public Panel BuildPanelEscogerAnho4()
         {
 
@@ -1346,7 +1330,6 @@ namespace GestionFlota.UI
             return toret;
 
         }
-
         private Panel BuildPanelBotones4()
         {
             var toret = new TableLayoutPanel()
@@ -1362,13 +1345,6 @@ namespace GestionFlota.UI
             toret.Dock = DockStyle.Top;
             return toret;
         }
-
-        public ComboBox escogerCliente4 { get; set; }
-        private ComboBox escogerAnho4 { get; set; }
-
-        public string Anho4 => escogerAnho4.Text;
-        public string idDni { get => this.escogerCliente4.Text.Trim(); set => idDni = value.ToString(); }
-        public Button btSearchCliente4 { get; set; }
 
         /*------------------------------------------------------------------*/
         /*--------------------Ocupacion-------------------------------------*/
@@ -1398,13 +1374,11 @@ namespace GestionFlota.UI
             toret.MinimumSize = new Size(int.MaxValue, calendar.Height + date.Height + 50);
             return toret;
         }
-
         void OnSelected(object sender, EventArgs e)
         {
             Fecha5 = calendar.SelectionStart;
             date.Text = Fecha5.Day + "/" + Fecha5.Month + "/" + Fecha5.Year;
         }
-
         public Panel BuildPanelEscogerAnho5()
         {
             var toret = new FlowLayoutPanel { Dock = DockStyle.Top, };
@@ -1439,7 +1413,6 @@ namespace GestionFlota.UI
             return toret;
 
         }
-
         public Panel buildPanelOcupacion()
         {
             var panelSearch = new TableLayoutPanel { Dock = DockStyle.Fill };
@@ -1454,16 +1427,6 @@ namespace GestionFlota.UI
 
             return panelSearch;
         }
-
-        public MonthCalendar calendar { get; set; }
-        public Label date { get; set; }
-        private ComboBox escogerAnho5 { get; set; }
-
-        public string Anho5 => escogerAnho5.Text;
-        public DateTime Fecha5 { get; set; }
-
-        public Button btSearchOcupacionAnho5 { get; set; }
-
 
         /*------------------------------------------------------------------*/
         /*------------------------------------------------------------------*/
@@ -1488,14 +1451,12 @@ namespace GestionFlota.UI
             panelGraficoGeneral.ResumeLayout(false);
 
         }
-
         public void setDataChart(string x, string y, int[] values)
         {
             this.Chart.LegendY = y;
             this.Chart.LegendX = x;
             this.Chart.Values = values;
         }
-
         public void setDataLegend(string[] a)
         {
             this.Chart.ValuesDraw = a;
@@ -1504,16 +1465,6 @@ namespace GestionFlota.UI
         /*------------------------------------------------------------------*/
         /*------------------------------------------------------------------*/
         /*------------------------------------------------------------------*/
-
-
-        public Panel BoxAddReservas { get; set; }
-        public Panel BoxAddClientes { get; set; }
-
-
-        public Panel BoxMsg { get; set; }
-
-        public Panel dialogos { get; set; }
-        public Panel dialogosGrande { get; set; }
 
         public void inicializarBotones()
         {
@@ -1562,299 +1513,8 @@ namespace GestionFlota.UI
         }
 
 
-
-        //Representación de gráficos
-        public const int CHART_CANVAS_SIZE = 624;
-        public Chart Chart { get; private set; }
-
-
-        //Paneles
-
-        public Panel panelGraficoGeneral;   //Gráficos
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*-----------------------------------------------------------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
             
+
+           
