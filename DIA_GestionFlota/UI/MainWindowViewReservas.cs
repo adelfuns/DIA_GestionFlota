@@ -102,7 +102,7 @@ namespace GestionFlota.UI
 
 
 
-            this.dialogosGrande.Width = BoxAddReservas.Width;
+            this.dialogosGrande.Width = 400;
             
 
 
@@ -451,10 +451,7 @@ namespace GestionFlota.UI
             BoxAddReservas.Controls.Add(panelAdd13Reservas);
 
             BoxAddReservas.BorderStyle = BorderStyle.FixedSingle;
-            BoxAddReservas.Width += panelAdd1Reservas.Height + panelAdd2Reservas.Height + panelAdd3Reservas.Height + panelAdd4Reservas.Height +
-                panelAdd5Reservas.Height + panelAdd6Reservas.Height + panelAdd7Reservas.Height + panelAdd8Reservas.Height + panelAdd9Reservas.Height
-                + panelAdd10Reservas.Height + panelAdd11Reservas.Height + panelAdd12Reservas.Height + panelAdd13Reservas.Height
-                ;
+            BoxAddReservas.Width += 200;
         }
 
         Panel buildPanelMsg()
@@ -658,15 +655,15 @@ namespace GestionFlota.UI
         public void crearPanelesPequenosClientes()
         {
 
-            BoxAddClientes = new TableLayoutPanel() { Dock = DockStyle.Right };
+            BoxAddClientes = new TableLayoutPanel() { Dock = DockStyle.Left };
 
-            panelAdd1Clientes = this.buildPanelAdd1();
-            panelAdd2Clientes = this.buildPanelAdd2();
-            panelAdd3Clientes = this.buildPanelAdd3();
-            panelAdd4Clientes = this.buildPanelAdd4();
-            panelAdd5Clientes = this.buildPanelAdd5();
-            panelAdd6Clientes = this.buildPanelAdd6();
-            panelAdd7Clientes = this.buildPanelAdd7();
+            panelAdd1Clientes = this.buildPanelAdd1Clientes();
+            panelAdd2Clientes = this.buildPanelAdd2Clientes();
+            panelAdd3Clientes = this.buildPanelAdd3Clientes();
+            panelAdd4Clientes = this.buildPanelAdd4Clientes();
+            panelAdd5Clientes = this.buildPanelAdd5Clientes();
+            panelAdd6Clientes = this.buildPanelAdd6Clientes();
+
 
 
             BoxAddClientes.Controls.Add(panelAdd1Clientes);
@@ -675,9 +672,10 @@ namespace GestionFlota.UI
             BoxAddClientes.Controls.Add(panelAdd4Clientes);
             BoxAddClientes.Controls.Add(panelAdd5Clientes);
             BoxAddClientes.Controls.Add(panelAdd6Clientes);
-            BoxAddClientes.Controls.Add(panelAdd7Clientes);
 
 
+
+            BoxAddClientes.BorderStyle = BorderStyle.FixedSingle;
             BoxAddClientes.BorderStyle = BorderStyle.FixedSingle;
             BoxAddClientes.Width += 100;
         }
@@ -703,7 +701,7 @@ namespace GestionFlota.UI
         Panel panelAdd4Clientes;
         Panel panelAdd5Clientes;
         Panel panelAdd6Clientes;
-        Panel panelAdd7Clientes;
+
 
 
 
@@ -1859,4 +1857,4 @@ namespace GestionFlota.UI
 
     }
 }
-
+            this.dialogosGrande.Controls.Add(this.dialogos);

@@ -106,7 +106,7 @@
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddReservas;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddReservas.Height;
-                MainWindowViewReservas.dialogosGrande.Width = 500;
+                MainWindowViewReservas.dialogosGrande.Width = 400;
 
             };
 
@@ -115,7 +115,7 @@
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddClientes;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddClientes.Height;
-                MainWindowViewReservas.dialogosGrande.Width = 500;
+                MainWindowViewReservas.dialogosGrande.Width = 300;
 
             };
         }
