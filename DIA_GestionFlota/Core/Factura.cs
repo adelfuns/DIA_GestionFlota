@@ -1,5 +1,4 @@
-﻿using DIA_GestionFlota;
-using GestionFlota.Core;
+﻿using GestionFlota.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 
 
-namespace GestionFlota
+namespace GestionFlota.Core
 {
 
     public class Factura : Reservas

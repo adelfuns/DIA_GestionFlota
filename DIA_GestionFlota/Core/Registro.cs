@@ -1,5 +1,4 @@
-﻿using DIA_GestionFlota;
-using ProyectoFlota.Core;
+﻿using GestionFlota.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ namespace GestionFlota.Core
         {
             clientes = new List<Cliente>();
             reservas = new List<Reservas>();
-            flotaList= new List<Flota>();
+            flotaList = new List<Flota>();
         }
 
         public List<Cliente> GetClientes()
@@ -218,7 +217,7 @@ namespace GestionFlota.Core
         }
 
         //Metodos especificos de clientes
-        public static Cliente FindByNif(String nif)
+        public Cliente FindByNif(String nif)
         {
             Cliente toret = null;
             foreach (Cliente c in clientes)

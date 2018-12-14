@@ -1,4 +1,4 @@
-﻿namespace DIA_GestionFlota
+﻿namespace GestionFlota
 {
     using System;
     using System.Drawing;
@@ -10,7 +10,7 @@
     using GestionFlota.Core;
     using GestionFlota.UI;
     using System.Text.RegularExpressions;
-    using GestionFlota;
+    using GestionFlota.Core;
 
 
     class MainWindow : Form
@@ -20,11 +20,16 @@
         {
             //Console.WriteLine(DateTime.Now.ToString());
 
-            RegClientes = new RegistroClientes();
-            RegClientes = RegistroClientes.RecuperaXml();
+            Reg = new Registro();
+            RegClientes = Reg.GetClientes();
+            RegReservas = Reg.GetReservas();
+            flotas = Reg.GetFlotas();
 
-            RegReservas = new RegistroReservas(RegClientes);
-            RegReservas = RegistroReservas.RecuperaXml();
+            //RegClientes = new RegistroClientes();
+            //RegClientes = RegistroClientes.RecuperaXml();
+
+            //RegReservas = new RegistroReservas(RegClientes);
+            //RegReservas = RegistroReservas.RecuperaXml();
 
             //this.MainWindowView = new MainWindowView();
 
@@ -33,7 +38,7 @@
             inClientes = false;
             inFlota = false;
 
-            flotas = new ListaFlota();
+            //flotas = new ListaFlota();
 
             this.MainWindowViewReservas.FormClosed += (sender, e) => this.Salir();
             this.MainWindowViewReservas.operacionSalir.Click += (sender, e) => this.Salir();
@@ -438,7 +443,7 @@
                     if (name.Length > 0 && mail.Length > 0 && direc.Length > 0)
                     {
                         Cliente c = new Cliente(nif, name, tlf, mail, direc);
-                        RegClientes.Edit(c);
+                        Reg.Edit(c);
                         //ActualizarLista();
                         Clear();
                     }
@@ -515,7 +520,7 @@
 
                 if (Regex.IsMatch(nif, "[0-9]{8,8}[A-Za-z]{1}") && nif.Length == 9 && Regex.IsMatch(tlf, "[0-9]{9}") && tlf.Length == 9)
                 {
-                    if (RegClientes.IsNifUnique(nif))
+                    if (Reg.IsNifUnique(nif))
                     {
                         if (name.Length > 0 && mail.Length > 0 && direc.Length > 0)
                         {
@@ -635,7 +640,7 @@
 
             try
             {
-                cliente = RegClientes.FindByNif(Convert.ToString(edCliente.Text));
+                cliente = Reg.FindByNif(Convert.ToString(edCliente.Text));
                 idTrans = Convert.ToString(edIdtrans.Text);
                 // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
                 //tipoTransp = Convert.ToString(edTipoTransp.Text);
@@ -650,7 +655,7 @@
                 suplencia = Convert.ToDouble(edSuplencia.Text);
 
 
-                if (RegReservas.IsIDTranspUnique(idTrans))
+                if (Reg.IsIDTranspUnique(idTrans))
                 {
                     if (idTrans.Length > 0)
                     {
@@ -741,7 +746,7 @@
             try
             {
 
-                Cliente = RegClientes.FindByNif(Convert.ToString(EdCliente.Text));
+                Cliente = Reg.FindByNif(Convert.ToString(EdCliente.Text));
                 idTransp = Convert.ToString(EdIdTransp.Text);
                 // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
                 //tipoTransp = Convert.ToString(EdTipoTransp.Text);
@@ -761,7 +766,7 @@
                 {
                     Reservas r = new Factura(idTransp, Cliente, new Flota(2.1, null, null, null, null, 0, new DateTime(), new DateTime(), null), Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
                         kmRecorridos, IVA, Gas, Suplencia);
-                    RegReservas.Edit(r);
+                    Reg.Edit(r);
                     ActualizarListaReservas();
                     ClearReservas();
                 }
@@ -1375,18 +1380,17 @@
         //Operacion salir
         void Salir()
         {
-            RegClientes.GuardaXml();
-            RegReservas.GuardaXml();
+            Reg.GuardaXml();
             Application.Exit();
         }
 
         public MainWindowView MainWindowView { get; private set; }
-
         public MainWindowViewReservas MainWindowViewReservas { get; private set; }
 
-        public static ListaFlota flotas;
-        public static RegistroClientes RegClientes { get; private set; }
-        public static RegistroReservas RegReservas { get; private set; }
+        public Registro Reg { get; }
+        public static List<Flota> flotas;
+        public static List<Cliente> RegClientes { get; private set; }
+        public static List<Reservas> RegReservas { get; private set; }
 
 
         //Busqueda

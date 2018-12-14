@@ -80,6 +80,7 @@
     <Compile Include="UI\DialogGraphics\Chart.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\Registro.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

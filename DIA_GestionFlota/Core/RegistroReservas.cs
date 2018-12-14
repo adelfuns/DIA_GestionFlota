@@ -8,7 +8,6 @@ using System.Collections;
 using System.Xml.Linq;
 using GestionFlota.Core;
 using GestionFlota;
-using DIA_GestionFlota;
 namespace GestionFlota.Core
 {
     class RegistroReservas : ICollection<Reservas>

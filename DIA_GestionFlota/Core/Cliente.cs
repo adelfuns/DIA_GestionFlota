@@ -1,5 +1,5 @@
 ﻿
-namespace DIA_GestionFlota
+namespace GestionFlota.Core
 {
     public class Cliente
     {
