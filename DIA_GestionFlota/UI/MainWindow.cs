@@ -88,17 +88,35 @@
             */
             //Operaciones Clientes
             if (!inClientes) {
+                inClientes = true;
+                inFlota = false;
+                inTransportes = false;
                 this.MainWindowViewReservas.operacionGestionarClientes.Click += (sender, e) => this.ActividadGestionClientes();
             }
             //Operaciones Reservas
             if (!inTransportes)
             {
+                inClientes = false;
+                inFlota = false;
+                inTransportes = true;
                 this.MainWindowViewReservas.operacionGestionarReservas.Click += (sender, e) => this.ActividadGestionReservas();
             }
             this.MainWindowViewReservas.operacionGestionarReservasForm.Click += (sender, e) => {
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddReservas;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+                MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddReservas.Height;
+                MainWindowViewReservas.dialogosGrande.Width = 500;
+
+            };
+
+            this.MainWindowViewReservas.operacionGestionarClientesForm.Click += (sender, e) => {
+                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+                MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddClientes;
+                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+                MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddClientes.Height;
+                MainWindowViewReservas.dialogosGrande.Width = 500;
+
             };
         }
 
@@ -106,8 +124,9 @@
         {
             MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListClientes;
-            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.grdEventsListAux);
-            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.grdEventsListClientes.Height;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListClientes.Height;
+            MainWindowViewReservas.grdEventsList.Width = 500;
 
 
 
@@ -126,8 +145,9 @@
 
             MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
-            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.grdEventsListAux);
-            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = 500;
 
             this.MainWindowViewReservas.CreateReserva.Click += (sender, e) => {
 

@@ -103,8 +103,11 @@ namespace GestionFlota.UI
 
 
             this.dialogosGrande.Width = BoxAddReservas.Width;
+            
+
 
             this.MinimumSize = new Size(1500, 600);
+            this.grdEventsList.Height = this.Height-80;
             this.Text = "Gestion Reservas";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.CenterToScreen();
@@ -465,7 +468,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd1()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -482,7 +484,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd2()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -497,7 +498,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd3()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -512,7 +512,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd4()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -527,7 +526,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd5()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -542,7 +540,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd6()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -557,7 +554,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         Panel buildPanelAdd7()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
@@ -791,7 +787,7 @@ namespace GestionFlota.UI
 
             //Operaciones clientes
             this.operacionGestionarClientes = new MenuItem("&Gestion Clientes");
-
+            this.operacionGestionarClientesForm = new MenuItem("&Formulario clientes");
             //Operaciones Reservas
             this.operacionGestionarReservas = new MenuItem("&Gestion Reservas");
             this.operacionGestionarReservasForm = new MenuItem("&Formulario reservas");
@@ -819,6 +815,7 @@ namespace GestionFlota.UI
             this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);
             //Submenú clientes
             this.menuClientes.MenuItems.Add(this.operacionGestionarClientes);
+            this.menuClientes.MenuItems.Add(this.operacionGestionarClientesForm);
             //Submenú Reservas
             this.menuReservas.MenuItems.Add(this.operacionGestionarReservas);
             this.menuReservas.MenuItems.Add(this.operacionGestionarReservasForm);
@@ -855,6 +852,7 @@ namespace GestionFlota.UI
 
         //Operaciones clientes
         public MenuItem operacionGestionarClientes { get; private set; }
+        public MenuItem operacionGestionarClientesForm { get; private set; }
 
         // Operaciones Reservas
         public MenuItem operacionGestionarReservas { get; private set; }
@@ -1861,3 +1859,4 @@ namespace GestionFlota.UI
 
     }
 }
+            this.dialogosGrande.Controls.Add(this.dialogos);
