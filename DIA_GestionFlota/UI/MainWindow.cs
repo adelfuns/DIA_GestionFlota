@@ -35,22 +35,21 @@
 
             flotas = new ListaFlota();
 
-            this.dialogoGraficoGeneral = new DialogoGraficoGeneral();
-            this.dialogoGraficoCliente = new DialogoGraficoCliente();
-            this.dialogoGraficoCamion = new DialogoGraficoCamion();
-            this.dialogoGraficoComodidades = new DialogoGraficoComodidades();
-
-
-
             this.MainWindowViewReservas.FormClosed += (sender, e) => this.Salir();
             this.MainWindowViewReservas.operacionSalir.Click += (sender, e) => this.Salir();
             this.MainWindowViewReservas.menuAtras.Click += (sender, e) => this.mostrarTodosLosTransportes();
+            //this.dialogoGraficoGeneral = new DialogoGraficoGeneral();
+            // this.dialogoGraficoCliente = new DialogoGraficoCliente();
+            //this.dialogoGraficoCamion = new DialogoGraficoCamion();
+            //this.dialogoGraficoComodidades = new DialogoGraficoComodidades();
+
+
 
             this.MainWindowViewReservas.Load += (sender, e) => this.mostrarTodosLosTransportes();
 
             //Operaciones búsqueda
             //Inicializar dialogos
-            this.dialogoCamion = new DialogoCamiones();
+          //  this.dialogoCamion = new DialogoCamiones();
 
             //Menu de la MainWindowView
             this.MainWindowViewReservas.operacionSearch1.Click += (sender, e) => this.transportePendientes();
@@ -69,9 +68,10 @@
             this.MainWindowViewReservas.btSearchOcupacionAnho5.Click += (sender, e) => this.OASearch();//Ocupacion
             this.MainWindowViewReservas.calendar.DateSelected += (sender, e) => this.OFSearch();//Ocupacion
 
-            this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
+          //  this.dialogoCamion.btSearchCamiones.Click += (sender, e) => this.DDCSearch();
 
             //Operaciones graficos
+            /*
             this.dialogoGraficoGeneral.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadGeneralAnual(); //Grafico
             this.dialogoGraficoGeneral.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadGeneralTotal(); //Grafico
             this.dialogoGraficoCliente.btGraficoGeneralAnual.Click += (sender, e) => this.ActividadClienteAnual(); //Grafico
@@ -80,7 +80,7 @@
             this.dialogoGraficoCamion.btGraficoGeneralTotal.Click += (sender, e) => this.ActividadCamionTotal(); //Grafico
             this.dialogoGraficoComodidades.btGraficoGeneralAnual.Click += (sender, e) => this.FlotaComodidadesAnual(); //Grafico
             this.dialogoGraficoComodidades.btGraficoGeneralTotal.Click += (sender, e) => this.FlotaComodidadesTotal(); //Grafico
-
+            */
             //Operaciones Clientes
             if (!inClientes) {
                 this.MainWindowViewReservas.operacionGestionarClientes.Click += (sender, e) => this.ActividadGestionClientes();
@@ -92,35 +92,39 @@
             }
             this.MainWindowViewReservas.operacionGestionarReservasForm.Click += (sender, e) => {
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAdd;
+                MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddReservas;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             };
         }
 
         private void ActividadGestionClientes()
         {
-            //Form clientes = new Form();
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListClientes;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.grdEventsListClientes.Height;
 
-            //clientes.AddOwnedForm(MainWindowViewClientes);
 
-            this.MainWindowViewClientes = new MainWindowViewClientes();
 
-            this.MainWindowViewClientes.CreateCliente.Click += (sender, e) => this.AddClient();
-            this.MainWindowViewClientes.RemoveCliente.Click += (sender, e) => this.RemoveClient();
-            this.MainWindowViewClientes.EditFindCliente.Click += (sender, e) => this.EditFindClient();
-            this.MainWindowViewClientes.EditCliente.Click += (sender, e) => this.EditClient();
+            this.MainWindowViewReservas.CreateCliente.Click += (sender, e) => this.AddClient();
+            this.MainWindowViewReservas.RemoveCliente.Click += (sender, e) => this.RemoveClient();
+            this.MainWindowViewReservas.EditFindCliente.Click += (sender, e) => this.EditFindClient();
+            this.MainWindowViewReservas.EditCliente.Click += (sender, e) => this.EditClient();
 
-            Clear();
-            ActualizarLista();
+            //Clear();
+            //ActualizarLista();
             //MainWindowViewClientes.Show();
         }
 
         private void ActividadGestionReservas()
         {
-            this.MainWindowViewReservas = new MainWindowViewReservas();
+
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.grdEventsListReservas.Height;
 
             this.MainWindowViewReservas.CreateReserva.Click += (sender, e) => {
-
 
                 this.Crear();
 
@@ -384,7 +388,7 @@
         //Metodos Gestion Clientes
         private void RemoveClient()
         {
-            RegClientes.RemoveAt(MainWindowViewClientes.evt.RowIndex);
+            RegClientes.RemoveAt(MainWindowViewReservas.evt.RowIndex);
             ActualizarLista();
         }
 
@@ -392,18 +396,18 @@
         {
             try
             {
-                Cliente c = RegClientes[MainWindowViewClientes.evt.RowIndex];
+                Cliente c = RegClientes[MainWindowViewReservas.evt.RowIndex];
 
-                MainWindowViewClientes.EdNif.Text = c.Nif;
-                MainWindowViewClientes.EdNif.ReadOnly = true;
-                MainWindowViewClientes.EdName.Text = c.Nombre;
-                MainWindowViewClientes.EdTlf.Text = c.Telefono;
-                MainWindowViewClientes.EdMail.Text = c.Email;
-                MainWindowViewClientes.EdDirec.Text = c.DireccionPostal;
+                MainWindowViewReservas.EdNif.Text = c.Nif;
+                MainWindowViewReservas.EdNif.ReadOnly = true;
+                MainWindowViewReservas.EdName.Text = c.Nombre;
+                MainWindowViewReservas.EdTlf.Text = c.Telefono;
+                MainWindowViewReservas.EdMail.Text = c.Email;
+                MainWindowViewReservas.EdDirec.Text = c.DireccionPostal;
 
-                MainWindowViewClientes.EditCliente.Enabled = true;
-                MainWindowViewClientes.CreateCliente.Enabled = false;
-                MainWindowViewClientes.lblCliente.Text = "Editar Cliente";
+                MainWindowViewReservas.EditCliente.Enabled = true;
+                MainWindowViewReservas.CreateCliente.Enabled = false;
+                MainWindowViewReservas.lblCliente.Text = "Editar Cliente";
             }
             catch
             {
@@ -413,11 +417,11 @@
 
         private void EditClient()
         {
-            TextBox edNif = MainWindowViewClientes.EdNif;
-            TextBox edName = MainWindowViewClientes.EdName;
-            TextBox edTlf = MainWindowViewClientes.EdTlf;
-            TextBox edMail = MainWindowViewClientes.EdMail;
-            TextBox edDirec = MainWindowViewClientes.EdDirec;
+            TextBox edNif = MainWindowViewReservas.EdNif;
+            TextBox edName = MainWindowViewReservas.EdName;
+            TextBox edTlf = MainWindowViewReservas.EdTlf;
+            TextBox edMail = MainWindowViewReservas.EdMail;
+            TextBox edDirec = MainWindowViewReservas.EdDirec;
 
             string nif, name, mail, direc, tlf;
 
@@ -462,14 +466,14 @@
             }
             finally
             {
-                MainWindowViewClientes.lblCliente.Text = "Nuevo Cliente";
+                MainWindowViewReservas.lblCliente.Text = "Nuevo Cliente";
                 ActualizarLista();
             }
         }
 
         private void ActualizarLista()
         {
-            MainWindowViewClientes.grdEventsList.Rows.Clear();
+            MainWindowViewReservas.grdEventsListClientes.Rows.Clear();
             foreach (var cliente in RegClientes)
             {
                 AddTableEventsListRowWithEvent(cliente);
@@ -488,16 +492,16 @@
             columnData.Add(cliente.DireccionPostal);
             columnData.Add(cliente.Email);
 
-            MainWindowViewClientes.grdEventsList.Rows.Add(columnData.ToArray());
+            MainWindowViewReservas.grdEventsListClientes.Rows.Add(columnData.ToArray());
         }
 
         private void AddClient()
         {
-            TextBox edNif = MainWindowViewClientes.EdNif;
-            TextBox edName = MainWindowViewClientes.EdName;
-            TextBox edTlf = MainWindowViewClientes.EdTlf;
-            TextBox edMail = MainWindowViewClientes.EdMail;
-            TextBox edDirec = MainWindowViewClientes.EdDirec;
+            TextBox edNif = MainWindowViewReservas.EdNif;
+            TextBox edName = MainWindowViewReservas.EdName;
+            TextBox edTlf = MainWindowViewReservas.EdTlf;
+            TextBox edMail = MainWindowViewReservas.EdMail;
+            TextBox edDirec = MainWindowViewReservas.EdDirec;
 
             string nif, name, mail, direc, tlf;
 
@@ -553,17 +557,17 @@
 
         private void Clear()
         {
-            MainWindowViewClientes.EdNif.Text = "";
-            MainWindowViewClientes.EdName.Text = "";
-            MainWindowViewClientes.EdTlf.Text = "";
-            MainWindowViewClientes.EdMail.Text = "";
-            MainWindowViewClientes.EdDirec.Text = "";
+            MainWindowViewReservas.EdNif.Text = "";
+            MainWindowViewReservas.EdName.Text = "";
+            MainWindowViewReservas.EdTlf.Text = "";
+            MainWindowViewReservas.EdMail.Text = "";
+            MainWindowViewReservas.EdDirec.Text = "";
             //MainWindowView.EdNifRemove.Text = "";
             //MainWindowView.EdNifEdit.Text = "";
 
-            MainWindowViewClientes.EdNif.ReadOnly = false;
-            MainWindowViewClientes.EditCliente.Enabled = false;
-            MainWindowViewClientes.CreateCliente.Enabled = true;
+            MainWindowViewReservas.EdNif.ReadOnly = false;
+            MainWindowViewReservas.EditCliente.Enabled = false;
+            MainWindowViewReservas.CreateCliente.Enabled = true;
         }
 
         private void Listar()
@@ -577,14 +581,14 @@
             }
             toret.Replace("\n", Environment.NewLine);
 
-            MainWindowViewClientes.EdClientes.Text = toret.ToString();
+            MainWindowViewReservas.EdClientes.Text = toret.ToString();
         }
 
         private void Error(String msg)
         {
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
 
-            this.MainWindowViewClientes.EdMsg.Text = "ERROR: " + msg;
+            this.MainWindowViewReservas.EdMsg.Text = "ERROR: " + msg;
 
             t.Interval = 5000;
             t.Tick += new EventHandler(timer_Tick);
@@ -592,7 +596,7 @@
 
             void timer_Tick(object sender, EventArgs e)
             {
-                MainWindowViewClientes.EdMsg.Text = "";
+                MainWindowViewReservas.EdMsg.Text = "";
                 t.Stop();
             }
 
@@ -784,7 +788,7 @@
 
         public void ActualizarListaReservas()
         {
-            MainWindowViewReservas.grdEventsList.Rows.Clear();
+            MainWindowViewReservas.grdEventsListReservas.Rows.Clear();
             foreach (var reserva in RegReservas)
             {
                 AddTableEventsListRowWithEvent(reserva);
@@ -811,7 +815,7 @@
             columnData.Add(reserva.Suplencia);
             columnData.Add(reserva.PrecioFactura);
 
-            MainWindowViewReservas.grdEventsList.Rows.Add(columnData.ToArray());
+            MainWindowViewReservas.grdEventsListReservas.Rows.Add(columnData.ToArray());
         }
 
         public void ClearReservas()
@@ -862,7 +866,7 @@
 
             void timer_Tick(object sender, EventArgs e)
             {
-                MainWindowViewClientes.EdMsg.Text = "";
+                MainWindowViewReservas.EdMsg.Text = "";
                 t.Stop();
             }
 
@@ -871,7 +875,7 @@
         //Metodos gestion reservas busqueda
         public void ActualizarListaReservasBusqueda()
         {
-            MainWindowViewReservas.grdEventsList.Rows.Clear();
+            MainWindowViewReservas.grdEventsListReservas.Rows.Clear();
             foreach (var reserva in RegReservasBusqueda)
             {
                 AddTableEventsListRowWithEvent(reserva);
@@ -1036,7 +1040,7 @@
             return values;
         }
         /* Fin de métodos de gráficos */
-
+        /*
         //Gráfico general
         private void ActividadGeneralAnual()
         {
@@ -1199,6 +1203,7 @@
         //Fin grafico cliente
 
         //Grafico actividad camion
+        
         private void ActividadCamionAnual()
         {
             var anhoSeleccionado = this.dialogoGraficoCamion.Anho;
@@ -1364,6 +1369,8 @@
                 this.MainWindowView.Height = 200;
             }
         }
+        
+        */
         //Fin grafico comodidades camion
         //Operacion salir
         void Salir()
@@ -1374,7 +1381,7 @@
         }
 
         public MainWindowView MainWindowView { get; private set; }
-        public MainWindowViewClientes MainWindowViewClientes { get; private set; }
+
         public MainWindowViewReservas MainWindowViewReservas { get; private set; }
 
         public static ListaFlota flotas;

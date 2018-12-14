@@ -7,8 +7,8 @@ using System.Xml;
 using System.Collections;
 using System.Xml.Linq;
 using GestionFlota.Core;
+using GestionFlota;
 using DIA_GestionFlota;
-
 namespace GestionFlota.Core
 {
     class RegistroReservas : ICollection<Reservas>
@@ -85,7 +85,7 @@ namespace GestionFlota.Core
 
         private static Flota flota(Object x)
         {
-            return new Flota(2.1, null, null, null, null, null, DateTime.Now, DateTime.Now, null);
+            return new Flota(2.1, null, null, null, null, 0, DateTime.Now, DateTime.Now, null);
         }
 
         private static DateTime formatDate(String date)

@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DIA_GestionFlota;
 using GestionFlota.Core;
@@ -22,27 +15,50 @@ namespace GestionFlota.UI
             this.Build();
         }
 
-        public TextBox tbReservas { get; private set; }
-        public TextBox tbIdTransp { get; private set; }
-        public TextBox tbCliente { get; private set; }
-        public TextBox tbTipoTrans { get; private set; }
-        public TextBox tbFcontra { get; private set; }
-        public TextBox tbFsalida { get; private set; }
-        public TextBox tbFentrega { get; private set; }
-        public TextBox tbEDia { get; private set; }
-        public TextBox tbEkm { get; private set; }
-        public TextBox tbKmRecorridos { get; private set; }
-        public TextBox tbGas { get; private set; }
-        public TextBox tbSuplencia { get; private set; }
-        public TextBox tbIVA { get; private set; }
+        public TextBox tbReservas { get;  set; }
+        public TextBox tbIdTransp { get;  set; }
+        public TextBox tbCliente { get;  set; }
+        public TextBox tbTipoTrans { get;  set; }
+        public TextBox tbFcontra { get;  set; }
+        public TextBox tbFsalida { get;  set; }
+        public TextBox tbFentrega { get;  set; }
+        public TextBox tbEDia {  get; set; }
+        public TextBox tbEkm { get;  set; }
+        public TextBox tbKmRecorridos { get;  set; }
+        public TextBox tbGas { get;  set; }
+        public TextBox tbSuplencia { get;  set; }
+        public TextBox tbIVA { get;  set; }
         public TextBox tbPrecioFactura { get; set; }
-        public Button CreateReserva { get; private set; }
-        public Button RemoveReserva { get; private set; }
-        public Button EditFindReserva { get; private set; }
-        public Button EditReserva { get; private set; }
-        public TextBox EdMsg { get; private set; }
+        public Button CreateReserva { get;  set; }
+        public Button RemoveReserva { get;  set; }
+        public Button EditFindReserva { get;  set; }
+        public Button EditReserva { get;  set; }
+        public TextBox EdMsg { get;  set; }
+
+
+        //ClienteView
+        public TextBox EdClientes { get;  set; }
+        public TextBox EdNif { get;  set; }
+        public TextBox EdName { get;  set; }
+        public TextBox EdTlf { get;  set; }
+        public TextBox EdMail { get;  set; }
+        public TextBox EdDirec { get;  set; }
+        public Button CreateCliente { get;  set; }
+        public Button RemoveCliente { get;  set; }
+        public Button EditFindCliente { get;  set; }
+        public Button EditCliente { get;  set; }
+        public Label lblCliente { get;  set; }
+
+
+
+
+
 
         public DataGridView grdEventsList;
+        public DataGridView grdEventsListFlota;
+        public DataGridView grdEventsListReservas;
+        public DataGridView grdEventsListClientes;
+        public DataGridView grdEventsListAux;
 
         private Panel pnlInfo;
         private Panel pnlEventsContainer;
@@ -53,52 +69,30 @@ namespace GestionFlota.UI
             this.inicializarBotones();
             this.dialogos = new Panel() { Dock = DockStyle.Right };
             this.dialogosGrande = new Panel() { Dock = DockStyle.Right };
+            this.grdEventsList = new DataGridView() { Dock = DockStyle.Top };
+            this.grdEventsListAux = new DataGridView() { Dock = DockStyle.Top };
 
 
-            BoxAdd = new TableLayoutPanel() { Dock = DockStyle.Right };
             BoxMsg = new TableLayoutPanel() { Dock = DockStyle.Bottom };
             this.BuildMenu();
             this.buildPanelReservas();
-
-            panelAdd1 = this.buildPanelAdd1();
-            panelAdd2 = this.buildPanelAdd2();
-            panelAdd3 = this.buildPanelAdd3();
-            panelAdd4 = this.buildPanelAdd4();
-            panelAdd5 = this.buildPanelAdd5();
-            panelAdd6 = this.buildPanelAdd6();
-            panelAdd7 = this.buildPanelAdd7();
-            panelAdd8 = this.buildPanelAdd8();
-            panelAdd9 = this.buildPanelAdd9();
-            panelAdd10 = this.buildPanelAdd10();
-            panelAdd11 = this.buildPanelAdd11();
-            panelAdd12 = this.buildPanelAdd12();
-            panelAdd13 = this.buildPanelAdd13();
+            this.buildPanelClientes();
 
             var panelMsg = this.buildPanelMsg();
 
-            BoxAdd.Controls.Add(panelAdd1);
-            BoxAdd.Controls.Add(panelAdd2);
-            BoxAdd.Controls.Add(panelAdd3);
-            BoxAdd.Controls.Add(panelAdd4);
-            BoxAdd.Controls.Add(panelAdd5);
-            BoxAdd.Controls.Add(panelAdd6);
-            BoxAdd.Controls.Add(panelAdd7);
-            BoxAdd.Controls.Add(panelAdd8);
-            BoxAdd.Controls.Add(panelAdd9);
-            BoxAdd.Controls.Add(panelAdd10);
-            BoxAdd.Controls.Add(panelAdd11);
-            BoxAdd.Controls.Add(panelAdd12);
-            BoxAdd.Controls.Add(panelAdd13);
+            crearPanelesPequenosReserva();
+            crearPanelesPequenosClientes();
 
-
-            BoxAdd.BorderStyle = BorderStyle.FixedSingle;
 
             BoxMsg.Controls.Add(panelMsg);
 
+            this.grdEventsListAux = this.grdEventsListReservas;
+            this.grdEventsList.Controls.Add(this.grdEventsListAux);
+            this.dialogos = this.BoxAddReservas;
+            this.dialogosGrande.Controls.Add(this.dialogos);
+            this.dialogosGrande.ForeColor = Color.Green;
 
             this.Controls.Add(this.grdEventsList);
-        
-            this.dialogosGrande.Controls.Add(this.dialogos); 
             this.Controls.Add(this.dialogosGrande);
 
             this.Controls.Add(BoxMsg);
@@ -106,8 +100,11 @@ namespace GestionFlota.UI
             this.Resize += (obj, args) => this.OnResizeWindow(obj, args);
 
             BoxMsg.Height -= 75;
-            BoxAdd.Width += 100;
-            this.dialogosGrande.Width = BoxAdd.Width;
+
+
+
+            this.dialogosGrande.Width = BoxAddReservas.Width;
+
             this.MinimumSize = new Size(1500, 600);
             this.Text = "Gestion Reservas";
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -121,14 +118,14 @@ namespace GestionFlota.UI
             RemoveReserva = new Button();
             EditFindReserva = new Button();
 
-            this.grdEventsList = new DataGridView();
+            this.grdEventsListReservas = new DataGridView();
 
-            this.grdEventsList.Dock = DockStyle.Fill;
-            this.grdEventsList.AllowUserToResizeRows = false;
-            this.grdEventsList.RowHeadersVisible = false;
-            this.grdEventsList.AutoGenerateColumns = false;
-            this.grdEventsList.MultiSelect = false;
-            this.grdEventsList.AllowUserToAddRows = false;
+            this.grdEventsListReservas.Dock = DockStyle.Fill;
+            this.grdEventsListReservas.AllowUserToResizeRows = false;
+            this.grdEventsListReservas.RowHeadersVisible = false;
+            this.grdEventsListReservas.AutoGenerateColumns = false;
+            this.grdEventsListReservas.MultiSelect = false;
+            this.grdEventsListReservas.AllowUserToAddRows = false;
 
             var textCellTemplate = new DataGridViewTextBoxCell();
             var imageEditTemplate = new DataGridViewButtonCell();
@@ -223,7 +220,7 @@ namespace GestionFlota.UI
             column13.ReadOnly = true;
             column14.ReadOnly = true;
 
-            this.grdEventsList.Columns.AddRange(new DataGridViewColumn[] {
+            this.grdEventsListReservas.Columns.AddRange(new DataGridViewColumn[] {
                 column0,
                 column1,
                 column2,
@@ -241,16 +238,16 @@ namespace GestionFlota.UI
                 column14
             });
 
-            this.grdEventsList.CellContentClick += this.OnCellClicked;
-            this.grdEventsList.Dock = DockStyle.Fill;
-            this.grdEventsList.TabIndex = 3;
-            this.grdEventsList.AllowUserToOrderColumns = false;
+            this.grdEventsListReservas.CellContentClick += this.OnCellClicked;
+            this.grdEventsListReservas.Dock = DockStyle.Fill;
+            this.grdEventsListReservas.TabIndex = 3;
+            this.grdEventsListReservas.AllowUserToOrderColumns = false;
             this.pnlInfo = new Panel();
             this.pnlInfo.SuspendLayout();
             this.pnlInfo.Dock = DockStyle.Fill;
             this.pnlEventsContainer = new Panel();
             this.pnlEventsContainer.Dock = DockStyle.Fill;
-            this.pnlEventsContainer.Controls.Add(this.grdEventsList);
+            this.pnlEventsContainer.Controls.Add(this.grdEventsListReservas);
             this.pnlInfo.Controls.Add(this.pnlEventsContainer);
         }
 
@@ -259,165 +256,204 @@ namespace GestionFlota.UI
             Control control = (Control)sender;
             int width = control.Size.Width - 417;
 
-            this.grdEventsList.Width = width;
+            this.grdEventsListReservas.Width = width;
 
 
-            this.grdEventsList.Columns[0].Width = (int)Math.Floor(width * .20);      // IDTransporte
-            this.grdEventsList.Columns[1].Width = (int)Math.Floor(width * .20);      // Cliente
-            this.grdEventsList.Columns[2].Width = (int)Math.Floor(width * .20);      // TipoTransporte
-            this.grdEventsList.Columns[3].Width = (int)Math.Floor(width * .20);      // Fcontratacion
-            this.grdEventsList.Columns[4].Width = (int)Math.Floor(width * .20);      // Fsalida
-            this.grdEventsList.Columns[5].Width = (int)Math.Floor(width * .20);      // Fentrega
-            this.grdEventsList.Columns[6].Width = (int)Math.Floor(width * .20);      // Importedia
-            this.grdEventsList.Columns[7].Width = (int)Math.Floor(width * .20);      // importekm
-            this.grdEventsList.Columns[8].Width = (int)Math.Floor(width * .20);      // kmrecorridos
-            this.grdEventsList.Columns[9].Width = (int)Math.Floor(width * .20);      // iva
-            this.grdEventsList.Columns[10].Width = (int)Math.Floor(width * .20);      // gas
-            this.grdEventsList.Columns[11].Width = (int)Math.Floor(width * .20);      // suplencia
-            this.grdEventsList.Columns[12].Width = (int)Math.Floor(width * .20);      // precioFactura
+            this.grdEventsListReservas.Columns[0].Width = (int)Math.Floor(width * .20);      // IDTransporte
+            this.grdEventsListReservas.Columns[1].Width = (int)Math.Floor(width * .20);      // Cliente
+            this.grdEventsListReservas.Columns[2].Width = (int)Math.Floor(width * .20);      // TipoTransporte
+            this.grdEventsListReservas.Columns[3].Width = (int)Math.Floor(width * .20);      // Fcontratacion
+            this.grdEventsListReservas.Columns[4].Width = (int)Math.Floor(width * .20);      // Fsalida
+            this.grdEventsListReservas.Columns[5].Width = (int)Math.Floor(width * .20);      // Fentrega
+            this.grdEventsListReservas.Columns[6].Width = (int)Math.Floor(width * .20);      // Importedia
+            this.grdEventsListReservas.Columns[7].Width = (int)Math.Floor(width * .20);      // importekm
+            this.grdEventsListReservas.Columns[8].Width = (int)Math.Floor(width * .20);      // kmrecorridos
+            this.grdEventsListReservas.Columns[9].Width = (int)Math.Floor(width * .20);      // iva
+            this.grdEventsListReservas.Columns[10].Width = (int)Math.Floor(width * .20);      // gas
+            this.grdEventsListReservas.Columns[11].Width = (int)Math.Floor(width * .20);      // suplencia
+            this.grdEventsListReservas.Columns[12].Width = (int)Math.Floor(width * .20);      // precioFactura
 
         }
 
         private void OnCellClicked(object sender, DataGridViewCellEventArgs evt)
         {
-            if (evt.ColumnIndex == (this.grdEventsList.Columns.Count - 2))
+            if (evt.ColumnIndex == (this.grdEventsListReservas.Columns.Count - 2))
             {
                 this.evt = evt;
                 RemoveReserva.PerformClick();
             }
             else
-            if (evt.ColumnIndex == (this.grdEventsList.Columns.Count - 1))
+            if (evt.ColumnIndex == (this.grdEventsListReservas.Columns.Count - 1))
             {
                 this.evt = evt;
                 EditFindReserva.PerformClick();
             }
         }
 
-        private void BuildMenu()
+
+        private void buildPanelClientes()
         {
-            this.menuPrincipal = new MainMenu();
+            //Definimos los botones que no se van a mostrar pero usaremos para lanzar los clicks al core
+            RemoveCliente = new Button();
+            EditFindCliente = new Button();
 
-            this.menuArchivo = new MenuItem("&Archivo");
-            this.menuEditar = new MenuItem("&Buscar");
-            this.menuGenerar = new MenuItem("&Generar");
-            this.menuClientes = new MenuItem("&Clientes");
-            this.menuReservas = new MenuItem("&Reservas");
-            this.menuAtras = new MenuItem("&Atras");
+            this.grdEventsListClientes = new DataGridView();
 
-            this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
+            this.grdEventsListClientes.Dock = DockStyle.Fill;
+            this.grdEventsListClientes.AllowUserToResizeRows = false;
+            this.grdEventsListClientes.RowHeadersVisible = false;
+            this.grdEventsListClientes.AutoGenerateColumns = false;
+            this.grdEventsListClientes.MultiSelect = false;
+            this.grdEventsListClientes.AllowUserToAddRows = false;
 
-            //Operaciones búsqueda
-            this.operacionSearch1 = new MenuItem("&Buscar transportes pendientes: ")
-            {
-                Shortcut = Shortcut.Ctrl0
-            };
-            this.operacionSearch2 = new MenuItem("&Disponibilidad: ")
-            {
-                Shortcut = Shortcut.Ctrl1
-            };
-            this.operacionSearch3 = new MenuItem("&Transportes por cliente: ")
-            {
-                Shortcut = Shortcut.Ctrl2
-            };
-            this.operacionSearch4 = new MenuItem("&Reservas por camion: ")
-            {
-                Shortcut = Shortcut.Ctrl3
-            };
-            this.operacionSearch5 = new MenuItem("&Reservas por cliente: ")
-            {
-                Shortcut = Shortcut.Ctrl4
-            };
-            this.operacionSearch6 = new MenuItem("&Ocupacion: ")
-            {
-                Shortcut = Shortcut.Ctrl5
-            };
+            var textCellTemplate = new DataGridViewTextBoxCell();
+            var imageEditTemplate = new DataGridViewButtonCell();
+            var imageDeleteTemplate = new DataGridViewButtonCell();
+            textCellTemplate.Style.BackColor = Color.Wheat;
+            imageEditTemplate.UseColumnTextForButtonValue = true;
+            imageDeleteTemplate.UseColumnTextForButtonValue = true;
 
-            //Operaciones generar gráfico
-            this.operacionActividadGeneral = new MenuItem("&Generar gráfico actvidad general: ")
-            {
-                Shortcut = Shortcut.Ctrl6
-            };
-            this.operacionActividadCliente = new MenuItem("&Generar gráfico actvidad cliente: ")
-            {
-                Shortcut = Shortcut.Ctrl7
-            };
-            this.operacionActividadCamion = new MenuItem("&Generar gráfico actvidad camión: ")
-            {
-                Shortcut = Shortcut.Ctrl8
-            };
-            this.operacionActividadComodidades = new MenuItem("&Generar gráfico comodidades: ")
-            {
-                Shortcut = Shortcut.Ctrl9
-            };
+            var column0 = new DataGridViewTextBoxColumn();
+            var column1 = new DataGridViewTextBoxColumn();
+            var column2 = new DataGridViewTextBoxColumn();
+            var column3 = new DataGridViewTextBoxColumn();
+            var column4 = new DataGridViewTextBoxColumn();
+            var column5 = new DataGridViewButtonColumn();
+            var column6 = new DataGridViewButtonColumn();
 
+            column0.CellTemplate = textCellTemplate;
+            column1.CellTemplate = textCellTemplate;
+            column2.CellTemplate = textCellTemplate;
+            column3.CellTemplate = textCellTemplate;
+            column4.CellTemplate = textCellTemplate;
+            column5.CellTemplate = imageEditTemplate;
+            column6.CellTemplate = imageDeleteTemplate;
 
-            //Operaciones clientes
-            this.operacionGestionarClientes = new MenuItem("&Gestion Clientes");
+            column5.Text = "Eliminar";
+            column6.Text = "Editar";
 
-            //Operaciones Reservas
-            this.operacionGestionarReservas = new MenuItem("&Gestion Reservas");
-            this.operacionGestionarReservasForm = new MenuItem("&Formulario reservas");
+            column0.HeaderText = "NIF";
+            column0.Width = 75;
+            column0.SortMode = DataGridViewColumnSortMode.Automatic;
+            column1.HeaderText = "Nombre";
+            column1.Width = 150;
+            column1.SortMode = DataGridViewColumnSortMode.Automatic;
+            column2.HeaderText = "Telefono";
+            column2.Width = 75;
+            column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column3.HeaderText = "Dirección";
+            column3.Width = 150;
+            column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column4.HeaderText = "Email";
+            column4.Width = 150;
+            column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column5.HeaderText = "";
+            column6.HeaderText = "";
+            column5.Width = 50;
+            column5.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column5.Resizable = DataGridViewTriState.False;
+            column6.Width = 50;
+            column6.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column6.Resizable = DataGridViewTriState.False;
+            column5.ReadOnly = true;
+            column6.ReadOnly = true;
 
-            //Menú superior
-            this.menuArchivo.MenuItems.Add(this.operacionSalir);
-            this.menuPrincipal.MenuItems.Add(this.menuArchivo);
-            this.menuPrincipal.MenuItems.Add(this.menuEditar);
-            this.menuPrincipal.MenuItems.Add(this.menuGenerar);
-            this.menuPrincipal.MenuItems.Add(this.menuClientes);
-            this.menuPrincipal.MenuItems.Add(this.menuReservas);
-            this.menuPrincipal.MenuItems.Add(this.menuAtras);
-            this.Menu = menuPrincipal;
-            //Submenú búsqueda
-            this.menuEditar.MenuItems.Add(this.operacionSearch1);
-            this.menuEditar.MenuItems.Add(this.operacionSearch2);
-            this.menuEditar.MenuItems.Add(this.operacionSearch3);
-            this.menuEditar.MenuItems.Add(this.operacionSearch4);
-            this.menuEditar.MenuItems.Add(this.operacionSearch5);
-            this.menuEditar.MenuItems.Add(this.operacionSearch6);
-            //Submenú gráficos
-            this.menuGenerar.MenuItems.Add(this.operacionActividadGeneral);
-            this.menuGenerar.MenuItems.Add(this.operacionActividadCliente);
-            this.menuGenerar.MenuItems.Add(this.operacionActividadCamion);
-            this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);
-            //Submenú clientes
-            this.menuClientes.MenuItems.Add(this.operacionGestionarClientes);
-            //Submenú Reservas
-            this.menuReservas.MenuItems.Add(this.operacionGestionarReservas);
-            this.menuReservas.MenuItems.Add(this.operacionGestionarReservasForm);
+            this.grdEventsListClientes.Columns.AddRange(new DataGridViewColumn[] {
+                column0,
+                column1,
+                column2,
+                column3,
+                column4,
+                column5,
+                column6
+            });
 
+            this.grdEventsListClientes.CellContentClick += this.OnCellClicked;
+            this.grdEventsListClientes.Dock = DockStyle.Fill;
+            this.grdEventsListClientes.TabIndex = 3;
+            this.grdEventsListClientes.AllowUserToOrderColumns = false;
+            this.pnlInfo = new Panel();
+            this.pnlInfo.SuspendLayout();
+            this.pnlInfo.Dock = DockStyle.Fill;
+            this.pnlEventsContainer = new Panel();
+            this.pnlEventsContainer.Dock = DockStyle.Fill;
+            this.pnlEventsContainer.Controls.Add(this.grdEventsListClientes);
+            this.pnlInfo.Controls.Add(this.pnlEventsContainer);
         }
 
 
-        //Items del menú
-        private MainMenu menuPrincipal;
-        private MenuItem menuArchivo;
-        private MenuItem menuEditar;
-        private MenuItem menuGenerar;
-        private MenuItem menuClientes;
-        private MenuItem menuReservas;
-        public MenuItem menuAtras;
 
-        public MenuItem operacionSalir { get; private set; }
+        protected void OnResizeWindowClientes(object sender, System.EventArgs e)
+        {
+            Control control = (Control)sender;
+            int width = control.Size.Width - 417;
 
-        //Operaciones búsqueda
-        public MenuItem operacionSearch1 { get; private set; }
-        public MenuItem operacionSearch2 { get; private set; }
-        public MenuItem operacionSearch3 { get; private set; }
-        public MenuItem operacionSearch4 { get; private set; }
-        public MenuItem operacionSearch5 { get; private set; }
-        public MenuItem operacionSearch6 { get; private set; }
-        //Operaciones generar gráficos
-        public MenuItem operacionActividadGeneral { get; private set; }
-        public MenuItem operacionActividadCliente { get; private set; }
-        public MenuItem operacionActividadCamion { get; private set; }
-        public MenuItem operacionActividadComodidades { get; private set; }
+            this.grdEventsList.Width = width;
 
-        //Operaciones clientes
-        public MenuItem operacionGestionarClientes { get; private set; }
+            //int width = width-415;                              // 40 (fixed cols + margin needed)
+            this.grdEventsListClientes.Columns[0].Width = (int)Math.Floor(width * .125);      // Nif
+            this.grdEventsListClientes.Columns[1].Width = (int)Math.Floor(width * .25);      // Name
+            this.grdEventsListClientes.Columns[2].Width = (int)Math.Floor(width * .125);      // Tlf
+            this.grdEventsListClientes.Columns[3].Width = (int)Math.Floor(width * .25);      // Adress
+            this.grdEventsListClientes.Columns[4].Width = (int)Math.Floor(width * .25);      // Email
 
-        // Operaciones Reservas
-        public MenuItem operacionGestionarReservas { get; private set; }
-        public MenuItem operacionGestionarReservasForm { get; private set; }
+        }
+
+        private void OnCellClickedClientes(object sender, DataGridViewCellEventArgs evt)
+        {
+            if (evt.ColumnIndex == (this.grdEventsListClientes.Columns.Count - 2))
+            {
+                this.evt = evt;
+                RemoveCliente.PerformClick();
+            }
+            else
+            if (evt.ColumnIndex == (this.grdEventsListClientes.Columns.Count - 1))
+            {
+                this.evt = evt;
+                EditFindCliente.PerformClick();
+            }
+        }
+
+
+        public void crearPanelesPequenosReserva()
+        {
+
+            BoxAddReservas = new TableLayoutPanel() { Dock = DockStyle.Right };
+
+            panelAdd1Reservas = this.buildPanelAdd1();
+            panelAdd2Reservas = this.buildPanelAdd2();
+            panelAdd3Reservas = this.buildPanelAdd3();
+            panelAdd4Reservas = this.buildPanelAdd4();
+            panelAdd5Reservas = this.buildPanelAdd5();
+            panelAdd6Reservas = this.buildPanelAdd6();
+            panelAdd7Reservas = this.buildPanelAdd7();
+            panelAdd8Reservas = this.buildPanelAdd8();
+            panelAdd9Reservas = this.buildPanelAdd9();
+            panelAdd10Reservas = this.buildPanelAdd10();
+            panelAdd11Reservas = this.buildPanelAdd11();
+            panelAdd12Reservas = this.buildPanelAdd12();
+            panelAdd13Reservas = this.buildPanelAdd13();   
+
+            BoxAddReservas.Controls.Add(panelAdd1Reservas);
+            BoxAddReservas.Controls.Add(panelAdd2Reservas);
+            BoxAddReservas.Controls.Add(panelAdd3Reservas);
+            BoxAddReservas.Controls.Add(panelAdd4Reservas);
+            BoxAddReservas.Controls.Add(panelAdd5Reservas);
+            BoxAddReservas.Controls.Add(panelAdd6Reservas);
+            BoxAddReservas.Controls.Add(panelAdd7Reservas);
+            BoxAddReservas.Controls.Add(panelAdd8Reservas);
+            BoxAddReservas.Controls.Add(panelAdd9Reservas);
+            BoxAddReservas.Controls.Add(panelAdd10Reservas);
+            BoxAddReservas.Controls.Add(panelAdd11Reservas);
+            BoxAddReservas.Controls.Add(panelAdd12Reservas);
+            BoxAddReservas.Controls.Add(panelAdd13Reservas);
+
+            BoxAddReservas.BorderStyle = BorderStyle.FixedSingle;
+            BoxAddReservas.Width += panelAdd1Reservas.Height + panelAdd2Reservas.Height + panelAdd3Reservas.Height + panelAdd4Reservas.Height +
+                panelAdd5Reservas.Height + panelAdd6Reservas.Height + panelAdd7Reservas.Height + panelAdd8Reservas.Height + panelAdd9Reservas.Height
+                + panelAdd10Reservas.Height + panelAdd11Reservas.Height + panelAdd12Reservas.Height + panelAdd13Reservas.Height
+                ;
+        }
 
         Panel buildPanelMsg()
         {
@@ -624,6 +660,297 @@ namespace GestionFlota.UI
             return panel;
         }
 
+        public void crearPanelesPequenosClientes()
+        {
+
+            BoxAddClientes = new TableLayoutPanel() { Dock = DockStyle.Right };
+
+            panelAdd1Clientes = this.buildPanelAdd1();
+            panelAdd2Clientes = this.buildPanelAdd2();
+            panelAdd3Clientes = this.buildPanelAdd3();
+            panelAdd4Clientes = this.buildPanelAdd4();
+            panelAdd5Clientes = this.buildPanelAdd5();
+            panelAdd6Clientes = this.buildPanelAdd6();
+            panelAdd7Clientes = this.buildPanelAdd7();
+
+
+            BoxAddClientes.Controls.Add(panelAdd1Clientes);
+            BoxAddClientes.Controls.Add(panelAdd2Clientes);
+            BoxAddClientes.Controls.Add(panelAdd3Clientes);
+            BoxAddClientes.Controls.Add(panelAdd4Clientes);
+            BoxAddClientes.Controls.Add(panelAdd5Clientes);
+            BoxAddClientes.Controls.Add(panelAdd6Clientes);
+            BoxAddClientes.Controls.Add(panelAdd7Clientes);
+
+
+            BoxAddClientes.BorderStyle = BorderStyle.FixedSingle;
+            BoxAddClientes.Width += 100;
+        }
+
+        Panel panelAdd1Reservas;
+        Panel panelAdd2Reservas;
+        Panel panelAdd3Reservas;
+        Panel panelAdd4Reservas;
+        Panel panelAdd5Reservas;
+        Panel panelAdd6Reservas;
+        Panel panelAdd7Reservas;
+        Panel panelAdd8Reservas;
+        Panel panelAdd9Reservas;
+        Panel panelAdd10Reservas;
+        Panel panelAdd11Reservas;
+        Panel panelAdd12Reservas;
+        Panel panelAdd13Reservas;
+
+
+        Panel panelAdd1Clientes;
+        Panel panelAdd2Clientes;
+        Panel panelAdd3Clientes;
+        Panel panelAdd4Clientes;
+        Panel panelAdd5Clientes;
+        Panel panelAdd6Clientes;
+        Panel panelAdd7Clientes;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void BuildMenu()
+        {
+            this.menuPrincipal = new MainMenu();
+
+            this.menuArchivo = new MenuItem("&Archivo");
+            this.menuEditar = new MenuItem("&Buscar");
+            this.menuGenerar = new MenuItem("&Generar");
+            this.menuClientes = new MenuItem("&Clientes");
+            this.menuReservas = new MenuItem("&Reservas");
+            this.menuAtras = new MenuItem("&Atras");
+
+            this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
+
+            //Operaciones búsqueda
+            this.operacionSearch1 = new MenuItem("&Buscar transportes pendientes: ")
+            {
+                Shortcut = Shortcut.Ctrl0
+            };
+            this.operacionSearch2 = new MenuItem("&Disponibilidad: ")
+            {
+                Shortcut = Shortcut.Ctrl1
+            };
+            this.operacionSearch3 = new MenuItem("&Transportes por cliente: ")
+            {
+                Shortcut = Shortcut.Ctrl2
+            };
+            this.operacionSearch4 = new MenuItem("&Reservas por camion: ")
+            {
+                Shortcut = Shortcut.Ctrl3
+            };
+            this.operacionSearch5 = new MenuItem("&Reservas por cliente: ")
+            {
+                Shortcut = Shortcut.Ctrl4
+            };
+            this.operacionSearch6 = new MenuItem("&Ocupacion: ")
+            {
+                Shortcut = Shortcut.Ctrl5
+            };
+
+            //Operaciones generar gráfico
+            this.operacionActividadGeneral = new MenuItem("&Generar gráfico actvidad general: ")
+            {
+                Shortcut = Shortcut.Ctrl6
+            };
+            this.operacionActividadCliente = new MenuItem("&Generar gráfico actvidad cliente: ")
+            {
+                Shortcut = Shortcut.Ctrl7
+            };
+            this.operacionActividadCamion = new MenuItem("&Generar gráfico actvidad camión: ")
+            {
+                Shortcut = Shortcut.Ctrl8
+            };
+            this.operacionActividadComodidades = new MenuItem("&Generar gráfico comodidades: ")
+            {
+                Shortcut = Shortcut.Ctrl9
+            };
+
+
+            //Operaciones clientes
+            this.operacionGestionarClientes = new MenuItem("&Gestion Clientes");
+
+            //Operaciones Reservas
+            this.operacionGestionarReservas = new MenuItem("&Gestion Reservas");
+            this.operacionGestionarReservasForm = new MenuItem("&Formulario reservas");
+
+            //Menú superior
+            this.menuArchivo.MenuItems.Add(this.operacionSalir);
+            this.menuPrincipal.MenuItems.Add(this.menuArchivo);
+            this.menuPrincipal.MenuItems.Add(this.menuEditar);
+            this.menuPrincipal.MenuItems.Add(this.menuGenerar);
+            this.menuPrincipal.MenuItems.Add(this.menuClientes);
+            this.menuPrincipal.MenuItems.Add(this.menuReservas);
+            this.menuPrincipal.MenuItems.Add(this.menuAtras);
+            this.Menu = menuPrincipal;
+            //Submenú búsqueda
+            this.menuEditar.MenuItems.Add(this.operacionSearch1);
+            this.menuEditar.MenuItems.Add(this.operacionSearch2);
+            this.menuEditar.MenuItems.Add(this.operacionSearch3);
+            this.menuEditar.MenuItems.Add(this.operacionSearch4);
+            this.menuEditar.MenuItems.Add(this.operacionSearch5);
+            this.menuEditar.MenuItems.Add(this.operacionSearch6);
+            //Submenú gráficos
+            this.menuGenerar.MenuItems.Add(this.operacionActividadGeneral);
+            this.menuGenerar.MenuItems.Add(this.operacionActividadCliente);
+            this.menuGenerar.MenuItems.Add(this.operacionActividadCamion);
+            this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);
+            //Submenú clientes
+            this.menuClientes.MenuItems.Add(this.operacionGestionarClientes);
+            //Submenú Reservas
+            this.menuReservas.MenuItems.Add(this.operacionGestionarReservas);
+            this.menuReservas.MenuItems.Add(this.operacionGestionarReservasForm);
+
+        }
+
+
+
+
+
+        //Items del menú
+        private MainMenu menuPrincipal;
+        private MenuItem menuArchivo;
+        private MenuItem menuEditar;
+        private MenuItem menuGenerar;
+        private MenuItem menuClientes;
+        private MenuItem menuReservas;
+        public MenuItem menuAtras;
+
+        public MenuItem operacionSalir { get; private set; }
+
+        //Operaciones búsqueda
+        public MenuItem operacionSearch1 { get; private set; }
+        public MenuItem operacionSearch2 { get; private set; }
+        public MenuItem operacionSearch3 { get; private set; }
+        public MenuItem operacionSearch4 { get; private set; }
+        public MenuItem operacionSearch5 { get; private set; }
+        public MenuItem operacionSearch6 { get; private set; }
+        //Operaciones generar gráficos
+        public MenuItem operacionActividadGeneral { get; private set; }
+        public MenuItem operacionActividadCliente { get; private set; }
+        public MenuItem operacionActividadCamion { get; private set; }
+        public MenuItem operacionActividadComodidades { get; private set; }
+
+        //Operaciones clientes
+        public MenuItem operacionGestionarClientes { get; private set; }
+
+        // Operaciones Reservas
+        public MenuItem operacionGestionarReservas { get; private set; }
+        public MenuItem operacionGestionarReservasForm { get; private set; }
+
+
+
+        /*CLientes*/
+
+        Panel buildPanelAdd1Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+            this.lblCliente = new Label() { Text = "Nuevo Cliente", Dock = DockStyle.Top };
+
+            var lblNif = new Label() { Text = "Nif: (ÚNICO)", Dock = DockStyle.Left };
+            this.EdNif = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+
+            panel.Controls.Add(this.EdNif);
+            panel.Controls.Add(lblNif);
+
+            panel.Controls.Add(lblCliente);
+            panel.MaximumSize = new Size(this.Width, this.EdNif.Height + lblCliente.Height);
+
+            return panel;
+        }
+        Panel buildPanelAdd2Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+
+            var lblName = new Label() { Text = "Nombre: ", Dock = DockStyle.Left };
+            this.EdName = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+
+            panel.Controls.Add(this.EdName);
+            panel.Controls.Add(lblName);
+
+            panel.MaximumSize = new Size(this.Width, this.EdName.Height);
+
+            return panel;
+        }
+        Panel buildPanelAdd3Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+
+            var lblTlf = new Label() { Text = "Tlf: ", Dock = DockStyle.Left };
+            this.EdTlf = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+
+            panel.Controls.Add(this.EdTlf);
+            panel.Controls.Add(lblTlf);
+
+            panel.MaximumSize = new Size(this.Width, this.EdTlf.Height);
+
+            return panel;
+        }
+        Panel buildPanelAdd4Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+
+            var lblMail = new Label() { Text = "Email: ", Dock = DockStyle.Left };
+            this.EdMail = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+
+            panel.Controls.Add(this.EdMail);
+            panel.Controls.Add(lblMail);
+
+            panel.MaximumSize = new Size(this.Width, this.EdMail.Height);
+
+            return panel;
+        }
+        Panel buildPanelAdd5Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+
+            var lblDirec = new Label() { Text = "Direccion: ", Dock = DockStyle.Left };
+            this.EdDirec = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+
+            panel.Controls.Add(this.EdDirec);
+            panel.Controls.Add(lblDirec);
+
+            panel.MaximumSize = new Size(this.Width, this.EdDirec.Height);
+
+            return panel;
+        }
+        Panel buildPanelAdd6Clientes()
+        {
+            var panel = new Panel() { Dock = DockStyle.Fill };
+
+            panel.Controls.Add(EditCliente);
+            panel.Controls.Add(CreateCliente);
+
+            panel.MaximumSize = new Size(this.Width, this.EdName.Height + 20);
+
+            return panel;
+        }
+
+
+
         /*------------------------------------------------------------------*/
         /*------------------TransportesPendientes---------------------------*/
         /*------------------------------------------------------------------*/
@@ -641,7 +968,6 @@ namespace GestionFlota.UI
             panelSearch.MinimumSize = new Size(this.Width, this.tbCliente.Height + 20);
             return panelSearch;
         }
-
         private Panel BuildPanelBotones()
         {
             var toret = new TableLayoutPanel()
@@ -687,10 +1013,6 @@ namespace GestionFlota.UI
         private ComboBox escogerCamion { get; set; }
         public string Matricula { get => this.escogerCamion.Text.Trim(); set => Matricula = value.ToString(); }
         public Button btSearchCamiones { get; private set; }
-
-        /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
 
         /*------------------------------------------------------------------*/
         /*------------------Transporte Cliente------------------------------*/
@@ -813,7 +1135,6 @@ namespace GestionFlota.UI
             return panelSearch;
         }
 
-
         private ComboBox escogerCliente { get; set; }
         private ComboBox escogerPeriodo2 { get; set; }
         private ComboBox escogerAnho2 { get; set; }
@@ -822,10 +1143,6 @@ namespace GestionFlota.UI
         public string Cliente => escogerCliente.Text;
         public string Periodo2 => escogerPeriodo2.Text;
         public Button btSearchTransporteCliente { get; private set; }
-        /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-
 
         /*------------------------------------------------------------------*/
         /*------------------Reservas Camion---------------------------------*/
@@ -955,10 +1272,6 @@ namespace GestionFlota.UI
         public Button btSearchCamiones2 { get; set; }
 
         /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-
-        /*------------------------------------------------------------------*/
         /*------------------Reservas Cliente---------------------------------*/
         /*------------------------------------------------------------------*/
 
@@ -1063,10 +1376,6 @@ namespace GestionFlota.UI
         public Button btSearchCliente4 { get; set; }
 
         /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-
-        /*------------------------------------------------------------------*/
         /*--------------------Ocupacion-------------------------------------*/
         /*------------------------------------------------------------------*/
 
@@ -1165,7 +1474,6 @@ namespace GestionFlota.UI
         /*------------------------------------------------------------------*/
         /*------------------------------------------------------------------*/
 
-
         public void BuildPanelGraficoGeneral()
         {
             panelGraficoGeneral = new Panel();
@@ -1202,21 +1510,10 @@ namespace GestionFlota.UI
         /*------------------------------------------------------------------*/
         /*------------------------------------------------------------------*/
 
-        Panel panelAdd1;
-        Panel panelAdd2;
-        Panel panelAdd3;
-        Panel panelAdd4;
-        Panel panelAdd5;
-        Panel panelAdd6;
-        Panel panelAdd7;
-        Panel panelAdd8;
-        Panel panelAdd9;
-        Panel panelAdd10;
-        Panel panelAdd11;
-        Panel panelAdd12;
-        Panel panelAdd13;
 
-        public Panel BoxAdd { get; set; }
+        public Panel BoxAddReservas { get; set; }
+        public Panel BoxAddClientes { get; set; }
+
 
         public Panel BoxMsg { get; set; }
 
@@ -1225,6 +1522,8 @@ namespace GestionFlota.UI
 
         public void inicializarBotones()
         {
+
+            /*Busquedas*/
             this.btSearchCliente4 = new Button()
             {
                 DialogResult = DialogResult.OK,
@@ -1256,6 +1555,15 @@ namespace GestionFlota.UI
                 Text = "&Buscar por anhos",
                 Size = new Size(100, 20)
             };
+
+
+            /*Clientes*/
+
+
+            this.EditCliente = new Button() { Text = "Editar", Dock = DockStyle.Left };
+
+            this.CreateCliente = new Button() { Text = "Crear", Dock = DockStyle.Right };
+
         }
 
 
@@ -1268,5 +1576,289 @@ namespace GestionFlota.UI
         //Paneles
 
         public Panel panelGraficoGeneral;   //Gráficos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*-----------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

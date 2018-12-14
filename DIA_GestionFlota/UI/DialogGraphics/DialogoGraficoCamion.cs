@@ -1,6 +1,6 @@
-﻿namespace DIA_GestionFlota
+﻿namespace GestionFlota
 {
-    using DIA_GestionFlota;
+    using GestionFlota;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -8,6 +8,7 @@
     using System.Linq;
     class DialogoGraficoCamion : Form
     {
+        /*
         public DialogoGraficoCamion()
         {
 
@@ -152,6 +153,8 @@
         public Button btCierra { get; set; }
         public Button btGraficoGeneralAnual { get; set; }
         public Button btGraficoGeneralTotal { get; set; }
+
+        */
     }
 
 

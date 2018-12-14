@@ -1,11 +1,11 @@
-﻿namespace DIA_GestionFlota
+﻿namespace GestionFlota.Core
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    class Flota
+    public class Flota
     {
         public Flota(double Carga, string Matricula, string Tipo,
                string Marca, string Modelo, double ConsumoKm,

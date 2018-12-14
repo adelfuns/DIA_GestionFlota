@@ -1,6 +1,6 @@
-namespace DIA_GestionFlota
+namespace GestionFlota
 {
-    using GestionFlota.Core;
+    using DIA_GestionFlota;
     /// <summary>
     /// Ppal.
     /// </summary>
@@ -13,7 +13,7 @@ namespace DIA_GestionFlota
         /// <param name="args">The command-line arguments.</param>
         public static void Main(string[] args)
 		{
-			var mainForm = new MainWindow().MainWindowView;
+			var mainForm = new MainWindow().MainWindowViewReservas;
             Application.Run(mainForm);
 		}
 	}

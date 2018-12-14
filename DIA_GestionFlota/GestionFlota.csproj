@@ -72,9 +72,6 @@
     <Compile Include="UI\MainWindowView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MainWindowViewClientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UI\MainWindowViewReservas.cs">
       <SubType>Form</SubType>
     </Compile>

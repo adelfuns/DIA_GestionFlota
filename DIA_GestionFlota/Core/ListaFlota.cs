@@ -1,4 +1,4 @@
-﻿namespace DIA_GestionFlota
+﻿namespace GestionFlota.Core
 {
     using System;
     using System.Collections.Generic;

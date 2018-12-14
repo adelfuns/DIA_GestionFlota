@@ -1,4 +1,4 @@
-﻿namespace DIA_GestionFlota
+﻿namespace GestionFlota
 {
     using System.Windows.Forms;
     using System.Drawing;
