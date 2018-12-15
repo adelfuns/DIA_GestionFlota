@@ -16,7 +16,7 @@
     class MainWindow : Form
     {
 
-    public MainWindow()
+        public MainWindow()
         {
             //Console.WriteLine(DateTime.Now.ToString());
 
@@ -34,8 +34,6 @@
 
             //RegReservas = new RegistroReservas(RegClientes);
             //RegReservas = RegistroReservas.RecuperaXml();
-
-            //this.MainWindowView = new MainWindowView();
 
             this.MainWindowViewReservas = new MainWindowViewReservas();
             inTransportes = true;
@@ -57,10 +55,7 @@
             this.MainWindowViewReservas.Load += (sender, e) => this.mostrarTodosLosTransportes();
 
             //Operaciones búsqueda
-            //Inicializar dialogos
-          //  this.dialogoCamion = new DialogoCamiones();
-
-            //Menu de la MainWindowView
+            //Opciones de la MainWindowView
             this.MainWindowViewReservas.operacionSearch1.Click += (sender, e) => this.transportePendientes();
             this.MainWindowViewReservas.operacionSearch2.Click += (sender, e) => this.disponibilidad();
             this.MainWindowViewReservas.operacionSearch3.Click += (sender, e) => this.transportesPorCliente();
@@ -70,7 +65,7 @@
 
             //Dialogos
             this.MainWindowViewReservas.btSearchCamiones.Click += (sender, e) => this.DTPSearch(); //TransportesPendientes
-
+            this.MainWindowViewReservas.btSearchDisponibilidad.Click += (sender, e) => this.DDCSearch(); //Disponibilidad
             this.MainWindowViewReservas.btSearchTransporteCliente.Click += (sender, e) => this.DTCSearch();//Transporte cliente    
             this.MainWindowViewReservas.btSearchCamiones2.Click += (sender, e) => this.DRCSearch();// Reservas Camion
             this.MainWindowViewReservas.btSearchCliente4.Click += (sender, e) => this.RPCSearch();//Reservas por cliente
@@ -104,23 +99,20 @@
             this.dialogoGraficoComodidades.btGraficoGeneralTotal.Click += (sender, e) => this.FlotaComodidadesTotal(); //Grafico
             */
             //Operaciones Clientes
-            if (!inClientes) {
-                inClientes = true;
-                inFlota = false;
-                inTransportes = false;
-                this.MainWindowViewReservas.operacionGestionarClientes.Click += (sender, e) => this.ActividadGestionClientes();
-                this.MainWindowViewReservas.operacionGestionarClientesForm.Click += (sender, e) => this.ActividadGestionClientes();
-            }
-            //Operaciones Reservas
-            if (!inTransportes)
-            {
-                inClientes = false;
-                inFlota = false;
-                inTransportes = true;
-                this.MainWindowViewReservas.operacionGestionarReservas.Click += (sender, e) => this.ActividadGestionReservas();
-                this.MainWindowViewReservas.operacionGestionarReservasForm.Click += (sender, e) => this.ActividadGestionReservas();
-            }
-            this.MainWindowViewReservas.operacionGestionarReservasForm.Click += (sender, e) => {
+
+             this.MainWindowViewReservas.operacionGestionarClientes.Click += (sender, e) => this.ActividadGestionClientes();
+         
+           
+            this.MainWindowViewReservas.btGestionClientes.Click += (sender, e) => this.ActividadGestionClientes();
+
+            this.MainWindowViewReservas.operacionGestionarReservas.Click += (sender, e) => this.ActividadGestionReservas();
+            
+            //Operaciones Flota
+            
+             this.MainWindowViewReservas.operacionGestionarFlota.Click += (sender, e) => this.ActividadGestionFlota();
+             this.MainWindowViewReservas.btGestionReservas.Click += (sender, e) => this.ActividadGestionReservas();
+
+            this.MainWindowViewReservas.btGestionReservas.Click += (sender, e) => {
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddReservas;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
@@ -129,7 +121,7 @@
 
             };
 
-            this.MainWindowViewReservas.operacionGestionarClientesForm.Click += (sender, e) => {
+            this.MainWindowViewReservas.btGestionClientes.Click += (sender, e) => {
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddClientes;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
@@ -137,6 +129,30 @@
                 MainWindowViewReservas.dialogosGrande.Width = 300;
 
             };
+            
+            this.MainWindowViewReservas.btGestionFlota.Click += (sender, e) => {
+                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+                MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddFlota;
+                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+                MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddFlota.Height;
+                MainWindowViewReservas.dialogosGrande.Width = 300;
+
+            };
+        }
+
+        private void ActividadGestionFlota()
+        {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListFlota;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListClientes.Height;
+            MainWindowViewReservas.grdEventsList.Width = 500;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesFlota();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+
         }
 
         private void ActividadGestionClientes()
@@ -147,9 +163,9 @@
             MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListClientes.Height;
             MainWindowViewReservas.grdEventsList.Width = 500;
 
-
-
-            
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesClientes();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
 
             Clear();
             ActualizarLista();
@@ -158,18 +174,20 @@
 
         private void ActividadGestionReservas()
         {
-
             MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
             MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
             MainWindowViewReservas.grdEventsList.Width = 500;
 
-            
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
 
             ClearReservas();
             ActualizarListaReservas();
         }
+
         public void mostrarTodosLosTransportes()
         {
             RegReservasBusqueda = new List<Reservas>(
@@ -181,37 +199,7 @@
             ActualizarListaReservasBusqueda();
         }
 
-        private void botonBusquedaTrasnporte()
-        {
-            switch (MainWindowView.escogerBusquedaTrasnporte.Text) {
-                case "Buscar transportes pendientes":
-                    this.transportePendientes();
-                    break;
-                case "Transportes por cliente":
-                    this.transportesPorCliente();
-                    break;
-                case "Reservas por camion":
-                    this.reservasPorCamion();
-                    break;
-                case "Reservas por cliente":
-                    this.reservasPorCliente();
-                    break;
-                case "Ocupacion":
-                    this.ocupacion();
-                    break;
-            }
-        }
-
-        private void botonBusquedaFlota()
-        {
-            switch (MainWindowView.escogerBusquedaFlota.Text)
-            {
-                case "Disponibilidad":
-                    this.disponibilidad();
-                    break;
-            }
-        }
-
+   
         /***********************************************************************************************************************
         /***********************************************************************************************************************
          ************************************************** Métodos búsqueda ************************************ ***************
@@ -248,12 +236,14 @@
         //Inicio Disponibilidad: muestra los camiones libres, opcionalmente por tipo.
         private void disponibilidad()
         {
-            this.dialogoCamion.ShowDialog();
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelDisponibilidad();
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
         }
         private void DDCSearch()
         {
             var camionesDisponibles = new List<Flota>();
-            var tipo = dialogoCamion.Tipo;
+            var tipo = this.MainWindowViewReservas.Tipo;
 
             if (tipo.Equals("Todos")){
                 tipo = "";
@@ -284,19 +274,7 @@
             }
 
             //ActualizaListaFlota(camionesDisponibles);
-
-            /*
-            MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-
-            MainWindowView.panelLista = MainWindowView.panelListaFlota;
-            MainWindowView.panelPrincipal.Controls.Add(MainWindowView.panelLista);
-
-            MainWindowView.panelOpciones.Controls.Remove(MainWindowView.panelOpcionesPoner);
-            MainWindowView.panelOpcionesPoner = MainWindowView.panelOpcionesFlota;
-            MainWindowView.panelOpciones.Controls.Add(MainWindowView.panelOpcionesPoner);
-
-            this.MainWindowView.Width = MainWindowView.grdListaFlota.Columns.GetColumnsWidth(0) + 20;
-            this.MainWindowView.Height = MainWindowView.grdListaFlota.Rows.GetRowsHeight(0) + 84 + MainWindowView.panelOpciones.Height;*/
+            ActualizarListaFlotaBusqueda(camionesDisponibles);
 
         }
 
@@ -918,8 +896,16 @@
 
         }
 
+        //Metodos gestion reservas busqueda
+        public void ActualizarListaFlotaBusqueda(List<Flota> camionesDisponibles)
+        {
+            MainWindowViewReservas.grdEventsListFlota.Rows.Clear();
+            foreach (var flota in camionesDisponibles)
+            {
+               /// AddTableEventsListRowWithEvent(flota);
+            }
 
-
+        }
 
 
         /** ******** **/
@@ -1414,7 +1400,6 @@
             Application.Exit();
         }
 
-        public MainWindowView MainWindowView { get; private set; }
         public MainWindowViewReservas MainWindowViewReservas { get; private set; }
 
         public Registro Reg { get; }
