@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<registro>
+  <clientes>
+    <cliente nif="15494356S" nombre="Alfonso" telefono="988769765" email="cliente1@gmail.com" direccionPostal="35987" />
+    <cliente nif="25422356G" nombre="Sofia" telefono="988749765" email="cliente2@gmail.com" direccionPostal="35987" />
+    <cliente nif="35433356D" nombre="Mario" telefono="988759765" email="cliente3@gmail.com" direccionPostal="35987" />
+    <cliente nif="45444356E" nombre="Baltasar" telefono="938769765" email="cliente4@gmail.com" direccionPostal="35987" />
+    <cliente nif="55455356F" nombre="Miguel" telefono="988269765" email="cliente5@gmail.com" direccionPostal="35987" />
+    <cliente nif="65466356I" nombre="Fernando" telefono="989769765" email="cliente6@gmail.com" direccionPostal="35987" />
+    <cliente nif="75477356L" nombre="Juan" telefono="981269765" email="cliente7@gmail.com" direccionPostal="35987" />
+    <cliente nif="85488356P" nombre="Jimeno" telefono="981169765" email="cliente8@gmail.com" direccionPostal="35987" />
+  </clientes>
+  <flotas>
+    <flota matricula="AAA1111" tipo="Furgoneta" marca="Vendo" modelo="Deluxe" consumoKm="23" fechaAdquisicion="12/08/2000 0:00:00" fechaFabricacion="11/10/1999 0:00:00" carga="1,5" comodidadesWifi="True" comodidadesBlue="False" comodidadesAire="False" comodidadesLitera="False" comodidadesTv="False" />
+    <flota matricula="AAA2222" tipo="Camion" marca="Opel" modelo="Deluxe Plus" consumoKm="23" fechaAdquisicion="12/11/2000 0:00:00" fechaFabricacion="11/10/1999 0:00:00" carga="1" comodidadesWifi="False" comodidadesBlue="True" comodidadesAire="False" comodidadesLitera="False" comodidadesTv="False" />
+    <flota matricula="AAA3333" tipo="Furgoneta" marca="Corsa" modelo="Deluxe Plus Plus" consumoKm="23" fechaAdquisicion="12/11/2000 0:00:00" fechaFabricacion="11/10/1999 0:00:00" carga="1,5" comodidadesWifi="False" comodidadesBlue="False" comodidadesAire="False" comodidadesLitera="False" comodidadesTv="False" />
+    <flota matricula="AAA4444" tipo="Camion" marca="Barato" modelo="Deluxe++" consumoKm="23" fechaAdquisicion="12/12/2001 0:00:00" fechaFabricacion="11/10/1999 0:00:00" carga="1,5" comodidadesWifi="False" comodidadesBlue="False" comodidadesAire="False" comodidadesLitera="False" comodidadesTv="False" />
+    <flota matricula="AAA5555" tipo="Furgoneta" marca="Muy barato" modelo="Deluxe--" consumoKm="23" fechaAdquisicion="12/08/2012 0:00:00" fechaFabricacion="11/10/1999 0:00:00" carga="1,5" comodidadesWifi="False" comodidadesBlue="False" comodidadesAire="False" comodidadesLitera="False" comodidadesTv="False" />
+  </flotas>
+  <reservas>
+    <reserva IdTrans="1111AAA20171106" cliente="15494356S" TipoTrans="AAA1111" Fcontra="06/11/2017 0:00:00" Fsal="07/11/2017 0:00:00" Fentrada="01/12/2017 0:00:00" Edia="23,2" Ekm="54,6" km="30000,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="4923097,68" />
+    <reserva IdTrans="1111AAA20171106" cliente="15494356S" TipoTrans="AAA1111" Fcontra="06/11/2017 0:00:00" Fsal="07/11/2017 0:00:00" Fentrada="01/12/2017 0:00:00" Edia="23,2" Ekm="54,6" km="3550,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="590587,68" />
+    <reserva IdTrans="2222AAA20171106" cliente="15494356S" TipoTrans="AAA2222" Fcontra="06/11/2017 0:00:00" Fsal="07/11/2017 0:00:00" Fentrada="02/12/2017 0:00:00" Edia="23,2" Ekm="54,6" km="330,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="63522,88" />
+    <reserva IdTrans="2222AAA20171106" cliente="15494356S" TipoTrans="AAA2222" Fcontra="06/11/2017 0:00:00" Fsal="07/11/2017 0:00:00" Fentrada="02/12/2017 0:00:00" Edia="23,2" Ekm="54,6" km="310,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="60246,88" />
+    <reserva IdTrans="3333AAA20140406" cliente="25422356G" TipoTrans="AAA3333" Fcontra="06/04/2014 0:00:00" Fsal="01/06/2014 0:00:00" Fentrada="01/07/2014 0:00:00" Edia="24,2" Ekm="54,6" km="3205,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="536783,88" />
+    <reserva IdTrans="3333AAA20140306" cliente="25422356G" TipoTrans="AAA3333" Fcontra="06/03/2014 0:00:00" Fsal="01/06/2014 0:00:00" Fentrada="01/07/2014 0:00:00" Edia="24,2" Ekm="54,6" km="30055,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="4934813,88" />
+    <reserva IdTrans="4444AAA20150206" cliente="35433356D" TipoTrans="AAA4444" Fcontra="06/02/2015 0:00:00" Fsal="06/11/2015 0:00:00" Fentrada="07/11/2015 0:00:00" Edia="24,2" Ekm="54,6" km="300,6" IVA="0,21" Gas="90,6" Suplencia="1" Precio_total="49522,48" />
+    <reserva IdTrans="5555AAA20160606" cliente="45444356E" TipoTrans="AAA5555" Fcontra="06/06/2016 0:00:00" Fsal="06/11/2016 0:00:00" Fentrada="07/11/2016 0:00:00" Edia="24,2" Ekm="54,6" km="30023,6" IVA="0,21" Gas="90,6" Suplencia="1" Precio_total="4918149,88" />
+    <reserva IdTrans="5555AAA20160806" cliente="55455356F" TipoTrans="AAA5555" Fcontra="06/08/2016 0:00:00" Fsal="06/09/2016 0:00:00" Fentrada="06/09/2017 0:00:00" Edia="21,2" Ekm="54,6" km="300111,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="49282178,68" />
+    <reserva IdTrans="5555AAA20160806" cliente="55455356F" TipoTrans="AAA5555" Fcontra="06/08/2016 0:00:00" Fsal="06/12/2016 0:00:00" Fentrada="13/12/2016 0:00:00" Edia="21,2" Ekm="54,6" km="30042,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="4923442,88" />
+    <reserva IdTrans="1111AAA20170806" cliente="65466356I" TipoTrans="AAA1111" Fcontra="06/08/2017 0:00:00" Fsal="06/11/2017 0:00:00" Fentrada="10/11/2017 0:00:00" Edia="23,54" Ekm="54,6" km="30054,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="4924540,64" />
+    <reserva IdTrans="2222AAA20170806" cliente="75477356L" TipoTrans="AAA2222" Fcontra="06/08/2017 0:00:00" Fsal="06/11/2017 0:00:00" Fentrada="10/11/2017 0:00:00" Edia="23,22" Ekm="54,6" km="30220,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="4951710,96" />
+    <reserva IdTrans="3333AAA20170906" cliente="85488356P" TipoTrans="AAA3333" Fcontra="06/09/2017 0:00:00" Fsal="06/11/2017 0:00:00" Fentrada="10/11/2017 0:00:00" Edia="21,22" Ekm="54,6" km="301230,6" IVA="0,21" Gas="90,6" Suplencia="2" Precio_total="49343020,96" />
+  </reservas>
+</registro>

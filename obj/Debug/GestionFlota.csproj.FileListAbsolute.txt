@@ -1,0 +1,7 @@
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\bin\Debug\GestionFlotas.exe.config
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\bin\Debug\GestionFlotas.exe
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\bin\Debug\GestionFlotas.pdb
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\obj\Debug\GestionFlota.csprojResolveAssemblyReference.cache
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\obj\Debug\GestionFlota.csproj.CoreCompileInputs.cache
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\obj\Debug\GestionFlotas.exe
+E:\DIA\DIA_GestionFlota\DIA_GestionFlota\obj\Debug\GestionFlotas.pdb
