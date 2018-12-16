@@ -22,11 +22,11 @@ namespace GestionFlota.UI
             this.inicializarBotones();
             this.dialogos = new Panel() { Dock = DockStyle.Right };
             this.dialogosGrande = new Panel() { Dock = DockStyle.Right };
-            this.grdEventsList = new DataGridView() { Dock = DockStyle.Top };
-            this.grdEventsListAux = new DataGridView() { Dock = DockStyle.Top };
+            this.grdEventsList = new DataGridView() { Dock = DockStyle.Left };
+            this.grdEventsListAux = new DataGridView() { Dock = DockStyle.Left };
 
             this.opcionesFijo = new Panel() { Dock = DockStyle.Bottom };
-            this.opcionesPoner = new TableLayoutPanel() { Dock = DockStyle.Bottom };
+            this.opcionesPoner = new Panel() { Dock = DockStyle.Bottom };
 
             BoxMsg = new TableLayoutPanel() { Dock = DockStyle.Bottom };
             this.BuildMenu();
@@ -38,28 +38,38 @@ namespace GestionFlota.UI
             crearPanelesPequenosReserva();
             crearPanelesPequenosClientes();
 
-            BoxMsg.Controls.Add(panelMsg);
+
 
             this.grdEventsListAux = this.grdEventsListReservas;
             this.grdEventsList.Controls.Add(this.grdEventsListAux);
             this.dialogosGrande.Controls.Add(this.dialogos);
+            this.opcionesPoner = buildPanelOpcionesReservas();
+            this.opcionesFijo.Controls.Add(this.opcionesPoner);
+            this.BoxMsg.Controls.Add(panelMsg);
 
             this.Controls.Add(this.grdEventsList);
             this.Controls.Add(this.dialogosGrande);
-
-            this.opcionesPoner = buildPanelOpcionesReservas();
-            this.opcionesFijo.Controls.Add(this.opcionesPoner);
             this.Controls.Add(opcionesFijo);
             this.Controls.Add(BoxMsg);
             
             this.Resize += (obj, args) => this.OnResizeWindow(obj, args);
+           // this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 
             BoxMsg.Height -= 75;
 
-            this.dialogosGrande.Width = 400;
+            this.dialogosGrande.Width = 410;
 
             this.MinimumSize = new Size(1500, 600);
-            this.grdEventsList.Height = this.Height - 300;
+
+
+            this.grdEventsList.Width = this.Width - this.dialogosGrande.Width;
+            this.grdEventsListAux.Width = this.Width - this.dialogosGrande.Width; 
+            // this.grdEventsListAux.Width = this.grdEventsList.Width;
+            //  this.grdEventsList.BackgroundColor = Color.Green;
+            // this.dialogosGrande.BackColor  = Color.Red;
+            // this.grdEventsListAux.BackgroundColor = Color.Pink;
+            //this.opcionesFijo.BackColor = Color.Blue;
+
             this.Text = "Gestion Reservas";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.CenterToScreen();
@@ -236,6 +246,7 @@ namespace GestionFlota.UI
             var imageEditTemplate = new DataGridViewButtonCell();
             var imageDeleteTemplate = new DataGridViewButtonCell();
             textCellTemplate.Style.BackColor = Color.Wheat;
+            textCellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; 
             imageEditTemplate.UseColumnTextForButtonValue = true;
             imageDeleteTemplate.UseColumnTextForButtonValue = true;
 
@@ -278,50 +289,63 @@ namespace GestionFlota.UI
             column0.HeaderText = "IDTransporte";
             column0.Width = 75;
             column0.SortMode = DataGridViewColumnSortMode.Automatic;
+            column0.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column1.HeaderText = "Cliente";
             column1.Width = 150;
             column1.SortMode = DataGridViewColumnSortMode.Automatic;
+            column1.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column2.HeaderText = "TipoTransporte";
             column2.Width = 75;
             column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column2.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column3.HeaderText = "FechaContratacion";
             column3.Width = 150;
             column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column3.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column4.HeaderText = "Fecha salida";
             column4.Width = 150;
             column4.SortMode = DataGridViewColumnSortMode.NotSortable;
-
+            column4.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column5.HeaderText = "Fecha entrega";
             column5.Width = 150;
             column5.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column5.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column6.HeaderText = "Importe dia";
             column6.Width = 150;
             column6.SortMode = DataGridViewColumnSortMode.NotSortable;
-
+            column6.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column7.HeaderText = "Importe km";
             column7.Width = 150;
             column7.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column7.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column8.HeaderText = "KmRecorridos";
             column8.Width = 150;
             column8.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column8.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column9.HeaderText = "Gas";
             column9.Width = 150;
             column9.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column9.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column10.HeaderText = "IVA";
             column10.Width = 150;
             column10.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column10.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column11.HeaderText = "NumeroConductores";
             column11.Width = 150;
             column11.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column11.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column12.HeaderText = "PrecioFactura";
             column12.Width = 150;
             column12.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column12.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column13.HeaderText = "";
             column14.HeaderText = "";
             column13.Width = 50;
             column13.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column13.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column14.Width = 50;
             column14.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column14.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column13.ReadOnly = true;
             column14.ReadOnly = true;
 
@@ -359,9 +383,11 @@ namespace GestionFlota.UI
         protected void OnResizeWindow(object sender, System.EventArgs e)
         {
             Control control = (Control)sender;
-            int width = control.Size.Width - 417;
+            int width = control.Size.Width - 150;
 
             this.grdEventsListReservas.Width = width;
+            this.grdEventsListClientes.Width = width;
+            this.grdEventsList.Width = this.Width - 410;
 
 
             this.grdEventsListReservas.Columns[0].Width = (int)Math.Floor(width * .20);      // IDTransporte
@@ -377,6 +403,14 @@ namespace GestionFlota.UI
             this.grdEventsListReservas.Columns[10].Width = (int)Math.Floor(width * .20);      // gas
             this.grdEventsListReservas.Columns[11].Width = (int)Math.Floor(width * .20);      // suplencia
             this.grdEventsListReservas.Columns[12].Width = (int)Math.Floor(width * .20);      // precioFactura
+
+
+            //int width = width-415;                              // 40 (fixed cols + margin needed)
+            this.grdEventsListClientes.Columns[0].Width = (int)Math.Floor(width * .125);      // Nif
+            this.grdEventsListClientes.Columns[1].Width = (int)Math.Floor(width * .25);      // Name
+            this.grdEventsListClientes.Columns[2].Width = (int)Math.Floor(width * .125);      // Tlf
+            this.grdEventsListClientes.Columns[3].Width = (int)Math.Floor(width * .25);      // Adress
+            this.grdEventsListClientes.Columns[4].Width = (int)Math.Floor(width * .25);      // Email
 
         }
 
@@ -414,6 +448,8 @@ namespace GestionFlota.UI
             var imageEditTemplate = new DataGridViewButtonCell();
             var imageDeleteTemplate = new DataGridViewButtonCell();
             textCellTemplate.Style.BackColor = Color.Wheat;
+            textCellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             imageEditTemplate.UseColumnTextForButtonValue = true;
             imageDeleteTemplate.UseColumnTextForButtonValue = true;
 
@@ -439,26 +475,33 @@ namespace GestionFlota.UI
             column0.HeaderText = "NIF";
             column0.Width = 75;
             column0.SortMode = DataGridViewColumnSortMode.Automatic;
+            column0.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column1.HeaderText = "Nombre";
             column1.Width = 150;
             column1.SortMode = DataGridViewColumnSortMode.Automatic;
+            column1.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column2.HeaderText = "Telefono";
             column2.Width = 75;
             column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column2.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column3.HeaderText = "Dirección";
             column3.Width = 150;
             column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column3.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column4.HeaderText = "Email";
             column4.Width = 150;
             column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column4.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column5.HeaderText = "";
             column6.HeaderText = "";
             column5.Width = 50;
             column5.SortMode = DataGridViewColumnSortMode.NotSortable;
             column5.Resizable = DataGridViewTriState.False;
+            column5.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column6.Width = 50;
             column6.SortMode = DataGridViewColumnSortMode.NotSortable;
             column6.Resizable = DataGridViewTriState.False;
+            column6.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column5.ReadOnly = true;
             column6.ReadOnly = true;
 
@@ -492,12 +535,7 @@ namespace GestionFlota.UI
 
             this.grdEventsList.Width = width;
 
-            //int width = width-415;                              // 40 (fixed cols + margin needed)
-            this.grdEventsListClientes.Columns[0].Width = (int)Math.Floor(width * .125);      // Nif
-            this.grdEventsListClientes.Columns[1].Width = (int)Math.Floor(width * .25);      // Name
-            this.grdEventsListClientes.Columns[2].Width = (int)Math.Floor(width * .125);      // Tlf
-            this.grdEventsListClientes.Columns[3].Width = (int)Math.Floor(width * .25);      // Adress
-            this.grdEventsListClientes.Columns[4].Width = (int)Math.Floor(width * .25);      // Email
+
 
         }
 
@@ -520,6 +558,7 @@ namespace GestionFlota.UI
         /*------------------InicializarPanelDerecha-------------------------*/
         /*------------------------------------------------------------------*/
         //Reservas
+
         Panel buildPanelMsg()
         {
             var panel = new Panel() { Dock = DockStyle.Top };
@@ -531,12 +570,47 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd1()
+        public void crearPanelesPequenosReserva()
+        {
+
+            BoxAddReservas = new TableLayoutPanel() { Dock = DockStyle.Right };
+
+            PanelAdd1Reservas = this.buildPanelAdd1Reservas();
+            PanelAdd2Reservas = this.buildPanelAdd2Reservas();
+            PanelAdd3Reservas = this.buildPanelAdd3Reservas();
+            PanelAdd4Reservas = this.buildPanelAdd4Reservas();
+            PanelAdd5Reservas = this.buildPanelAdd5Reservas();
+            PanelAdd6Reservas = this.buildPanelAdd6Reservas();
+            PanelAdd7Reservas = this.buildPanelAdd7Reservas();
+            PanelAdd8Reservas = this.buildPanelAdd8Reservas();
+            PanelAdd9Reservas = this.buildPanelAdd9Reservas();
+            PanelAdd10Reservas = this.buildPanelAdd10Reservas();
+            PanelAdd11Reservas = this.buildPanelAdd11Reservas();
+            PanelAdd12Reservas = this.buildPanelAdd12Reservas();
+            PanelAdd13Reservas = this.buildPanelAdd13Reservas();
+
+            BoxAddReservas.Controls.Add(PanelAdd1Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd2Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd3Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd4Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd5Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd6Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd7Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd8Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd9Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd10Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd11Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd12Reservas);
+            BoxAddReservas.Controls.Add(PanelAdd13Reservas);
+
+            BoxAddReservas.Width += 200;
+        }
+        Panel buildPanelAdd1Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
             var lblReserva = new Label() { Text = "Nueva Reserva", Dock = DockStyle.Top };
 
-            var lblIdTransp = new Label() { Text = "IdTransporte: (ÚNICO)", Dock = DockStyle.Left };
+            var lblIdTransp = new Label() { Text = "IdTransporte: (ÚNICO)", Dock = DockStyle.Left, Width = 130 };
             this.tbIdTransp = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbIdTransp);
@@ -547,11 +621,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd2()
+        Panel buildPanelAdd2Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblCliente = new Label() { Text = "Cliente: ", Dock = DockStyle.Left };
+            var lblCliente = new Label() { Text = "Cliente: ", Dock = DockStyle.Left, Width = 130 };
             this.tbCliente = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbCliente);
@@ -561,11 +635,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd3()
+        Panel buildPanelAdd3Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblTipoTransp = new Label() { Text = "TipoTransporte: ", Dock = DockStyle.Left };
+            var lblTipoTransp = new Label() { Text = "TipoTransporte: ", Dock = DockStyle.Left, Width = 130 };
             this.tbTipoTrans = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbTipoTrans);
@@ -575,11 +649,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd4()
+        Panel buildPanelAdd4Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblFcontra = new Label() { Text = "FechaContratacion: ", Dock = DockStyle.Left };
+            var lblFcontra = new Label() { Text = "FechaContratacion: ", Dock = DockStyle.Left, Width = 130 };
             this.tbFcontra = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbFcontra);
@@ -589,11 +663,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd5()
+        Panel buildPanelAdd5Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblFsalida = new Label() { Text = "FechaSalida: ", Dock = DockStyle.Left };
+            var lblFsalida = new Label() { Text = "FechaSalida: ", Dock = DockStyle.Left, Width = 130 };
             this.tbFsalida = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbFsalida);
@@ -603,11 +677,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd6()
+        Panel buildPanelAdd6Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblFentrega = new Label() { Text = "FechaEntrega: ", Dock = DockStyle.Left };
+            var lblFentrega = new Label() { Text = "FechaEntrega: ", Dock = DockStyle.Left, Width = 130 };
             this.tbFentrega = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbFentrega);
@@ -617,11 +691,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd7()
+        Panel buildPanelAdd7Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblEdia = new Label() { Text = "ImporteDia: ", Dock = DockStyle.Left };
+            var lblEdia = new Label() { Text = "ImporteDia: ", Dock = DockStyle.Left, Width = 130 };
             this.tbEDia = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbEDia);
@@ -631,11 +705,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd8()
+        Panel buildPanelAdd8Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblEkm = new Label() { Text = "ImporteKm: ", Dock = DockStyle.Left };
+            var lblEkm = new Label() { Text = "ImporteKm: ", Dock = DockStyle.Left, Width = 130 };
             this.tbEkm = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbEkm);
@@ -645,11 +719,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd9()
+        Panel buildPanelAdd9Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblKmRecorridos = new Label() { Text = "KilometrosRecorridos: ", Dock = DockStyle.Left };
+            var lblKmRecorridos = new Label() { Text = "KilometrosRecorridos: ", Dock = DockStyle.Left, Width = 130 };
             this.tbKmRecorridos = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbKmRecorridos);
@@ -659,11 +733,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd10()
+        Panel buildPanelAdd10Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblGas = new Label() { Text = "Gas: ", Dock = DockStyle.Left };
+            var lblGas = new Label() { Text = "Gas: ", Dock = DockStyle.Left, Width = 130 };
             this.tbGas = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbGas);
@@ -674,11 +748,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd11()
+        Panel buildPanelAdd11Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblIVA = new Label() { Text = "IVA: ", Dock = DockStyle.Left };
+            var lblIVA = new Label() { Text = "IVA: ", Dock = DockStyle.Left, Width = 130 };
             this.tbIVA = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbIVA);
@@ -688,11 +762,11 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd12()
+        Panel buildPanelAdd12Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblSuplencia = new Label() { Text = "NumeroConductores: ", Dock = DockStyle.Left };
+            var lblSuplencia = new Label() { Text = "NumeroConductores: ", Dock = DockStyle.Left, Width = 130 };
             this.tbSuplencia = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbSuplencia);
@@ -702,7 +776,7 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        Panel buildPanelAdd13()
+        Panel buildPanelAdd13Reservas()
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
@@ -720,7 +794,7 @@ namespace GestionFlota.UI
         public void crearPanelesPequenosClientes()
         {
 
-            BoxAddClientes = new TableLayoutPanel() { Dock = DockStyle.Left };
+            BoxAddClientes = new TableLayoutPanel() { Dock = DockStyle.Right };
 
             PanelAdd1Clientes = this.buildPanelAdd1Clientes();
             PanelAdd2Clientes = this.buildPanelAdd2Clientes();
@@ -739,9 +813,6 @@ namespace GestionFlota.UI
             BoxAddClientes.Controls.Add(PanelAdd6Clientes);
 
 
-
-            BoxAddClientes.BorderStyle = BorderStyle.FixedSingle;
-            BoxAddClientes.BorderStyle = BorderStyle.FixedSingle;
             BoxAddClientes.Width += 100;
         }
 
@@ -751,7 +822,7 @@ namespace GestionFlota.UI
             var panel = new Panel() { Dock = DockStyle.Fill };
             this.lblCliente = new Label() { Text = "Nuevo Cliente", Dock = DockStyle.Top };
 
-            var lblNif = new Label() { Text = "Nif: (ÚNICO)", Dock = DockStyle.Left };
+            var lblNif = new Label() { Text = "Nif: (ÚNICO)", Dock = DockStyle.Left ,Width = 100};
             this.EdNif = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.EdNif);
@@ -829,42 +900,7 @@ namespace GestionFlota.UI
 
             return panel;
         }
-        public void crearPanelesPequenosReserva()
-        {
 
-            BoxAddReservas = new TableLayoutPanel() { Dock = DockStyle.Right };
-
-            PanelAdd1Reservas = this.buildPanelAdd1();
-            PanelAdd2Reservas = this.buildPanelAdd2();
-            PanelAdd3Reservas = this.buildPanelAdd3();
-            PanelAdd4Reservas = this.buildPanelAdd4();
-            PanelAdd5Reservas = this.buildPanelAdd5();
-            PanelAdd6Reservas = this.buildPanelAdd6();
-            PanelAdd7Reservas = this.buildPanelAdd7();
-            PanelAdd8Reservas = this.buildPanelAdd8();
-            PanelAdd9Reservas = this.buildPanelAdd9();
-            PanelAdd10Reservas = this.buildPanelAdd10();
-            PanelAdd11Reservas = this.buildPanelAdd11();
-            PanelAdd12Reservas = this.buildPanelAdd12();
-            PanelAdd13Reservas = this.buildPanelAdd13();
-
-            BoxAddReservas.Controls.Add(PanelAdd1Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd2Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd3Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd4Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd5Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd6Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd7Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd8Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd9Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd10Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd11Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd12Reservas);
-            BoxAddReservas.Controls.Add(PanelAdd13Reservas);
-
-            BoxAddReservas.BorderStyle = BorderStyle.FixedSingle;
-            BoxAddReservas.Width += 200;
-        }
 
         /*------------------------------------------------------------------*/
         /*-----------------------BuildMenu----------------------------------*/
@@ -1396,12 +1432,12 @@ namespace GestionFlota.UI
 
             calendar.Parent = this;
             calendar.Location = new Point(10, 10);
-            calendar.DateSelected += new DateRangeEventHandler(OnSelected);
-            calendar.DateSelected += (sender, e) => this.Close();
+            Fecha5 = calendar.SelectionStart;
+           
             date = new Label();
             date.Parent = this;
             date.Location = new Point(40, 170);
-            Fecha5 = calendar.SelectionStart;
+          
             date.Text = Fecha5.Month + "/" + Fecha5.Day + "/" + Fecha5.Year;
 
             toret.Controls.Add(this.calendar);
@@ -1410,7 +1446,7 @@ namespace GestionFlota.UI
             toret.MinimumSize = new Size(int.MaxValue, calendar.Height + date.Height + 50);
             return toret;
         }
-        void OnSelected(object sender, EventArgs e)
+        public void OnSelected(object sender, EventArgs e)
         {
             Fecha5 = calendar.SelectionStart;
             date.Text = Fecha5.Day + "/" + Fecha5.Month + "/" + Fecha5.Year;
@@ -1557,7 +1593,7 @@ namespace GestionFlota.UI
             };
 
             //Comprobar si es antes o después del ResumenLayout
-            this.MinimumSize = new Size(CHART_CANVAS_SIZE, CHART_CANVAS_SIZE);
+           // this.MinimumSize = new Size(CHART_CANVAS_SIZE, CHART_CANVAS_SIZE);
             this.Text = this.GetType().Name;
             panelGraficoGeneral.Controls.Add(this.Chart); //Aquí añadir el gráfico a introducir
             panelGraficoGeneral.ResumeLayout(false);

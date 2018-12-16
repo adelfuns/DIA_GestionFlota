@@ -1,16 +1,13 @@
 ﻿namespace GestionFlota
 {
     using System;
-    using System.Drawing;
     using System.Windows.Forms;
     using System.Linq;
     using System.Collections.Generic;
     using System.Text;
-    using GestionFlotas.UI.DialogSearch;
     using GestionFlota.Core;
     using GestionFlota.UI;
     using System.Text.RegularExpressions;
-    using GestionFlota.Core;
 
 
     class MainWindow : Form
@@ -28,7 +25,7 @@
 
             /*----------------------------*/
             /*-INSERTS PARA EL PRIMER XML-*/
-            /*----------------------------///Si pones asterisco antes de estas 3 barras se descomenta
+            /*----------------------------*///Si pones asterisco antes de estas 3 barras se descomenta
             List<string> a = new List<string>();
             a.Add("wifi");
             Flota flota1 = new Flota(1.5, "AAA1111", "Furgoneta", "Vendo", "Deluxe", 23.0, new DateTime(2000, 08, 12),
@@ -86,9 +83,9 @@
                                             21.2, 54.6, 30042.6, 0.21, 90.6, 22.0);
             Reservas transportes11 = new Reservas("1111AAA20170806", cliente6, flota1, new DateTime(2017, 08, 06), new DateTime(2017, 11, 06), new DateTime(2017, 11, 10),
                                             23.54, 54.6, 30054.6, 0.21, 90.6, 22.0);
-            Reservas transportes12 = new Reservas("2222AAA20170806", cliente7, flota2, new DateTime(2017, 08, 06), new DateTime(2017, 11, 06), new DateTime(2017, 11, 10),
+            Reservas transportes12 = new Reservas("2222AAA20170806", cliente7, flota2, new DateTime(2017, 08, 06), new DateTime(2017, 11, 06), new DateTime(2019, 1, 10),
                                             23.22, 54.6, 30220.6, 0.21, 90.6, 22.0);
-            Reservas transportes13 = new Reservas("3333AAA20170906", cliente8, flota3, new DateTime(2017, 09, 06), new DateTime(2017, 11, 06), new DateTime(2017, 11, 10),
+            Reservas transportes13 = new Reservas("3333AAA20170906", cliente8, flota3, new DateTime(2017, 09, 06), new DateTime(2017, 11, 06), new DateTime(2018, 12, 31),
                                             21.22, 54.6, 301230.6, 0.21, 90.6, 22.0);
             RegReservas.Add(transportes1);
             RegReservas.Add(transportes2);
@@ -109,9 +106,10 @@
 
 
             this.MainWindowViewReservas = new MainWindowViewReservas();
-            inTransportes = true;
-            inClientes = false;
-            inFlota = false;
+
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            ClearReservas();
+            ActualizarListaReservas();
 
             this.MainWindowViewReservas.FormClosed += (sender, e) => this.Salir();
             this.MainWindowViewReservas.operacionSalir.Click += (sender, e) => this.Salir();
@@ -139,7 +137,10 @@
             this.MainWindowViewReservas.btSearchCliente4.Click += (sender, e) => this.RPCSearch();//Reservas por cliente
             this.MainWindowViewReservas.operacionGraficoCliente2.Click += (sender, e) => this.RPCSearchGraph();//Reservas por cliente grafico
             this.MainWindowViewReservas.btSearchOcupacionAnho5.Click += (sender, e) => this.OASearch();//Ocupacion
+            this.MainWindowViewReservas.calendar.DateSelected += new DateRangeEventHandler(MainWindowViewReservas.OnSelected);
             this.MainWindowViewReservas.calendar.DateSelected += (sender, e) => this.OFSearch();//Ocupacion
+           
+
             this.MainWindowViewReservas.btSearchComodidad.Click += (sender, e) => this.CCSearch();//Comodidades
             this.MainWindowViewReservas.operacionGraficoComodidades.Click += (sender, e) => this.CCSearchGraph();//Comodidades grafico
 
@@ -171,8 +172,7 @@
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddReservas;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddReservas.Height;
-                MainWindowViewReservas.dialogosGrande.Width = 400;
-
+                MainWindowViewReservas.BoxAddReservas.Width = 390;
             };
 
             this.MainWindowViewReservas.btGestionClientes.Click += (sender, e) => {
@@ -180,7 +180,7 @@
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddClientes;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddClientes.Height;
-                MainWindowViewReservas.dialogosGrande.Width = 300;
+                MainWindowViewReservas.BoxAddClientes.Width = 390;
 
             };
             
@@ -189,7 +189,7 @@
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddFlota;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddFlota.Height;
-                MainWindowViewReservas.dialogosGrande.Width = 300;
+                MainWindowViewReservas.BoxAddFlota.Width = 390;
 
             };
         }
@@ -208,12 +208,8 @@
         public static List<Cliente> RegClientes { get; private set; }
         public static List<Reservas> RegReservas { get; private set; }
         //Busqueda
-        public DialogoCamiones dialogoCamion { get; private set; }
         public List<Reservas> RegReservasBusqueda;
         public List<Flota> RegFlotasBusqueda;
-        public bool inTransportes;
-        public bool inFlota;
-        public bool inClientes;
         public static string[] emptyValue = new string[12] { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
 
         /*------------------------------------------------------------------*/
@@ -224,12 +220,17 @@
             MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListFlota;
             MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
-            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListClientes.Height;
-            MainWindowViewReservas.grdEventsList.Width = 500;
+           // MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListFlota.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
 
             MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
             MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesFlota();
             MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
         }
         private void ActividadGestionClientes()
         {
@@ -237,11 +238,15 @@
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListClientes;
             MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListClientes.Height;
-            MainWindowViewReservas.grdEventsList.Width = 500;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
 
             MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
             MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesClientes();
             MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
             Clear();
             ActualizarLista();
@@ -253,17 +258,38 @@
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
             MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
-            MainWindowViewReservas.grdEventsList.Width = 500;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
 
             MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
             MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
             MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+
+
 
             ClearReservas();
             ActualizarListaReservas();
         }
         public void mostrarTodosLosTransportes()
         {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+
             RegReservasBusqueda = new List<Reservas>(
             from Reservas in RegReservas
             where DateTime.Compare(Reservas.Fentrega, DateTime.Today) >= 0
@@ -279,9 +305,21 @@
         // Inicio Transportes pendientes: Mostrará todas los transportes, para todo la flota o por camión, para los próximos cinco días
         private void transportePendientes()
         {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelTransportesPendientes();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void DTPSearch()
         {
@@ -311,6 +349,8 @@
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelDisponibilidad();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void DDCSearch()
         {
@@ -353,9 +393,21 @@
         //Inicio Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
         private void transportesPorCliente()
         {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelTransporteCliente();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void DTCSearch()
         {
@@ -386,7 +438,7 @@
             from reserva in RegReservas
             where reserva.Cliente.Nif.Equals(nifClienteSeleccionado) && (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
                             && ((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados")
-                            || ((DateTime.Compare(reserva.Fsalida, DateTime.Today) <= 0
+                            || ((DateTime.Compare(reserva.Fentrega, DateTime.Today) <= 0
                             && DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0 && !periodoSeleccionado.Equals("Transportes pasados"))))
             orderby reserva.IdTransporte
             select reserva);
@@ -405,9 +457,21 @@
         //Inicio Reservas por camión: Mostrará todas los transportes, pasados o pendientes, para todo la flota o por camión.
         private void reservasPorCamion()
         {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelReservasCamion();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void DRCSearch()
         {
@@ -485,9 +549,21 @@
         //Inicio Reservas por cliente: Mostrará todas las reservas para una persona
         private void reservasPorCliente()
         {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelReservasCliente();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void RPCSearch()
         {
@@ -528,9 +604,21 @@
         //Inicio Ocupación: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
         private void ocupacion()
         {
+            MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+            MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+            MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+            MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+            MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+            MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelOcupacion();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void OASearch()
         {
@@ -546,16 +634,15 @@
 
         }
         private void OFSearch()
-        {
+        {       
             var fechaSeleccionada = this.MainWindowViewReservas.Fecha5;
-
             RegReservasBusqueda = new List<Reservas>(
             from reserva in RegReservas
-            where (DateTime.Compare(reserva.Fentrega, fechaSeleccionada) < 0)    
+            where (DateTime.Compare(reserva.Fentrega, fechaSeleccionada) == 0)    
             orderby reserva.IdTransporte
             select reserva);
-            ActualizarListaReservasBusqueda();
 
+            ActualizarListaReservasBusqueda();
         }
         //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
 
@@ -565,6 +652,8 @@
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelComodidades();
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
         }
         private void CCSearch()
         {
@@ -593,6 +682,11 @@
         }
         private void EditFindClient()
         {
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddClientes;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddClientes.Height;
+            MainWindowViewReservas.BoxAddClientes.Width = 390;
             try
             {
                 Cliente c = RegClientes[MainWindowViewReservas.evt.RowIndex];
@@ -832,9 +926,9 @@
                 idTrans = Convert.ToString(edIdtrans.Text);
                 // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
                 //tipoTransp = Reg.FindByMatricula(Convert.ToString(edTipoTransp.Text));
-                fcontra = Convert.ToDateTime(edFcontra.Text);
-                fsalida = Convert.ToDateTime(edFsalida.Text);
-                fentrega = Convert.ToDateTime(edFentrega.Text);
+                fcontra = Convert.ToDateTime(edFcontra.Text).Date;
+                fsalida = Convert.ToDateTime(edFsalida.Text).Date;
+                fentrega = Convert.ToDateTime(edFentrega.Text).Date;
                 edia = Convert.ToDouble(edEdia.Text);
                 ekm = Convert.ToDouble(edEkm.Text);
                 kmRecorridos = Convert.ToDouble(edKmRecorridos.Text);
@@ -879,6 +973,12 @@
         }
         private void EditFindReserv()
         {
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddReservas;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddReservas.Height;
+            MainWindowViewReservas.BoxAddReservas.Width = 390;
+
             try
             {
                 Reservas r = RegReservas[MainWindowViewReservas.evt.RowIndex];
@@ -886,9 +986,9 @@
                 MainWindowViewReservas.tbIdTransp.ReadOnly = true;
                 MainWindowViewReservas.tbCliente.Text = r.Cliente.Nif;
                 MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte.Tipo;
-                MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.ToString();
-                MainWindowViewReservas.tbFsalida.Text = r.Fsalida.ToString();
-                MainWindowViewReservas.tbFentrega.Text = r.Fentrega.ToString();
+                MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.Date.ToString().Substring(0, 10);
+                MainWindowViewReservas.tbFsalida.Text = r.Fsalida.Date.ToString().Substring(0, 10);
+                MainWindowViewReservas.tbFentrega.Text = r.Fentrega.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbEDia.Text = r.ImporteDia.ToString();
                 MainWindowViewReservas.tbEkm.Text = r.ImporteKm.ToString();
                 MainWindowViewReservas.tbKmRecorridos.Text = r.kmRecorridos.ToString();
@@ -924,7 +1024,6 @@
 
             string idTransp;
             Cliente Cliente;
-            Flota tipoTransp;
             DateTime Fcontra, Fsalida, Fentrega;
             double ImporteDia, ImporteKm, kmRecorridos,
                 IVA, Gas, Suplencia;
@@ -993,9 +1092,9 @@
             columnData.Add(reserva.IdTransporte);
             columnData.Add(reserva.Cliente.Nif);
             columnData.Add(reserva.TipoTransporte.Tipo);
-            columnData.Add(reserva.FechaContratacion);
-            columnData.Add(reserva.Fsalida);
-            columnData.Add(reserva.Fentrega);
+            columnData.Add(reserva.FechaContratacion.Date.ToString().Substring(0, 10));
+            columnData.Add(reserva.Fsalida.Date.ToString().Substring(0, 10));
+            columnData.Add(reserva.Fentrega.Date.ToString().Substring(0, 10));
             columnData.Add(reserva.ImporteDia);
             columnData.Add(reserva.ImporteKm);
             columnData.Add(reserva.kmRecorridos);
@@ -1075,7 +1174,7 @@
             MainWindowViewReservas.grdEventsListFlota.Rows.Clear();
             foreach (var flota in camionesDisponibles)
             {
-               /// AddTableEventsListRowWithEvent(flota);
+             //   AddTableEventsListRowWithEvent(flota);
             }
 
         }
