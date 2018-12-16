@@ -29,15 +29,15 @@ namespace GestionFlota.UI
             this.opcionesPoner = new Panel() { Dock = DockStyle.Bottom };
 
             BoxMsg = new TableLayoutPanel() { Dock = DockStyle.Bottom };
+
             this.BuildMenu();
             this.buildPanelReservas();
             this.buildPanelClientes();
-
+            this.BuildPanelListaFlota();
             var panelMsg = this.buildPanelMsg();
 
             crearPanelesPequenosReserva();
             crearPanelesPequenosClientes();
-
 
 
             this.grdEventsListAux = this.grdEventsListReservas;
@@ -53,7 +53,10 @@ namespace GestionFlota.UI
             this.Controls.Add(BoxMsg);
             
             this.Resize += (obj, args) => this.OnResizeWindow(obj, args);
-           // this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Resize += (obj, args) => this.OnResizeWindowClientes(obj, args);
+            this.Resize += (obj, args) => this.OnResizeWindowFlota(obj, args);
+
+            // this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 
             BoxMsg.Height -= 75;
 
@@ -64,11 +67,6 @@ namespace GestionFlota.UI
 
             this.grdEventsList.Width = this.Width - this.dialogosGrande.Width;
             this.grdEventsListAux.Width = this.Width - this.dialogosGrande.Width; 
-            // this.grdEventsListAux.Width = this.grdEventsList.Width;
-            //  this.grdEventsList.BackgroundColor = Color.Green;
-            // this.dialogosGrande.BackColor  = Color.Red;
-            // this.grdEventsListAux.BackgroundColor = Color.Pink;
-            //this.opcionesFijo.BackColor = Color.Blue;
 
             this.Text = "Gestion Reservas";
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -213,7 +211,7 @@ namespace GestionFlota.UI
         public Button operacionSearch6 { get; set; }
         public Button operacionSearch7 { get; set; }
         public Button btGestionClientes { get; set; }
-        public Button btGestionFlota { get; set; }
+        public Button AnhadirFlota { get; set; }
         public Button operacionSearch2 { get; set; }
         public ComboBox escogerComodidades { get; set; }
         public string comodidad => escogerComodidades.Text;
@@ -223,6 +221,46 @@ namespace GestionFlota.UI
         public Button operacionGraficoCliente2 { get; set; } //Boton generar graficos en panel derecho
         public Button operacionGraficoComodidades { get; set; } //Boton generar graficos en panel derecho
         public Button operacionGraficoGeneral { get; set; } //Boton generar graficos general en panel inferior
+
+        //Flota
+        private Panel panelAnhadir;
+        private Panel panelModificar;
+        private ComboBox escogerTipo2 { get; set; }
+        public string Tipo2 => escogerTipo2.Text;
+        private ComboBox escogerCamion3;
+        public string Matricula3 => escogerCamion3.Text;
+        public Button btCierra { get; set; }
+        public Button btAñadir { get; set; }
+        public Button btModificar { get; set; }
+        public Button EditFindFlota { get; set; }
+        public Button EditFlota { get; set; }
+        public Button DeleteFlota { get; set; }
+        public TextBox edLetrasMatricula { get; set; }
+        public TextBox edDigitosMatricula { get; set; }
+        public TextBox edMatricula { get; set; }
+        public TextBox edCarga { get; set; }
+        public TextBox edMarca { get; set; }
+        public TextBox edModelo { get; set; }
+        public TextBox edConsumoKm { get; set; }
+        public TextBox edFechaAdquisicion { get; set; }
+        public TextBox edFechaFabricacion { get; set; }
+        public CheckBox ComodidadWifi { get; set; }
+        public CheckBox ComodidadBlue { get; set; }
+        public CheckBox ComodidadAire { get; set; }
+        public CheckBox ComodidadLitera { get; set; }
+        public CheckBox ComodidadTv { get; set; }
+
+
+
+        public MenuItem añadirFlota { get; private set; }
+        public MenuItem eliminarFlota { get; private set; }
+        public MenuItem modificarFlota { get; private set; }
+
+
+        public TextBox Texto { get; private set; }
+        public Panel panelListaFlota;
+        public Button btSearchFlota { get; set; }
+        public ComboBox escogerBusquedaFlota { get; set; }
         /*------------------------------------------------------------------*/
         /*---------------------------Métodos--------------------------------*/
         /*------------------------------------------------------------------*/
@@ -553,6 +591,166 @@ namespace GestionFlota.UI
                 EditFindCliente.PerformClick();
             }
         }
+
+        private void BuildPanelListaFlota()
+        {
+            DeleteFlota = new Button();
+            EditFindFlota = new Button();
+            panelListaFlota = new Panel();
+            panelListaFlota.SuspendLayout();
+            panelListaFlota.Dock = DockStyle.Fill;
+
+            // Crear gridview
+            this.grdEventsListFlota = new DataGridView()
+            {
+                Dock = DockStyle.Fill,
+                AllowUserToResizeRows = false,
+                RowHeadersVisible = false,
+                AutoGenerateColumns = false,
+                MultiSelect = false,
+                AllowUserToAddRows = false,
+                EnableHeadersVisualStyles = false,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+            };
+            var textCellTemplate = new DataGridViewTextBoxCell();
+            var imageEditTemplate = new DataGridViewButtonCell();
+            var imageDeleteTemplate = new DataGridViewButtonCell();
+            textCellTemplate.Style.BackColor = Color.Wheat;
+            imageEditTemplate.UseColumnTextForButtonValue = true;
+            imageDeleteTemplate.UseColumnTextForButtonValue = true;
+            this.grdEventsListFlota.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            this.grdEventsListFlota.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+
+            var column0 = new DataGridViewTextBoxColumn();
+            var column1 = new DataGridViewTextBoxColumn();
+            var column2 = new DataGridViewTextBoxColumn();
+            var column3 = new DataGridViewTextBoxColumn();
+            var column4 = new DataGridViewTextBoxColumn();
+            var column5 = new DataGridViewTextBoxColumn();
+            var column6 = new DataGridViewTextBoxColumn();
+            var column7 = new DataGridViewTextBoxColumn();
+            var column8 = new DataGridViewTextBoxColumn();
+
+            var column9 = new DataGridViewButtonColumn();
+            var column10 = new DataGridViewButtonColumn();
+
+            column0.CellTemplate = textCellTemplate;
+            column1.CellTemplate = textCellTemplate;
+            column2.CellTemplate = textCellTemplate;
+            column3.CellTemplate = textCellTemplate;
+            column4.CellTemplate = textCellTemplate;
+            column5.CellTemplate = textCellTemplate;
+            column6.CellTemplate = textCellTemplate;
+            column7.CellTemplate = textCellTemplate;
+            column8.CellTemplate = textCellTemplate;
+            column9.CellTemplate = imageEditTemplate;
+            column10.CellTemplate = imageDeleteTemplate;
+
+            column9.Text = "Eliminar";
+            column10.Text = "Editar";
+
+            column0.HeaderText = "Matricula";
+            column0.Width = 75;
+            column0.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column1.HeaderText = "Tipo";
+            column1.Width = 75;
+            column1.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column2.HeaderText = "Marca";
+            column2.Width = 75;
+            column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column3.HeaderText = "Modelo";
+            column3.Width = 75;
+            column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column4.HeaderText = "Consumo por Km";
+            column4.Width = 150;
+            column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column5.HeaderText = "Fecha de adquisición";
+            column5.Width = 150;
+            column5.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column6.HeaderText = "Fecha de fabricación";
+            column6.Width = 150;
+            column6.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column7.HeaderText = "Carga";
+            column7.Width = 75;
+            column7.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column8.HeaderText = "Comodidades";
+            column8.Width = 150;
+            column8.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            column9.HeaderText = "";
+            column10.HeaderText = "";
+            column9.Width = 50;
+            column9.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column9.Resizable = DataGridViewTriState.False;
+            column10.Width = 50;
+            column10.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column10.Resizable = DataGridViewTriState.False;
+            column9.ReadOnly = true;
+            column10.ReadOnly = true;
+
+            this.grdEventsListFlota.Columns.AddRange(new DataGridViewColumn[] {
+                column0,
+                column7,
+                column1,
+                column2,
+                column3,
+                column4,
+                column5,
+                column6,
+                column8,
+                column9,
+                column10
+            });
+
+            this.grdEventsListFlota.CellContentClick += this.OnCellClickedFlota;
+            this.grdEventsListFlota.Dock = DockStyle.Fill;
+            this.grdEventsListFlota.TabIndex = 3;
+            this.grdEventsListFlota.AllowUserToOrderColumns = false;
+            this.pnlInfo = new Panel();
+            this.pnlInfo.SuspendLayout();
+            this.pnlInfo.Dock = DockStyle.Fill;
+            this.pnlEventsContainer = new Panel();
+            this.pnlEventsContainer.Dock = DockStyle.Fill;
+            this.pnlEventsContainer.Controls.Add(this.grdEventsListFlota);
+            this.pnlInfo.Controls.Add(this.pnlEventsContainer);
+
+        }
+        protected void OnResizeWindowFlota(object sender, System.EventArgs e)
+        {
+            Control control = (Control)sender;
+            int width = control.Size.Width - 417;
+
+            this.grdEventsListFlota.Width = width;
+
+            this.grdEventsListFlota.Columns[0].Width = (int)Math.Floor(width * .20);      // Matricula
+            this.grdEventsListFlota.Columns[1].Width = (int)Math.Floor(width * .20);      // Tipo
+            this.grdEventsListFlota.Columns[2].Width = (int)Math.Floor(width * .20);      // Marca
+            this.grdEventsListFlota.Columns[3].Width = (int)Math.Floor(width * .20);      // Modelo
+            this.grdEventsListFlota.Columns[4].Width = (int)Math.Floor(width * .20);      // Consumo Km
+            this.grdEventsListFlota.Columns[5].Width = (int)Math.Floor(width * .20);      // Fadquisicion
+            this.grdEventsListFlota.Columns[6].Width = (int)Math.Floor(width * .20);      // Ffabricacion
+            this.grdEventsListFlota.Columns[7].Width = (int)Math.Floor(width * .20);      // Carga
+            this.grdEventsListFlota.Columns[8].Width = (int)Math.Floor(width * .20);      // Comodidades
+
+
+        }
+
+        private void OnCellClickedFlota(object sender, DataGridViewCellEventArgs evt)
+        {
+            if (evt.ColumnIndex == (this.grdEventsListFlota.Columns.Count - 2))
+            {
+                this.evt = evt;
+                DeleteFlota.PerformClick();
+            }
+            else
+            if (evt.ColumnIndex == (this.grdEventsListFlota.Columns.Count - 1))
+            {
+                this.evt = evt;
+                EditFindFlota.PerformClick();
+            }
+        }
+
+
 
         /*------------------------------------------------------------------*/
         /*------------------InicializarPanelDerecha-------------------------*/
@@ -902,6 +1100,282 @@ namespace GestionFlota.UI
         }
 
 
+        //Flota
+        private Panel BuildPanelBotonesAnhadir()
+        {
+            var toret = new TableLayoutPanel()
+            {
+                ColumnCount = 1,
+                RowCount = 1
+            };
+
+            this.AcceptButton = this.btAñadir;
+
+            toret.Controls.Add(this.btAñadir);
+            toret.Dock = DockStyle.Fill;
+            toret.MaximumSize = new Size(this.Width, this.btAñadir.Height + 20);
+
+            return toret;
+        }
+        private Panel BuildPanelBotonesModificar()
+        {
+            var toret = new TableLayoutPanel()
+            {
+                ColumnCount = 1,
+                RowCount = 1
+            };
+
+            this.AcceptButton = this.btModificar;
+
+            toret.Controls.Add(this.btModificar);
+            toret.Dock = DockStyle.Fill;
+            toret.MaximumSize = new Size(this.Width, this.btAñadir.Height + 20);
+
+            return toret;
+        }
+        public Panel BuildPanelTipoCamionFlota()
+        {
+            var toret = new Panel { Dock = DockStyle.Fill };
+
+            escogerTipo2 = new ComboBox();
+            escogerTipo2.Parent = this;
+            escogerTipo2.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
+            escogerTipo2.Items.AddRange(new object[] {"Selecciona",
+                "Furgoneta",
+                "Camion",
+                "Camion articulado"});
+
+            escogerTipo2.SelectedItem = "Selecciona";
+            escogerTipo2.Text = "Selecciona";
+            toret.Controls.Add(this.escogerTipo2);
+
+            toret.MaximumSize = new Size(int.MaxValue, escogerTipo2.Height * 2);
+            return toret;
+
+        }
+        Panel buildPanelCarga()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbCarga = new Label { Text = " Carga ", Dock = DockStyle.Left };
+            this.edCarga = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edCarga);
+            panel.Controls.Add(lbCarga);
+         
+            panel.Size = new Size(this.edCarga.Width, 30);
+            return panel;
+        }
+        Panel buildPanelLetrasMatricula()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbLetrasMatricula = new Label { Text = " Letras Matricula ", Dock = DockStyle.Left };
+            this.edLetrasMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200
+            };
+            panel.Controls.Add(edLetrasMatricula);
+            panel.Controls.Add(lbLetrasMatricula);
+            
+            panel.Size = new Size(this.edLetrasMatricula.Width, 30);
+            
+            return panel;
+        }
+        Panel buildPanelDigitosMatricula()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbDigitosMatricula = new Label { Text = " Digitos Matricula ", Dock = DockStyle.Left };
+            this.edDigitosMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edDigitosMatricula);
+            panel.Controls.Add(lbDigitosMatricula);
+
+            panel.Size = new Size(this.edDigitosMatricula.Width, 30);
+            return panel;
+        }
+        Panel buildPanelMarca()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbMarca = new Label { Text = " Marca ", Dock = DockStyle.Left };
+            this.edMarca = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edMarca);
+            panel.Controls.Add(lbMarca);
+            
+            panel.Size = new Size(this.edMarca.Width, 30);
+            return panel;
+        }
+        Panel buildPanelModelo()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbModelo = new Label { Text = " Modelo ", Dock = DockStyle.Left };
+            this.edModelo = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edModelo);
+            panel.Controls.Add(lbModelo);
+           
+            panel.Size = new Size(this.edModelo.Width, 30);
+            return panel;
+        }
+        Panel buildPanelConsumoKm()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbConsumoKm = new Label { Text = " Consumo Km ", Dock = DockStyle.Left };
+            this.edConsumoKm = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edConsumoKm);
+            panel.Controls.Add(lbConsumoKm);
+            panel.Size = new Size(edConsumoKm.Width, 30);
+            return panel;
+        }
+        Panel buildPanelFechaAdquisicion()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbFechaAdquisicion = new Label { Text = " F.Adquisición ", Dock = DockStyle.Left };
+            this.edFechaAdquisicion = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edFechaAdquisicion);
+            panel.Controls.Add(lbFechaAdquisicion);
+            
+            panel.Size = new Size(edFechaAdquisicion.Width, 30);
+            return panel;
+        }
+        Panel buildPanelFechaFabricacion()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbFechaFabricacion = new Label { Text = " F.Fabricación ", Dock = DockStyle.Left };
+            this.edFechaFabricacion = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edFechaFabricacion);
+            panel.Controls.Add(lbFechaFabricacion);
+           
+            panel.Size = new Size(edFechaFabricacion.Width, 30);
+            return panel;
+        }
+        Panel buildPanelComodidadesFlota()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbComodidades = new Label { Text = " Comodidades", Dock = DockStyle.Top };
+            this.ComodidadWifi = new CheckBox { Text = "Wifi", Dock = DockStyle.Left, AutoCheck = true, Width = 50 };
+            this.ComodidadBlue = new CheckBox { Text = "Conexion\n Bluetooth", Dock = DockStyle.Left, AutoCheck = true, Width = 80 };
+            this.ComodidadAire = new CheckBox { Text = "Aire\n Acondicionado", Dock = DockStyle.Left, AutoCheck = true, Width = 110 };
+            this.ComodidadLitera = new CheckBox { Text = "Litera", Dock = DockStyle.Left, AutoCheck = true, Width = 60 };
+            this.ComodidadTv = new CheckBox { Text = "Tv", Dock = DockStyle.Left, AutoCheck = true ,Width= 50};
+
+           
+            panel.Controls.Add(ComodidadWifi);
+            panel.Controls.Add(ComodidadAire);
+            panel.Controls.Add(ComodidadLitera);
+            panel.Controls.Add(ComodidadBlue);
+            panel.Controls.Add(ComodidadTv);
+            panel.Controls.Add(lbComodidades);
+            panel.Size = new Size(300,50);
+            return panel;
+        }
+        Panel buildPanelMatricula()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbMatricula = new Label { Text = " Matricula ", Dock = DockStyle.Left };
+            this.edMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left,Width = 200 };
+            panel.Controls.Add(edMatricula);
+            panel.Controls.Add(lbMatricula);
+
+            panel.Size = new Size(this.edMatricula.Width, 30);
+            return panel;
+        }
+        //Builds paneles operaciones
+        public Panel BuildPanelAddFlota()
+        {
+            var label = new Label
+            {
+                Text = "Añadir Flota\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top
+            };
+            this.panelAnhadir = new TableLayoutPanel { Dock = DockStyle.Right };
+
+            panelAnhadir.Controls.Add(label);
+
+            var panelTipoCamion = this.BuildPanelTipoCamionFlota();
+            this.panelAnhadir.Controls.Add(panelTipoCamion);
+
+            var panelCarga = this.buildPanelCarga();
+            this.panelAnhadir.Controls.Add(panelCarga);
+
+            var panelLetrasMatricula = this.buildPanelLetrasMatricula();
+            this.panelAnhadir.Controls.Add(panelLetrasMatricula);
+
+            var panelDigitosMatricula = this.buildPanelDigitosMatricula();
+            this.panelAnhadir.Controls.Add(panelDigitosMatricula);
+
+            var panelMarca = this.buildPanelMarca();
+            this.panelAnhadir.Controls.Add(panelMarca);
+
+            var panelModelo = this.buildPanelModelo();
+            this.panelAnhadir.Controls.Add(panelModelo);
+
+            var panelConsumoKm = this.buildPanelConsumoKm();
+            this.panelAnhadir.Controls.Add(panelConsumoKm);
+
+            var panelFechaFabricacion = this.buildPanelFechaFabricacion();
+            this.panelAnhadir.Controls.Add(panelFechaFabricacion);
+
+            var panelFechaAdquisicion = this.buildPanelFechaAdquisicion();
+            this.panelAnhadir.Controls.Add(panelFechaAdquisicion);
+
+            var panelComodidades = this.buildPanelComodidadesFlota();
+            this.panelAnhadir.Controls.Add(panelComodidades);
+
+            var pnlBotones = this.BuildPanelBotonesAnhadir();
+            this.panelAnhadir.Controls.Add(pnlBotones);
+
+            this.panelAnhadir.MinimumSize = new Size(390, 1000);
+            return panelAnhadir;
+        }
+
+
+        public Panel BuildPanelModificar()
+        {
+            var label = new Label
+            {
+                Text = "Modificar Flota\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top
+            };
+            this.panelModificar = new TableLayoutPanel { Dock = DockStyle.Right };
+            
+            panelModificar.Controls.Add(label);
+           // this.Controls.Add(this.panelModificar);
+
+            var panelMatricula = this.buildPanelMatricula();
+            this.panelModificar.Controls.Add(panelMatricula);
+
+
+            var panelTipoCamion = this.BuildPanelTipoCamion();
+            this.panelModificar.Controls.Add(panelTipoCamion);
+
+            var panelCarga = this.buildPanelCarga();
+            this.panelModificar.Controls.Add(panelCarga);
+
+
+            var panelMarca = this.buildPanelMarca();
+            this.panelModificar.Controls.Add(panelMarca);
+
+            var panelModelo = this.buildPanelModelo();
+            this.panelModificar.Controls.Add(panelModelo);
+
+            var panelConsumoKm = this.buildPanelConsumoKm();
+            this.panelModificar.Controls.Add(panelConsumoKm);
+
+            var panelFechaFabricacion = this.buildPanelFechaFabricacion();
+            this.panelModificar.Controls.Add(panelFechaFabricacion);
+
+            var panelFechaAdquisicion = this.buildPanelFechaAdquisicion();
+            this.panelModificar.Controls.Add(panelFechaAdquisicion);
+
+            var panelComodidades = this.buildPanelComodidadesFlota();
+            this.panelModificar.Controls.Add(panelComodidades);
+
+            var pnlBotones = this.BuildPanelBotonesModificar();
+            this.panelModificar.Controls.Add(pnlBotones);
+
+
+
+            panelModificar.MinimumSize = new Size(390, 1000);
+            return panelModificar;
+
+        }
+
         /*------------------------------------------------------------------*/
         /*-----------------------BuildMenu----------------------------------*/
         /*------------------------------------------------------------------*/
@@ -1008,10 +1482,11 @@ namespace GestionFlota.UI
             }
 
             escogerCamion.Items.AddRange(Camiones.ToArray());
-
-            escogerCamion.SelectedItem = Camiones.First();
-            escogerCamion.Text = Camiones.First().ToString();
-            
+            if (Camiones.Count() != 0)
+            {
+                escogerCamion.SelectedItem = Camiones.First();
+                escogerCamion.Text = Camiones.First().ToString();
+            }
             toret.Controls.Add(this.escogerCamion);
             toret.MaximumSize = new Size(int.MaxValue, escogerCamion.Height * 2);
 
@@ -1167,9 +1642,11 @@ namespace GestionFlota.UI
             }
 
             escogerAnho2.Items.AddRange(anhos.ToArray());
-
-            escogerAnho2.SelectedItem = anhos.First();
-            escogerAnho2.Text = anhos.First().ToString();
+            if (anhos.Count() != 0)
+            {
+                escogerAnho2.SelectedItem = anhos.First();
+                escogerAnho2.Text = anhos.First().ToString();
+            }
             toret.Controls.Add(this.escogerAnho2);
             toret.MaximumSize = new Size(int.MaxValue, escogerAnho2.Height * 2);
             return toret;
@@ -1264,9 +1741,11 @@ namespace GestionFlota.UI
             }
 
             escogerCamion2.Items.AddRange(Camiones.ToArray());
-
-            escogerCamion2.SelectedItem = Camiones.First();
-            escogerCamion2.Text = Camiones.First().ToString();
+            if (Camiones.Count() != 0)
+            {
+                escogerCamion2.SelectedItem = Camiones.First();
+                escogerCamion2.Text = Camiones.First().ToString();
+            }
             toret.Controls.Add(this.escogerCamion2);
             toret.MaximumSize = new Size(int.MaxValue, escogerCamion2.Height * 2);
 
@@ -1314,8 +1793,11 @@ namespace GestionFlota.UI
             }
 
             escogerAnho.Items.AddRange(anhos.ToArray());
-            escogerAnho.SelectedItem = anhos.First();
-            escogerAnho.Text = anhos.First().ToString();
+            if (anhos.Count() != 0)
+            {
+                escogerAnho.SelectedItem = anhos.First();
+                escogerAnho.Text = anhos.First().ToString();
+            }
             toret.Controls.Add(this.escogerAnho);
             toret.MaximumSize = new Size(int.MaxValue, escogerAnho.Height * 2);
             return toret;
@@ -1396,9 +1878,11 @@ namespace GestionFlota.UI
             }
 
             escogerAnho4.Items.AddRange(anhos.ToArray());
-
-            escogerAnho4.SelectedItem = anhos.First();
-            escogerAnho4.Text = anhos.First().ToString();
+            if (anhos.Count() != 0)
+            {
+                escogerAnho4.SelectedItem = anhos.First();
+                escogerAnho4.Text = anhos.First().ToString();
+            }
             toret.Controls.Add(this.escogerAnho4);
             toret.MaximumSize = new Size(int.MaxValue, escogerAnho4.Height * 2);
             return toret;
@@ -1472,9 +1956,11 @@ namespace GestionFlota.UI
 
             escogerAnho5.Items.AddRange(anhos.ToArray());
 
-            escogerAnho5.SelectedItem = anhos.First();
-            escogerAnho5.Text = anhos.First().ToString();
-
+            if (anhos.Count() != 0)
+            {
+                escogerAnho5.SelectedItem = anhos.First();
+                escogerAnho5.Text = anhos.First().ToString();
+            }
 
 
             this.AcceptButton = this.btSearchOcupacionAnho5;
@@ -1557,20 +2043,22 @@ namespace GestionFlota.UI
             List<object> comodidades = new List<object>();
             foreach (Flota t in MainWindow.flotas)
             {
-                foreach(string x in t.Comodidades)
+                foreach (String com in t.Comodidades)
                 {
-                    if(!comodidades.Contains(x))
+                    if (!comodidades.Contains(com))
                     {
-                        comodidades.Add(x);
+                        comodidades.Add(com);
                     }
                 }
+                
             }
 
             escogerComodidades.Items.AddRange(comodidades.ToArray());
-
-            escogerComodidades.SelectedItem = comodidades.First();
-            escogerComodidades.Text = comodidades.First().ToString();
-
+            if (comodidades.Count() != 0)
+            {
+                escogerComodidades.SelectedItem = comodidades.First();
+                escogerComodidades.Text = comodidades.First().ToString();
+            }
             toret.Controls.Add(this.escogerComodidades);
 
             toret.MaximumSize = new Size(int.MaxValue, escogerComodidades.Height * 2);
@@ -1670,7 +2158,7 @@ namespace GestionFlota.UI
             this.operacionSearch4 = new Button() { Text = "Reservas por camion", Dock = DockStyle.Left };
             this.operacionSearch5 = new Button() { Text = "Reservas por cliente", Dock = DockStyle.Left };
             this.operacionSearch6 = new Button() { Text = "Ocupacion", Dock = DockStyle.Left };
-            this.operacionSearch7 = new Button() { Text = "Comodidades", Dock = DockStyle.Left };
+            this.operacionSearch7 = new Button() { Text = "Comodidades", Dock = DockStyle.Left, Width = 100 };
             this.operacionGraficoGeneral = new Button() { Text = "Gráfico general", Dock = DockStyle.Left };
             
             /*Panel opciones clientes */
@@ -1678,17 +2166,36 @@ namespace GestionFlota.UI
 
 
             /*Panel opciones flotas */
-            this.btGestionFlota = new Button() { Text = "Crear flota ", Dock = DockStyle.Left };
-            this.operacionSearch2 = new Button() { Text = "Disponibilidad", Dock = DockStyle.Left };
+            this.AnhadirFlota = new Button() { Text = "Crear flota ", Dock = DockStyle.Left };
+            this.operacionSearch2 = new Button() { Text = "Disponibilidad", Dock = DockStyle.Left, Width =100 };
+
+
+            /*Flota*/
+            this.btAñadir = new Button()
+            {
+                DialogResult = DialogResult.OK,
+                Text = "&Añadir",
+                Dock = DockStyle.Bottom
+            };
+
+            this.btModificar = new Button()
+            {
+                DialogResult = DialogResult.OK,
+                Text = "&Modificar",
+                Dock = DockStyle.Bottom
+            };
+
+  
         }
         public Panel buildPanelOpcionesReservas()
         {
             var label = new Label
             {
-                Text = "Opciones para reservas\n-----------------------------------------------------------------------------------",
-                Dock = DockStyle.Top
+                Text = "\nOpciones para reservas\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top,
+                Height = 50
             };
-            var panelSearch = new Panel { Dock = DockStyle.Top };
+            var panelSearch = new Panel { Dock = DockStyle.Bottom };
             
     
             panelSearch.Controls.Add(this.operacionSearch6);
@@ -1707,10 +2214,11 @@ namespace GestionFlota.UI
         {
             var label = new Label
             {
-                Text = "Opciones para clientes\n-----------------------------------------------------------------------------------",
-                Dock = DockStyle.Top
+                Text = "\nOpciones para clientes\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top,
+                Height = 50
             };
-            var panelSearch = new Panel { Dock = DockStyle.Top };
+            var panelSearch = new Panel { Dock = DockStyle.Bottom };
 
             panelSearch.Controls.Add(this.btGestionClientes);
             panelSearch.Controls.Add(label);
@@ -1723,13 +2231,14 @@ namespace GestionFlota.UI
         {
             var label = new Label
             {
-                Text = "Opciones para clientes\n-----------------------------------------------------------------------------------",
-                Dock = DockStyle.Top
+                Text = "\nOpciones para flota\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top,
+                Height = 50
             };
-            var panelSearch = new Panel { Dock = DockStyle.Top };
+            var panelSearch = new Panel { Dock = DockStyle.Bottom };
 
             panelSearch.Controls.Add(this.operacionSearch7);
-            panelSearch.Controls.Add(this.btGestionFlota);
+            panelSearch.Controls.Add(this.AnhadirFlota);
             panelSearch.Controls.Add(this.operacionSearch2);
 
             panelSearch.Controls.Add(label);

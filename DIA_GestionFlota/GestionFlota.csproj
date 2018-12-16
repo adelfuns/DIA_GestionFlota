@@ -47,7 +47,6 @@
     <Compile Include="Core\Cliente.cs" />
     <Compile Include="Core\Factura.cs" />
     <Compile Include="Core\Flota.cs" />
-    <Compile Include="Core\ListaFlota.cs" />
     <Compile Include="Core\RegistroClientes.cs" />
     <Compile Include="Core\RegistroReservas.cs" />
     <Compile Include="Core\Reservas.cs" />
