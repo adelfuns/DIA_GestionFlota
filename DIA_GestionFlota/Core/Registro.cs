@@ -431,23 +431,23 @@ namespace GestionFlota.Core
                         }
                         /*FIN COMPROBACION DE SI EL XML ESTA BIEN GENERADO*/
                         List<string> Comodidades = new List<string> { };
-                        if ((FlotaXml.Attribute(EtqComodidadesWifi) != null) && (FlotaXml.Attribute(EtqComodidadesWifi).ToString().Equals("true")))
+                        if ((FlotaXml.Attribute(EtqComodidadesWifi) != null) && FlotaXml.Attribute(EtqComodidadesWifi).Value.ToString().Equals("True"))
                         {
                             Comodidades.Add("Wifi");
                         }
-                        if ((FlotaXml.Attribute(EtqComodidadesBlue) != null) && (FlotaXml.Attribute(EtqComodidadesBlue).ToString().Equals("true")))
+                        if ((FlotaXml.Attribute(EtqComodidadesBlue) != null) && (FlotaXml.Attribute(EtqComodidadesBlue).Value.ToString().Equals("True")))
                         {
                             Comodidades.Add("Conexion Bluetooth");
                         }
-                        if ((FlotaXml.Attribute(EtqComodidadesAire) != null) && (FlotaXml.Attribute(EtqComodidadesAire).ToString().Equals("true")))
+                        if ((FlotaXml.Attribute(EtqComodidadesAire) != null) && (FlotaXml.Attribute(EtqComodidadesAire).Value.ToString().Equals("True")))
                         {
                             Comodidades.Add("Aire Acondicionado");
                         }
-                        if ((FlotaXml.Attribute(EtqComodidadesLitera) != null) && (FlotaXml.Attribute(EtqComodidadesLitera).ToString().Equals("true")))
+                        if ((FlotaXml.Attribute(EtqComodidadesLitera) != null) && (FlotaXml.Attribute(EtqComodidadesLitera).Value.ToString().Equals("True")))
                         {
                             Comodidades.Add("Litera");
                         }
-                        if ((FlotaXml.Attribute(EtqComodidadesTv) != null) && (FlotaXml.Attribute(EtqComodidadesTv).ToString().Equals("true")))
+                        if ((FlotaXml.Attribute(EtqComodidadesTv) != null) && (FlotaXml.Attribute(EtqComodidadesTv).Value.ToString().Equals("True")))
                         {
                             Comodidades.Add("Tv");
                         }
@@ -481,17 +481,17 @@ namespace GestionFlota.Core
                     foreach (XElement reservasxml in reservaXML)
                     {
                         Reservas r = new Reservas((string)reservasxml.Attribute(EtqIdTrans),
-                                            (Cliente)FindByNif(reservasxml.Attribute(EtqCliente).Value.ToString()),
-                                            (Flota)FindByMatricula(reservasxml.Attribute(EtqTipoTrans).Value.ToString()),
+                                            FindByNif(reservasxml.Attribute(EtqCliente).Value.ToString()),
+                                            FindByMatricula(reservasxml.Attribute(EtqTipoTrans).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFcontra).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFsal).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFentrada).Value.ToString()),
-                                            (double)reservasxml.Attribute(EtqEdia),
-                                            (double)reservasxml.Attribute(EtqEkm),
-                                            (double)reservasxml.Attribute(Etqkm),
-                                            (double)reservasxml.Attribute(EtqIVA),
-                                            (double)reservasxml.Attribute(EtqGas),
-                                            (double)reservasxml.Attribute(EtqSuplencia)
+                                            Convert.ToDouble(reservasxml.Attribute(EtqEdia).Value.ToString()),
+                                            Convert.ToDouble(reservasxml.Attribute(EtqEkm).Value.ToString()),
+                                            Convert.ToDouble(reservasxml.Attribute(Etqkm).Value.ToString()),
+                                            Convert.ToDouble(reservasxml.Attribute(EtqIVA).Value.ToString()),
+                                            Convert.ToDouble(reservasxml.Attribute(EtqGas).Value.ToString()),
+                                            Convert.ToDouble(reservasxml.Attribute(EtqSuplencia).Value.ToString())
                                             );
                         reservas.Add(r);
                     }

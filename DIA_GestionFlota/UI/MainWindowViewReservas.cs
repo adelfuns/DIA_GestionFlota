@@ -38,14 +38,11 @@ namespace GestionFlota.UI
             crearPanelesPequenosReserva();
             crearPanelesPequenosClientes();
 
-
             BoxMsg.Controls.Add(panelMsg);
 
             this.grdEventsListAux = this.grdEventsListReservas;
             this.grdEventsList.Controls.Add(this.grdEventsListAux);
             this.dialogosGrande.Controls.Add(this.dialogos);
-
-
 
             this.Controls.Add(this.grdEventsList);
             this.Controls.Add(this.dialogosGrande);
@@ -59,28 +56,22 @@ namespace GestionFlota.UI
 
             BoxMsg.Height -= 75;
 
-
-
             this.dialogosGrande.Width = 400;
 
-
-
             this.MinimumSize = new Size(1500, 600);
-           this.grdEventsList.Height = this.Height - 300;
+            this.grdEventsList.Height = this.Height - 300;
             this.Text = "Gestion Reservas";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.CenterToScreen();
             this.Show();
         }
 
-
-        public Panel opcionesFijo { get; set; }
-        public Panel opcionesPoner { get; set; }
-
         /*------------------------------------------------------------------*/
         /*-------------------------Propiedades------------------------------*/
         /*------------------------------------------------------------------*/
-
+        public Panel opcionesFijo { get; set; }
+        public Panel opcionesPoner { get; set; }
+        public Panel PanelGrafico { get; set; } //Panel grafico
         public TextBox tbReservas { get;  set; } 
         public TextBox tbIdTransp { get;  set; }
         public TextBox tbCliente { get;  set; }
@@ -194,7 +185,6 @@ namespace GestionFlota.UI
         public Panel BoxAddReservas { get; set; }
         public Panel BoxAddClientes { get; set; }
         public Panel BoxAddFlota { get; set; }
-
         public Panel BoxMsg { get; set; }
         public Panel dialogos { get; set; }
         public Panel dialogosGrande { get; set; }
@@ -204,6 +194,25 @@ namespace GestionFlota.UI
         public Button btSearchDisponibilidad { get; set; }
         public ComboBox  escogerTipoDis { get; set; }
         public string Tipo => escogerTipoDis.Text;
+        //Botones panel inferior
+        public Button btGestionReservas { get; set; }
+        public Button operacionSearch1 { get; set; }
+        public Button operacionSearch3 { get; set; }
+        public Button operacionSearch4 { get; set; }
+        public Button operacionSearch5 { get; set; }
+        public Button operacionSearch6 { get; set; }
+        public Button operacionSearch7 { get; set; }
+        public Button btGestionClientes { get; set; }
+        public Button btGestionFlota { get; set; }
+        public Button operacionSearch2 { get; set; }
+        public ComboBox escogerComodidades { get; set; }
+        public string comodidad => escogerComodidades.Text;
+        public Button btSearchComodidad { get; private set; }
+        public Button operacionGraficoCamion { get; set; } //Boton generar graficos en panel derecho
+        public Button operacionGraficoCliente { get; set; } //Boton generar graficos en panel derecho
+        public Button operacionGraficoCliente2 { get; set; } //Boton generar graficos en panel derecho
+        public Button operacionGraficoComodidades { get; set; } //Boton generar graficos en panel derecho
+        public Button operacionGraficoGeneral { get; set; } //Boton generar graficos general en panel inferior
         /*------------------------------------------------------------------*/
         /*---------------------------Métodos--------------------------------*/
         /*------------------------------------------------------------------*/
@@ -708,7 +717,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         public void crearPanelesPequenosClientes()
         {
 
@@ -821,7 +829,6 @@ namespace GestionFlota.UI
 
             return panel;
         }
-
         public void crearPanelesPequenosReserva()
         {
 
@@ -873,10 +880,9 @@ namespace GestionFlota.UI
             this.operacionGestionarReservas = new MenuItem("&Reservas");
             this.operacionGestionarFlota = new MenuItem("&Flota");
             this.menuAtras = new MenuItem("&Atras");
-
             this.operacionSalir = new MenuItem("&Salir") { Shortcut = Shortcut.CtrlQ };
 
-            //Operaciones generar gráfico
+            /*//Operaciones generar gráfico
             this.operacionActividadGeneral = new MenuItem("&Generar gráfico actvidad general: ")
             {
                 Shortcut = Shortcut.Ctrl6
@@ -892,13 +898,13 @@ namespace GestionFlota.UI
             this.operacionActividadComodidades = new MenuItem("&Generar gráfico comodidades: ")
             {
                 Shortcut = Shortcut.Ctrl9
-            };
+            };*/
 
 
             //Menú superior
             this.menuArchivo.MenuItems.Add(this.operacionSalir);
             this.menuPrincipal.MenuItems.Add(this.menuArchivo);
-            this.menuPrincipal.MenuItems.Add(this.menuGenerar);
+            //this.menuPrincipal.MenuItems.Add(this.menuGenerar);
             this.menuPrincipal.MenuItems.Add(this.operacionGestionarClientes);
             this.menuPrincipal.MenuItems.Add(this.operacionGestionarReservas);
             this.menuPrincipal.MenuItems.Add(this.operacionGestionarFlota);
@@ -906,18 +912,16 @@ namespace GestionFlota.UI
             this.Menu = menuPrincipal;
 
 
-            //Submenú gráficos
+            /*//Submenú gráficos
             this.menuGenerar.MenuItems.Add(this.operacionActividadGeneral);
             this.menuGenerar.MenuItems.Add(this.operacionActividadCliente);
             this.menuGenerar.MenuItems.Add(this.operacionActividadCamion);
-            this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);
-  
+            this.menuGenerar.MenuItems.Add(this.operacionActividadComodidades);*/
         }
 
         /*------------------------------------------------------------------*/
         /*------------------TransportesPendientes---------------------------*/
         /*------------------------------------------------------------------*/
-
 
         //var label = new Label { Dock = DockStyle.Top };
         //label.Text = "Matricula";
@@ -1015,7 +1019,6 @@ namespace GestionFlota.UI
             toret.Dock = DockStyle.Top;
             return toret;
         }
-
         public Panel BuildPanelTipoCamionDis()
         {
             var toret = new Panel { Dock = DockStyle.Top };
@@ -1047,13 +1050,13 @@ namespace GestionFlota.UI
         {
             var toret = new TableLayoutPanel()
             {
-                ColumnCount = 2,
+                ColumnCount = 3,
                 RowCount = 1
             };
 
-
             this.AcceptButton = this.btSearchTransporteCliente;       
             toret.Controls.Add(this.btSearchTransporteCliente);
+            toret.Controls.Add(this.operacionGraficoCliente);
             toret.Dock = DockStyle.Top;
             return toret;
         }
@@ -1068,7 +1071,6 @@ namespace GestionFlota.UI
             escogerCliente.Parent = this;
             escogerCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> NIFs = new List<object>();
-
             foreach (Cliente c in MainWindow.RegClientes)
             {
                 NIFs.Add(c.Nif);
@@ -1168,7 +1170,6 @@ namespace GestionFlota.UI
         /*------------------------------------------------------------------*/
         /*------------------Reservas Camion---------------------------------*/
         /*------------------------------------------------------------------*/
-
         public Panel buildPanelReservasCamion()
         {
             var label = new Label
@@ -1176,18 +1177,20 @@ namespace GestionFlota.UI
                 Text = "Búsqueda reservas por camion\n-----------------------------------------------------------------------------------",
                 Dock = DockStyle.Top
             };
+            //Panel búsqueda
             var panelSearch = new TableLayoutPanel { Dock = DockStyle.Fill };
             panelSearch.Controls.Add(label);
-            var panelMatriculaCamion = this.BuildPanelMatriculaCamion();
+            //Panel Matrícula
+            var panelMatriculaCamion = this.BuildPanelMatriculaCamion2();
             panelSearch.Controls.Add(panelMatriculaCamion);
-
+            //Panel período
             var panelPeriodo = this.BuildPanelPasadasOPendientes();
             panelSearch.Controls.Add(panelPeriodo);
-
+            //Panel años
             var panelAnhos = this.BuildPanelEscogerAnho();
             panelSearch.Controls.Add(panelAnhos);
-
-            var pnlBotones = this.BuildPanelBotones();
+            //Panel botones
+            var pnlBotones = this.BuildPanelBotones2();
             panelSearch.Controls.Add(pnlBotones);
 
             panelSearch.MinimumSize = new Size(this.Width, this.tbCliente.Height + 20);
@@ -1198,15 +1201,13 @@ namespace GestionFlota.UI
         {
             var toret = new TableLayoutPanel()
             {
-                ColumnCount = 2,
+                ColumnCount = 3,
                 RowCount = 1
             };
 
-
-
             this.AcceptButton = this.btSearchCamiones2;
-
             toret.Controls.Add(this.btSearchCamiones2);
+            toret.Controls.Add(this.operacionGraficoCamion);
             toret.Dock = DockStyle.Top;
             return toret;
         }
@@ -1284,11 +1285,10 @@ namespace GestionFlota.UI
             return toret;
 
         }
-
+  
         /*------------------------------------------------------------------*/
         /*------------------Reservas Cliente---------------------------------*/
         /*------------------------------------------------------------------*/
-
         public Panel buildPanelReservasCliente()
         {
             var label = new Label
@@ -1366,20 +1366,19 @@ namespace GestionFlota.UI
             toret.Controls.Add(this.escogerAnho4);
             toret.MaximumSize = new Size(int.MaxValue, escogerAnho4.Height * 2);
             return toret;
-
         }
         private Panel BuildPanelBotones4()
         {
             var toret = new TableLayoutPanel()
             {
-                ColumnCount = 2,
+                ColumnCount = 3,
                 RowCount = 1
             };
 
 
             this.AcceptButton = this.btSearchCliente4;
             toret.Controls.Add(this.btSearchCliente4);
-
+            toret.Controls.Add(this.operacionGraficoCliente2);
             toret.Dock = DockStyle.Top;
             return toret;
         }
@@ -1387,7 +1386,6 @@ namespace GestionFlota.UI
         /*------------------------------------------------------------------*/
         /*--------------------Ocupacion-------------------------------------*/
         /*------------------------------------------------------------------*/
-
         private Panel BuildPanelFecha5()
         {
             var toret = new Panel { Dock = DockStyle.Top };
@@ -1474,9 +1472,78 @@ namespace GestionFlota.UI
         }
 
         /*------------------------------------------------------------------*/
+        /*--------------------------Comodidades-----------------------------*/
         /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
+        public Panel buildPanelComodidades()
+        {
+            var label = new Label
+            {
+                Text = "Búsqueda comodidades de camión\n-----------------------------------------------------------------------------------",
+                Dock = DockStyle.Top
+            };
+            var panelSearch = new TableLayoutPanel { Dock = DockStyle.Fill };
+            panelSearch.Controls.Add(label);
 
+            var pnlComodidades = this.BuildPanelEscogerComodidades();
+            panelSearch.Controls.Add(pnlComodidades);
+
+            var pnlBotones = this.BuildPanelBotones7();
+            panelSearch.Controls.Add(pnlBotones);
+
+
+            panelSearch.MinimumSize = new Size(this.Width, this.tbCliente.Height + 20);
+
+            return panelSearch;
+        }
+        private Panel BuildPanelBotones7()
+        {
+            var toret = new TableLayoutPanel()
+            {
+                ColumnCount = 3,
+                RowCount = 1
+            };
+
+            this.AcceptButton = this.btSearchComodidad;
+            toret.Controls.Add(this.btSearchComodidad);
+            toret.Controls.Add(this.operacionGraficoComodidades);
+            toret.Dock = DockStyle.Top;
+            return toret;
+        }
+        public Panel BuildPanelEscogerComodidades()
+        {
+            var toret = new FlowLayoutPanel { Dock = DockStyle.Top };
+            Text = "ComboBox";
+            Size = new Size(240, 240);
+
+            escogerComodidades = new ComboBox();
+            escogerComodidades.Parent = this;
+            escogerComodidades.DropDownStyle = ComboBoxStyle.DropDownList;
+            List<object> comodidades = new List<object>();
+            foreach (Flota t in MainWindow.flotas)
+            {
+                foreach(string x in t.Comodidades)
+                {
+                    if(!comodidades.Contains(x))
+                    {
+                        comodidades.Add(x);
+                    }
+                }
+            }
+
+            escogerComodidades.Items.AddRange(comodidades.ToArray());
+
+            escogerComodidades.SelectedItem = comodidades.First();
+            escogerComodidades.Text = comodidades.First().ToString();
+
+            toret.Controls.Add(this.escogerComodidades);
+
+            toret.MaximumSize = new Size(int.MaxValue, escogerComodidades.Height * 2);
+            return toret;
+        }
+
+        /*------------------------------------------------------------------*/
+        /*---------------------------Gráficos-------------------------------*/
+        /*------------------------------------------------------------------*/
         public void BuildPanelGraficoGeneral()
         {
             panelGraficoGeneral = new Panel();
@@ -1508,60 +1575,57 @@ namespace GestionFlota.UI
         }
 
         /*------------------------------------------------------------------*/
+        /*-------------------------Panel inferior---------------------------*/
         /*------------------------------------------------------------------*/
-        /*------------------------------------------------------------------*/
-
         public void inicializarBotones()
         {
-
+            calendar = new MonthCalendar();
             /*Busquedas*/
             this.btSearchCliente4 = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar"
             };
-
             this.btSearchDisponibilidad = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar"
             };
-
             this.btSearchCamiones2 = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar"
             };
-
-
             this.btSearchTransporteCliente = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar"
             };
-
             this.btSearchCamiones = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar"
             };
-
-            calendar = new MonthCalendar();
             this.btSearchOcupacionAnho5 = new Button()
             {
                 DialogResult = DialogResult.OK,
                 Text = "&Buscar por anhos",
                 Size = new Size(100, 20)
             };
-
+            this.btSearchComodidad = new Button()
+            {
+                DialogResult = DialogResult.OK,
+                Text = "&Buscar por comodidad",
+                Size = new Size(130, 20)
+            };
+            this.operacionGraficoCamion = new Button() { Text = "Generar grafico", Size = new Size(100, 20) };
+            this.operacionGraficoCliente = new Button() { Text = "Generar grafico", Size = new Size(100, 20) };
+            this.operacionGraficoCliente2 = new Button() { Text = "Generar grafico", Size = new Size(100, 20) };
+            this.operacionGraficoComodidades = new Button() { Text = "Generar grafico", Size = new Size(100, 20) };
 
             /*Clientes*/
-
-
             this.EditCliente = new Button() { Text = "Editar", Dock = DockStyle.Left };
-
             this.CreateCliente = new Button() { Text = "Crear", Dock = DockStyle.Right };
-
 
             /*Panel opciones reservas */
             this.btGestionReservas = new Button() { Text = "Crear reservas ", Dock = DockStyle.Left };
@@ -1570,20 +1634,17 @@ namespace GestionFlota.UI
             this.operacionSearch4 = new Button() { Text = "Reservas por camion", Dock = DockStyle.Left };
             this.operacionSearch5 = new Button() { Text = "Reservas por cliente", Dock = DockStyle.Left };
             this.operacionSearch6 = new Button() { Text = "Ocupacion", Dock = DockStyle.Left };
-
+            this.operacionSearch7 = new Button() { Text = "Comodidades", Dock = DockStyle.Left };
+            this.operacionGraficoGeneral = new Button() { Text = "Gráfico general", Dock = DockStyle.Left };
+            
             /*Panel opciones clientes */
-
             this.btGestionClientes = new Button() { Text = "Crear cliente ", Dock = DockStyle.Left };
 
-            /*Panel opciones reservas */
+
+            /*Panel opciones flotas */
             this.btGestionFlota = new Button() { Text = "Crear flota ", Dock = DockStyle.Left };
-
             this.operacionSearch2 = new Button() { Text = "Disponibilidad", Dock = DockStyle.Left };
-
-
         }
-
-
         public Panel buildPanelOpcionesReservas()
         {
             var label = new Label
@@ -1606,7 +1667,6 @@ namespace GestionFlota.UI
 
             return panelSearch;
         }
-
         public Panel buildPanelOpcionesClientes()
         {
             var label = new Label
@@ -1623,7 +1683,6 @@ namespace GestionFlota.UI
 
             return panelSearch;
         }
-
         public Panel buildPanelOpcionesFlota()
         {
             var label = new Label
@@ -1633,9 +1692,9 @@ namespace GestionFlota.UI
             };
             var panelSearch = new Panel { Dock = DockStyle.Top };
 
+            panelSearch.Controls.Add(this.operacionSearch7);
             panelSearch.Controls.Add(this.btGestionFlota);
             panelSearch.Controls.Add(this.operacionSearch2);
-
 
             panelSearch.Controls.Add(label);
 
@@ -1643,23 +1702,8 @@ namespace GestionFlota.UI
 
             return panelSearch;
         }
-
-        public Button btGestionReservas { get; set; }
-        public Button operacionSearch1 { get;  set; }
-        public Button operacionSearch3 { get;  set; }
-        public Button operacionSearch4 { get;  set; }
-        public Button operacionSearch5 { get;  set; }
-        public Button operacionSearch6 { get;  set; }
-
-        public Button btGestionClientes{ get; set; }
-
-
-        public Button btGestionFlota { get; set; }
-        public Button operacionSearch2 { get; set; }
-
-
     }
 }
             
 
-           
+           
