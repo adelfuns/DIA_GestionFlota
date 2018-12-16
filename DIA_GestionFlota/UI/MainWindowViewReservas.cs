@@ -39,11 +39,14 @@ namespace GestionFlota.UI
             crearPanelesPequenosReserva();
             crearPanelesPequenosClientes();
 
+            BuildPanelAddFlota();
 
-            this.grdEventsListAux = this.grdEventsListReservas;
+            BuildPanelModificar();
+
+            this.grdEventsListAux = this.grdEventsListFlota;
             this.grdEventsList.Controls.Add(this.grdEventsListAux);
             this.dialogosGrande.Controls.Add(this.dialogos);
-            this.opcionesPoner = buildPanelOpcionesReservas();
+            this.opcionesPoner = buildPanelOpcionesFlota();
             this.opcionesFijo.Controls.Add(this.opcionesPoner);
             this.BoxMsg.Controls.Add(panelMsg);
 
@@ -223,9 +226,9 @@ namespace GestionFlota.UI
         public Button operacionGraficoGeneral { get; set; } //Boton generar graficos general en panel inferior
 
         //Flota
-        private Panel panelAnhadir;
-        private Panel panelModificar;
-        private ComboBox escogerTipo2 { get; set; }
+        public Panel panelAnhadir { get; set; }
+        public Panel panelModificar { get; set; }
+        public ComboBox escogerTipo2 { get; set; }
         public string Tipo2 => escogerTipo2.Text;
         private ComboBox escogerCamion3;
         public string Matricula3 => escogerCamion3.Text;
@@ -1101,23 +1104,18 @@ namespace GestionFlota.UI
 
 
         //Flota
-        private Panel BuildPanelBotonesAnhadir()
+        Panel BuildPanelBotonesAnhadir()
         {
-            var toret = new TableLayoutPanel()
-            {
-                ColumnCount = 1,
-                RowCount = 1
-            };
+            var toret = new Panel() { Dock = DockStyle.Fill };
 
             this.AcceptButton = this.btAñadir;
 
             toret.Controls.Add(this.btAñadir);
-            toret.Dock = DockStyle.Fill;
             toret.MaximumSize = new Size(this.Width, this.btAñadir.Height + 20);
 
             return toret;
         }
-        private Panel BuildPanelBotonesModificar()
+        Panel BuildPanelBotonesModificar()
         {
             var toret = new TableLayoutPanel()
             {
@@ -1142,13 +1140,12 @@ namespace GestionFlota.UI
             escogerTipo2.DropDownStyle = ComboBoxStyle.DropDownList;
 
 
-            escogerTipo2.Items.AddRange(new object[] {"Selecciona",
-                "Furgoneta",
+            escogerTipo2.Items.AddRange(new object[] {"Furgoneta",
                 "Camion",
                 "Camion articulado"});
 
-            escogerTipo2.SelectedItem = "Selecciona";
-            escogerTipo2.Text = "Selecciona";
+            escogerTipo2.SelectedItem = Tipo2;
+            escogerTipo2.Text = Tipo2;
             toret.Controls.Add(this.escogerTipo2);
 
             toret.MaximumSize = new Size(int.MaxValue, escogerTipo2.Height * 2);
@@ -1163,7 +1160,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edCarga);
             panel.Controls.Add(lbCarga);
          
-            panel.Size = new Size(this.edCarga.Width, 30);
+            panel.Size = new Size(this.edCarga.Width, 20);
             return panel;
         }
         Panel buildPanelLetrasMatricula()
@@ -1175,7 +1172,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edLetrasMatricula);
             panel.Controls.Add(lbLetrasMatricula);
             
-            panel.Size = new Size(this.edLetrasMatricula.Width, 30);
+            panel.Size = new Size(this.edLetrasMatricula.Width, 20);
             
             return panel;
         }
@@ -1187,7 +1184,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edDigitosMatricula);
             panel.Controls.Add(lbDigitosMatricula);
 
-            panel.Size = new Size(this.edDigitosMatricula.Width, 30);
+            panel.Size = new Size(this.edDigitosMatricula.Width, 20);
             return panel;
         }
         Panel buildPanelMarca()
@@ -1198,7 +1195,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edMarca);
             panel.Controls.Add(lbMarca);
             
-            panel.Size = new Size(this.edMarca.Width, 30);
+            panel.Size = new Size(this.edMarca.Width, 20);
             return panel;
         }
         Panel buildPanelModelo()
@@ -1209,7 +1206,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edModelo);
             panel.Controls.Add(lbModelo);
            
-            panel.Size = new Size(this.edModelo.Width, 30);
+            panel.Size = new Size(this.edModelo.Width, 20);
             return panel;
         }
         Panel buildPanelConsumoKm()
@@ -1219,7 +1216,7 @@ namespace GestionFlota.UI
             this.edConsumoKm = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
             panel.Controls.Add(edConsumoKm);
             panel.Controls.Add(lbConsumoKm);
-            panel.Size = new Size(edConsumoKm.Width, 30);
+            panel.Size = new Size(edConsumoKm.Width, 20);
             return panel;
         }
         Panel buildPanelFechaAdquisicion()
@@ -1230,7 +1227,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edFechaAdquisicion);
             panel.Controls.Add(lbFechaAdquisicion);
             
-            panel.Size = new Size(edFechaAdquisicion.Width, 30);
+            panel.Size = new Size(edFechaAdquisicion.Width, 20);
             return panel;
         }
         Panel buildPanelFechaFabricacion()
@@ -1241,7 +1238,7 @@ namespace GestionFlota.UI
             panel.Controls.Add(edFechaFabricacion);
             panel.Controls.Add(lbFechaFabricacion);
            
-            panel.Size = new Size(edFechaFabricacion.Width, 30);
+            panel.Size = new Size(edFechaFabricacion.Width, 20);
             return panel;
         }
         Panel buildPanelComodidadesFlota()
@@ -1268,15 +1265,14 @@ namespace GestionFlota.UI
         {
             var panel = new Panel { Dock = DockStyle.Fill };
             var lbMatricula = new Label { Text = " Matricula ", Dock = DockStyle.Left };
-            this.edMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left,Width = 200 };
             panel.Controls.Add(edMatricula);
             panel.Controls.Add(lbMatricula);
 
-            panel.Size = new Size(this.edMatricula.Width, 30);
+            panel.Size = new Size(this.edMatricula.Width, 20);
             return panel;
         }
         //Builds paneles operaciones
-        public Panel BuildPanelAddFlota()
+        public void BuildPanelAddFlota()
         {
             var label = new Label
             {
@@ -1321,11 +1317,11 @@ namespace GestionFlota.UI
             this.panelAnhadir.Controls.Add(pnlBotones);
 
             this.panelAnhadir.MinimumSize = new Size(390, 1000);
-            return panelAnhadir;
+            
         }
 
 
-        public Panel BuildPanelModificar()
+        public void BuildPanelModificar()
         {
             var label = new Label
             {
@@ -1335,13 +1331,12 @@ namespace GestionFlota.UI
             this.panelModificar = new TableLayoutPanel { Dock = DockStyle.Right };
             
             panelModificar.Controls.Add(label);
-           // this.Controls.Add(this.panelModificar);
 
             var panelMatricula = this.buildPanelMatricula();
             this.panelModificar.Controls.Add(panelMatricula);
 
 
-            var panelTipoCamion = this.BuildPanelTipoCamion();
+            var panelTipoCamion = this.BuildPanelTipoCamionFlota();
             this.panelModificar.Controls.Add(panelTipoCamion);
 
             var panelCarga = this.buildPanelCarga();
@@ -1369,10 +1364,7 @@ namespace GestionFlota.UI
             var pnlBotones = this.BuildPanelBotonesModificar();
             this.panelModificar.Controls.Add(pnlBotones);
 
-
-
             panelModificar.MinimumSize = new Size(390, 1000);
-            return panelModificar;
 
         }
 
@@ -2185,7 +2177,15 @@ namespace GestionFlota.UI
                 Dock = DockStyle.Bottom
             };
 
-  
+
+            this.edMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+
+
+
+
+
+
+
         }
         public Panel buildPanelOpcionesReservas()
         {

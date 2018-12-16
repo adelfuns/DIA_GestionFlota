@@ -107,14 +107,14 @@
 
             this.MainWindowViewReservas = new MainWindowViewReservas();
 
-            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListFlota;
 
             this.MainWindowViewReservas.FormClosed += (sender, e) => this.Salir();
             this.MainWindowViewReservas.operacionSalir.Click += (sender, e) => this.Salir();
             this.MainWindowViewReservas.menuAtras.Click += (sender, e) => this.mostrarTodosLosTransportes();
 
-           this.mostrarTodosLosTransportes();
-
+           //this.mostrarTodosLosTransportes();
+            ActividadGestionFlota();
             //--Operaciones búsqueda--//
             //Opciones de la MainWindowView
             this.MainWindowViewReservas.operacionSearch1.Click += (sender, e) => this.transportePendientes();
@@ -181,16 +181,14 @@
             this.MainWindowViewReservas.operacionGestionarFlota.Click += (sender, e) => this.ActividadGestionFlota();
 
             this.MainWindowViewReservas.AnhadirFlota.Click += (sender, e) => {
+                cleanFlotaAdd();
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                MainWindowViewReservas.dialogos = MainWindowViewReservas.BuildPanelAddFlota();
+                MainWindowViewReservas.dialogos = MainWindowViewReservas.panelAnhadir;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
-                MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BuildPanelAddFlota().Height;
+                MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.panelAnhadir.Height;
                 MainWindowViewReservas.dialogos.Width = 350;
 
             };
-
-
-
 
         }
         void Salir()
@@ -1208,7 +1206,7 @@
             CheckBox ComodidadAire = this.MainWindowViewReservas.ComodidadAire;
             CheckBox ComodidadLitera = this.MainWindowViewReservas.ComodidadLitera;
             CheckBox ComodidadTv = this.MainWindowViewReservas.ComodidadTv;
-            String tipo = this.MainWindowViewReservas.Tipo;
+            String tipo = this.MainWindowViewReservas.Tipo2;
             double carga;
             string matricula;
             string marca;
@@ -1288,15 +1286,18 @@
         {
 
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-            MainWindowViewReservas.dialogos = MainWindowViewReservas.BuildPanelModificar();
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.panelModificar;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
-            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BuildPanelModificar().Height;
-            MainWindowViewReservas.BuildPanelModificar().Width = 350;
+            MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.panelModificar.Height;
+            MainWindowViewReservas.panelModificar.Width = 350;
             try
             {
+                cleanFlotaEdit();
                 Flota flot = flotas[MainWindowViewReservas.evt.RowIndex];
 
                 MainWindowViewReservas.edMatricula.Text = flot.Matricula;
+                MainWindowViewReservas.escogerTipo2.Text = flot.Tipo;
+
                 MainWindowViewReservas.edMatricula.ReadOnly = true;
                 MainWindowViewReservas.edMarca.Text = flot.Marca;
                 MainWindowViewReservas.edModelo.Text = flot.Modelo;
@@ -1364,7 +1365,7 @@
             CheckBox ComodidadAire = this.MainWindowViewReservas.ComodidadAire;
             CheckBox ComodidadLitera = this.MainWindowViewReservas.ComodidadLitera;
             CheckBox ComodidadTv = this.MainWindowViewReservas.ComodidadTv;
-            String tipo = this.MainWindowViewReservas.Tipo;
+            String tipo = this.MainWindowViewReservas.Tipo2;
 
             double carga;
             double consumo;
@@ -1446,6 +1447,43 @@
             }
 
         }
+
+        public void cleanFlotaEdit()
+        {
+            MainWindowViewReservas.edMatricula.Text = "";
+            MainWindowViewReservas.escogerTipo2.Text = "";
+            MainWindowViewReservas.edMarca.Text = "";
+            MainWindowViewReservas.edModelo.Text = "";
+            MainWindowViewReservas.edConsumoKm.Text = "";
+            MainWindowViewReservas.edCarga.Text = "";
+            MainWindowViewReservas.edFechaAdquisicion.Text = "";
+            MainWindowViewReservas.edFechaFabricacion.Text = "";
+            MainWindowViewReservas.ComodidadWifi.Checked = false;
+            MainWindowViewReservas.ComodidadBlue.Checked = false;
+            MainWindowViewReservas.ComodidadAire.Checked = false;
+            MainWindowViewReservas.ComodidadLitera.Checked = false;
+            MainWindowViewReservas.ComodidadTv.Checked = false;
+         }
+        public void cleanFlotaAdd()
+        {
+            Console.WriteLine("asd");
+            MainWindowViewReservas.edLetrasMatricula.Text = "";
+            MainWindowViewReservas.edDigitosMatricula.Text = "";
+            MainWindowViewReservas.escogerTipo2.Text = "";
+            MainWindowViewReservas.edMarca.Text = "";
+            MainWindowViewReservas.edModelo.Text = "";
+            MainWindowViewReservas.edConsumoKm.Text = "";
+            MainWindowViewReservas.edCarga.Text = "";
+            MainWindowViewReservas.edFechaAdquisicion.Text = "";
+            MainWindowViewReservas.edFechaFabricacion.Text = "";
+            MainWindowViewReservas.ComodidadWifi.Checked = false;
+            MainWindowViewReservas.ComodidadBlue.Checked = false;
+            MainWindowViewReservas.ComodidadAire.Checked = false;
+            MainWindowViewReservas.ComodidadLitera.Checked = false;
+            MainWindowViewReservas.ComodidadTv.Checked = false;
+
+        }
+
         //Muestra de datos
 
         private void ActualizaListaFlota()
