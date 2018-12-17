@@ -181,13 +181,15 @@
             this.MainWindowViewReservas.operacionGestionarFlota.Click += (sender, e) => this.ActividadGestionFlota();
 
             this.MainWindowViewReservas.AnhadirFlota.Click += (sender, e) => {
-                cleanFlotaAdd();
+               
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.panelAnhadir;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.panelAnhadir.Height;
                 MainWindowViewReservas.dialogos.Width = 350;
 
+
+                cleanFlotaAdd();
             };
 
         }
@@ -1229,6 +1231,11 @@
                     modelo = edModelo.Text;
                     Double.TryParse(edConsumoKm.Text, out consumo);
                     marca = edMarca.Text;
+
+                    Console.WriteLine(this.MainWindowViewReservas.edFechaAdquisicion.Text);
+                    Console.WriteLine(edFechaFabricacion.Text);
+
+
                     if (DateTime.TryParse(edFechaAdquisicion.Text, out fad) && DateTime.TryParse(edFechaFabricacion.Text, out ffab))
                     {
                         var matriculas = new List<Flota>(from mat in flotas
@@ -1268,9 +1275,9 @@
                         }
                         else MessageBox.Show("La matrícula ya está almacenada en el sistema");
                     }
-                    else MessageBox.Show("La matrícula no es correcta");
+                    else MessageBox.Show("Las fechas no son correctas");
                 }
-                else MessageBox.Show("Las fechas no son correctas");
+                else MessageBox.Show("La matrícula no es correcta");
             }
             else MessageBox.Show("Introduzca un tipo de vehículo");
         }
@@ -1296,34 +1303,34 @@
                 Flota flot = flotas[MainWindowViewReservas.evt.RowIndex];
 
                 MainWindowViewReservas.edMatricula.Text = flot.Matricula;
-                MainWindowViewReservas.escogerTipo2.Text = flot.Tipo;
+                MainWindowViewReservas.escogerTipo2M.Text = flot.Tipo;
 
                 MainWindowViewReservas.edMatricula.ReadOnly = true;
-                MainWindowViewReservas.edMarca.Text = flot.Marca;
-                MainWindowViewReservas.edModelo.Text = flot.Modelo;
-                MainWindowViewReservas.edConsumoKm.Text = flot.ConsumoKm.ToString();
-                MainWindowViewReservas.edCarga.Text = flot.Carga.ToString();
-                MainWindowViewReservas.edFechaAdquisicion.Text = flot.FechaAdquisicion.ToString();
-                MainWindowViewReservas.edFechaFabricacion.Text = flot.FechaFabricacion.ToString();
+                MainWindowViewReservas.edMarcaM.Text = flot.Marca;
+                MainWindowViewReservas.edModeloM.Text = flot.Modelo;
+                MainWindowViewReservas.edConsumoKmM.Text = flot.ConsumoKm.ToString();
+                MainWindowViewReservas.edCargaM.Text = flot.Carga.ToString();
+                MainWindowViewReservas.edFechaAdquisicionM.Text = flot.FechaAdquisicion.ToString().Substring(0, 10);
+                MainWindowViewReservas.edFechaFabricacionM.Text = flot.FechaFabricacion.ToString().Substring(0, 10);
                 if (flot.Comodidades.Contains("Wifi"))
                 {
-                    MainWindowViewReservas.ComodidadWifi.Checked = true;
+                    MainWindowViewReservas.ComodidadWifiM.Checked = true;
                 }
                 if (flot.Comodidades.Contains("Conexion Bluetooth"))
                 {
-                    MainWindowViewReservas.ComodidadBlue.Checked = true;
+                    MainWindowViewReservas.ComodidadBlueM.Checked = true;
                 }
                 if (flot.Comodidades.Contains("Aire Acondicionado"))
                 {
-                    MainWindowViewReservas.ComodidadAire.Checked = true;
+                    MainWindowViewReservas.ComodidadAireM.Checked = true;
                 }
                 if (flot.Comodidades.Contains("Litera"))
                 {
-                    MainWindowViewReservas.ComodidadLitera.Checked = true;
+                    MainWindowViewReservas.ComodidadLiteraM.Checked = true;
                 }
                 if (flot.Comodidades.Contains("Tv"))
                 {
-                    MainWindowViewReservas.ComodidadTv.Checked = true;
+                    MainWindowViewReservas.ComodidadTvM.Checked = true;
                 }
                 MainWindowViewReservas.EditFlota.Enabled = true;
 
@@ -1353,19 +1360,19 @@
         }
         public void modFlota()
         {
-            TextBox edCarga = this.MainWindowViewReservas.edCarga;
+            TextBox edCarga = this.MainWindowViewReservas.edCargaM;
             TextBox Matricula = this.MainWindowViewReservas.edMatricula;
-            TextBox edMarca = this.MainWindowViewReservas.edMarca;
-            TextBox edModelo = this.MainWindowViewReservas.edModelo;
-            TextBox edConsumoKm = this.MainWindowViewReservas.edConsumoKm;
-            TextBox edFechaAdquisicion = this.MainWindowViewReservas.edFechaAdquisicion;
-            TextBox edFechaFabricacion = this.MainWindowViewReservas.edFechaFabricacion;
-            CheckBox ComodidadWifi = this.MainWindowViewReservas.ComodidadWifi;
-            CheckBox ComodidadBlue = this.MainWindowViewReservas.ComodidadBlue;
-            CheckBox ComodidadAire = this.MainWindowViewReservas.ComodidadAire;
-            CheckBox ComodidadLitera = this.MainWindowViewReservas.ComodidadLitera;
-            CheckBox ComodidadTv = this.MainWindowViewReservas.ComodidadTv;
-            String tipo = this.MainWindowViewReservas.Tipo2;
+            TextBox edMarca = this.MainWindowViewReservas.edMarcaM;
+            TextBox edModelo = this.MainWindowViewReservas.edModeloM;
+            TextBox edConsumoKm = this.MainWindowViewReservas.edConsumoKmM;
+            TextBox edFechaAdquisicion = this.MainWindowViewReservas.edFechaAdquisicionM;
+            TextBox edFechaFabricacion = this.MainWindowViewReservas.edFechaFabricacionM;
+            CheckBox ComodidadWifi = this.MainWindowViewReservas.ComodidadWifiM;
+            CheckBox ComodidadBlue = this.MainWindowViewReservas.ComodidadBlueM;
+            CheckBox ComodidadAire = this.MainWindowViewReservas.ComodidadAireM;
+            CheckBox ComodidadLitera = this.MainWindowViewReservas.ComodidadLiteraM;
+            CheckBox ComodidadTv = this.MainWindowViewReservas.ComodidadTvM;
+            String tipo = this.MainWindowViewReservas.Tipo2M;
 
             double carga;
             double consumo;
@@ -1410,11 +1417,11 @@
                         flota_mod.ConsumoKm = consumo;
                     }
                 }
-                if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text, out fad)))
+                if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out fad)))
                 {
                     flota_mod.FechaAdquisicion = fad;
                 }
-                if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text, out ffab)))
+                if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out ffab)))
                 {
                     flota_mod.FechaAdquisicion = ffab;
                 }
@@ -1447,22 +1454,21 @@
             }
 
         }
-
         public void cleanFlotaEdit()
         {
             MainWindowViewReservas.edMatricula.Text = "";
-            MainWindowViewReservas.escogerTipo2.Text = "";
-            MainWindowViewReservas.edMarca.Text = "";
-            MainWindowViewReservas.edModelo.Text = "";
-            MainWindowViewReservas.edConsumoKm.Text = "";
-            MainWindowViewReservas.edCarga.Text = "";
-            MainWindowViewReservas.edFechaAdquisicion.Text = "";
-            MainWindowViewReservas.edFechaFabricacion.Text = "";
-            MainWindowViewReservas.ComodidadWifi.Checked = false;
-            MainWindowViewReservas.ComodidadBlue.Checked = false;
-            MainWindowViewReservas.ComodidadAire.Checked = false;
-            MainWindowViewReservas.ComodidadLitera.Checked = false;
-            MainWindowViewReservas.ComodidadTv.Checked = false;
+            MainWindowViewReservas.escogerTipo2M.Text = "";
+            MainWindowViewReservas.edMarcaM.Text = "";
+            MainWindowViewReservas.edModeloM.Text = "";
+            MainWindowViewReservas.edConsumoKmM.Text = "";
+            MainWindowViewReservas.edCargaM.Text = "";
+            MainWindowViewReservas.edFechaAdquisicionM.Text = "";
+            MainWindowViewReservas.edFechaFabricacionM.Text = "";
+            MainWindowViewReservas.ComodidadWifiM.Checked = false;
+            MainWindowViewReservas.ComodidadBlueM.Checked = false;
+            MainWindowViewReservas.ComodidadAireM.Checked = false;
+            MainWindowViewReservas.ComodidadLiteraM.Checked = false;
+            MainWindowViewReservas.ComodidadTvM.Checked = false;
          }
         public void cleanFlotaAdd()
         {
@@ -1502,13 +1508,13 @@
 
             // Add the row with the event's data
             columnData.Add(f.Matricula);
+            columnData.Add(f.Carga);
             columnData.Add(f.Tipo);
             columnData.Add(f.Marca);
             columnData.Add(f.Modelo);
             columnData.Add(f.ConsumoKm);
-            columnData.Add(f.FechaAdquisicion);
-            columnData.Add(f.FechaFabricacion);
-            columnData.Add(f.Carga);
+            columnData.Add(f.FechaAdquisicion.ToString().Substring(0, 10));
+            columnData.Add(f.FechaFabricacion.ToString().Substring(0, 10));
             StringBuilder comodidades = new StringBuilder();
             foreach (String aux in f.Comodidades)
             {

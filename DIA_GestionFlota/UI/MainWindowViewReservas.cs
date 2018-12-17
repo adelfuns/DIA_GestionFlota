@@ -240,7 +240,6 @@ namespace GestionFlota.UI
         public Button DeleteFlota { get; set; }
         public TextBox edLetrasMatricula { get; set; }
         public TextBox edDigitosMatricula { get; set; }
-        public TextBox edMatricula { get; set; }
         public TextBox edCarga { get; set; }
         public TextBox edMarca { get; set; }
         public TextBox edModelo { get; set; }
@@ -253,7 +252,20 @@ namespace GestionFlota.UI
         public CheckBox ComodidadLitera { get; set; }
         public CheckBox ComodidadTv { get; set; }
 
-
+        public ComboBox escogerTipo2M { get; set; }
+        public string Tipo2M => escogerTipo2M.Text;
+        public TextBox edMatricula { get; set; }
+        public TextBox edCargaM { get; set; }
+        public TextBox edMarcaM { get; set; }
+        public TextBox edModeloM { get; set; }
+        public TextBox edConsumoKmM { get; set; }
+        public TextBox edFechaAdquisicionM { get; set; }
+        public TextBox edFechaFabricacionM { get; set; }
+        public CheckBox ComodidadWifiM { get; set; }
+        public CheckBox ComodidadBlueM { get; set; }
+        public CheckBox ComodidadAireM { get; set; }
+        public CheckBox ComodidadLiteraM { get; set; }
+        public CheckBox ComodidadTvM { get; set; }
 
         public MenuItem añadirFlota { get; private set; }
         public MenuItem eliminarFlota { get; private set; }
@@ -1131,7 +1143,7 @@ namespace GestionFlota.UI
 
             return toret;
         }
-        public Panel BuildPanelTipoCamionFlota()
+        Panel BuildPanelTipoCamionFlota()
         {
             var toret = new Panel { Dock = DockStyle.Fill };
 
@@ -1261,16 +1273,7 @@ namespace GestionFlota.UI
             panel.Size = new Size(300,50);
             return panel;
         }
-        Panel buildPanelMatricula()
-        {
-            var panel = new Panel { Dock = DockStyle.Fill };
-            var lbMatricula = new Label { Text = " Matricula ", Dock = DockStyle.Left };
-            panel.Controls.Add(edMatricula);
-            panel.Controls.Add(lbMatricula);
 
-            panel.Size = new Size(this.edMatricula.Width, 20);
-            return panel;
-        }
         //Builds paneles operaciones
         public void BuildPanelAddFlota()
         {
@@ -1321,6 +1324,124 @@ namespace GestionFlota.UI
         }
 
 
+        Panel BuildPanelTipoCamionFlotaM()
+        {
+            var toret = new Panel { Dock = DockStyle.Fill };
+
+            escogerTipo2M = new ComboBox();
+            escogerTipo2M.Parent = this;
+            escogerTipo2M.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
+            escogerTipo2M.Items.AddRange(new object[] {"Furgoneta",
+                "Camion",
+                "Camion articulado"});
+
+            escogerTipo2M.SelectedItem = Tipo2M;
+            escogerTipo2M.Text = Tipo2M;
+            toret.Controls.Add(this.escogerTipo2M);
+
+            toret.MaximumSize = new Size(int.MaxValue, escogerTipo2M.Height * 2);
+            return toret;
+
+        }
+        Panel buildPanelCargaM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbCarga = new Label { Text = " Carga ", Dock = DockStyle.Left };
+            this.edCargaM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edCargaM);
+            panel.Controls.Add(lbCarga);
+
+            panel.Size = new Size(this.edCargaM.Width, 20);
+            return panel;
+        }
+        Panel buildPanelMarcaM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbMarca = new Label { Text = " Marca ", Dock = DockStyle.Left };
+            this.edMarcaM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edMarcaM);
+            panel.Controls.Add(lbMarca);
+
+            panel.Size = new Size(this.edMarcaM.Width, 20);
+            return panel;
+        }
+        Panel buildPanelModeloM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbModelo = new Label { Text = " Modelo ", Dock = DockStyle.Left };
+            this.edModeloM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edModeloM);
+            panel.Controls.Add(lbModelo);
+
+            panel.Size = new Size(this.edModeloM.Width, 20);
+            return panel;
+        }
+        Panel buildPanelConsumoKmM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbConsumoKm = new Label { Text = " Consumo Km ", Dock = DockStyle.Left };
+            this.edConsumoKmM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edConsumoKmM);
+            panel.Controls.Add(lbConsumoKm);
+            panel.Size = new Size(edConsumoKmM.Width, 20);
+            return panel;
+        }
+        Panel buildPanelFechaAdquisicionM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbFechaAdquisicion = new Label { Text = " F.Adquisición ", Dock = DockStyle.Left };
+            this.edFechaAdquisicionM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edFechaAdquisicionM);
+            panel.Controls.Add(lbFechaAdquisicion);
+
+            panel.Size = new Size(edFechaAdquisicionM.Width, 20);
+            return panel;
+        }
+        Panel buildPanelFechaFabricacionM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbFechaFabricacion = new Label { Text = " F.Fabricación ", Dock = DockStyle.Left };
+            this.edFechaFabricacionM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edFechaFabricacionM);
+            panel.Controls.Add(lbFechaFabricacion);
+
+            panel.Size = new Size(edFechaFabricacionM.Width, 20);
+            return panel;
+        }
+        Panel buildPanelComodidadesFlotaM()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbComodidades = new Label { Text = " Comodidades", Dock = DockStyle.Top };
+            this.ComodidadWifiM = new CheckBox { Text = "Wifi", Dock = DockStyle.Left, AutoCheck = true, Width = 50 };
+            this.ComodidadBlueM = new CheckBox { Text = "Conexion\n Bluetooth", Dock = DockStyle.Left, AutoCheck = true, Width = 80 };
+            this.ComodidadAireM = new CheckBox { Text = "Aire\n Acondicionado", Dock = DockStyle.Left, AutoCheck = true, Width = 110 };
+            this.ComodidadLiteraM = new CheckBox { Text = "Litera", Dock = DockStyle.Left, AutoCheck = true, Width = 60 };
+            this.ComodidadTvM= new CheckBox { Text = "Tv", Dock = DockStyle.Left, AutoCheck = true, Width = 50 };
+
+
+            panel.Controls.Add(ComodidadWifiM);
+            panel.Controls.Add(ComodidadAireM);
+            panel.Controls.Add(ComodidadLiteraM);
+            panel.Controls.Add(ComodidadBlueM);
+            panel.Controls.Add(ComodidadTvM);
+            panel.Controls.Add(lbComodidades);
+            panel.Size = new Size(300, 50);
+            return panel;
+        }
+        Panel buildPanelMatricula()
+        {
+            var panel = new Panel { Dock = DockStyle.Fill };
+            var lbMatricula = new Label { Text = " Matricula ", Dock = DockStyle.Left };
+            this.edMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
+            panel.Controls.Add(edMatricula);
+            panel.Controls.Add(lbMatricula);
+
+            panel.Size = new Size(this.edMatricula.Width, 20);
+            return panel;
+        }
+
         public void BuildPanelModificar()
         {
             var label = new Label
@@ -1336,29 +1457,29 @@ namespace GestionFlota.UI
             this.panelModificar.Controls.Add(panelMatricula);
 
 
-            var panelTipoCamion = this.BuildPanelTipoCamionFlota();
+            var panelTipoCamion = this.BuildPanelTipoCamionFlotaM();
             this.panelModificar.Controls.Add(panelTipoCamion);
 
-            var panelCarga = this.buildPanelCarga();
+            var panelCarga = this.buildPanelCargaM();
             this.panelModificar.Controls.Add(panelCarga);
 
 
-            var panelMarca = this.buildPanelMarca();
+            var panelMarca = this.buildPanelMarcaM();
             this.panelModificar.Controls.Add(panelMarca);
 
-            var panelModelo = this.buildPanelModelo();
+            var panelModelo = this.buildPanelModeloM();
             this.panelModificar.Controls.Add(panelModelo);
 
-            var panelConsumoKm = this.buildPanelConsumoKm();
+            var panelConsumoKm = this.buildPanelConsumoKmM();
             this.panelModificar.Controls.Add(panelConsumoKm);
 
-            var panelFechaFabricacion = this.buildPanelFechaFabricacion();
+            var panelFechaFabricacion = this.buildPanelFechaFabricacionM();
             this.panelModificar.Controls.Add(panelFechaFabricacion);
 
-            var panelFechaAdquisicion = this.buildPanelFechaAdquisicion();
+            var panelFechaAdquisicion = this.buildPanelFechaAdquisicionM();
             this.panelModificar.Controls.Add(panelFechaAdquisicion);
 
-            var panelComodidades = this.buildPanelComodidadesFlota();
+            var panelComodidades = this.buildPanelComodidadesFlotaM();
             this.panelModificar.Controls.Add(panelComodidades);
 
             var pnlBotones = this.BuildPanelBotonesModificar();
@@ -2176,15 +2297,6 @@ namespace GestionFlota.UI
                 Text = "&Modificar",
                 Dock = DockStyle.Bottom
             };
-
-
-            this.edMatricula = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
-
-
-
-
-
-
 
         }
         public Panel buildPanelOpcionesReservas()
