@@ -55,9 +55,9 @@
 
         public bool ComprobarCarga()
         {
-            if ((Tipo == "Furgoneta") && Carga >= 1.5 
-                ||(Tipo == "Camion") && Carga >= 25.0 
-                ||(Tipo == "Camion Articulado") && Carga >= 40.0)
+            if ((Tipo == "Furgoneta") && Carga > 1.5 
+                ||(Tipo == "Camion") && Carga > 25.0 
+                ||(Tipo == "Camion Articulado") && Carga > 40.0)
             {
                 return false;
             }

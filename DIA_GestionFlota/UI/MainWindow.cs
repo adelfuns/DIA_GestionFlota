@@ -1454,7 +1454,7 @@
                         && Regex.IsMatch(edDigitosMatricula.Text, @"^[0-9]+$"))
                     {
                         Double.TryParse(edCarga.Text, out carga);
-                        matricula = String.Concat(edDigitosMatricula.Text, edLetrasMatricula.Text);
+                        matricula = String.Concat(edLetrasMatricula.Text, edDigitosMatricula.Text);
                         modelo = edModelo.Text;
                         Double.TryParse(edConsumoKm.Text, out consumo);
                         marca = edMarca.Text;
@@ -1612,17 +1612,17 @@
             CheckBox ComodidadLitera = this.MainWindowViewReservas.ComodidadLiteraM;
             CheckBox ComodidadTv = this.MainWindowViewReservas.ComodidadTvM;
             String tipo = this.MainWindowViewReservas.Tipo2M;
-
+                      
             double carga;
             double consumo;
             DateTime fad;
             DateTime ffab;
             List<String> Comodidades = new List<string>();
-
+         
 
             var matriculas = new List<Flota>(from mat in Reg.GetFlotas()
-                                             where mat.Matricula.Equals(Matricula.Text)
-                                             select mat);
+                                                 where mat.Matricula.Equals(Matricula.Text)
+                                                 select mat);
 
             if (matriculas.Count == 1)
             {
@@ -1640,19 +1640,23 @@
                         {
                             flota_mod.Carga = tmp;
                         }
-                    }       
+                    }
                 }
-               
+                if (tipo != "")
+                {
+                    flota_mod.Tipo = tipo;
+                }
+
                 if (edMarca.Text != "")
                 {
                     flota_mod.Marca = edMarca.Text;
                 }
-          
+
                 if (edModelo.Text != "")
                 {
                     flota_mod.Modelo = edModelo.Text;
                 }
-           
+
                 if (edConsumoKm.Text != "")
                 {
                     if (Double.TryParse(edConsumoKm.Text, out consumo))
@@ -1660,12 +1664,12 @@
                         flota_mod.ConsumoKm = consumo;
                     }
                 }
-    
+
                 if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out fad)))
                 {
                     flota_mod.FechaAdquisicion = fad;
                 }
-    
+
                 if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out ffab)))
                 {
                     flota_mod.FechaAdquisicion = ffab;
@@ -1693,12 +1697,18 @@
 
                 flota_mod.Comodidades = Comodidades;
                 Reg.Remove(matriculas.ElementAt(0));
-                
+
                 Reg.Add(flota_mod);
 
                 flotasParaMostrarEnGrid = Reg.GetFlotas();
                 ActualizaListaFlota();
+                MessageBox.Show("Modificación realizada con éxito", "", MessageBoxButtons.OK);
+
             }
+            
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
         }
         public void cleanFlotaEdit()
