@@ -305,7 +305,7 @@ namespace GestionFlota.UI
             textCellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; 
             imageEditTemplate.UseColumnTextForButtonValue = true;
             imageDeleteTemplate.UseColumnTextForButtonValue = true;
-
+            
             var column0 = new DataGridViewTextBoxColumn();
             var column1 = new DataGridViewTextBoxColumn();
             var column2 = new DataGridViewTextBoxColumn();
@@ -422,7 +422,7 @@ namespace GestionFlota.UI
                 column13,
                 column14
             });
-
+            this.grdEventsListReservas.ReadOnly = true;
             this.grdEventsListReservas.CellContentClick += this.OnCellClicked;
             this.grdEventsListReservas.Dock = DockStyle.Fill;
             this.grdEventsListReservas.TabIndex = 3;
@@ -570,6 +570,7 @@ namespace GestionFlota.UI
                 column5,
                 column6
             });
+            this.grdEventsListClientes.ReadOnly = true;
 
             this.grdEventsListClientes.CellContentClick += this.OnCellClickedClientes;
             this.grdEventsListClientes.Dock = DockStyle.Fill;
@@ -638,6 +639,7 @@ namespace GestionFlota.UI
             imageDeleteTemplate.UseColumnTextForButtonValue = true;
             this.grdEventsListFlota.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             this.grdEventsListFlota.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            textCellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             var column0 = new DataGridViewTextBoxColumn();
             var column1 = new DataGridViewTextBoxColumn();
@@ -670,41 +672,50 @@ namespace GestionFlota.UI
             column0.HeaderText = "Matricula";
             column0.Width = 75;
             column0.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column0.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column1.HeaderText = "Tipo";
             column1.Width = 75;
             column1.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column1.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column2.HeaderText = "Marca";
             column2.Width = 75;
             column2.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column2.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column3.HeaderText = "Modelo";
             column3.Width = 75;
             column3.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column3.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column4.HeaderText = "Consumo por Km";
             column4.Width = 150;
             column4.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column4.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column5.HeaderText = "Fecha de adquisición";
             column5.Width = 150;
             column5.SortMode = DataGridViewColumnSortMode.NotSortable;
             column6.HeaderText = "Fecha de fabricación";
             column6.Width = 150;
             column6.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column6.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column7.HeaderText = "Carga";
             column7.Width = 75;
             column7.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column7.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column8.HeaderText = "Comodidades";
             column8.Width = 150;
             column8.SortMode = DataGridViewColumnSortMode.NotSortable;
-
+            column8.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column9.HeaderText = "";
             column10.HeaderText = "";
             column9.Width = 50;
             column9.SortMode = DataGridViewColumnSortMode.NotSortable;
             column9.Resizable = DataGridViewTriState.False;
+            column9.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column10.Width = 50;
             column10.SortMode = DataGridViewColumnSortMode.NotSortable;
             column10.Resizable = DataGridViewTriState.False;
             column9.ReadOnly = true;
             column10.ReadOnly = true;
+            column10.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             this.grdEventsListFlota.Columns.AddRange(new DataGridViewColumn[] {
                 column0,
@@ -720,6 +731,7 @@ namespace GestionFlota.UI
                 column10
             });
 
+            this.grdEventsListFlota.ReadOnly = true;
             this.grdEventsListFlota.CellContentClick += this.OnCellClickedFlota;
             this.grdEventsListFlota.Dock = DockStyle.Fill;
             this.grdEventsListFlota.TabIndex = 3;
