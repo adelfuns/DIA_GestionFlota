@@ -730,7 +730,14 @@
         /*------------------------------------------------------------------*/
         private void RemoveClient()
         {
-            RegClientes.RemoveAt(MainWindowViewReservas.evt.RowIndex);
+            if (!Reg.ReservaContainsCliente(MainWindowViewReservas.evt.RowIndex))
+            {
+                RegClientes.RemoveAt(MainWindowViewReservas.evt.RowIndex);
+            }
+            else
+            {
+                Error("No se puede eliminar el cliente. Existen Reservas asignadas.");
+            }
             ActualizarLista();
         }
         private void EditFindClient()
@@ -1336,9 +1343,17 @@
         }
         public void deleteFlota()
         {
-            flotas.RemoveAt(MainWindowViewReservas.evt.RowIndex);
-
-            MessageBox.Show("Vehículo eliminado correctamente", "", MessageBoxButtons.OK);
+            if (!Reg.ReservaContainsFlota(MainWindowViewReservas.evt.RowIndex))
+            {
+                flotas.RemoveAt(MainWindowViewReservas.evt.RowIndex);
+                MessageBox.Show("Vehículo eliminado correctamente", "", MessageBoxButtons.OK);
+            }
+            else
+            {
+                Error("No se puede eliminar la flota. Existen Reservas asignadas.");
+                MessageBox.Show("Vehículo no eliminado", "Error", MessageBoxButtons.OK);
+            }
+            
             ActualizaListaFlota();
 
         }

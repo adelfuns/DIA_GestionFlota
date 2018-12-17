@@ -194,6 +194,32 @@ namespace GestionFlota.Core
             return flotaList.Contains(item);
         }
 
+        public bool ReservaContainsCliente(int c)
+        {
+            var cliente = clientes[c];
+            foreach(Reservas r in reservas)
+            {
+                if (r.Cliente == cliente)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool ReservaContainsFlota(int c)
+        {
+            var flota = flotaList[c];
+            foreach (Reservas r in reservas)
+            {
+                if (r.TipoTransporte == flota)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public override string ToString()
         {
             var toret = new StringBuilder();
