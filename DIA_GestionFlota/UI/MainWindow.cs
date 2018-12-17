@@ -956,7 +956,7 @@
                 cliente = Reg.FindByNif(Convert.ToString(edCliente.Text));
                 idTrans = Convert.ToString(edIdtrans.Text);
                 // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
-                //tipoTransp = Reg.FindByMatricula(Convert.ToString(edTipoTransp.Text));
+                tipoTransp = Reg.FindByMatricula(Convert.ToString(edTipoTransp.Text));
                 fcontra = Convert.ToDateTime(edFcontra.Text).Date;
                 fsalida = Convert.ToDateTime(edFsalida.Text).Date;
                 fentrega = Convert.ToDateTime(edFentrega.Text).Date;
@@ -972,7 +972,7 @@
                 {
                     if (idTrans.Length > 0)
                     {
-                        Reservas r = new Factura(idTrans, cliente, new Flota(2.1,"4444ABC",null,null,null,0, DateTime.Now, DateTime.Now,null), fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, iva, gas, suplencia);
+                        Reservas r = new Factura(idTrans, cliente, tipoTransp, fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, iva, gas, suplencia);
                         Reg.Add(r);
                         ActualizarListaReservas();
                         ClearReservas();
@@ -1016,7 +1016,7 @@
                 MainWindowViewReservas.tbIdTransp.Text = r.IdTransporte;
                 MainWindowViewReservas.tbIdTransp.ReadOnly = true;
                 MainWindowViewReservas.tbCliente.Text = r.Cliente.Nif;
-                MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte.Tipo;
+                MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte.Matricula;
                 MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFsalida.Text = r.Fsalida.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFentrega.Text = r.Fentrega.Date.ToString().Substring(0, 10);
@@ -1054,6 +1054,7 @@
             TextBox EdPrecioFactura = MainWindowViewReservas.tbPrecioFactura;
 
             string idTransp;
+            Flota tipoTransp;
             Cliente Cliente;
             DateTime Fcontra, Fsalida, Fentrega;
             double ImporteDia, ImporteKm, kmRecorridos,
@@ -1065,7 +1066,7 @@
                 Cliente = Reg.FindByNif(Convert.ToString(EdCliente.Text));
                 idTransp = Convert.ToString(EdIdTransp.Text);
                 // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
-                //tipoTransp = Convert.ToString(EdTipoTransp.Text);
+                tipoTransp = Reg.FindByMatricula(Convert.ToString(EdTipoTransp.Text));
                 Fcontra = Convert.ToDateTime(EdFcontra.Text);
                 Fsalida = Convert.ToDateTime(EdFsalida.Text);
                 Fentrega = Convert.ToDateTime(EdFentrega.Text);
@@ -1080,7 +1081,7 @@
 
                 if (idTransp.Length > 0)
                 {
-                    Reservas r = new Factura(idTransp, Cliente, new Flota(2.1, null, null, null, null, 0, new DateTime(), new DateTime(), null), Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
+                    Reservas r = new Factura(idTransp, Cliente, tipoTransp, Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
                         kmRecorridos, IVA, Gas, Suplencia);
                     Reg.Edit(r);
                     ActualizarListaReservas();
@@ -1255,7 +1256,7 @@
                         && Regex.IsMatch(edDigitosMatricula.Text, @"^[0-9]+$"))
                     {
                         Double.TryParse(edCarga.Text, out carga);
-                        matricula = String.Concat(edLetrasMatricula.Text, edDigitosMatricula.Text);
+                        matricula = String.Concat(edDigitosMatricula.Text, edLetrasMatricula.Text);
                         modelo = edModelo.Text;
                         Double.TryParse(edConsumoKm.Text, out consumo);
                         marca = edMarca.Text;

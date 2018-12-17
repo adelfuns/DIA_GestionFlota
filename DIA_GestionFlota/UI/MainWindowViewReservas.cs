@@ -841,7 +841,7 @@ namespace GestionFlota.UI
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblCliente = new Label() { Text = "Cliente: ", Dock = DockStyle.Left, Width = 130 };
+            var lblCliente = new Label() { Text = "Cliente: (NIF)", Dock = DockStyle.Left, Width = 130 };
             this.tbCliente = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbCliente);
@@ -855,7 +855,7 @@ namespace GestionFlota.UI
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblTipoTransp = new Label() { Text = "TipoTransporte: ", Dock = DockStyle.Left, Width = 130 };
+            var lblTipoTransp = new Label() { Text = "TipoTransporte: (Matrícula)", Dock = DockStyle.Left, Width = 130 };
             this.tbTipoTrans = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
 
             panel.Controls.Add(this.tbTipoTrans);

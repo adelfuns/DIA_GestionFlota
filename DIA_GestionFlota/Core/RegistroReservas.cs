@@ -110,8 +110,8 @@ namespace GestionFlota.Core
                         Reservas r = new Reservas((string)reservasxml.Attribute(EtqIdTrans),
                                             (Cliente)regClientes.FindByNif(reservasxml.Attribute(EtqCliente).Value.ToString()),
                                             //(Flota)reservasxml.Attribute(EtqTipoTrans),
-                                            // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
-                                            (Flota)flota(EtqTipoTrans),
+                                            
+                                            (Flota)flota(reservasxml.Attribute(EtqTipoTrans).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFcontra).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFsal).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFentrada).Value.ToString()),
