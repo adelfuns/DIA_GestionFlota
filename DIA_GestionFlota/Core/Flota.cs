@@ -59,10 +59,8 @@
                 ||(Tipo == "Camion") && Carga >= 25.0 
                 ||(Tipo == "Camion Articulado") && Carga >= 40.0)
             {
-                Console.WriteLine(Tipo + Carga);
                 return false;
             }
-            Console.WriteLine(Tipo + Carga);
             return true;
         }
         public double Carga { get;  set; }

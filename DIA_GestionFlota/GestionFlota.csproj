@@ -50,18 +50,6 @@
     <Compile Include="Core\RegistroClientes.cs" />
     <Compile Include="Core\RegistroReservas.cs" />
     <Compile Include="Core\Reservas.cs" />
-    <Compile Include="UI\DialogGraphics\DialogoGraficoCamion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\DialogoGraficoCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\DialogoGraficoComodidades.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\DialogoGraficoGeneral.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

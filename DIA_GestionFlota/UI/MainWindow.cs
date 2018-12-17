@@ -436,7 +436,6 @@
             ActualizarListaReservasBusqueda();
 
         }
-        // GRAFICO //
         private void DTCSearchGraph()
         {
             var nifClienteSeleccionado = this.MainWindowViewReservas.Cliente;
@@ -507,7 +506,6 @@
             ActualizarListaReservasBusqueda();
 
         }
-        // GRAFICO //
         private void DRCSearchGraph()
         {
             var flotamatriculaSeleccionada = this.MainWindowViewReservas.Matricula2;
@@ -587,7 +585,6 @@
             ActualizarListaReservasBusqueda();
 
         }
-        // GRAFICO //
         private void RPCSearchGraph()
         {
             var anhosSeleccionado = this.MainWindowViewReservas.Anho4;
@@ -653,7 +650,6 @@
 
             ActualizarListaReservasBusqueda();
         }
-        //Fin ocupacion: muestra los camiones con transportes realizados, para una determinada fecha o para un año completo.
 
         //Inicio Comodidades: muestra los camiones con una comodidad concreta
         private void comodidades()
@@ -676,9 +672,15 @@
         }
         private void CCSearchGraph()
         {
+            var comodidadesSeleccionada = this.MainWindowViewReservas.comodidad;
 
+            RegFlotasBusqueda = new List<Flota>(
+                from flota in flotas
+                where (flota.Comodidades.Contains(comodidadesSeleccionada))
+                select flota);
+            generarGraficoComodidadesTotal(RegFlotasBusqueda, comodidadesSeleccionada);
+            ActualizarListaFlotaBusqueda(RegFlotasBusqueda);
         }
-        //Fin Comodidades: muestra los camiones con una comodidad concreta
         /*------------------------------------------------------------------*/
         /*------------------Métodos Gestión Clientes------------------------*/
         /*------------------------------------------------------------------*/
@@ -1389,8 +1391,6 @@
             var matriculas = new List<Flota>(from mat in flotas
                                              where mat.Matricula.Equals(Matricula.Text)
                                              select mat);
-            Console.WriteLine(matriculas.Count());
-
 
             if (matriculas.Count == 1)
             {
@@ -1561,13 +1561,13 @@
                  MainWindowViewReservas.edLetrasMatricula.ReadOnly = false;*/
         }
 
-    /*------------------------------------------------------------------*/
-    /*---------------------------Gráficos-------------------------------*/
-    /*------------------------------------------------------------------*/
+        /*------------------------------------------------------------------*/
+        /*---------------------------Gráficos-------------------------------*/
+        /*------------------------------------------------------------------*/
 
-    /* Métodos de gráficos */
-    //Métodos comunes//
-    private int busquedaGeneralMesesGrafico(List<Reservas> data, int mes)
+        /* Métodos de gráficos */
+        //Métodos comunes//
+        private int busquedaGeneralMesesGrafico(List<Reservas> data, int mes)
         {
             var dataList = new List<Reservas>(
                 from transporte in data
@@ -1587,7 +1587,7 @@
 
             return dataList.Count;
         }
-            //Metodos especificos general//
+        //Metodos especificos general//
         private int[] valuesChartAnual(List<Reservas> data)
         {
             int[] values = new int[12];
@@ -1608,7 +1608,7 @@
             }
             return values;
         }
-            //Metodos especificos cliente//
+        //Metodos especificos cliente//
         private int[] valuesChartTotalCliente(IEnumerable<int> data, string nif)
         {
             int[] values = new int[data.Count()];
@@ -1630,7 +1630,7 @@
 
             return dataList.Count;
         }
-            //Métodos especificos camion//
+        //Métodos especificos camion//
         private int[] valuesChartTotalCamion(IEnumerable<int> data, string matricula)
         {
             int[] values = new int[data.Count()];
@@ -1654,7 +1654,7 @@
 
             return dataList.Count;
         }
-            //Metodos especificos comodidades//
+        //Metodos especificos comodidades//
         private int busquedaComodidadesMesesGrafico(List<Flota> data, int mes)
         {
             var dataList = new List<Flota>(
@@ -1729,7 +1729,7 @@
             }
             else
             {
-                //Mostrar mensaje de que no hay reservas
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
         }
         private void generarGraficoGeneralAnual(List<Reservas> listaObjetos, string anho)
@@ -1751,7 +1751,7 @@
             }
             else
             {
-                //Mostrar mensaje de que no hay reservas
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
         }
         //Matricula Especifica
@@ -1788,7 +1788,7 @@
             }
             else
             {
-                //Mostrar mensaje de que no hay reservas
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
         }
         private void generarGraficoMatriculaAnual(List<Reservas> listaObjetos, string matricula, string anho)
@@ -1809,7 +1809,7 @@
             }
             else
             {
-
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
 
         }
@@ -1846,7 +1846,7 @@
             }
             else
             {
-                //Mostrar mensaje de que no hay reservas
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
         }
         private void generarGraficoClienteAnual(List<Reservas> listaObjetos, string nif, string anho)
@@ -1867,316 +1867,15 @@
             }
             else
             {
-
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
 
         }
         //Comodidad específica
-        private void generarGraficoComodidadesTotal(List<Reservas> listaObjetos, string comodidad)
+        private void generarGraficoComodidadesTotal(List<Flota> listaObjetos, string comodidad)
         {
-
-        }
-        private void generarGraficoComodidadesAnual(List<Reservas> listaObjetos, string comodidad, string anho)
-        {
-
-        }
-        /* Y ESO ES LO QUE POSIBLEMENTE TENGA QUE CAMBIAR PARA INTEGRAR CON LAS BÚSQUEDAS*/
-        /*
-        //Gráfico general
-        private void ActividadGeneralAnual()
-        {
-
-            var anhoSeleccionado = this.dialogoGraficoGeneral.Anho;
-            if (anhoSeleccionado.Equals(""))
-            {
-                ActividadGeneralTotal();
-            }
-            else
-            {
-                var dataList = new List<Reservas>(
-                from reservas in RegReservas
-                where (reservas.Fentrega.Year.ToString().Equals(anhoSeleccionado))
-                orderby reservas.Fentrega
-                select reservas);
-
-                this.MainWindowView.Height = 0;
-
-                if (dataList.Count() != 0)
-                {
-
-                    MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                    MainWindowViewReservas.BuildPanelGraficoGeneral();
-                    MainWindowViewReservas.setDataChart("Mes", "Nº transportes", valuesChartAnual(dataList));
-                    MainWindowViewReservas.setDataLegend(emptyValue);
-                    MainWindowViewReservas.Chart.Draw();
-                    MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                    MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                    this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                    this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-                }
-                else
-                {
-                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                    this.MainWindowView.Width = 200;
-                    this.MainWindowView.Height = 200;
-                }
-            }
-        }
-        private void ActividadGeneralTotal()
-        {
-            IEnumerable<int> data = from transporte in RegReservas
-                                    orderby transporte.Fentrega
-                                    select transporte.Fentrega.Year;
-
-            var distinctData = data.Select(x => x).Distinct();
-            string[] toLegend = new string[distinctData.Count()];
-            int i = 0;
-            foreach (int t in distinctData)
-            {
-                toLegend[i] = Convert.ToString(t);
-                i++;
-            }
-
-            this.MainWindowView.Height = 0;
-
-            if (data.Count() != 0)
-            {
-                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                MainWindowViewReservas.BuildPanelGraficoGeneral();
-                MainWindowViewReservas.setDataChart("Año", "Nº transportes", valuesChartTotal(distinctData));
-                MainWindowViewReservas.setDataLegend(toLegend);
-                MainWindowViewReservas.Chart.Draw();
-                MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-            }
-            else
-            {
-                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                this.MainWindowView.Width = 200;
-                this.MainWindowView.Height = 200;
-            }
-        }
-        //Fin grafico general
-
-        //Grafico cliente
-        private void ActividadClienteAnual()
-        {
-            var anhoSeleccionado = this.dialogoGraficoCliente.Anho;
-            var nifClienteSeleccionado = this.dialogoGraficoCliente.Cliente;
-            if (anhoSeleccionado.Equals(""))
-            {
-                ActividadClienteTotal();
-            }
-            else
-            {
-                var data = new List<Reservas>(
-                from transporte in RegReservas
-                where transporte.Cliente.Nif.Equals(nifClienteSeleccionado) && (transporte.Fentrega.Year.ToString().Equals(anhoSeleccionado))
-                orderby transporte.IdTransporte
-                select transporte);
-
-                this.MainWindowView.Height = 0;
-
-                if (data.Count() != 0)
-                {
-
-                    MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                    MainWindowViewReservas.BuildPanelGraficoGeneral();
-                    MainWindowViewReservas.setDataChart("Mes", "Nº transportes", valuesChartAnual(data));
-                    MainWindowViewReservas.setDataLegend(emptyValue);
-                    MainWindowViewReservas.Chart.Draw();
-                    MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                    MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                    this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                    this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-
-                }
-                else
-                {
-                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                    this.MainWindowView.Width = 200;
-                    this.MainWindowView.Height = 200;
-                }
-            }
-        }
-        private void ActividadClienteTotal()
-        {
-            var nifClienteSeleccionado = this.dialogoGraficoCliente.Cliente;
-            IEnumerable<int> data = from transporte in RegReservas
-                                    where transporte.Cliente.Nif.Equals(nifClienteSeleccionado)
-                                    orderby transporte.Fentrega
-                                    select transporte.Fentrega.Year;
-
-            var distinctData = data.Select(x => x).Distinct();
-            string[] toLegend = new string[distinctData.Count()];
-            int i = 0;
-            foreach (int t in distinctData)
-            {
-                toLegend[i] = Convert.ToString(t);
-                i++;
-            }
-
-            this.MainWindowView.Height = 0;
-
-            if (data.Count() != 0)
-            {
-
-                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                MainWindowViewReservas.BuildPanelGraficoGeneral();
-                MainWindowViewReservas.setDataChart("Año", "Nº transportes", valuesChartTotalCliente(distinctData, nifClienteSeleccionado));
-                MainWindowViewReservas.setDataLegend(toLegend);
-                MainWindowViewReservas.Chart.Draw();
-                MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-
-            }
-            else
-            {
-                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                this.MainWindowView.Width = 200;
-                this.MainWindowView.Height = 200;
-            }
-        }
-        //Fin grafico cliente
-
-        //Grafico actividad camion
-        
-        private void ActividadCamionAnual()
-        {
-            var anhoSeleccionado = this.dialogoGraficoCamion.Anho;
-            var matriculaCamionSeleccionado = this.dialogoGraficoCamion.Matricula;
-            if (anhoSeleccionado.Equals(""))
-            {
-                ActividadCamionTotal();
-            }
-            else
-            {
-                var data = new List<Reservas>(
-                from transporte in RegReservas
-                where (matriculaCamionSeleccionado.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3)) &&
-                        matriculaCamionSeleccionado.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4))) &&
-                        (transporte.Fentrega.Year.ToString().Equals(anhoSeleccionado))
-                orderby transporte.IdTransporte
-                select transporte);
-
-                this.MainWindowView.Height = 0;
-
-                if (data.Count() != 0)
-                {
-                    MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                    MainWindowViewReservas.BuildPanelGraficoGeneral();
-                    MainWindowViewReservas.setDataChart("Mes", "Nº transportes", valuesChartAnual(data));
-                    MainWindowViewReservas.setDataLegend(emptyValue);
-                    MainWindowViewReservas.Chart.Draw();
-                    MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                    MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                    this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                    this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-
-
-                }
-                else
-                {
-                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                    this.MainWindowView.Width = 200;
-                    this.MainWindowView.Height = 200;
-                }
-            }
-        }
-        private void ActividadCamionTotal()
-        {
-            var matriculaCamionSeleccionado = this.dialogoGraficoCamion.Matricula;
-            IEnumerable<int> data = from transporte in RegReservas
-                                    where (matriculaCamionSeleccionado.Substring(0, 3).Equals(transporte.IdTransporte.Substring(4, 3)) &&
-                                            matriculaCamionSeleccionado.Substring(3, 4).Equals(transporte.IdTransporte.Substring(0, 4)))
-                                    orderby transporte.Fentrega
-                                    select transporte.Fentrega.Year;
-
-            var distinctData = data.Select(x => x).Distinct();
-            string[] toLegend = new string[distinctData.Count()];
-            int i = 0;
-            foreach (int t in distinctData)
-            {
-                toLegend[i] = Convert.ToString(t);
-                i++;
-            }
-
-            this.MainWindowView.Height = 0;
-
-            if (data.Count() != 0)
-            {
-
-                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                MainWindowViewReservas.BuildPanelGraficoGeneral();
-                MainWindowViewReservas.setDataChart("Año", "Nº transportes", valuesChartTotalCamion(distinctData, matriculaCamionSeleccionado));
-                MainWindowViewReservas.setDataLegend(toLegend);
-                MainWindowViewReservas.Chart.Draw();
-                MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-
-
-            }
-            else
-            {
-                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                this.MainWindowView.Width = 200;
-                this.MainWindowView.Height = 200;
-            }
-        }
-        //Fin grafico actividad camion
-
-        //Grafico comodidades camion
-        private void FlotaComodidadesAnual()
-        {
-            var anhoSeleccionado = this.dialogoGraficoComodidades.Anho;
-            var comodidadSeleccionada = this.dialogoGraficoComodidades.Comodidad;
-            if (anhoSeleccionado.Equals(""))
-            {
-                FlotaComodidadesTotal();
-            }
-            else
-            {
-                var data = new List<Flota>(
-                from flota in flotas
-                where (flota.Comodidades.Contains(comodidadSeleccionada)) &&
-                (flota.FechaAdquisicion.Year.ToString().Equals(anhoSeleccionado))
-                orderby flota.FechaAdquisicion
-                select flota);
-
-                this.MainWindowView.Height = 0;
-
-                if (data.Count() != 0)
-                {
-
-                    MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-                    MainWindowViewReservas.BuildPanelGraficoGeneral();
-                    MainWindowViewReservas.setDataChart("Mes", "Nº camiones", valuesChartAnualComodidades(data));
-                    MainWindowViewReservas.setDataLegend(emptyValue);
-                    MainWindowViewReservas.Chart.Draw();
-                    MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                    MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                    this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                    this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
-                }
-                else
-                {
-                    MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                    this.MainWindowView.Width = 200;
-                    this.MainWindowView.Height = 200;
-                }
-            }
-        }
-        private void FlotaComodidadesTotal()
-        {
-            var comodidadSeleccionada = this.dialogoGraficoComodidades.Comodidad;
-            IEnumerable<int> data = from flota in flotas
-                                    where (flota.Comodidades.Contains(comodidadSeleccionada))
+            IEnumerable<int> data = from flota in listaObjetos
+                                    where (flota.Comodidades.Contains(comodidad))
                                     orderby flota.FechaAdquisicion
                                     select flota.FechaAdquisicion.Year;
 
@@ -2189,33 +1888,24 @@
                 i++;
             }
 
-            this.MainWindowView.Height = 0;
-
-            if (data.Count() != 0)
+            if (listaObjetos.Count != 0)
             {
-                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+                Form frm = new Form() { Text = "Grafico actividad de la comodidad: " + comodidad };
+                MainWindowViewReservas.PanelGrafico = new Panel() { Dock = DockStyle.Fill };
                 MainWindowViewReservas.BuildPanelGraficoGeneral();
-                MainWindowViewReservas.setDataChart("Año", "Nº camiones", valuesChartTotalComodidades(distinctData, comodidadSeleccionada));
+                MainWindowViewReservas.setDataChart(comodidad, "Nº transportes", valuesChartTotalComodidades(distinctData, comodidad));
                 MainWindowViewReservas.setDataLegend(toLegend);
                 MainWindowViewReservas.Chart.Draw();
-                MainWindowViewReservas.dialogos = MainWindowViewReservas.panelGraficoGeneral;
-                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogosGrande);
-                this.MainWindowViewReservas.Width = MainWindowViewReservas.Chart.Size.Width;
-                this.MainWindowViewReservas.Height = MainWindowViewReservas.Chart.Size.Height + 220;
+                MainWindowViewReservas.PanelGrafico.Controls.Add(MainWindowViewReservas.panelGraficoGeneral);
+                frm.Controls.Add(MainWindowViewReservas.PanelGrafico);
+                frm.Height = MainWindowViewReservas.CHART_CANVAS_SIZE + 50;
+                frm.Width = MainWindowViewReservas.CHART_CANVAS_SIZE;
+                frm.Show();
             }
             else
             {
-                MainWindowView.panelPrincipal.Controls.Remove(MainWindowView.panelLista);
-                this.MainWindowView.Width = 200;
-                this.MainWindowView.Height = 200;
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
             }
         }
-        
-        */
-        //Fin grafico comodidades camion
-        //Operacion salir
-
-
     }
-
 }
