@@ -107,14 +107,15 @@
 
             this.MainWindowViewReservas = new MainWindowViewReservas();
 
-            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListFlota;
+            MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+            this.mostrarTodosLosTransportes();
 
             this.MainWindowViewReservas.FormClosed += (sender, e) => this.Salir();
             this.MainWindowViewReservas.operacionSalir.Click += (sender, e) => this.Salir();
             this.MainWindowViewReservas.menuAtras.Click += (sender, e) => this.mostrarTodosLosTransportes();
 
            //this.mostrarTodosLosTransportes();
-            ActividadGestionFlota();
+          
             //--Operaciones búsqueda--//
             //Opciones de la MainWindowView
             this.MainWindowViewReservas.operacionSearch1.Click += (sender, e) => this.transportePendientes();
@@ -402,25 +403,36 @@
         //Inicio Reservas por cliente: Mostrará todas los transportes para un cliente, pasadas o pendientes.
         private void transportesPorCliente()
         {
+            MainWindowViewReservas.escogerCliente.Text = RegClientes[MainWindowViewReservas.grdEventsListClientes.CurrentRow.Index].Nif.ToString();
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.panelSearchTransporteCLiente;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
+          
+
+        }
+        private void DTCSearch()
+        {
             MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
             MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
             MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
 
+
             MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
             MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
             MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
 
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-            MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelTransporteCliente();
+            MainWindowViewReservas.dialogos = null;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogosGrande.Width = 390;
 
-        }
-        private void DTCSearch()
-        {
-            var nifClienteSeleccionado = this.MainWindowViewReservas.Cliente;
+            var nifClienteSeleccionado = MainWindowViewReservas.escogerCliente.Text;
             var periodoSeleccionado = this.MainWindowViewReservas.Periodo2;
             var anhosSeleccionado = this.MainWindowViewReservas.Anho2;
 
@@ -476,7 +488,7 @@
             MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
 
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-            MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelReservasCamion();
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.panelSearchReservasCamion;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogosGrande.Width = 390;
 
@@ -556,6 +568,18 @@
         //Inicio Reservas por cliente: Mostrará todas las reservas para una persona
         private void reservasPorCliente()
         {
+
+            MainWindowViewReservas.escogerCliente4.Text = RegClientes[MainWindowViewReservas.grdEventsListClientes.CurrentRow.Index].Nif.ToString();
+
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = MainWindowViewReservas.panelSearchReservasCliente;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogosGrande.Width = 390;
+
+        }
+        private void RPCSearch()
+        {
             MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
             MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
             MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
@@ -566,19 +590,17 @@
             MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
             MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
 
+
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-            MainWindowViewReservas.dialogos = MainWindowViewReservas.buildPanelReservasCliente();
+            MainWindowViewReservas.dialogos = null;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogosGrande.Width = 390;
 
-        }
-        private void RPCSearch()
-        {
             var anhosSeleccionado = this.MainWindowViewReservas.Anho4;
 
             RegReservasBusqueda = new List<Reservas>(
             from reserva in RegReservas
-            where reserva.Cliente.Nif == this.MainWindowViewReservas.idDni && (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
+            where reserva.Cliente.Nif == MainWindowViewReservas.escogerCliente4.Text && (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby reserva.IdTransporte
             select reserva);
 
