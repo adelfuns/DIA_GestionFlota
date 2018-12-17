@@ -197,7 +197,6 @@
             {
                 if(this.MainWindowViewReservas.grdEventsListReservas.CurrentCell.ColumnIndex == 0)
                 {
-
                     Reservas r = RegReservas[this.MainWindowViewReservas.grdEventsListReservas.CurrentRow.Index];
 
                     MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
@@ -215,7 +214,6 @@
                     MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
                     string matricula =  String.Concat(r.IdTransporte.Substring(4, 3), r.IdTransporte.Substring(0, 4));
-
 
                     RegFlotasBusqueda = new List<Flota>(
                         from flota in flotas
@@ -235,7 +233,6 @@
                     MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListClientes.Height;
                     MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
 
-
                     MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
                     MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesClientes();
                     MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
@@ -252,6 +249,68 @@
                     ActualizarListaClientesBusqueda(RegClientesBusqueda);
                 }
             };
+            this.MainWindowViewReservas.grdEventsListClientes.CellMouseClick += (sender, e) =>
+            {
+                if (this.MainWindowViewReservas.grdEventsListClientes.CurrentCell.ColumnIndex == 0)
+                {
+
+                    Cliente c = RegClientes[this.MainWindowViewReservas.grdEventsListClientes.CurrentRow.Index];
+
+                    MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+                    MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+                    MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+                    MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+                    MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+                    MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+                    MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+                    MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+                    MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+                    MainWindowViewReservas.dialogos = null;
+                    MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+
+                    RegReservasBusqueda = new List<Reservas>(
+                        from reseva in RegReservas
+                        where reseva.Cliente.Nif == c.Nif
+                        select reseva);
+
+                    ActualizarListaReservasBusqueda();
+                }
+
+            };
+
+            this.MainWindowViewReservas.grdEventsListFlota.CellMouseClick += (sender, e) =>
+            {
+                if (this.MainWindowViewReservas.grdEventsListFlota.CurrentCell.ColumnIndex == 0)
+                {
+                    Flota c = flotas[this.MainWindowViewReservas.grdEventsListFlota.CurrentRow.Index];
+
+                    MainWindowViewReservas.grdEventsList.Controls.Remove(MainWindowViewReservas.grdEventsListAux);
+                    MainWindowViewReservas.grdEventsListAux = MainWindowViewReservas.grdEventsListReservas;
+                    MainWindowViewReservas.grdEventsList.Controls.Add(MainWindowViewReservas.grdEventsListAux);
+                    MainWindowViewReservas.grdEventsList.Height = MainWindowViewReservas.grdEventsListReservas.Height;
+                    MainWindowViewReservas.grdEventsList.Width = MainWindowViewReservas.Width - 410;
+
+                    MainWindowViewReservas.opcionesFijo.Controls.Remove(MainWindowViewReservas.opcionesPoner);
+                    MainWindowViewReservas.opcionesPoner = MainWindowViewReservas.buildPanelOpcionesReservas();
+                    MainWindowViewReservas.opcionesFijo.Controls.Add(MainWindowViewReservas.opcionesPoner);
+
+                    MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+                    MainWindowViewReservas.dialogos = null;
+                    MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+
+                    RegReservasBusqueda = new List<Reservas>(
+                        from reserva in RegReservas
+                        where c.Matricula.Substring(0, 3).Equals(reserva.IdTransporte.Substring(4, 3))
+                             && c.Matricula.Substring(3, 4).Equals(reserva.IdTransporte.Substring(0, 4))
+                        select reserva);
+
+                    ActualizarListaReservasBusqueda();
+                }
+
+            };
+
         }
         void Salir()
         {
