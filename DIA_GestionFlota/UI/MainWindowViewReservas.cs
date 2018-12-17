@@ -236,7 +236,6 @@ namespace GestionFlota.UI
         public Button btAñadir { get; set; }
         public Button btModificar { get; set; }
         public Button EditFindFlota { get; set; }
-        public Button EditFlota { get; set; }
         public Button DeleteFlota { get; set; }
         public TextBox edLetrasMatricula { get; set; }
         public TextBox edDigitosMatricula { get; set; }
@@ -1129,17 +1128,13 @@ namespace GestionFlota.UI
         }
         Panel BuildPanelBotonesModificar()
         {
-            var toret = new TableLayoutPanel()
-            {
-                ColumnCount = 1,
-                RowCount = 1
-            };
+            var toret = new Panel() { Dock = DockStyle.Fill };
 
             this.AcceptButton = this.btModificar;
 
             toret.Controls.Add(this.btModificar);
-            toret.Dock = DockStyle.Fill;
-            toret.MaximumSize = new Size(this.Width, this.btAñadir.Height + 20);
+
+            toret.MaximumSize = new Size(this.Width, this.btModificar.Height + 20);
 
             return toret;
         }
@@ -1234,23 +1229,23 @@ namespace GestionFlota.UI
         Panel buildPanelFechaAdquisicion()
         {
             var panel = new Panel { Dock = DockStyle.Fill };
-            var lbFechaAdquisicion = new Label { Text = " F.Adquisición ", Dock = DockStyle.Left };
+            var lbFechaAdquisicion = new Label { Text = " F.Adquisición (dd/mm/yyyy)", Dock = DockStyle.Left };
             this.edFechaAdquisicion = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
             panel.Controls.Add(edFechaAdquisicion);
             panel.Controls.Add(lbFechaAdquisicion);
             
-            panel.Size = new Size(edFechaAdquisicion.Width, 20);
+            panel.Size = new Size(edFechaAdquisicion.Width, 25);
             return panel;
         }
         Panel buildPanelFechaFabricacion()
         {
             var panel = new Panel { Dock = DockStyle.Fill };
-            var lbFechaFabricacion = new Label { Text = " F.Fabricación ", Dock = DockStyle.Left };
+            var lbFechaFabricacion = new Label { Text = " F.Fabricación (dd/mm/yyyy)", Dock = DockStyle.Left };
             this.edFechaFabricacion = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
             panel.Controls.Add(edFechaFabricacion);
             panel.Controls.Add(lbFechaFabricacion);
            
-            panel.Size = new Size(edFechaFabricacion.Width, 20);
+            panel.Size = new Size(edFechaFabricacion.Width, 25);
             return panel;
         }
         Panel buildPanelComodidadesFlota()
@@ -1323,7 +1318,6 @@ namespace GestionFlota.UI
             
         }
 
-
         Panel BuildPanelTipoCamionFlotaM()
         {
             var toret = new Panel { Dock = DockStyle.Fill };
@@ -1391,23 +1385,23 @@ namespace GestionFlota.UI
         Panel buildPanelFechaAdquisicionM()
         {
             var panel = new Panel { Dock = DockStyle.Fill };
-            var lbFechaAdquisicion = new Label { Text = " F.Adquisición ", Dock = DockStyle.Left };
+            var lbFechaAdquisicion = new Label { Text = " F.Adquisición (dd/mm/yyyy)", Dock = DockStyle.Left };
             this.edFechaAdquisicionM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
             panel.Controls.Add(edFechaAdquisicionM);
             panel.Controls.Add(lbFechaAdquisicion);
 
-            panel.Size = new Size(edFechaAdquisicionM.Width, 20);
+            panel.Size = new Size(edFechaAdquisicionM.Width, 25);
             return panel;
         }
         Panel buildPanelFechaFabricacionM()
         {
             var panel = new Panel { Dock = DockStyle.Fill };
-            var lbFechaFabricacion = new Label { Text = " F.Fabricación ", Dock = DockStyle.Left };
+            var lbFechaFabricacion = new Label { Text = " F.Fabricación (dd/mm/yyyy)", Dock = DockStyle.Left };
             this.edFechaFabricacionM = new TextBox { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Width = 200 };
             panel.Controls.Add(edFechaFabricacionM);
             panel.Controls.Add(lbFechaFabricacion);
 
-            panel.Size = new Size(edFechaFabricacionM.Width, 20);
+            panel.Size = new Size(edFechaFabricacionM.Width, 25);
             return panel;
         }
         Panel buildPanelComodidadesFlotaM()

@@ -334,7 +334,6 @@
         private void DTPSearch()
         {
             var matricula = this.MainWindowViewReservas.Matricula;
-            //System.Console.WriteLine(matricula);
             if (matricula.Equals("Todos"))
             {
                 matricula = "";
@@ -669,7 +668,6 @@
         {
             var comodidadesSeleccionada = this.MainWindowViewReservas.comodidad;
 
-            Console.WriteLine(comodidadesSeleccionada);
             RegFlotasBusqueda = new List<Flota>(
                 from flota in flotas
                 where (flota.Comodidades.Contains(comodidadesSeleccionada)) 
@@ -686,7 +684,6 @@
         /*------------------------------------------------------------------*/
         private void RemoveClient()
         {
-            //Console.WriteLine(MainWindowViewReservas.evt.RowIndex);
             RegClientes.RemoveAt(MainWindowViewReservas.evt.RowIndex);
             ActualizarLista();
         }
@@ -946,7 +943,7 @@
                 gas = Convert.ToDouble(edGas.Text);
                 suplencia = Convert.ToDouble(edSuplencia.Text);
 
-
+              
                 if (Reg.IsIDTranspUnique(idTrans))
                 {
                     if (idTrans.Length > 0)
@@ -1217,69 +1214,78 @@
             DateTime fad;
             DateTime ffab;
             List<String> Comodidades = new List<string>();
-            if (tipo != "Selecciona")
-            {
 
+            if (edLetrasMatricula.Text != "" || edDigitosMatricula.Text != "" 
+                || edCarga.Text != "" || edMarca.Text != "" 
+                || edModelo.Text != "" || edConsumoKm.Text != ""
+                 || edFechaAdquisicion.Text != "" || edFechaFabricacion.Text != "" ||
+                 tipo != ""
+                ){
 
-                if (edLetrasMatricula.Text.Length == 3 && edDigitosMatricula.Text.Length == 4
-                    && Regex.IsMatch(edLetrasMatricula.Text, @"^[a-zA-Z]+$")
-                    && Regex.IsMatch(edDigitosMatricula.Text, @"^[0-9]+$"))
+                if (tipo != "Selecciona")
                 {
-                    Double.TryParse(edCarga.Text, out carga);
-                    Console.WriteLine(carga);
-                    matricula = String.Concat(edLetrasMatricula.Text, edDigitosMatricula.Text);
-                    modelo = edModelo.Text;
-                    Double.TryParse(edConsumoKm.Text, out consumo);
-                    marca = edMarca.Text;
-
-                    Console.WriteLine(this.MainWindowViewReservas.edFechaAdquisicion.Text);
-                    Console.WriteLine(edFechaFabricacion.Text);
 
 
-                    if (DateTime.TryParse(edFechaAdquisicion.Text, out fad) && DateTime.TryParse(edFechaFabricacion.Text, out ffab))
+                    if (edLetrasMatricula.Text.Length == 3 && edDigitosMatricula.Text.Length == 4
+                        && Regex.IsMatch(edLetrasMatricula.Text, @"^[a-zA-Z]+$")
+                        && Regex.IsMatch(edDigitosMatricula.Text, @"^[0-9]+$"))
                     {
-                        var matriculas = new List<Flota>(from mat in flotas
-                                                         where mat.Matricula.Equals(matricula)
-                                                         select mat);
-                        if (ComodidadWifi.Checked)
-                        {
-                            Comodidades.Add("Wifi");
-                        }
-                        if (ComodidadBlue.Checked)
-                        {
-                            Comodidades.Add("Conexion Bluetooth");
-                        }
-                        if (ComodidadAire.Checked)
-                        {
-                            Comodidades.Add("Aire Acondicionado");
-                        }
-                        if (ComodidadLitera.Checked)
-                        {
-                            Comodidades.Add("Litera");
-                        }
-                        if (ComodidadTv.Checked)
-                        {
-                            Comodidades.Add("Tv");
-                        }
-                        if (matriculas.Count == 0)
-                        {
-                            Flota flota = new Flota(carga, matricula, tipo, marca, modelo, consumo, fad, ffab, Comodidades);
-                            if (flota.ComprobarCarga())
-                            {
-                                flotas.Add(flota);
-                                MessageBox.Show("Vehículo introducido correctamente", "", MessageBoxButtons.OK);
-                                ActualizaListaFlota();
+                        Double.TryParse(edCarga.Text, out carga);
+                        matricula = String.Concat(edLetrasMatricula.Text, edDigitosMatricula.Text);
+                        modelo = edModelo.Text;
+                        Double.TryParse(edConsumoKm.Text, out consumo);
+                        marca = edMarca.Text;
 
+                        if (DateTime.TryParse(edFechaAdquisicion.Text, out fad) && DateTime.TryParse(edFechaFabricacion.Text, out ffab))
+                        {
+                            var matriculas = new List<Flota>(from mat in flotas
+                                                             where mat.Matricula.Equals(matricula)
+                                                             select mat);
+                            if (ComodidadWifi.Checked)
+                            {
+                                Comodidades.Add("Wifi");
                             }
-                            else MessageBox.Show("Superado Límite de Carga para el vehículo", "", MessageBoxButtons.OK);
+                            if (ComodidadBlue.Checked)
+                            {
+                                Comodidades.Add("Conexion Bluetooth");
+                            }
+                            if (ComodidadAire.Checked)
+                            {
+                                Comodidades.Add("Aire Acondicionado");
+                            }
+                            if (ComodidadLitera.Checked)
+                            {
+                                Comodidades.Add("Litera");
+                            }
+                            if (ComodidadTv.Checked)
+                            {
+                                Comodidades.Add("Tv");
+                            }
+                            if (matriculas.Count == 0)
+                            {
+                                Flota flota = new Flota(carga, matricula, tipo, marca, modelo, consumo, fad, ffab, Comodidades);
+                                if (flota.ComprobarCarga())
+                                {
+                                    flotas.Add(flota);
+                                    MessageBox.Show("Vehículo introducido correctamente", "", MessageBoxButtons.OK);
+                                    ActualizaListaFlota();
+
+                                }
+                                else MessageBox.Show("Superado Límite de Carga para el vehículo", "", MessageBoxButtons.OK);
+                            }
+                            else MessageBox.Show("La matrícula ya está almacenada en el sistema");
                         }
-                        else MessageBox.Show("La matrícula ya está almacenada en el sistema");
+                        else MessageBox.Show("Las fechas no son correctas");
                     }
-                    else MessageBox.Show("Las fechas no son correctas");
+                    else MessageBox.Show("La matrícula no es correcta");
                 }
-                else MessageBox.Show("La matrícula no es correcta");
+                else MessageBox.Show("Introduzca un tipo de vehículo");
+
             }
-            else MessageBox.Show("Introduzca un tipo de vehículo");
+            else
+            {
+                MessageBox.Show("Algun campo es vacio");
+            }
         }
         public void deleteFlota()
         {
@@ -1291,7 +1297,6 @@
         }
         private void EditFindFlota()
         {
-
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = MainWindowViewReservas.panelModificar;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
@@ -1332,7 +1337,7 @@
                 {
                     MainWindowViewReservas.ComodidadTvM.Checked = true;
                 }
-                MainWindowViewReservas.EditFlota.Enabled = true;
+                MainWindowViewReservas.btModificar.Enabled = true;
 
             }
             catch
@@ -1380,55 +1385,71 @@
             DateTime ffab;
             List<String> Comodidades = new List<string>();
 
+
             var matriculas = new List<Flota>(from mat in flotas
-                                             where mat.Matricula.Equals(Matricula)
+                                             where mat.Matricula.Equals(Matricula.Text)
                                              select mat);
+            Console.WriteLine(matriculas.Count());
+
 
             if (matriculas.Count == 1)
             {
                 flota_mod = matriculas.ElementAt(0);
                 flotas.Remove(matriculas.ElementAt(0));
+
                 if (edCarga.Text != "")
                 {
                     if (Double.TryParse(edCarga.Text, out carga))
                     {
                         var tmp = flota_mod.Carga;
                         flota_mod.Carga = carga;
+
                         if (!flota_mod.ComprobarCarga())
                         {
                             flota_mod.Carga = tmp;
                         }
+                       
 
                     }
+                  
 
                 }
+               
                 if (edMarca.Text != "")
                 {
                     flota_mod.Marca = edMarca.Text;
                 }
+          
                 if (edModelo.Text != "")
                 {
                     flota_mod.Modelo = edModelo.Text;
+
                 }
+           
                 if (edConsumoKm.Text != "")
                 {
                     if (Double.TryParse(edConsumoKm.Text, out consumo))
                     {
                         flota_mod.ConsumoKm = consumo;
                     }
+                
                 }
+    
                 if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out fad)))
                 {
                     flota_mod.FechaAdquisicion = fad;
                 }
+    
                 if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out ffab)))
                 {
                     flota_mod.FechaAdquisicion = ffab;
                 }
+   
                 if (ComodidadWifi.Checked)
                 {
                     Comodidades.Add("Wifi");
                 }
+
                 if (ComodidadBlue.Checked)
                 {
                     Comodidades.Add("Conexion Bluetooth");
@@ -1445,12 +1466,14 @@
                 {
                     Comodidades.Add("Tv");
                 }
-                flota_mod.Comodidades = Comodidades;
-                flotas.Remove(matriculas.ElementAt(0));
-                flotas.Add(flota_mod);
-                MessageBox.Show("Modificación realizada con éxito", "", MessageBoxButtons.OK);
-                ActualizaListaFlota();
 
+                
+                    flota_mod.Comodidades = Comodidades;
+                    flotas.Remove(matriculas.ElementAt(0));
+                    flotas.Add(flota_mod);
+                    
+                
+                ActualizaListaFlota();
             }
 
         }
@@ -1472,7 +1495,6 @@
          }
         public void cleanFlotaAdd()
         {
-            Console.WriteLine("asd");
             MainWindowViewReservas.edLetrasMatricula.Text = "";
             MainWindowViewReservas.edDigitosMatricula.Text = "";
             MainWindowViewReservas.escogerTipo2.Text = "";
@@ -1712,7 +1734,7 @@
         }
         private void generarGraficoGeneralAnual(List<Reservas> listaObjetos, string anho)
         {
-            Console.WriteLine("Hola");
+
             if (listaObjetos.Count != 0)
             {
                 Form frm = new Form() { Text = "Grafico actividad general" };
