@@ -1438,11 +1438,11 @@
             DateTime ffab;
             List<String> Comodidades = new List<string>();
 
-            if (edLetrasMatricula.Text != "" || edDigitosMatricula.Text != "" 
-                || edCarga.Text != "" || edMarca.Text != "" 
-                || edModelo.Text != "" || edConsumoKm.Text != ""
-                 || edFechaAdquisicion.Text != "" || edFechaFabricacion.Text != "" ||
-                 tipo != ""
+            if (edLetrasMatricula.Text != "" && edDigitosMatricula.Text != ""
+                && edCarga.Text != "" && edMarca.Text != ""
+                && edModelo.Text != "" && edConsumoKm.Text != ""
+                && edFechaAdquisicion.Text != "" && edFechaFabricacion.Text != "" 
+                && tipo != ""
                 ){
 
                 if (tipo != "Selecciona")
@@ -1618,94 +1618,103 @@
             DateTime fad;
             DateTime ffab;
             List<String> Comodidades = new List<string>();
-         
 
-            var matriculas = new List<Flota>(from mat in Reg.GetFlotas()
+            if (Matricula.Text != ""  && edCarga.Text != "" 
+                && edMarca.Text != ""
+                && edModelo.Text != ""
+                && edConsumoKm.Text != ""
+                && edFechaAdquisicion.Text != ""
+                && edFechaFabricacion.Text != ""
+                && tipo != ""
+                )
+            {
+                var matriculas = new List<Flota>(from mat in Reg.GetFlotas()
                                                  where mat.Matricula.Equals(Matricula.Text)
                                                  select mat);
 
-            if (matriculas.Count == 1)
-            {
-                flota_mod = matriculas.ElementAt(0);
-                Reg.Remove(matriculas.ElementAt(0));
-
-                if (edCarga.Text != "")
+                if (matriculas.Count == 1)
                 {
-                    if (Double.TryParse(edCarga.Text, out carga))
-                    {
-                        var tmp = flota_mod.Carga;
-                        flota_mod.Carga = carga;
+                    flota_mod = matriculas.ElementAt(0);
+                    Reg.Remove(matriculas.ElementAt(0));
 
-                        if (!flota_mod.ComprobarCarga())
+                    if (edCarga.Text != "")
+                    {
+                        if (Double.TryParse(edCarga.Text, out carga))
                         {
-                            flota_mod.Carga = tmp;
+                            var tmp = flota_mod.Carga;
+                            flota_mod.Carga = carga;
+
+                            if (!flota_mod.ComprobarCarga())
+                            {
+                                flota_mod.Carga = tmp;
+                            }
                         }
                     }
-                }
-                if (tipo != "")
-                {
-                    flota_mod.Tipo = tipo;
-                }
-
-                if (edMarca.Text != "")
-                {
-                    flota_mod.Marca = edMarca.Text;
-                }
-
-                if (edModelo.Text != "")
-                {
-                    flota_mod.Modelo = edModelo.Text;
-                }
-
-                if (edConsumoKm.Text != "")
-                {
-                    if (Double.TryParse(edConsumoKm.Text, out consumo))
+                    if (tipo != "")
                     {
-                        flota_mod.ConsumoKm = consumo;
+                        flota_mod.Tipo = tipo;
                     }
-                }
 
-                if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out fad)))
-                {
-                    flota_mod.FechaAdquisicion = fad;
-                }
+                    if (edMarca.Text != "")
+                    {
+                        flota_mod.Marca = edMarca.Text;
+                    }
 
-                if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out ffab)))
-                {
-                    flota_mod.FechaAdquisicion = ffab;
-                }
-                if (ComodidadWifi.Checked)
-                {
-                    Comodidades.Add("Wifi");
-                }
-                if (ComodidadBlue.Checked)
-                {
-                    Comodidades.Add("Conexion Bluetooth");
-                }
-                if (ComodidadAire.Checked)
-                {
-                    Comodidades.Add("Aire Acondicionado");
-                }
-                if (ComodidadLitera.Checked)
-                {
-                    Comodidades.Add("Litera");
-                }
-                if (ComodidadTv.Checked)
-                {
-                    Comodidades.Add("Tv");
-                }
+                    if (edModelo.Text != "")
+                    {
+                        flota_mod.Modelo = edModelo.Text;
+                    }
 
-                flota_mod.Comodidades = Comodidades;
-                Reg.Remove(matriculas.ElementAt(0));
+                    if (edConsumoKm.Text != "")
+                    {
+                        if (Double.TryParse(edConsumoKm.Text, out consumo))
+                        {
+                            flota_mod.ConsumoKm = consumo;
+                        }
+                    }
 
-                Reg.Add(flota_mod);
+                    if (edFechaAdquisicion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out fad)))
+                    {
+                        flota_mod.FechaAdquisicion = fad;
+                    }
 
-                flotasParaMostrarEnGrid = Reg.GetFlotas();
-                ActualizaListaFlota();
-                MessageBox.Show("Modificación realizada con éxito", "", MessageBoxButtons.OK);
+                    if (edFechaFabricacion.Text != "" && (DateTime.TryParse(edFechaAdquisicion.Text.Substring(0, 10), out ffab)))
+                    {
+                        flota_mod.FechaAdquisicion = ffab;
+                    }
+                    if (ComodidadWifi.Checked)
+                    {
+                        Comodidades.Add("Wifi");
+                    }
+                    if (ComodidadBlue.Checked)
+                    {
+                        Comodidades.Add("Conexion Bluetooth");
+                    }
+                    if (ComodidadAire.Checked)
+                    {
+                        Comodidades.Add("Aire Acondicionado");
+                    }
+                    if (ComodidadLitera.Checked)
+                    {
+                        Comodidades.Add("Litera");
+                    }
+                    if (ComodidadTv.Checked)
+                    {
+                        Comodidades.Add("Tv");
+                    }
 
+                    flota_mod.Comodidades = Comodidades;
+                    Reg.Remove(matriculas.ElementAt(0));
+
+                    Reg.Add(flota_mod);
+
+                    flotasParaMostrarEnGrid = Reg.GetFlotas();
+                    ActualizaListaFlota();
+                    MessageBox.Show("Modificación realizada con éxito", "", MessageBoxButtons.OK);
+
+                }
             }
-            
+            else MessageBox.Show("Algun campo es vacio por lo tanto no se modifica");
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = null;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
