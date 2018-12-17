@@ -1599,7 +1599,7 @@ namespace GestionFlota.UI
             escogerCamion.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> Camiones = new List<object>();
             Camiones.Add("Todos");
-            foreach (Flota d in MainWindow.flotas)
+            foreach (Flota d in MainWindow.Reg.GetFlotas())
             {
                 Camiones.Add(d.Matricula);
             }
@@ -1744,7 +1744,7 @@ namespace GestionFlota.UI
             escogerAnho2.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> anhos = new List<object>();
             anhos.Add("");
-            foreach (Reservas t in MainWindow.RegReservas)
+            foreach (Reservas t in MainWindow.Reg.GetReservas())
             {
                 if (!anhos.Contains(t.Fentrega.Year))
                 {
@@ -1848,7 +1848,7 @@ namespace GestionFlota.UI
             escogerCamion2.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> Camiones = new List<object>();
             Camiones.Add("Todos");
-            foreach (Flota d in MainWindow.flotas)
+            foreach (Flota d in MainWindow.Reg.GetFlotas())
             {
                 Camiones.Add(d.Matricula);
             }
@@ -1897,7 +1897,7 @@ namespace GestionFlota.UI
             escogerAnho.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> anhos = new List<object>();
             anhos.Add("");
-            foreach (Reservas t in MainWindow.RegReservas)
+            foreach (Reservas t in MainWindow.Reg.GetReservas())
             {
                 if (!anhos.Contains(t.Fentrega.Year))
                 {
@@ -1967,7 +1967,7 @@ namespace GestionFlota.UI
             escogerAnho4.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> anhos = new List<object>();
             anhos.Add("");
-            foreach (Reservas t in MainWindow.RegReservas)
+            foreach (Reservas t in MainWindow.Reg.GetReservas())
             {
                 if (!anhos.Contains(t.Fentrega.Year))
                 {
@@ -2044,7 +2044,7 @@ namespace GestionFlota.UI
             escogerAnho5.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> anhos = new List<object>();
             anhos.Add("");
-            foreach (Reservas t in MainWindow.RegReservas)
+            foreach (Reservas t in MainWindow.Reg.GetReservas())
             {
                 if (!anhos.Contains(t.Fentrega.Year))
                 {
@@ -2139,7 +2139,7 @@ namespace GestionFlota.UI
             escogerComodidades.Parent = this;
             escogerComodidades.DropDownStyle = ComboBoxStyle.DropDownList;
             List<object> comodidades = new List<object>();
-            foreach (Flota t in MainWindow.flotas)
+            foreach (Flota t in MainWindow.Reg.GetFlotas())
             {
                 foreach (String com in t.Comodidades)
                 {
