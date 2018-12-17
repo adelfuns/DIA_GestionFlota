@@ -420,6 +420,7 @@
             orderby Reservas.IdTransporte
             select Reservas);
 
+            ClearReservas();
             ActualizarListaReservasBusqueda();
         }
 
@@ -462,7 +463,7 @@
             select Reservas);
             if (reservasParaMostrarEnGrid.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
             ActualizarListaReservasBusqueda();
 
@@ -510,7 +511,8 @@
             }
             if (camionesDisponibles.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                //MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
 
             ActualizarListaFlotaBusqueda(camionesDisponibles);
@@ -563,7 +565,7 @@
             select reserva);
             if (reservasParaMostrarEnGrid.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
             ActualizarListaReservasBusqueda();
 
@@ -751,7 +753,7 @@
             select reserva);
             if (reservasParaMostrarEnGrid.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
             ActualizarListaReservasBusqueda();
 
@@ -823,7 +825,7 @@
             select reserva);
             if (reservasParaMostrarEnGrid.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
             ActualizarListaReservasBusqueda();
 
@@ -838,7 +840,7 @@
             select reserva);
             if (reservasParaMostrarEnGrid.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
             ActualizarListaReservasBusqueda();
         }
@@ -861,7 +863,7 @@
                 select flota);
             if (flotasParaMostrarEnGrid.Count == 0)
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados");
             }
             ActualizarListaFlotaBusqueda(flotasParaMostrarEnGrid);
         }
@@ -1191,7 +1193,7 @@
             }
             catch (FormatException)
             {
-                throw new FormatException();
+                ErrorReserva("Error en datos introducidos");
             }
             catch
             {
@@ -1490,26 +1492,26 @@
                                 if (flota.ComprobarCarga())
                                 {
                                     Reg.Add(flota);
-                                    MessageBox.Show("Vehículo introducido correctamente", "", MessageBoxButtons.OK);
+                                    Error("Vehículo introducido correctamente");
 
                                     flotasParaMostrarEnGrid = Reg.GetFlotas();
                                     ActualizaListaFlota();
 
                                 }
-                                else MessageBox.Show("Superado Límite de Carga para el vehículo", "", MessageBoxButtons.OK);
+                                else Error("Superado Límite de Carga para el vehículo");
                             }
-                            else MessageBox.Show("La matrícula ya está almacenada en el sistema");
+                            else Error("La matrícula ya está almacenada en el sistema");
                         }
-                        else MessageBox.Show("Las fechas no son correctas");
+                        else Error("Las fechas no son correctas");
                     }
-                    else MessageBox.Show("La matrícula no es correcta");
+                    else Error("La matrícula no es correcta");
                 }
-                else MessageBox.Show("Introduzca un tipo de vehículo");
+                else Error("Introduzca un tipo de vehículo");
 
             }
             else
             {
-                MessageBox.Show("Algun campo es vacio");
+                Error("Algun campo está vacio");
             }
         }
         public void deleteFlota()
@@ -1517,12 +1519,12 @@
             if (!Reg.ReservaContainsFlota(MainWindowViewReservas.evt.RowIndex))
             {
                 Reg.RemoveFlotaAt(MainWindowViewReservas.evt.RowIndex);
-                MessageBox.Show("Vehículo eliminado correctamente", "", MessageBoxButtons.OK);
+                Error("Vehículo eliminado correctamente");
             }
             else
             {
                 Error("No se puede eliminar la flota. Existen Reservas asignadas.");
-                MessageBox.Show("Vehículo no eliminado", "Error", MessageBoxButtons.OK);
+                //MessageBox.Show("Vehículo no eliminado", "Error", MessageBoxButtons.OK);
             }
 
             flotasParaMostrarEnGrid = Reg.GetFlotas();
@@ -1714,7 +1716,7 @@
 
                 }
             }
-            else MessageBox.Show("Algun campo es vacio por lo tanto no se modifica");
+            else Error("Algun campo es vacio por lo tanto no se modifica");
             MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
             MainWindowViewReservas.dialogos = null;
             MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
@@ -1970,7 +1972,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
         }
         private void generarGraficoGeneralAnual(List<Reservas> listaObjetos, string anho)
@@ -1992,7 +1994,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
         }
         //Matricula Especifica
@@ -2029,7 +2031,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
         }
         private void generarGraficoMatriculaAnual(List<Reservas> listaObjetos, string matricula, string anho)
@@ -2050,7 +2052,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
 
         }
@@ -2087,7 +2089,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
         }
         private void generarGraficoClienteAnual(List<Reservas> listaObjetos, string nif, string anho)
@@ -2108,7 +2110,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
 
         }
@@ -2145,7 +2147,7 @@
             }
             else
             {
-                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+                Error("No hay resultados.");
             }
         }
     }

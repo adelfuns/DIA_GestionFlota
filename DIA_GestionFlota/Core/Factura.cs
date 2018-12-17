@@ -18,13 +18,13 @@ namespace GestionFlota.Core
         public double EKm { get; private set; } //ppkm
         public string IDTransporte { get; private set; } //MIRAR TIPO
         public double KmRecorridos { get; private set; } //km
-        public double Gas { get; private set; }
-        public Cliente Cliente { get; private set; } //cliente del tipo cliente
+        public double Gs { get; private set; }
+        public Cliente Client { get; private set; } //cliente del tipo cliente
         public DateTime FechaContra { get; private set; }
         public Flota TipoTransp { get; private set; }
-        public DateTime Fsalida { get; private set; } //Fentrega - Fsalida
-        public DateTime Fentrega { get; private set; }
-        public double Suplencia { get; private set; }
+        public DateTime Fsal { get; private set; } //Fentrega - Fsalida
+        public DateTime Fentr { get; private set; }
+        public double Sup { get; private set; }
 
 
 
@@ -32,16 +32,16 @@ namespace GestionFlota.Core
              double km, double iva, double gas, double suplencia) :
             base(IDTrans, cliente, tipoTrans, Fcontra, Fsal, Fent, Edia, Ekm, km, iva, gas, suplencia)
         {
-            this.Cliente = cliente;
+            this.Client = cliente;
             this.IDTransporte = IDTrans;
             this.TipoTransp = tipoTrans;
-            this.Fsalida = Fsal;
-            this.Fentrega = Fent;
+            this.Fsal = Fsal;
+            this.Fentr = Fent;
             this.FechaContra = Fcontra;
             this.EDia = Edia;
             this.EKm = Ekm;
-            this.Gas = gas;
-            this.Suplencia = suplencia;
+            this.Gs = gas;
+            this.Sup = suplencia;
             this.IVA = iva;
             this.KmRecorridos = km;
             // this.PrecioFactura = preciofactura;
