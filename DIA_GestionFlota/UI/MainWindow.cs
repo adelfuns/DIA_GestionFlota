@@ -38,11 +38,11 @@
                 new DateTime(1999, 10, 11), a);
             Flota flota5 = new Flota(1.5, "AAA5555", "Furgoneta", "Muy barato", "Deluxe--", 23.0, new DateTime(2012, 08, 12),
                 new DateTime(1999, 10, 11), a);
-            flotas.Add(flota1);
-            flotas.Add(flota2);
-            flotas.Add(flota3);
-            flotas.Add(flota4);
-            flotas.Add(flota5);
+            Reg.GetFlotas().Add(flota1);
+            Reg.GetFlotas().Add(flota2);
+            Reg.GetFlotas().Add(flota3);
+            Reg.GetFlotas().Add(flota4);
+            Reg.GetFlotas().Add(flota5);
 
             Cliente cliente1 = new Cliente("15494356S", "Alfonso", "988769765", "cliente1@gmail.com", "35987");
             Cliente cliente2 = new Cliente("25422356G", "Sofia", "988749765", "cliente2@gmail.com", "35987");
@@ -52,14 +52,14 @@
             Cliente cliente6 = new Cliente("65466356I", "Fernando", "989769765", "cliente6@gmail.com", "35987");
             Cliente cliente7 = new Cliente("75477356L", "Juan", "981269765", "cliente7@gmail.com", "35987");
             Cliente cliente8 = new Cliente("85488356P", "Jimeno", "981169765", "cliente8@gmail.com", "35987");
-            RegClientes.Add(cliente1);
-            RegClientes.Add(cliente2);
-            RegClientes.Add(cliente3);
-            RegClientes.Add(cliente4);
-            RegClientes.Add(cliente5);
-            RegClientes.Add(cliente6);
-            RegClientes.Add(cliente7);
-            RegClientes.Add(cliente8);
+            Reg.GetClientes().Add(cliente1);
+            Reg.GetClientes().Add(cliente2);
+            Reg.GetClientes().Add(cliente3);
+            Reg.GetClientes().Add(cliente4);
+            Reg.GetClientes().Add(cliente5);
+            Reg.GetClientes().Add(cliente6);
+            Reg.GetClientes().Add(cliente7);
+            Reg.GetClientes().Add(cliente8);
            
             Reservas transportes1 = new Reservas("1111AAA20171106", cliente1, flota1, new DateTime(2017, 11, 06), new DateTime(2017, 11, 07), new DateTime(2017, 12, 01),
                                             23.2, 54.6, 30000.6, 0.21, 90.6, 22.0);
@@ -87,19 +87,19 @@
                                             23.22, 54.6, 30220.6, 0.21, 90.6, 22.0);
             Reservas transportes13 = new Reservas("3333AAA20170906", cliente8, flota3, new DateTime(2017, 09, 06), new DateTime(2017, 11, 06), new DateTime(2018, 12, 31),
                                             21.22, 54.6, 301230.6, 0.21, 90.6, 22.0);
-            RegReservas.Add(transportes1);
-            RegReservas.Add(transportes2);
-            RegReservas.Add(transportes3);
-            RegReservas.Add(transportes4);
-            RegReservas.Add(transportes5);
-            RegReservas.Add(transportes6);
-            RegReservas.Add(transportes7);
-            RegReservas.Add(transportes8);
-            RegReservas.Add(transportes9);
-            RegReservas.Add(transportes10);
-            RegReservas.Add(transportes11);
-            RegReservas.Add(transportes12);
-            RegReservas.Add(transportes13);
+            Reg.GetReservas().Add(transportes1);
+            Reg.GetReservas().Add(transportes2);
+            Reg.GetReservas().Add(transportes3);
+            Reg.GetReservas().Add(transportes4);
+            Reg.GetReservas().Add(transportes5);
+            Reg.GetReservas().Add(transportes6);
+            Reg.GetReservas().Add(transportes7);
+            Reg.GetReservas().Add(transportes8);
+            Reg.GetReservas().Add(transportes9);
+            Reg.GetReservas().Add(transportes10);
+            Reg.GetReservas().Add(transportes11);
+            Reg.GetReservas().Add(transportes12);
+            Reg.GetReservas().Add(transportes13);
             /*----------------------------*/
             /*-INSERTS PARA EL PRIMER XML-*/
             /*----------------------------*/
@@ -641,14 +641,18 @@
 
             reservasParaMostrarEnGrid = new List<Reservas>(
                 from reserva in Reg.GetReservas()
-                where  (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals("")) &&(
-                   ((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))
-                    || ((DateTime.Compare(reserva.Fsalida, DateTime.Today) <= 0) && (DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0) && (!periodoSeleccionado.Equals("Transportes pasados")))
+                where  (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals("")) 
                     && (flotamatriculaSeleccionada.Equals("") || (flotamatriculaSeleccionada.Substring(0, 3).Equals(reserva.IdTransporte.Substring(4, 3))
-                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(reserva.IdTransporte.Substring(0, 4)))))
+                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(reserva.IdTransporte.Substring(0, 4))))
+                    && (((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))   
+                    || ((DateTime.Compare(reserva.Fsalida, DateTime.Today) <= 0) && (DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0) 
+                    && (!periodoSeleccionado.Equals("Transportes pasados"))))              
                 orderby reserva.IdTransporte
                 select reserva);
 
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             ActualizarListaReservasBusqueda();
 
         }
@@ -674,13 +678,15 @@
             }
 
             reservasParaMostrarEnGrid = new List<Reservas>(
-                 from reserva in Reg.GetReservas()
-                 where (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals("")) && (
-                    ((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))
-                     && (flotamatriculaSeleccionada.Equals("") || (flotamatriculaSeleccionada.Substring(0, 3).Equals(reserva.IdTransporte.Substring(4, 3))
-                     && flotamatriculaSeleccionada.Substring(3, 4).Equals(reserva.IdTransporte.Substring(0, 4)))))
-                 orderby reserva.IdTransporte
-                 select reserva);
+                from reserva in Reg.GetReservas()
+                where (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
+                    && (flotamatriculaSeleccionada.Equals("") || (flotamatriculaSeleccionada.Substring(0, 3).Equals(reserva.IdTransporte.Substring(4, 3))
+                    && flotamatriculaSeleccionada.Substring(3, 4).Equals(reserva.IdTransporte.Substring(0, 4))))
+                    && (((DateTime.Compare(reserva.Fentrega, DateTime.Today) < 0) && periodoSeleccionado.Equals("Transportes pasados"))
+                    || ((DateTime.Compare(reserva.Fsalida, DateTime.Today) <= 0) && (DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0)
+                    && (!periodoSeleccionado.Equals("Transportes pasados"))))
+                orderby reserva.IdTransporte
+                select reserva);
 
             if (anhosSeleccionado.Equals("")) //Búsqueda por todos los años
             {
@@ -706,6 +712,9 @@
                     this.generarGraficoMatriculaAnual(reservasParaMostrarEnGrid, flotamatriculaSeleccionada, anhosSeleccionado);
                 }
             }
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             ActualizarListaReservasBusqueda();
         }
 
@@ -865,6 +874,9 @@
             {
                 Error("No hay resultados");
             }
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             ActualizarListaFlotaBusqueda(flotasParaMostrarEnGrid);
         }
         private void CCSearchGraph()
@@ -876,6 +888,10 @@
                 where (flota.Comodidades.Contains(comodidadesSeleccionada))
                 select flota);
             generarGraficoComodidadesTotal(flotasParaMostrarEnGrid, comodidadesSeleccionada);
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+
             ActualizarListaFlotaBusqueda(flotasParaMostrarEnGrid);
         }
         /*------------------------------------------------------------------*/
@@ -980,6 +996,10 @@
                 clientesParaMostrarEnGrid = Reg.GetClientes();
                 ActualizarLista();
             }
+
+            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+            MainWindowViewReservas.dialogos = null;
+            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
         }
         private void ActualizarLista()
         {
