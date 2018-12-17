@@ -1476,7 +1476,7 @@
                         && Regex.IsMatch(edDigitosMatricula.Text, @"^[0-9]+$"))
                     {
                         Double.TryParse(edCarga.Text, out carga);
-                        matricula = String.Concat(edLetrasMatricula.Text, edDigitosMatricula.Text);
+                        matricula = String.Concat(edDigitosMatricula.Text, edLetrasMatricula.Text);
                         modelo = edModelo.Text;
                         Double.TryParse(edConsumoKm.Text, out consumo);
                         marca = edMarca.Text;
@@ -1512,9 +1512,10 @@
                                 if (flota.ComprobarCarga())
                                 {
                                     Reg.Add(flota);
-                                    Error("Vehículo introducido correctamente");
+                                    MessageBox.Show("Vehículo introducido correctamente");
 
                                     flotasParaMostrarEnGrid = Reg.GetFlotas();
+                                    cleanFlotaAdd();
                                     ActualizaListaFlota();
 
                                 }
@@ -1731,6 +1732,7 @@
                     Reg.Add(flota_mod);
 
                     flotasParaMostrarEnGrid = Reg.GetFlotas();
+                    cleanFlotaEdit();
                     ActualizaListaFlota();
                     MessageBox.Show("Modificación realizada con éxito", "", MessageBoxButtons.OK);
 
