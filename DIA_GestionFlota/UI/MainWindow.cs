@@ -348,7 +348,10 @@
                     && matricula.Substring(3, 4).Equals(Reservas.IdTransporte.Substring(0, 4))))
             orderby Reservas.IdTransporte
             select Reservas);
-
+            if (RegReservasBusqueda.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             ActualizarListaReservasBusqueda();
 
         }
@@ -394,7 +397,10 @@
                     }
                 }
             }
-
+            if (camionesDisponibles.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             //ActualizaListaFlota(camionesDisponibles);
             ActualizarListaFlotaBusqueda(camionesDisponibles);
 
@@ -444,7 +450,10 @@
                             && DateTime.Compare(reserva.Fentrega, DateTime.Today) >= 0 && !periodoSeleccionado.Equals("Transportes pasados"))))
             orderby reserva.IdTransporte
             select reserva);
-
+            if (RegReservasBusqueda.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             ActualizarListaReservasBusqueda();
 
         }
@@ -603,7 +612,10 @@
             where reserva.Cliente.Nif == MainWindowViewReservas.escogerCliente4.Text && (anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby reserva.IdTransporte
             select reserva);
-
+            if (RegReservasBusqueda.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             ActualizarListaReservasBusqueda();
 
         }
@@ -657,7 +669,10 @@
             where(anhosSeleccionado.Contains(reserva.Fentrega.Year.ToString()) || anhosSeleccionado.Equals(""))
             orderby reserva.IdTransporte
             select reserva);
-
+            if (RegReservasBusqueda.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             ActualizarListaReservasBusqueda();
 
         }
@@ -669,7 +684,10 @@
             where (DateTime.Compare(reserva.Fentrega, fechaSeleccionada) == 0)    
             orderby reserva.IdTransporte
             select reserva);
-
+            if (RegReservasBusqueda.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             ActualizarListaReservasBusqueda();
         }
 
@@ -690,6 +708,10 @@
                 from flota in flotas
                 where (flota.Comodidades.Contains(comodidadesSeleccionada)) 
                 select flota);
+            if (RegFlotasBusqueda.Count == 0)
+            {
+                MessageBox.Show("No hay resultados.", "Alerta", MessageBoxButtons.OK);
+            }
             ActualizarListaFlotaBusqueda(RegFlotasBusqueda);
         }
         private void CCSearchGraph()

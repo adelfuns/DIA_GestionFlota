@@ -1652,9 +1652,9 @@ namespace GestionFlota.UI
             escogerTipoDis.DropDownStyle = ComboBoxStyle.DropDownList;
 
             escogerTipoDis.Items.AddRange(new object[] {"Todos",
-            "Mudanza",
-            "Transporte de mercancías",
-            "Transporte de vehículos"});
+            "Furgoneta",
+            "Camion",
+            "Camion Articulado"});
 
             escogerTipoDis.SelectedItem = "Todos";
             escogerTipoDis.Text = "Todos";
