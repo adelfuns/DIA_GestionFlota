@@ -1,9 +1,9 @@
-namespace DIA_GestionFlota
+namespace GestionFlota
 {
-	/// <summary>
+    /// <summary>
     /// Ppal.
     /// </summary>
-	using System.Windows.Forms;
+    using System.Windows.Forms;
     public static class Ppal
     {
 		/// <summary>
@@ -12,7 +12,7 @@ namespace DIA_GestionFlota
         /// <param name="args">The command-line arguments.</param>
         public static void Main(string[] args)
 		{
-			var mainForm = new MainWindow().MainWindowView;
+			var mainForm = new MainWindow().MainWindowViewReservas;
             Application.Run(mainForm);
 		}
 	}

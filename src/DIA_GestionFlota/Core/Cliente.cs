@@ -1,7 +1,7 @@
 ﻿
-namespace DIA_GestionFlota
+namespace GestionFlota.Core
 {
-    class Cliente
+    public class Cliente
     {
     
 
@@ -21,9 +21,9 @@ namespace DIA_GestionFlota
             return "Nif: " + Nif + ", Nombre: " + Nombre + ", Telefono: " + Telefono + ", Email" + Email + ", DireccionPostal: " + DireccionPostal;
         }
         public string Nif { get; }
-        public string Nombre { get; }
-        public string Telefono { get; }
-        public string Email { get; }
-        public string DireccionPostal { get; }
+        public string Nombre { get; set; }
+        public string Telefono { get; set; }
+        public string Email { get; set; }
+        public string DireccionPostal { get; set; }
     }
 }

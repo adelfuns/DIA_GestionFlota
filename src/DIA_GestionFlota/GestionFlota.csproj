@@ -45,49 +45,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Cliente.cs" />
+    <Compile Include="Core\Factura.cs" />
     <Compile Include="Core\Flota.cs" />
-    <Compile Include="Core\Transportes.cs" />
-    <Compile Include="UI\DialogGraphics\DialogoGraficoCamion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\DialogoGraficoCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\DialogoGraficoGeneral.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogSearch\DialogoCamiones.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogGraphics\DialogoGraficoComodidades.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogSearch\DialogoOcupacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogSearch\DialogoReservasCamion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogSearch\DialogoTransporteCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DialogSearch\DialogoTransportesPendientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Core\Reservas.cs" />
     <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\MainWindowView.cs">
+    <Compile Include="UI\MainWindowViewReservas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\DialogSearch\DialogoDniCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="UI\DialogGraphics\Chart.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\Registro.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

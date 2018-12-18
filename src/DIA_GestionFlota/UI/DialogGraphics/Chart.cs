@@ -1,6 +1,6 @@
 ﻿// Charts for WinForms (c) 2017 MIT License <baltasarq@gmail.com>
 
-namespace DIA_GestionFlota
+namespace GestionFlota
 {
     using System.Linq;
     using System.Drawing;
