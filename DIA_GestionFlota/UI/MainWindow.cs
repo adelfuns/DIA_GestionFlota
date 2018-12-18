@@ -211,8 +211,10 @@
                     MainWindowViewReservas.dialogos = null;
                     MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
-                    string matricula =  String.Concat(r.IdTransporte.Substring(4, 3), r.IdTransporte.Substring(0, 4));
-
+                    string matricula =  String.Concat(r.IdTransporte.Substring(4, 3),r.IdTransporte.Substring(0, 4));
+                    Console.WriteLine(r.IdTransporte.Substring(4, 3));
+                    Console.WriteLine(r.IdTransporte.Substring(0, 4));
+                    Console.WriteLine(matricula);
                     flotasParaMostrarEnGrid = new List<Flota>(
                         from flota in Reg.GetFlotas()
                         where flota.Matricula == matricula
@@ -1185,7 +1187,9 @@
                 gas = Convert.ToDouble(edGas.Text);
                 suplencia = Convert.ToDouble(edSuplencia.Text);
                 //idTrans = tipoTransp.Matricula + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
-                idTrans = String.Concat(tipoTransp.Matricula.Substring(3,4),tipoTransp.Matricula.Substring(0,3)) + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
+
+
+                idTrans = String.Concat(tipoTransp.Matricula.Substring(0,4), tipoTransp.Matricula.Substring(4, 3)) + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
 
 
 
@@ -1487,7 +1491,7 @@
                         && Regex.IsMatch(edDigitosMatricula.Text, @"^[0-9]+$"))
                     {
                         Double.TryParse(edCarga.Text, out carga);
-                        matricula = String.Concat(edDigitosMatricula.Text, edLetrasMatricula.Text);
+                        matricula = String.Concat( edLetrasMatricula.Text, edDigitosMatricula.Text);
                         modelo = edModelo.Text;
                         Double.TryParse(edConsumoKm.Text, out consumo);
                         marca = edMarca.Text;
