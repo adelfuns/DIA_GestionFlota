@@ -160,6 +160,7 @@ namespace GestionFlota.Core
 
         public void Edit(Reservas r)
         {
+
             foreach (Reservas aux in reservas)
             {
                 if (aux.IdTransporte == r.IdTransporte)

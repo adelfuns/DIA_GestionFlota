@@ -23,8 +23,174 @@
             reservasParaMostrarEnGrid = Reg.GetReservas();
             flotasParaMostrarEnGrid = Reg.GetFlotas();
             clientesParaMostrarEnGrid  = Reg.GetClientes();
-            
+            /*----------------------------*/
+            /*-INSERTS PARA EL PRIMER XML-*/
+            /*----------------------------*///Si pones asterisco antes de estas 3 barras se descomenta
+            List<string> a = new List<string>();
 
+            Flota flota1 = new Flota(1.5, "AAA9999", "Furgoneta", "Vendo", "Deluxe", 23.0, new DateTime(2000, 08, 12),
+                new DateTime(1999, 10, 11), a);
+            Flota flota2 = new Flota(1, "BBB9999", "Camion", "Opel", "Deluxe Plus", 23.0, new DateTime(2000, 11, 12),
+                new DateTime(1999, 10, 11), a);
+            Flota flota3 = new Flota(1.5, "CCC9999", "Furgoneta", "Corsa", "Deluxe Plus Plus", 23.0, new DateTime(2000, 11, 12),
+                new DateTime(1999, 10, 11), a);
+            Flota flota4 = new Flota(1.5, "DDD9999", "Camion", "Barato", "Deluxe++", 23.0, new DateTime(2001, 12, 12),
+                new DateTime(1999, 10, 11), a);
+            Flota flota5 = new Flota(1.5, "EEE9999", "Furgoneta", "Muy barato", "Deluxe--", 23.0, new DateTime(2012, 08, 12),
+                new DateTime(1999, 10, 11), a);
+
+            Flota flota6 = new Flota(1.5, "FFF9999", "Furgoneta", "Mazda", "Trandelux", 23.0, new DateTime(2004, 08, 12),
+                new DateTime(1998, 10, 11), a);
+            Flota flota7 = new Flota(1, "GGG9999", "Camion", "Mazda", "Trandelux Plus", 23.0, new DateTime(2004, 11, 12),
+                new DateTime(1998, 10, 11), a);
+            Flota flota8 = new Flota(1.5, "HHH9999", "Furgoneta", "Mazda", "Trandelux Plus Plus", 23.0, new DateTime(2004, 11, 12),
+                new DateTime(1998, 10, 11), a);
+            Flota flota9 = new Flota(1.5, "III9999", "Camion", "Mazda", "Trandelux++", 23.0, new DateTime(2003, 12, 12),
+                new DateTime(1999, 10, 11), a);
+            Flota flota10 = new Flota(1.5, "JKL9999", "Furgoneta", "Mazda", "Trandelux--", 23.0, new DateTime(2005, 08, 12),
+                new DateTime(1999, 10, 11), a);
+
+            Flota flota11 = new Flota(1.5, "NOP9999", "Furgoneta", "Mercedes", "Furdelux", 23.0, new DateTime(2000, 08, 12),
+                new DateTime(1999, 03, 23), a);
+            Flota flota12 = new Flota(1, "ULO9999", "Camion", "Mercedes", "Furdelux Plus", 23.0, new DateTime(2000, 12, 12),
+                new DateTime(1999, 03, 23), a);
+            Flota flota13 = new Flota(1.5, "KOI9999", "Furgoneta", "Mercedes", "Furdelux Plus Plus", 23.0, new DateTime(2000, 12, 12),
+                new DateTime(1999, 03, 23), a);
+            Flota flota14 = new Flota(1.5, "IOK9999", "Camion", "Mercedes", "Furdelux++", 23.0, new DateTime(2001, 12, 12),
+                new DateTime(1999, 03, 23), a);
+            Flota flota15 = new Flota(1.5, "PON9999", "Furgoneta", "Mercedes", "Furdelux--", 23.0, new DateTime(2012, 08, 12),
+                new DateTime(1999, 03, 23), a);
+            Reg.GetFlotas().Add(flota1);
+            Reg.GetFlotas().Add(flota2);
+            Reg.GetFlotas().Add(flota3);
+            Reg.GetFlotas().Add(flota4);
+            Reg.GetFlotas().Add(flota5);
+            Reg.GetFlotas().Add(flota6);
+            Reg.GetFlotas().Add(flota7);
+            Reg.GetFlotas().Add(flota8);
+            Reg.GetFlotas().Add(flota9);
+            Reg.GetFlotas().Add(flota10);
+            Reg.GetFlotas().Add(flota11);
+            Reg.GetFlotas().Add(flota12);
+            Reg.GetFlotas().Add(flota13);
+            Reg.GetFlotas().Add(flota14);
+            Reg.GetFlotas().Add(flota15);
+
+            Cliente cliente1 = new Cliente("15494356S", "Alfonso", "988769765", "cliente1@gmail.com", "35987");
+            Cliente cliente2 = new Cliente("25422356G", "Sofia", "988749765", "cliente2@gmail.com", "35987");
+            Cliente cliente3 = new Cliente("35433356D", "Mario", "988759765", "cliente3@gmail.com", "35987");
+            Cliente cliente4 = new Cliente("45444356E", "Baltasar", "938769765", "cliente4@gmail.com", "35987");
+            Cliente cliente5 = new Cliente("55455356F", "Miguel", "988269765", "cliente5@gmail.com", "34454");
+            Cliente cliente6 = new Cliente("65466356I", "Fernando", "989769765", "cliente6@gmail.com", "34454");
+            Cliente cliente7 = new Cliente("75477356L", "Juan", "981269765", "cliente7@gmail.com", "34454");
+            Cliente cliente8 = new Cliente("85488356P", "Jimeno", "981169765", "cliente8@gmail.com", "34454");
+            Cliente cliente9 = new Cliente("15794343S", "Adan", "988769111", "cliesnte11@gmail.com", "34454");
+            Cliente cliente10 = new Cliente("25792343G", "Pedro", "988711165", "clienste22@gmail.com", "32768");
+            Cliente cliente11 = new Cliente("35793343D", "Marc", "988751115", "clientse33@gmail.com", "32768");
+            Cliente cliente12 = new Cliente("45794343E", "Adrian", "938111765", "clisente44@gmail.com", "32768");
+            Cliente cliente13 = new Cliente("55795343F", "Felisindo", "932269765", "cliesnte55@gmail.com", "32768");
+            Cliente cliente14 = new Cliente("65796343I", "Manuel", "989111765", "clsiente66@gmail.com", "32768");
+            Cliente cliente15 = new Cliente("75797343L", "Roberto", "981119765", "clientse77@gmail.com", "31313");
+            Cliente cliente16 = new Cliente("85798343P", "Kevin", "981111165", "cliesnte88@gmail.com", "31313");
+            Reg.GetClientes().Add(cliente1);
+            Reg.GetClientes().Add(cliente2);
+            Reg.GetClientes().Add(cliente3);
+            Reg.GetClientes().Add(cliente4);
+            Reg.GetClientes().Add(cliente5);
+            Reg.GetClientes().Add(cliente6);
+            Reg.GetClientes().Add(cliente7);
+            Reg.GetClientes().Add(cliente8);
+            Reg.GetClientes().Add(cliente9);
+            Reg.GetClientes().Add(cliente10);
+            Reg.GetClientes().Add(cliente11);
+            Reg.GetClientes().Add(cliente12);
+            Reg.GetClientes().Add(cliente13);
+            Reg.GetClientes().Add(cliente14);
+            Reg.GetClientes().Add(cliente15);
+            Reg.GetClientes().Add(cliente16);
+
+            Reservas transportes1 = new Reservas("9999AAA20171106", cliente1, "Mudanza", new DateTime(2017, 11, 06), new DateTime(2017, 11, 07),
+                                         new DateTime(2017, 12, 01), 23.2, 54.6, 30000.6, 0.21, 90.6, 22.0, flota1);
+            Reservas transportes2 = new Reservas("9999AAA20171106", cliente1, "Mudanza", new DateTime(2017, 11, 06), new DateTime(2017, 11, 07),
+                                        new DateTime(2017, 12, 01), 23.2, 54.6, 3550.6, 0.21, 90.6, 22.0, flota1);
+            Reservas transportes3 = new Reservas("9999AAA20171106", cliente1, "Mudanza", new DateTime(2017, 11, 06), new DateTime(2017, 11, 07),
+                                         new DateTime(2017, 12, 02), 23.2, 54.6, 330.6, 0.21, 90.6, 22.0, flota2);
+            Reservas transportes4 = new Reservas("9999AAA20171106", cliente1, "Mudanza", new DateTime(2017, 11, 06), new DateTime(2017, 11, 07),
+                                         new DateTime(2017, 12, 02), 23.2, 54.6, 310.6, 0.21, 90.6, 22.0, flota2);
+            Reservas transportes5 = new Reservas("9999BBB20140406", cliente2, "Mudanza", new DateTime(2014, 04, 06), new DateTime(2014, 06, 01),
+                                         new DateTime(2014, 07, 01), 24.2, 54.6, 3205.6, 0.21, 90.6, 22.0, flota3);
+            Reservas transportes6 = new Reservas("9999BBB20140306", cliente2, "Trans. Mercancia", new DateTime(2014, 03, 06), new DateTime(2014, 06, 01),
+                                         new DateTime(2014, 07, 01), 24.2, 54.6, 30055.6, 0.21, 90.6, 22.0, flota3);
+            Reservas transportes7 = new Reservas("9999CCC20150206", cliente3, "Trans. Mercancia", new DateTime(2015, 02, 06), new DateTime(2015, 11, 06),
+                                         new DateTime(2015, 11, 07), 24.2, 54.6, 300.6, 0.21, 90.6, 22.0, flota4);
+            Reservas transportes8 = new Reservas("9999DDD20160606", cliente4, "Trans. Mercancia", new DateTime(2016, 06, 06), new DateTime(2016, 11, 06),
+                                         new DateTime(2016, 11, 07), 24.2, 54.6, 30023.6, 0.21, 90.6, 22.0, flota5);
+            Reservas transportes9 = new Reservas("9999EEE20160806", cliente5, "Trans. Mercancia", new DateTime(2016, 08, 06), new DateTime(2016, 09, 06),
+                                         new DateTime(2017, 09, 06), 21.2, 54.6, 300111.6, 0.21, 90.6, 22, flota5);
+            Reservas transportes10 = new Reservas("9999EEE20160806", cliente5, "Trans. Mercancia", new DateTime(2016, 08, 06), new DateTime(2016, 12, 06),
+                                         new DateTime(2016, 12, 13), 21.2, 54.6, 30042.6, 0.21, 90.6, 22.0, flota5);
+            Reservas transportes11 = new Reservas("9999AAA20170806", cliente6, "Trans. Vehiculos", new DateTime(2017, 08, 06), new DateTime(2017, 11, 06),
+                                         new DateTime(2017, 11, 10), 23.54, 54.6, 30054.6, 0.21, 90.6, 22.0, flota1);
+            Reservas transportes12 = new Reservas("9999BBB20170806", cliente7, "Trans. Vehiculos", new DateTime(2017, 08, 06), new DateTime(2017, 11, 06),
+                                         new DateTime(2019, 1, 10), 23.22, 54.6, 30220.6, 0.21, 90.6, 22.0, flota2);
+            Reservas transportes13 = new Reservas("9999CCC20170906", cliente8, "Trans. Vehiculos", new DateTime(2017, 09, 06), new DateTime(2017, 11, 06),
+                                         new DateTime(2018, 12, 31), 21.22, 54.6, 301230.6, 0.21, 90.6, 22.0, flota3);
+
+            Reservas transportes14 = new Reservas("9999FFF20181006", cliente9, "Trans. Vehiculos", new DateTime(2018, 10, 06), new DateTime(2018, 10, 07),
+                                         new DateTime(2018, 11, 01), 23.2, 54.6, 30000.6, 0.21, 90.6, 22.0, flota6);
+            Reservas transportes15 = new Reservas("9999GGG20181006", cliente9, "Trans. Vehiculos", new DateTime(2018, 10, 06), new DateTime(2018, 10, 07),
+                                        new DateTime(2018, 11, 01), 23.2, 54.6, 3550.6, 0.21, 90.6, 22.0, flota7);
+            Reservas transportes16 = new Reservas("9999HHH20181006", cliente9, "Trans. Vehiculos", new DateTime(2018, 10, 06), new DateTime(2018, 10, 07),
+                                         new DateTime(2018, 11, 02), 23.2, 54.6, 330.6, 0.21, 90.6, 22.0, flota8);
+            Reservas transportes17 = new Reservas("9999III20181006", cliente10, "Mudanza", new DateTime(2018, 10, 06), new DateTime(2018, 10, 07),
+                                         new DateTime(2018, 11, 02), 23.2, 54.6, 310.6, 0.21, 90.6, 22.0, flota9);
+
+            Reservas transportes18 = new Reservas("9999JKL20130507", cliente11, "Mudanza", new DateTime(2013, 05, 07), new DateTime(2013, 05, 09),
+                                         new DateTime(2013, 06, 13), 24.2, 54.6, 3205.6, 0.21, 90.6, 22.0, flota10);
+            Reservas transportes19 = new Reservas("9999NOP20130507", cliente12, "Mudanza", new DateTime(2013, 05, 07), new DateTime(2013, 05, 09),
+                                         new DateTime(2013, 06, 13), 24.2, 54.6, 30055.6, 0.21, 90.6, 22.0, flota11);
+            Reservas transportes20 = new Reservas("9999ULO20130507", cliente13, "Mudanza", new DateTime(2013, 05, 07), new DateTime(2013, 05, 09),
+                                         new DateTime(2013, 06, 13), 24.2, 54.6, 300.6, 0.21, 90.6, 22.0, flota12);
+            Reservas transportes21 = new Reservas("9999KOI20130507", cliente14, "Mudanza", new DateTime(2013, 05, 07), new DateTime(2013, 05, 09),
+                                         new DateTime(2013, 06, 13), 24.2, 54.6, 30023.6, 0.21, 90.6, 22.0, flota13);
+            Reservas transportes22 = new Reservas("9999IOK20130507", cliente15, "Mudanza", new DateTime(2013, 05, 07), new DateTime(2013, 05, 09),
+                                         new DateTime(2013, 06, 13), 21.2, 54.6, 300111.6, 0.21, 90.6, 22, flota14);
+            Reservas transportes23 = new Reservas("9999PON20160806", cliente15, "Mudanza", new DateTime(2016, 08, 06), new DateTime(2016, 12, 06),
+                                         new DateTime(2016, 12, 13), 21.2, 54.6, 30042.6, 0.21, 90.6, 22.0, flota15);
+            Reservas transportes24 = new Reservas("9999PON20160806", cliente16, "Mudanza", new DateTime(2016, 08, 06), new DateTime(2017, 11, 06),
+                                         new DateTime(2017, 11, 10), 23.54, 54.6, 30054.6, 0.21, 90.6, 22.0, flota15);
+            Reservas transportes25 = new Reservas("9999PON20170806", cliente16, "Mudanza", new DateTime(2018, 12, 23), new DateTime(2018, 12, 24),
+                                         new DateTime(2018, 12, 25), 23.22, 54.6, 30220.6, 0.21, 90.6, 22.0, flota15);
+            Reservas transportes26 = new Reservas("9999PON20181218", cliente16, "Mudanza", new DateTime(2018, 12, 18), new DateTime(2018, 12, 19),
+                                         new DateTime(2018, 12, 22), 21.22, 54.6, 301230.6, 0.21, 90.6, 22.0, flota15);
+            Reg.GetReservas().Add(transportes1);
+            Reg.GetReservas().Add(transportes2);
+            Reg.GetReservas().Add(transportes3);
+            Reg.GetReservas().Add(transportes4);
+            Reg.GetReservas().Add(transportes5);
+            Reg.GetReservas().Add(transportes6);
+            Reg.GetReservas().Add(transportes7);
+            Reg.GetReservas().Add(transportes8);
+            Reg.GetReservas().Add(transportes9);
+            Reg.GetReservas().Add(transportes10);
+            Reg.GetReservas().Add(transportes11);
+            Reg.GetReservas().Add(transportes12);
+            Reg.GetReservas().Add(transportes13);
+            Reg.GetReservas().Add(transportes14);
+            Reg.GetReservas().Add(transportes15);
+            Reg.GetReservas().Add(transportes16);
+            Reg.GetReservas().Add(transportes17);
+            Reg.GetReservas().Add(transportes18);
+            Reg.GetReservas().Add(transportes19);
+            Reg.GetReservas().Add(transportes20);
+            Reg.GetReservas().Add(transportes21);
+            Reg.GetReservas().Add(transportes22);
+            Reg.GetReservas().Add(transportes23);
+            Reg.GetReservas().Add(transportes24);
+            Reg.GetReservas().Add(transportes25);
+            Reg.GetReservas().Add(transportes26);
+            /*----------------------------*/
+            /*----------------------------*/
 
             this.MainWindowViewReservas = new MainWindowViewReservas();
 
@@ -76,8 +242,12 @@
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.BoxAddClientes;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddClientes.Height;
+                MainWindowViewReservas.lblCliente.Text = "Nuevo Cliente";
+                MainWindowViewReservas.EditCliente.Enabled = true;
+                MainWindowViewReservas.CreateCliente.Enabled = false;
+                MainWindowViewReservas.EdNif.ReadOnly = false;
                 MainWindowViewReservas.BoxAddClientes.Width = 390;
-
+                Clear();
             };
 
             //Reservas
@@ -93,6 +263,9 @@
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogosGrande.Height = MainWindowViewReservas.BoxAddReservas.Height;
                 MainWindowViewReservas.BoxAddReservas.Width = 390;
+                MainWindowViewReservas.tbTipoTrans.ReadOnly = false;
+                MainWindowViewReservas.tbFcontra.ReadOnly = false;
+                ClearReservas();
             };
 
             //Flota
@@ -102,8 +275,7 @@
             this.MainWindowViewReservas.btModificar.Click += (sender, e) => this.modFlota();
             this.MainWindowViewReservas.operacionGestionarFlota.Click += (sender, e) => this.ActividadGestionFlota();
 
-            this.MainWindowViewReservas.AnhadirFlota.Click += (sender, e) => {
-               
+            this.MainWindowViewReservas.AnhadirFlota.Click += (sender, e) => {         
                 MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
                 MainWindowViewReservas.dialogos = MainWindowViewReservas.panelAnhadir;
                 MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
@@ -340,6 +512,7 @@
             where DateTime.Compare(Reservas.Fentrega, DateTime.Today) >= 0
             orderby Reservas.IdTransporte
             select Reservas);
+            MainWindowViewReservas.Text = "Gestion Reservas";
 
             ClearReservas();
             ActualizarListaReservasBusqueda();
@@ -808,10 +981,7 @@
                 from flota in Reg.GetFlotas()
                 where (flota.Comodidades.Contains(comodidadesSeleccionada))
                 select flota);
-            generarGraficoComodidadesTotal(flotasParaMostrarEnGrid, comodidadesSeleccionada);
-            MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
-            MainWindowViewReservas.dialogos = null;
-            MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
+
 
             ActualizarListaFlotaBusqueda(flotasParaMostrarEnGrid);
         }
@@ -912,7 +1082,6 @@
             }
             finally
             {
-                MainWindowViewReservas.lblCliente.Text = "Nuevo Cliente";
 
                 clientesParaMostrarEnGrid = Reg.GetClientes();
                 ActualizarLista();
@@ -956,6 +1125,8 @@
 
             try
             {
+                MainWindowViewReservas.lblCliente.Text = "Nuevo Cliente";
+
                 name = Convert.ToString(edName.Text);
                 nif = Convert.ToString(edNif.Text);
                 mail = Convert.ToString(edMail.Text);
@@ -1107,9 +1278,26 @@
                 suplencia = Convert.ToDouble(edSuplencia.Text);
                 //idTrans = tipoTransp.Matricula + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
 
+                String mes;
+                String dia;
+                if (fcontra.Date.Month.ToString().Count() == 1)
+                {
+                    mes = String.Concat("0", fcontra.Date.Month.ToString());
+                }
+                else
+                {
+                    mes = fcontra.Date.Month.ToString();
+                }
 
-                idTrans = String.Concat(tipoTransp.Matricula.Substring(0,4), tipoTransp.Matricula.Substring(4, 3)) + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
-
+                if (fcontra.Date.Day.ToString().Count() == 1)
+                {
+                    dia = String.Concat("0", fcontra.Date.Day.ToString());
+                }
+                else
+                {
+                    dia = fcontra.Date.Day.ToString();
+                }
+                idTrans = String.Concat(tipoTransp.Matricula.Substring(3, 4), tipoTransp.Matricula.Substring(0, 3)) + fcontra.Date.Year + mes + dia;
 
 
                 if (Reg.IsIDTranspUnique(idTrans))
@@ -1158,12 +1346,16 @@
             try
             {
                 Reservas r = reservasParaMostrarEnGrid[MainWindowViewReservas.evt.RowIndex];
-                MainWindowViewReservas.tipoTransReserva.Text = r.TipoTransporte;
+                MainWindowViewReservas.tipoTransReserva.SelectedItem = r.TipoTransporte;
+              
                 MainWindowViewReservas.tbIdTransp.Text = r.IdTransporte;
                 MainWindowViewReservas.tbIdTransp.ReadOnly = true;
                 MainWindowViewReservas.tbCliente.Text = r.Cliente.Nif;
                 MainWindowViewReservas.tbTipoTrans.Text = r.Vehiculo.Matricula;
+                MainWindowViewReservas.tbTipoTrans.ReadOnly = true;
+
                 MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.Date.ToString().Substring(0, 10);
+                MainWindowViewReservas.tbFcontra.ReadOnly = true;
                 MainWindowViewReservas.tbFsalida.Text = r.Fsalida.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFentrega.Text = r.Fentrega.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbEDia.Text = r.ImporteDia.ToString();
@@ -1221,8 +1413,27 @@
                 IVA = Convert.ToDouble(EdIVA.Text);
                 Gas = Convert.ToDouble(EdGas.Text);
                 Suplencia = Convert.ToDouble(EdSuplencia.Text);
-                idTransp = tipoTransp.Matricula + Fcontra.Date.Year + Fcontra.Date.Month + Fcontra.Date.Day;
                 // PrecioFactura = Convert.ToDouble(reservas.PrecioFactura);
+
+                String mes;
+                String dia;
+                if(Fcontra.Date.Month.ToString().Count() == 1)
+                {
+                    mes = String.Concat("0", Fcontra.Date.Month.ToString());
+                }else
+                {
+                    mes = Fcontra.Date.Month.ToString();
+                }
+
+                if (Fcontra.Date.Day.ToString().Count() == 1)
+                {
+                    dia = String.Concat("0", Fcontra.Date.Day.ToString());
+                }
+                else
+                {
+                    dia = Fcontra.Date.Day.ToString();
+                }
+                idTransp = String.Concat(tipoTransp.Matricula.Substring(3, 4), tipoTransp.Matricula.Substring(0, 3)) + Fcontra.Date.Year + mes + dia;
 
 
                 if (idTransp.Length > 0 && tipo!="Seleccionar")

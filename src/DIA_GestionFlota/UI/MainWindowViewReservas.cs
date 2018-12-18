@@ -693,6 +693,7 @@ namespace GestionFlota.UI
             column5.HeaderText = "Fecha de adquisición";
             column5.Width = 150;
             column5.SortMode = DataGridViewColumnSortMode.NotSortable;
+            column5.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             column6.HeaderText = "Fecha de fabricación";
             column6.Width = 150;
             column6.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -839,10 +840,10 @@ namespace GestionFlota.UI
             var panel = new Panel() { Dock = DockStyle.Fill };
             var lblReserva = new Label() { Text = "Nueva Reserva", Dock = DockStyle.Top };
 
-            var lblIdTransp = new Label() { Text = "IdTransporte: (ÚNICO)", Dock = DockStyle.Left, Width = 130 };
-            this.tbIdTransp = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill, Visible=false };
+            var lblIdTransp = new Label() { Text = "Tipo transporte: ", Dock = DockStyle.Left, Width = 130 };
+            this.tbIdTransp = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Left, Visible=false };
 
-            tipoTransReserva = new ComboBox();
+            tipoTransReserva = new ComboBox() { Dock = DockStyle.Left };
             tipoTransReserva.Parent = this;
             tipoTransReserva.DropDownStyle = ComboBoxStyle.DropDownList;
 

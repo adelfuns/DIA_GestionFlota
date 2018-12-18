@@ -1,8 +1,8 @@
 MIEMBROS
 Álvarez Pérez, Alfonso
--
--
+Campos Tato, Fernando
+Aranda Portela, Sofía
 Gayoso Pérez, Mario
-Ferreiro , Miguel
+Ferreiro Díaz, Miguel
 
 ENLACE GITHUB: https://github.com/adelfuns/DIA_GestionFlota
