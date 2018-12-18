@@ -87,7 +87,9 @@ namespace GestionFlota.UI
         public Panel opcionesFijo { get; set; }
         public Panel opcionesPoner { get; set; }
         public Panel PanelGrafico { get; set; } //Panel grafico
-        public TextBox tbReservas { get;  set; } 
+        public TextBox tbReservas { get;  set; }
+        public string tipoTranss => tipoTransReserva.Text;
+        public ComboBox tipoTransReserva { get; set; }
         public TextBox tbIdTransp { get;  set; }
         public TextBox tbCliente { get;  set; }
         public TextBox tbTipoTrans { get;  set; }
@@ -841,6 +843,20 @@ namespace GestionFlota.UI
             var lblIdTransp = new Label() { Text = "IdTransporte: (ÚNICO)", Dock = DockStyle.Left, Width = 130 };
             this.tbIdTransp = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill, Visible=false };
 
+            tipoTransReserva = new ComboBox();
+            tipoTransReserva.Parent = this;
+            tipoTransReserva.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
+            tipoTransReserva.Items.AddRange(new object[] {"Mudanza",
+                "Trans. Mercancia",
+                "Trans. Vehiculos"});
+
+            tipoTransReserva.SelectedItem = tipoTranss;
+            tipoTransReserva.Text = tipoTranss;
+            panel.Controls.Add(this.tipoTransReserva);
+
+
             panel.Controls.Add(this.tbIdTransp);
             panel.Controls.Add(lblIdTransp);
 
@@ -867,13 +883,15 @@ namespace GestionFlota.UI
         {
             var panel = new Panel() { Dock = DockStyle.Fill };
 
-            var lblTipoTransp = new Label() { Text = "TipoTransporte: (Matrícula)", Dock = DockStyle.Left, Width = 130 };
+            var lblTipoTransp = new Label() { Text = "Matricula:", Dock = DockStyle.Left, Width = 130 };
             this.tbTipoTrans = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+
+            
 
             panel.Controls.Add(this.tbTipoTrans);
             panel.Controls.Add(lblTipoTransp);
 
-            panel.MaximumSize = new Size(this.Width, this.tbTipoTrans.Height);
+            panel.MaximumSize = new Size(this.Width, this.tipoTransReserva.Height);
 
             return panel;
         }

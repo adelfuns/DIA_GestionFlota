@@ -211,7 +211,7 @@
                     MainWindowViewReservas.dialogos = null;
                     MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
-                    string matricula =  String.Concat(r.TipoTransporte.Matricula.Substring(4, 3), r.TipoTransporte.Matricula.Substring(0, 4));
+                    string matricula =  String.Concat(r.IdTransporte.Substring(4, 3), r.IdTransporte.Substring(0, 4));
 
                     flotasParaMostrarEnGrid = new List<Flota>(
                         from flota in Reg.GetFlotas()
@@ -1162,6 +1162,8 @@
             TextBox edGas = MainWindowViewReservas.tbGas;
             TextBox edSuplencia = MainWindowViewReservas.tbSuplencia;
 
+            String tipo = this.MainWindowViewReservas.tipoTranss;
+
             string idTrans;
             Cliente cliente;
             Flota tipoTransp;
@@ -1188,9 +1190,9 @@
 
                 if (Reg.IsIDTranspUnique(idTrans))
                 {
-                    if (idTrans.Length > 0)
+                    if (idTrans.Length > 0 && tipo!="")
                     {
-                        Reservas r = new Factura(idTrans, cliente, tipoTransp, fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, iva, gas, suplencia);
+                        Reservas r = new Factura(idTrans, cliente, tipo, fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, iva, gas, suplencia,tipoTransp);
                         Reg.Add(r);
 
                         reservasParaMostrarEnGrid = Reg.GetReservas();
@@ -1235,7 +1237,7 @@
                 MainWindowViewReservas.tbIdTransp.Text = r.IdTransporte;
                 MainWindowViewReservas.tbIdTransp.ReadOnly = true;
                 MainWindowViewReservas.tbCliente.Text = r.Cliente.Nif;
-                MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte.Matricula;
+                MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte;
                 MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFsalida.Text = r.Fsalida.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFentrega.Text = r.Fentrega.Date.ToString().Substring(0, 10);
@@ -1270,6 +1272,8 @@
             TextBox EdSuplencia = MainWindowViewReservas.tbSuplencia;
             //TextBox EdPrecioFactura = MainWindowViewReservas.tbPrecioFactura;
 
+            String tipo = this.MainWindowViewReservas.tipoTranss;
+
             string idTransp;
             Flota tipoTransp;
             Cliente Cliente;
@@ -1282,7 +1286,6 @@
 
                 Cliente = Reg.FindByNif(Convert.ToString(EdCliente.Text));
                 idTransp = Convert.ToString(EdIdTransp.Text);
-                // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
                 tipoTransp = Reg.FindByMatricula(Convert.ToString(EdTipoTransp.Text));
                 Fcontra = Convert.ToDateTime(EdFcontra.Text);
                 Fsalida = Convert.ToDateTime(EdFsalida.Text);
@@ -1296,10 +1299,10 @@
                // PrecioFactura = Convert.ToDouble(reservas.PrecioFactura);
 
 
-                if (idTransp.Length > 0)
+                if (idTransp.Length > 0 && tipo!="")
                 {
-                    Reservas r = new Factura(idTransp, Cliente, tipoTransp, Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
-                        kmRecorridos, IVA, Gas, Suplencia);
+                    Reservas r = new Factura(idTransp, Cliente, tipo, Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
+                        kmRecorridos, IVA, Gas, Suplencia,tipoTransp);
                     Reg.Edit(r);
 
                     reservasParaMostrarEnGrid = Reg.GetReservas();
@@ -1347,7 +1350,7 @@
             // Add the row with the event's data
             columnData.Add(reserva.IdTransporte);
             columnData.Add(reserva.Cliente.Nif);
-            columnData.Add(reserva.TipoTransporte.Tipo);
+            columnData.Add(reserva.TipoTransporte);
             columnData.Add(reserva.FechaContratacion.Date.ToString().Substring(0, 10));
             columnData.Add(reserva.Fsalida.Date.ToString().Substring(0, 10));
             columnData.Add(reserva.Fentrega.Date.ToString().Substring(0, 10));

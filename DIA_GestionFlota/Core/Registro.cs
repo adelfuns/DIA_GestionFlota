@@ -30,6 +30,7 @@ namespace GestionFlota.Core
         public const string EtqReservas = "reservas";
         public const string EtqReserva = "reserva";
         public const string EtqTipoTrans = "TipoTrans";
+        public const string EtqVehiculo = "Vehiculo";
         public const string EtqIdTrans = "IdTrans";
         public const string EtqFcontra = "Fcontra";
         public const string EtqFsal = "Fsal";
@@ -174,6 +175,7 @@ namespace GestionFlota.Core
                     aux.IVA = r.IVA;
                     aux.Gas = r.Gas;
                     aux.Suplencia = r.Suplencia;
+                    aux.Vehiculo = r.Vehiculo;
                     break;
                 }
             }
@@ -212,7 +214,7 @@ namespace GestionFlota.Core
             var flota = flotaList[c];
             foreach (Reservas r in reservas)
             {
-                if (r.TipoTransporte == flota)
+                if (r.Vehiculo.Equals(flota))
                 {
                     return true;
                 }
@@ -385,7 +387,7 @@ namespace GestionFlota.Core
                     new XElement(EtqReserva,
                             new XAttribute(EtqIdTrans, r.IdTransporte),
                             new XAttribute(EtqCliente, r.Cliente.Nif),
-                            new XAttribute(EtqTipoTrans, r.TipoTransporte.Matricula),
+                            new XAttribute(EtqTipoTrans, r.TipoTransporte),
                             new XAttribute(EtqFcontra, r.FechaContratacion.ToString()),
                             new XAttribute(EtqFsal, r.Fsalida.ToString()),
                             new XAttribute(EtqFentrada, r.Fentrega.ToString()),
@@ -395,7 +397,8 @@ namespace GestionFlota.Core
                             new XAttribute(EtqIVA, r.IVA.ToString()),
                             new XAttribute(EtqGas, r.Gas.ToString()),
                             new XAttribute(EtqSuplencia, r.Suplencia.ToString()),
-                            new XAttribute(EtqPFactura, r.PrecioFactura.ToString())
+                            new XAttribute(EtqPFactura, r.PrecioFactura.ToString()),
+                            new XAttribute(EtqVehiculo, r.Vehiculo.Matricula.ToString())
                             ));
             }
 
@@ -508,7 +511,7 @@ namespace GestionFlota.Core
                     {
                         Reservas r = new Reservas((string)reservasxml.Attribute(EtqIdTrans),
                                             FindByNif(reservasxml.Attribute(EtqCliente).Value.ToString()),
-                                            FindByMatricula(reservasxml.Attribute(EtqTipoTrans).Value.ToString()),
+                                            (reservasxml.Attribute(EtqTipoTrans).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFcontra).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFsal).Value.ToString()),
                                             (DateTime)formatDate(reservasxml.Attribute(EtqFentrada).Value.ToString()),
@@ -517,7 +520,8 @@ namespace GestionFlota.Core
                                             Convert.ToDouble(reservasxml.Attribute(Etqkm).Value.ToString()),
                                             Convert.ToDouble(reservasxml.Attribute(EtqIVA).Value.ToString()),
                                             Convert.ToDouble(reservasxml.Attribute(EtqGas).Value.ToString()),
-                                            Convert.ToDouble(reservasxml.Attribute(EtqSuplencia).Value.ToString())
+                                            Convert.ToDouble(reservasxml.Attribute(EtqSuplencia).Value.ToString()),
+                                            FindByMatricula(reservasxml.Attribute(EtqVehiculo).Value.ToString())
                                             );
                         reservas.Add(r);
                     }

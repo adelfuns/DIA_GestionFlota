@@ -14,24 +14,25 @@ namespace GestionFlota.Core
         public double Gas { get; set; }
         public Cliente Cliente { get; set; } //cliente del tipo cliente
         public DateTime FechaContratacion { get; set; }
-        public Flota TipoTransporte { get; set; }
+        public string TipoTransporte { get; set; }
         public DateTime Fsalida { get; set; } //Fentrega - Fsalida
         public DateTime Fentrega { get; set; }
         public double Suplencia { get; set; }
+        public Flota Vehiculo { get; set; }
         // public double Preciofactura { get;  set; }
 
 
         List<string> Reserva = new List<string>();
 
 
-        public static Reservas Crea(string IdTransporte, Cliente Cliente, Flota tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double IVA, double gas, double suplencia)
+        public static Reservas Crea(string IdTransporte, Cliente Cliente, String tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double IVA, double gas, double suplencia, Flota vehiculo)
         {
             Reservas toret = null;
 
-            toret = new Factura(IdTransporte, Cliente, tipoTrans, FContra, Fsal, Fent, EDia, Ekm, km, IVA, gas, suplencia);
+            toret = new Factura(IdTransporte, Cliente, tipoTrans, FContra, Fsal, Fent, EDia, Ekm, km, IVA, gas, suplencia, vehiculo);
             return toret;
         }
-        public Reservas(string IdTransp, Cliente Cliente, Flota tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double iva, double gas, double suplencia)
+        public Reservas(string IdTransp, Cliente Cliente, String tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double iva, double gas, double suplencia, Flota vehiculo)
         {
             this.Cliente = Cliente;
             this.IdTransporte = IdTransp;
@@ -45,13 +46,14 @@ namespace GestionFlota.Core
             this.IVA = iva;
             this.Gas = gas;
             this.Suplencia = suplencia;
+            this.Vehiculo = vehiculo;
             // this.PrecioFactura = precioFactura;
 
         }
 
         public override string ToString()
         {
-            return "Cliente: " + Cliente.Nombre + ", Id: " + IdTransporte + ", Flota: " + TipoTransporte.Matricula + ", Fecha Contra: " + FechaContratacion +
+            return "Cliente: " + Cliente.Nombre + ", Id: " + IdTransporte + ", Tipo: " + TipoTransporte + ", Fecha Contra: " + FechaContratacion +
                 ", Fecha Salida: " + Fsalida + ", Fecha Entrega: " + Fentrega + ", Importe dia: " + ImporteDia + ", Importe kms: " + ImporteKm +
                 ", Km Recorridos: " + kmRecorridos + ", IVA: " + IVA + ", Gas: " + Gas + ", Suplencia: " + Suplencia;
         }
