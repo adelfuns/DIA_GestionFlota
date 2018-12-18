@@ -1184,7 +1184,8 @@
                 iva = Convert.ToDouble(edIVA.Text);
                 gas = Convert.ToDouble(edGas.Text);
                 suplencia = Convert.ToDouble(edSuplencia.Text);
-                idTrans = tipoTransp.Matricula + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
+                //idTrans = tipoTransp.Matricula + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
+                idTrans = String.Concat(tipoTransp.Matricula.Substring(3,4),tipoTransp.Matricula.Substring(0,3)) + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
 
 
 
