@@ -1190,7 +1190,7 @@
 
                 if (Reg.IsIDTranspUnique(idTrans))
                 {
-                    if (idTrans.Length > 0 && tipo!="")
+                    if (idTrans.Length > 0 && tipo!="Seleccionar")
                     {
                         Reservas r = new Factura(idTrans, cliente, tipo, fcontra, fsalida, fentrega, edia, ekm, kmRecorridos, iva, gas, suplencia,tipoTransp);
                         Reg.Add(r);
@@ -1234,10 +1234,11 @@
             try
             {
                 Reservas r = reservasParaMostrarEnGrid[MainWindowViewReservas.evt.RowIndex];
+                MainWindowViewReservas.tipoTransReserva.Text = r.TipoTransporte;
                 MainWindowViewReservas.tbIdTransp.Text = r.IdTransporte;
                 MainWindowViewReservas.tbIdTransp.ReadOnly = true;
                 MainWindowViewReservas.tbCliente.Text = r.Cliente.Nif;
-                MainWindowViewReservas.tbTipoTrans.Text = r.TipoTransporte;
+                MainWindowViewReservas.tbTipoTrans.Text = r.Vehiculo.Matricula;
                 MainWindowViewReservas.tbFcontra.Text = r.FechaContratacion.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFsalida.Text = r.Fsalida.Date.ToString().Substring(0, 10);
                 MainWindowViewReservas.tbFentrega.Text = r.Fentrega.Date.ToString().Substring(0, 10);
@@ -1285,7 +1286,7 @@
             {
 
                 Cliente = Reg.FindByNif(Convert.ToString(EdCliente.Text));
-                idTransp = Convert.ToString(EdIdTransp.Text);
+                //idTransp = Convert.ToString(EdIdTransp.Text);
                 tipoTransp = Reg.FindByMatricula(Convert.ToString(EdTipoTransp.Text));
                 Fcontra = Convert.ToDateTime(EdFcontra.Text);
                 Fsalida = Convert.ToDateTime(EdFsalida.Text);
@@ -1296,11 +1297,13 @@
                 IVA = Convert.ToDouble(EdIVA.Text);
                 Gas = Convert.ToDouble(EdGas.Text);
                 Suplencia = Convert.ToDouble(EdSuplencia.Text);
-               // PrecioFactura = Convert.ToDouble(reservas.PrecioFactura);
+                idTransp = tipoTransp.Matricula + Fcontra.Date.Year + Fcontra.Date.Month + Fcontra.Date.Day;
+                // PrecioFactura = Convert.ToDouble(reservas.PrecioFactura);
 
 
-                if (idTransp.Length > 0 && tipo!="")
+                if (idTransp.Length > 0 && tipo!="Seleccionar")
                 {
+                    //Reg.GetReservas
                     Reservas r = new Factura(idTransp, Cliente, tipo, Fcontra, Fsalida, Fentrega, ImporteDia, ImporteKm,
                         kmRecorridos, IVA, Gas, Suplencia,tipoTransp);
                     Reg.Edit(r);
