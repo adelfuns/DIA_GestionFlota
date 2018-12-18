@@ -276,7 +276,6 @@ namespace GestionFlota.UI
         public MenuItem eliminarFlota { get; private set; }
         public MenuItem modificarFlota { get; private set; }
 
-
         public TextBox Texto { get; private set; }
         public Panel panelListaFlota;
         public Button btSearchFlota { get; set; }

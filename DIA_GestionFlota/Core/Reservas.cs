@@ -25,14 +25,14 @@ namespace GestionFlota.Core
         List<string> Reserva = new List<string>();
 
 
-        public static Reservas Crea(string IdTransporte, Cliente Cliente, String tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double IVA, double gas, double suplencia, Flota vehiculo)
+        public static Reservas Crea(string IdTransporte, Cliente Cliente, string tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double IVA, double gas, double suplencia, Flota vehiculo)
         {
             Reservas toret = null;
 
             toret = new Factura(IdTransporte, Cliente, tipoTrans, FContra, Fsal, Fent, EDia, Ekm, km, IVA, gas, suplencia, vehiculo);
             return toret;
         }
-        public Reservas(string IdTransp, Cliente Cliente, String tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double iva, double gas, double suplencia, Flota vehiculo)
+        public Reservas(string IdTransp, Cliente Cliente, string tipoTrans, DateTime FContra, DateTime Fsal, DateTime Fent, double EDia, double Ekm, double km, double iva, double gas, double suplencia, Flota vehiculo)
         {
             this.Cliente = Cliente;
             this.IdTransporte = IdTransp;

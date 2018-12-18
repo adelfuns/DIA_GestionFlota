@@ -23,86 +23,7 @@
             reservasParaMostrarEnGrid = Reg.GetReservas();
             flotasParaMostrarEnGrid = Reg.GetFlotas();
             clientesParaMostrarEnGrid  = Reg.GetClientes();
-            /*----------------------------*/
-            /*-INSERTS PARA EL PRIMER XML-*/
-            /*----------------------------///Si pones asterisco antes de estas 3 barras se descomenta
-            List<string> a = new List<string>();
-          
-            Flota flota1 = new Flota(1.5, "AAA1111", "Furgoneta", "Vendo", "Deluxe", 23.0, new DateTime(2000, 08, 12),
-                new DateTime(1999, 10, 11), a);
-            Flota flota2 = new Flota(1, "AAA2222", "Camion", "Opel", "Deluxe Plus", 23.0, new DateTime(2000, 11, 12),
-                new DateTime(1999, 10, 11), a);
-            Flota flota3 = new Flota(1.5, "AAA3333", "Furgoneta", "Corsa", "Deluxe Plus Plus", 23.0, new DateTime(2000, 11, 12),
-                new DateTime(1999, 10, 11), a);
-            Flota flota4 = new Flota(1.5, "AAA4444", "Camion", "Barato", "Deluxe++", 23.0, new DateTime(2001, 12, 12),
-                new DateTime(1999, 10, 11), a);
-            Flota flota5 = new Flota(1.5, "AAA5555", "Furgoneta", "Muy barato", "Deluxe--", 23.0, new DateTime(2012, 08, 12),
-                new DateTime(1999, 10, 11), a);
-            Reg.GetFlotas().Add(flota1);
-            Reg.GetFlotas().Add(flota2);
-            Reg.GetFlotas().Add(flota3);
-            Reg.GetFlotas().Add(flota4);
-            Reg.GetFlotas().Add(flota5);
-
-            Cliente cliente1 = new Cliente("15494356S", "Alfonso", "988769765", "cliente1@gmail.com", "35987");
-            Cliente cliente2 = new Cliente("25422356G", "Sofia", "988749765", "cliente2@gmail.com", "35987");
-            Cliente cliente3 = new Cliente("35433356D", "Mario", "988759765", "cliente3@gmail.com", "35987");
-            Cliente cliente4 = new Cliente("45444356E", "Baltasar", "938769765", "cliente4@gmail.com", "35987");
-            Cliente cliente5 = new Cliente("55455356F", "Miguel", "988269765", "cliente5@gmail.com", "35987");
-            Cliente cliente6 = new Cliente("65466356I", "Fernando", "989769765", "cliente6@gmail.com", "35987");
-            Cliente cliente7 = new Cliente("75477356L", "Juan", "981269765", "cliente7@gmail.com", "35987");
-            Cliente cliente8 = new Cliente("85488356P", "Jimeno", "981169765", "cliente8@gmail.com", "35987");
-            Reg.GetClientes().Add(cliente1);
-            Reg.GetClientes().Add(cliente2);
-            Reg.GetClientes().Add(cliente3);
-            Reg.GetClientes().Add(cliente4);
-            Reg.GetClientes().Add(cliente5);
-            Reg.GetClientes().Add(cliente6);
-            Reg.GetClientes().Add(cliente7);
-            Reg.GetClientes().Add(cliente8);
-           
-            Reservas transportes1 = new Reservas("1111AAA20171106", cliente1, flota1, new DateTime(2017, 11, 06), new DateTime(2017, 11, 07), new DateTime(2017, 12, 01),
-                                            23.2, 54.6, 30000.6, 0.21, 90.6, 22.0);
-            Reservas transportes2 = new Reservas("1111AAA20171106", cliente1, flota1, new DateTime(2017, 11, 06), new DateTime(2017, 11, 07), new DateTime(2017, 12, 01),
-                                            23.2, 54.6, 3550.6, 0.21, 90.6, 22.0);
-            Reservas transportes3 = new Reservas("2222AAA20171106", cliente1, flota2, new DateTime(2017, 11, 06), new DateTime(2017, 11, 07), new DateTime(2017, 12, 02),
-                                            23.2, 54.6, 330.6, 0.21, 90.6, 22.0);
-            Reservas transportes4 = new Reservas("2222AAA20171106", cliente1, flota2, new DateTime(2017, 11, 06), new DateTime(2017, 11, 07), new DateTime(2017, 12, 02),
-                                            23.2, 54.6, 310.6, 0.21, 90.6, 22.0);
-            Reservas transportes5 = new Reservas("3333AAA20140406", cliente2, flota3, new DateTime(2014, 04, 06), new DateTime(2014, 06, 01), new DateTime(2014, 07, 01),
-                                            24.2, 54.6, 3205.6, 0.21, 90.6, 22.0);
-            Reservas transportes6 = new Reservas("3333AAA20140306", cliente2, flota3, new DateTime(2014, 03, 06), new DateTime(2014, 06, 01), new DateTime(2014, 07, 01),
-                                            24.2, 54.6, 30055.6, 0.21, 90.6, 22.0);
-            Reservas transportes7 = new Reservas("4444AAA20150206", cliente3, flota4, new DateTime(2015, 02, 06), new DateTime(2015, 11, 06), new DateTime(2015, 11, 07),
-                                            24.2, 54.6, 300.6, 0.21, 90.6, 22.0);
-            Reservas transportes8 = new Reservas("5555AAA20160606", cliente4, flota5, new DateTime(2016, 06, 06), new DateTime(2016, 11, 06), new DateTime(2016, 11, 07),
-                                            24.2, 54.6, 30023.6, 0.21, 90.6, 22.0);
-            Reservas transportes9 = new Reservas("5555AAA20160806", cliente5, flota5, new DateTime(2016, 08, 06), new DateTime(2016, 09, 06), new DateTime(2017, 09, 06),
-                                            21.2, 54.6, 300111.6, 0.21, 90.6, 22);
-            Reservas transportes10 = new Reservas("5555AAA20160806", cliente5, flota5, new DateTime(2016, 08, 06), new DateTime(2016, 12, 06), new DateTime(2016, 12, 13),
-                                            21.2, 54.6, 30042.6, 0.21, 90.6, 22.0);
-            Reservas transportes11 = new Reservas("1111AAA20170806", cliente6, flota1, new DateTime(2017, 08, 06), new DateTime(2017, 11, 06), new DateTime(2017, 11, 10),
-                                            23.54, 54.6, 30054.6, 0.21, 90.6, 22.0);
-            Reservas transportes12 = new Reservas("2222AAA20170806", cliente7, flota2, new DateTime(2017, 08, 06), new DateTime(2017, 11, 06), new DateTime(2019, 1, 10),
-                                            23.22, 54.6, 30220.6, 0.21, 90.6, 22.0);
-            Reservas transportes13 = new Reservas("3333AAA20170906", cliente8, flota3, new DateTime(2017, 09, 06), new DateTime(2017, 11, 06), new DateTime(2018, 12, 31),
-                                            21.22, 54.6, 301230.6, 0.21, 90.6, 22.0);
-            Reg.GetReservas().Add(transportes1);
-            Reg.GetReservas().Add(transportes2);
-            Reg.GetReservas().Add(transportes3);
-            Reg.GetReservas().Add(transportes4);
-            Reg.GetReservas().Add(transportes5);
-            Reg.GetReservas().Add(transportes6);
-            Reg.GetReservas().Add(transportes7);
-            Reg.GetReservas().Add(transportes8);
-            Reg.GetReservas().Add(transportes9);
-            Reg.GetReservas().Add(transportes10);
-            Reg.GetReservas().Add(transportes11);
-            Reg.GetReservas().Add(transportes12);
-            Reg.GetReservas().Add(transportes13);
-            /*----------------------------*/
-            /*-INSERTS PARA EL PRIMER XML-*/
-            /*----------------------------*/
+            
 
 
             this.MainWindowViewReservas = new MainWindowViewReservas();
@@ -212,9 +133,7 @@
                     MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
                     string matricula =  String.Concat(r.IdTransporte.Substring(4, 3),r.IdTransporte.Substring(0, 4));
-                    Console.WriteLine(r.IdTransporte.Substring(4, 3));
-                    Console.WriteLine(r.IdTransporte.Substring(0, 4));
-                    Console.WriteLine(matricula);
+
                     flotasParaMostrarEnGrid = new List<Flota>(
                         from flota in Reg.GetFlotas()
                         where flota.Matricula == matricula
