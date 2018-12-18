@@ -839,7 +839,7 @@ namespace GestionFlota.UI
             var lblReserva = new Label() { Text = "Nueva Reserva", Dock = DockStyle.Top };
 
             var lblIdTransp = new Label() { Text = "IdTransporte: (ÚNICO)", Dock = DockStyle.Left, Width = 130 };
-            this.tbIdTransp = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill };
+            this.tbIdTransp = new TextBox() { TextAlign = HorizontalAlignment.Left, Dock = DockStyle.Fill, Visible=false };
 
             panel.Controls.Add(this.tbIdTransp);
             panel.Controls.Add(lblIdTransp);

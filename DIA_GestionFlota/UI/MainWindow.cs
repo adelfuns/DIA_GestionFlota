@@ -211,7 +211,7 @@
                     MainWindowViewReservas.dialogos = null;
                     MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
 
-                    string matricula =  String.Concat(r.IdTransporte.Substring(4, 3), r.IdTransporte.Substring(0, 4));
+                    string matricula =  String.Concat(r.TipoTransporte.Matricula.Substring(4, 3), r.TipoTransporte.Matricula.Substring(0, 4));
 
                     flotasParaMostrarEnGrid = new List<Flota>(
                         from flota in Reg.GetFlotas()
@@ -1170,10 +1170,9 @@
 
             try
             {
-                cliente = Reg.FindByNif(Convert.ToString(edCliente.Text));
-                idTrans = Convert.ToString(edIdtrans.Text);
-                // TODO: Cambiar por funcion tipo FindByMatricula de RegistroFlota
-                tipoTransp = Reg.FindByMatricula(Convert.ToString(edTipoTransp.Text));
+                cliente = Reg.FindByNif(edCliente.Text);
+                //idTrans = Convert.ToString(edIdtrans.Text);
+                tipoTransp = Reg.FindByMatricula(edTipoTransp.Text);
                 fcontra = Convert.ToDateTime(edFcontra.Text).Date;
                 fsalida = Convert.ToDateTime(edFsalida.Text).Date;
                 fentrega = Convert.ToDateTime(edFentrega.Text).Date;
@@ -1183,8 +1182,10 @@
                 iva = Convert.ToDouble(edIVA.Text);
                 gas = Convert.ToDouble(edGas.Text);
                 suplencia = Convert.ToDouble(edSuplencia.Text);
+                idTrans = tipoTransp.Matricula + fcontra.Date.Year + fcontra.Date.Month + fcontra.Date.Day;
 
-              
+
+
                 if (Reg.IsIDTranspUnique(idTrans))
                 {
                     if (idTrans.Length > 0)
@@ -1201,7 +1202,6 @@
                         throw new ArgumentException();
                     }
                 }
-
                 else
                 {
                     ErrorReserva("IdTransporte con formato incorrecto");
@@ -1268,7 +1268,7 @@
             TextBox EdIVA = MainWindowViewReservas.tbIVA;
             TextBox EdGas = MainWindowViewReservas.tbGas;
             TextBox EdSuplencia = MainWindowViewReservas.tbSuplencia;
-            TextBox EdPrecioFactura = MainWindowViewReservas.tbPrecioFactura;
+            //TextBox EdPrecioFactura = MainWindowViewReservas.tbPrecioFactura;
 
             string idTransp;
             Flota tipoTransp;
@@ -1325,6 +1325,10 @@
             {
                 reservasParaMostrarEnGrid = Reg.GetReservas();
                 ActualizarListaReservas();
+
+                MainWindowViewReservas.dialogosGrande.Controls.Remove(MainWindowViewReservas.dialogos);
+                MainWindowViewReservas.dialogos = null;
+                MainWindowViewReservas.dialogosGrande.Controls.Add(MainWindowViewReservas.dialogos);
             }
         }
         public void ActualizarListaReservas()
